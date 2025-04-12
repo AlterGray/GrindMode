@@ -8,14 +8,21 @@ module.exports = {
     extend: {
       colors: {
         light: {
-          text: Colors.light.text,
-          background: Colors.light.background,
+          primaryText: Colors.light.primaryText,
+          secondaryText: Colors.light.secondaryText,
+          accentText: Colors.light.accentText,
+          lightText: Colors.light.lightText,
+          primaryBackground: Colors.light.primaryBackground,
+          secondaryBackground: Colors.light.secondaryBackground,
+          darkBackground: Colors.light.darkBackground,
           tint: Colors.light.tint,
           icon: Colors.light.icon,
           tabIconDefault: Colors.light.tabIconDefault,
           tabIconSelected: Colors.light.tabIconSelected,
-          borderColor: Colors.light.secondaryBackground,
+          blue: Colors.light.blue,
+          accent: Colors.light.accent,
           highlight: Colors.light.highlight,
+          borderColor: Colors.light.borderColor,
         },
         dark: {
           primaryText: Colors.dark.primaryText,

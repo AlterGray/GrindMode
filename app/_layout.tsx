@@ -1,22 +1,26 @@
 import 'react-native-reanimated';
 
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Slot } from 'expo-router';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
+import { useThemeStore } from '@/stores/themeStore';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from 'nativewind';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-import "@/global.css"
+import '@/global.css'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+
+  const { colorScheme, isDark } = useThemeStore();
+  const { setColorScheme } = useColorScheme();
 
   useEffect(() => {
     if (loaded) {
@@ -24,13 +28,23 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
+  useEffect(() => {
+    setColorScheme(colorScheme);
+  }, [colorScheme]);
+
   if (!loaded) {
     return null;
   }
 
+  // TODO stack vs slot
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Slot />
+    <ThemeProvider>
+      <Stack screenOptions={{
+        navigationBarColor: isDark ? Colors.dark.primaryBackground : Colors.light.primaryBackground,
+        statusBarBackgroundColor: isDark ? Colors.dark.primaryBackground : Colors.light.primaryBackground,
+        statusBarStyle: isDark ? 'light' : 'dark',
+        headerShown: false
+      }} />
     </ThemeProvider>
   );
 }
