@@ -1,13 +1,14 @@
 import { storage } from '@/lib/storage';
 import { create } from 'zustand';
 
-interface ThemeState {
+type ThemeState = {
   isDark: boolean;
   colorScheme: 'light' | 'dark';
   toggleTheme: () => void;
   setTheme: (isDark: boolean) => void;
 }
 
+// TODO make it better?
 const getStoredTheme = () => {
   const storedTheme = storage.getString('theme');
   return storedTheme === 'dark';
@@ -27,6 +28,7 @@ export const useThemeStore = create<ThemeState>((set) => ({
   setTheme: (isDark) => set(() => {
     const nextColorScheme = isDark ? 'dark' : 'light';
     storage.set('theme', nextColorScheme);
+
     return {
       isDark,
       colorScheme: nextColorScheme

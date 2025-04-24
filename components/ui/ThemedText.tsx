@@ -1,15 +1,21 @@
 import { Text } from 'react-native';
 
-export type ThemedTextProps = {
-    children: React.ReactNode;
+type TextVariant = 'h4' | 'regular';
+
+type ThemedTextProps = {
+  variant?: TextVariant,
+  className?: string,
+  children: React.ReactNode;
 };
 
-export function ThemedText({
-  children
-}: ThemedTextProps) {
+export const ThemedText: React.FC<ThemedTextProps> = ({ variant = 'regular', className, children }) => {
+  const variantStyles: Record<TextVariant, string> = {
+    regular: '',
+    h4: 'text-2xl',
+  };
 
   return (
-    <Text className='dark:text-dark-primaryText text-light-primaryText'>
+    <Text className={`dark:text-dark-textPrimary text-light-textPrimary ${variantStyles[variant]} ${className}`}>
       {children}
     </Text>
   );

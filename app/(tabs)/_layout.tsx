@@ -1,40 +1,56 @@
 import React from 'react'
 import { Tabs } from 'expo-router'
-import { FontAwesome } from '@expo/vector-icons'
 import { useThemeStore } from '@/stores/themeStore'
 import { Colors } from '@/constants/Colors'
+import { useTab } from '@/hooks/useTab'
+import { FontAwesome } from '@expo/vector-icons'
+import ActionModal from '@/components/ActionsModal/ActionModal'
+import { useActionModalStore } from '@/stores/actionsModalStore'
 
 const TabsLayout = () => {
   const { colorScheme } = useThemeStore();
-  const darkColors = Colors.dark;
-  const lightColors = Colors.light;
+  const { pointerEvents, iconColor } = useTab();
+  const { isOpen } = useActionModalStore();
 
-  const tabScreenOptions = {
+  const theme = colorScheme === 'dark' ? Colors.dark : Colors.light
+
+  const screenOptions = {
     tabBarStyle: {
-      backgroundColor: colorScheme === 'dark' ? darkColors.primaryBackground : lightColors.primaryBackground,
-      borderTopColor: colorScheme === 'dark' ? darkColors.borderColor : lightColors.borderColor,
+      backgroundColor: isOpen ? theme.background : theme.background,
+      borderTopColor: theme.border,
     },
-    tabBarActiveTintColor: colorScheme === 'dark' ? darkColors.tabIconSelected : lightColors.tabIconSelected,
-    tabBarInactiveTintColor: colorScheme === 'dark' ? darkColors.tabIconDefault : lightColors.tabIconDefault,
+    tabBarActiveTintColor: isOpen ? iconColor : theme.tabActive,
+    tabBarInactiveTintColor: isOpen ? iconColor : theme.tabInactive,
     headerStyle: {
-      backgroundColor: colorScheme === 'dark' ? darkColors.primaryBackground : lightColors.primaryBackground,
+      backgroundColor: theme.backgroundSecondary,
     },
-    headerTintColor: colorScheme === 'dark' ? darkColors.primaryText : lightColors.primaryText,
-  };
+    headerTintColor: theme.textPrimary,
+  }
 
   return (
-    <Tabs screenOptions={tabScreenOptions}>
-      <Tabs.Screen name='index' options={{
-        title: 'Daily routine',
-        headerShown: false,
-        tabBarIcon: ({ color }) => <FontAwesome size={22} color={color} name='envira' />
-      }} />
-      <Tabs.Screen name='Settings' options={{
-        title: 'Settings',
-        headerShown: false,
-        tabBarIcon: ({ color }) => <FontAwesome size={22} color={color} name='cog' />
-      }} />
+    <>
+    <Tabs screenOptions={screenOptions}>
+      <Tabs.Screen
+        name='index'
+        options={{
+          title: 'Daily routine',
+          tabBarItemStyle: { pointerEvents },
+          tabBarIcon: ({ color }) => <FontAwesome name={'envira'} size={22} color={color} />,
+          header: isOpen ? () => <ActionModal /> : undefined, // custom header
+        }}
+    />
+
+      <Tabs.Screen
+        name='settings'
+        options={{
+          title: 'Settings',
+          headerShown: false,
+          tabBarItemStyle: { pointerEvents },
+          tabBarIcon: ({ color }) => <FontAwesome name={'cog'} size={22} color={color} />,
+        }}
+      />
     </Tabs>
+    </>
   )
 }
 

@@ -6,5 +6,5 @@ export type ThemedViewProps = {
 };
 
 export const ThemedView: React.FC<ThemedViewProps> = ({ children, className }) => {
-  return <View className={`dark:bg-dark-primaryBackground bg-light-primaryBackground ${className}`}>{children}</View>;
+  return <View className={`bg-light-background dark:bg-dark-background  ${className}`}>{children}</View>;
 }

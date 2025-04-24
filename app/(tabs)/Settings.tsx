@@ -1,16 +1,16 @@
 import React from 'react'
 import { ThemedView } from '@/components/ui/ThemedView'
 import { useThemeStore } from '@/stores/themeStore';
-import { StyledButton } from '@/components/ui/StyledButton';
+import StyledButton from '@/components/ui/StyledButton';
 
-const Settings = () => {
+const settings = () => {
   const { toggleTheme } = useThemeStore();
 
   return (
     <ThemedView className='flex-1 items-center justify-center'>
-      <StyledButton title='Switch theme' onPress={toggleTheme} />
+      <StyledButton text='Switch theme' onPress={toggleTheme} />
     </ThemedView>
   )
 }
 
-export default Settings
+export default settings

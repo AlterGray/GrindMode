@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native';
 import { useThemeStore } from '@/stores/themeStore';
 import { ThemedView } from '../ui/ThemedView';
 

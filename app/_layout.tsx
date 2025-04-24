@@ -14,7 +14,7 @@ import '@/global.css'
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+const RootLayout = () => {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -40,11 +40,16 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <Stack screenOptions={{
-        navigationBarColor: isDark ? Colors.dark.primaryBackground : Colors.light.primaryBackground,
-        statusBarBackgroundColor: isDark ? Colors.dark.primaryBackground : Colors.light.primaryBackground,
+        navigationBarColor: isDark ? Colors.dark.backgroundSecondary : Colors.light.backgroundSecondary,
+        statusBarBackgroundColor: isDark ? Colors.dark.backgroundSecondary : Colors.light.backgroundSecondary,
         statusBarStyle: isDark ? 'light' : 'dark',
         headerShown: false
-      }} />
+      }}>
+        <Stack.Screen name='(tabs)' />
+        <Stack.Screen name='routines' />
+      </Stack>
     </ThemeProvider>
   );
 }
+
+export default RootLayout
