@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { FlatList } from 'react-native'
 import StyledItem from './StyledItem'
 import NoItemsInList from '../NoItemsInList'
 import StyledButton from '../ui/StyledButton'
+import { ThemedText } from '../ui/ThemedText'
 
 type StyledListProps = {
   startSelectingItems: (id: string) => void;
@@ -11,9 +12,18 @@ type StyledListProps = {
   isSelectingItems: boolean;
   onSelectItem: (id: string) => void;
   selectedItems: string[];
+  itemComponent?: (item: any) => ReactNode;
 }
 
-const StyledList: React.FC<StyledListProps> = ({ startSelectingItems, onPress, data, isSelectingItems: xIsSelectingItems, onSelectItem: xOnSelectItem, selectedItems: xSelectedItems }) => {
+const StyledList: React.FC<StyledListProps> = ({
+  startSelectingItems,
+  onPress,
+  data,
+  isSelectingItems,
+  onSelectItem,
+  selectedItems,
+  itemComponent = null,
+ }) => {
   if (data.length === 0) {
     return <NoItemsInList text='No routines' actionButton={ <StyledButton text='Create new one' /> } />;
   }
@@ -22,8 +32,9 @@ const StyledList: React.FC<StyledListProps> = ({ startSelectingItems, onPress, d
     <FlatList
       data={data}
       renderItem={({ item }) => 
-        <StyledItem item={item} isSelectingItems={xIsSelectingItems} isSelected={xSelectedItems.includes(item.id)} onLongPress={startSelectingItems} onPress={onPress} onSelectItem={xOnSelectItem}>
-          {item.title}
+        <StyledItem item={item} isSelectingItems={isSelectingItems} isSelected={selectedItems.includes(item.id)} onLongPress={startSelectingItems} onPress={onPress} onSelectItem={onSelectItem}>
+          {/* // TODO hard to understand - simplify */}
+          {itemComponent !== null ? itemComponent(item) : <ThemedText>{item.title}</ThemedText>}
         </StyledItem>
         }
       className='w-full'

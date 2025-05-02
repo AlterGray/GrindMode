@@ -1,4 +1,3 @@
-import { Colors } from '@/constants/Colors';
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
@@ -14,6 +13,7 @@ type StyledButtonProps = {
   onPress?: () => void;
 };
 
+// TODO IS COMPONENT OKAY? DOUBLE CHECK IT
 const StyledButton: React.FC<StyledButtonProps> = ({
   text,
   variant = 'primary',
@@ -48,7 +48,7 @@ const StyledButton: React.FC<StyledButtonProps> = ({
 
   const isTextVariant = variant === 'text';
   const bgColor = isTextVariant ? backgroundColors.text : backgroundColors[color];
-  const textColor = isTextVariant && color !== 'danger' ? textColors.text : textColors[color];
+  const textColor = textColors[color]; // TODO fix color danger
 
   const activeBgByColor = {
     primary: `active:bg-light-buttonPrimaryBackground dark:active:bg-dark-buttonPrimaryBackground`,
@@ -62,10 +62,12 @@ const StyledButton: React.FC<StyledButtonProps> = ({
     text: `p-4 active:opacity-50 ${activeBgByColor[color]} ${bgColor}`,
   };
 
+  const textButtonVariantStyles = 'text-light-textAccent font-medium border-b-[1px] border-radius-2 border-light-buttonPrimaryBorder'
+
   const textVariantStyles = {
     primary: textColor,
     secondary: textColor,
-    text: textColor,
+    text: textColor + ' ' + textButtonVariantStyles,
   };
 
   return (

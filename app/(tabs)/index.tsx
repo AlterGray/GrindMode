@@ -8,10 +8,11 @@ import { useActionModalStore } from '@/stores/actionsModalStore';
 import TouchBlocker from '@/components/TouchBlocker';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import { ActionType } from '../types/actionModalTypes';
-
-import DateTimePicker from '@react-native-community/datetimepicker'
-import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 import { ThemedText } from '@/components/ui/ThemedText';
+import { View } from 'react-native';
+import { Routine } from '../types/routineTypes';
+import { extractDuration } from '@/lib/utils/common';
+import DaysPicker from '@/components/ui/DaysPicker/DaysPicker';
 
 const index = () => {
   const router = useRouter();
@@ -20,6 +21,7 @@ const index = () => {
   const data = useRoutineStore((state) => state.routines);
   const removeRoutines = useRoutineStore((state) => state.removeRoutines);
   const completeRoutines = useRoutineStore((state) => state.completeRoutines);
+  const updateRoutine = useRoutineStore((state) => state.updateRoutine);
 
   const redirectToUpdate = (id: string) => {
     setIsRedirecting(true);
@@ -30,6 +32,7 @@ const index = () => {
 
   const [selectedItems, setSelectedItems] = useState([] as string[]);
   const [isSelectingItems, setIsSelectingItems] = useState(false);
+  // TODO move logic to component
 
   const selectItem = (id: string) => {
     let newItems = [] as string[];
@@ -50,9 +53,8 @@ const index = () => {
   };
 
   const startSelectingItems = (id: string) => {
-    if (isRedirecting) {
-      return;
-    }    
+    if (isRedirecting)
+      return; 
 
     let newItems = [] as string[];
     
@@ -103,6 +105,22 @@ const index = () => {
   //   alert(time.getTimezoneOffset());
   // }, []);
 
+  const itemComponent = (item: Routine) => (
+    <View className='gap-2'>
+      <View className='flex-row justify-between items-center gap-2'>
+        <ThemedText>{item.title}</ThemedText>
+        <ThemedText className='text-light-textAccent'>
+          {new Date(item.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        </ThemedText>
+      </View>
+      
+      <View className='flex-row justify-between'>
+        <DaysPicker size='small' onChange={(days) => updateRoutine({...item, days })} items={item.days} />
+        <ThemedText>Duration: {extractDuration(item.expectedDuration)}</ThemedText>
+      </View>
+    </View>
+  )
+
   return (
     <ThemedView className='flex-1 items-center justify-center'>
       <TouchBlocker>
@@ -113,9 +131,12 @@ const index = () => {
           onSelectItem={selectItem}
           onPress={redirectToUpdate}
           data={data}
+          itemComponent={itemComponent}
         />
       </TouchBlocker>
+
       <CreateButton onPress={() => router.push('/routines/create')} />
+
       <ConfirmDialog
         isVisible={isConfirmDialogOpened}
         onConfirm={() => {
@@ -129,14 +150,6 @@ const index = () => {
         primaryButtonText='Remove'
         secondaryButtonColor='secondary'
       />
-      {/* <DateTimePicker
-        value={new Date()}
-        mode="time"
-        display="spinner"
-        onChange={(event, selectedDate) => {
-          // handle selected time
-        }}
-      /> */}
     </ThemedView>
   );
 };

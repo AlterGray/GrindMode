@@ -1,6 +1,5 @@
 import { Pressable, View } from 'react-native'
 import React, { ReactNode } from 'react'
-import { ThemedText } from '../ui/ThemedText'
 
 type RoutineStatus = 'done' | 'undone' | 'overdue' | 'failed';
 
@@ -25,11 +24,12 @@ const StyledItem: React.FC<StyledItemProps> = ({ item, isSelected, isSelectingIt
     'failed': 'bg-red-400 dark:bg-red-400',
   };
 
+  // TODO themed view?
   return (
     <View>
       <View className={`h-0.5 ml-16 ${statusClasses[item.status]} ${isSelected ? 'bg-light-selectedListItemBorder' : ''}`} />
       <Pressable onLongPress={() => onLongPress?.(item.id)} onPress={() => isSelectingItems ? onSelectItem(item.id) : onPress?.(item.id)} className={`p-4 ${isSelected ? 'bg-light-selectedListItemBackground dark:bg-dark-selectedListItemBackground' : 'bg-light-listItemBackground'} dark:bg-dark-listItemBackground`}>
-        <ThemedText>{children}</ThemedText>
+        {children}
       </Pressable>
     </View>
   )

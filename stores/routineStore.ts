@@ -1,28 +1,6 @@
-import { storage } from "@/lib/storage";
-import { Timestamp } from "react-native-reanimated/lib/typescript/commonTypes";
-import { create } from "zustand";
-
-type Routine = {
-    id: string;
-    title: string;
-    description: string;
-    status: 'undone' | 'done' | 'overdue' | 'failed';
-    timeUntilCompleting: Timestamp;
-    expectedDuration: Timestamp;
-    timeOfCompliting: Timestamp;
-}
-
-type RoutineState = {
-    routines: Routine[];
-    addRoutine: (routine: Omit<Routine, 'id' | 'status'>) => void;
-    removeRoutines: (routineIds: string[]) => void;
-    updateRoutine: (routine: Omit<Routine, 'status'>) => void;
-    completeRoutines: (routineIds: string[]) => void;
-    selectedIds: string[];
-    setSelectedIds: (id: string[]) => void;
-}
-
-const TEN_MINUTES_MS = 10 * 60 * 1000;
+import { Routine, RoutineState } from '@/app/types/routineTypes';
+import { storage } from '@/lib/storage';
+import { create } from 'zustand';
 
 const getStoredRoutines = (): Routine[] => {
   const storedRoutines = storage.getString('routines');
@@ -32,7 +10,8 @@ const getStoredRoutines = (): Routine[] => {
 export const useRoutineStore = create<RoutineState>((set) => ({
     routines: getStoredRoutines(),
     addRoutine: (routine) => set((state) => {
-      const newRoutines = [...state.routines, { id: Date.now().toString(), status: 'undone' as const, ...routine }]; // TODO why as const?
+      const newId = Date.now();
+      const newRoutines = [...state.routines, { id: newId.toString(), status: 'undone' as const, actualDuration: 0, ...routine }]; // TODO why as const?
       storage.set('routines', JSON.stringify(newRoutines));
       return { routines: newRoutines };
     }),
@@ -54,22 +33,17 @@ export const useRoutineStore = create<RoutineState>((set) => ({
     completeRoutines: (routineIds) => set((state) => {
       const routines = state.routines.map((r) => {
         if (routineIds.includes(r.id)) {
-          const diff = Math.abs(r.timeUntilCompleting - r.timeOfCompliting);
-          if (diff <= TEN_MINUTES_MS || r.timeOfCompliting > r.timeUntilCompleting) {
-            const timeOfCompliting = Date.now();
-            r.timeOfCompliting = timeOfCompliting;
+          if (r.status === 'undone') {
+            const nowTimeMinutes = new Date().getHours() * 60 + new Date().getMinutes();
+            const routineTimeMinutes = new Date(r.startTime).getHours() * 60 + new Date(r.startTime).getMinutes();
+            const isGood = (nowTimeMinutes - routineTimeMinutes) < 10 && (r.actualDuration - r.expectedDuration) < 15;
             
-            if (timeOfCompliting > r.timeUntilCompleting) {
-              r.status = 'overdue';
-            } else {
-              r.status = 'done';
-            }
-            
+            r.status = isGood ? 'done' : 'overdue'; // TODO make enums?
           }
-        }
+      }
 
-        return r;
-      }, []);
+      return r;
+    });
 
       storage.set('routines', JSON.stringify(routines));
       return { routines };
