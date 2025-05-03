@@ -1,10 +1,14 @@
-import React, { ReactNode } from 'react';
-import { View, TouchableWithoutFeedback, GestureResponderEvent } from 'react-native';
-import { useActionModalStore } from '@/stores/actionsModalStore';
+import React, { ReactNode } from "react";
+import {
+  View,
+  TouchableWithoutFeedback,
+  GestureResponderEvent,
+} from "react-native";
+import { useActionModalStore } from "@/stores/actionsModalStore";
 
 type TouchBlockerProps = {
   children: ReactNode;
-}
+};
 
 const TouchBlocker: React.FC<TouchBlockerProps> = ({ children }) => {
   const isActionModalOpened = useActionModalStore((state) => state.isOpen);
@@ -19,9 +23,11 @@ const TouchBlocker: React.FC<TouchBlockerProps> = ({ children }) => {
   if (!isActionModalOpened) return children;
 
   return (
-    <View className={`absolute top-0 left-0 right-0 bottom-0 z-10 bg-slate-100 opacity-70 dark:bg-slate-950 dark:opacity-75`}>
+    <View
+      className={`absolute bottom-0 left-0 right-0 top-0 z-10 bg-slate-100 opacity-70 dark:bg-slate-950 dark:opacity-75`}
+    >
       <TouchableWithoutFeedback onPress={blockTouchEvents}>
-        <View className={`absolute top-0 left-0 right-0 bottom-0`} />
+        <View className={`absolute bottom-0 left-0 right-0 top-0`} />
       </TouchableWithoutFeedback>
       {children}
     </View>

@@ -1,7 +1,5 @@
-import { TextInput, TextInputProps } from 'react-native'
-import React from 'react'
-import { useThemeStore } from '@/stores/themeStore'
-import { Colors } from '@/constants/Colors'
+import { TextInput, TextInputProps } from "react-native";
+import React from "react";
 
 interface StyledInputProps extends TextInputProps {
   className?: string;
@@ -9,17 +7,18 @@ interface StyledInputProps extends TextInputProps {
 
 const StyledInput = React.forwardRef<TextInput, StyledInputProps>(
   ({ className, ...props }, ref) => {
-    const isDark = useThemeStore((state) => state.isDark);
-
+    const placeHolderStyles =
+      "placeholder:text-light-textSecondary placeholder:dark:text-dark-textSecondary";
+    const baseClasses =
+      "rounded-md px-4 py-3 text-base bg-light-inputBackground text-light-inputText dark:bg-dark-inputBackground dark:text-dark-inputText";
     return (
       <TextInput
         ref={ref}
-        className={`rounded-md px-4 py-3 text-base bg-light-inputBackground text-light-inputText dark:bg-dark-inputBackground dark:text-dark-inputText ${className}`}
-        placeholderTextColor={isDark ? Colors.dark.textSecondary : Colors.light.textSecondary}
+        className={`${baseClasses} ${placeHolderStyles} ${className}`}
         {...props}
       />
-    )
-  }
-)
+    );
+  },
+);
 
-export default StyledInput
+export default StyledInput;

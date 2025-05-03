@@ -1,4 +1,2 @@
 // TODO RENAME AND CHANGE FOLDER
-enum Days {
-  
-}
+enum Days {}

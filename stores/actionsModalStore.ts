@@ -1,5 +1,4 @@
 import { ActionType } from "@/app/types/actionModalTypes";
-import { Ionicons } from "@expo/vector-icons";
 import { create } from "zustand";
 
 type ActionModalStore = {
@@ -16,7 +15,7 @@ type ActionModalStore = {
 export const useActionModalStore = create<ActionModalStore>()((set) => ({
   isOpen: false,
   setIsOpen: (isModalOpen) => set(() => ({ isOpen: isModalOpen })),
-  text: '',
+  text: "",
   setText: (text) => set(() => ({ text })),
   actions: [],
   setActions: (actions) => set(() => ({ actions })),

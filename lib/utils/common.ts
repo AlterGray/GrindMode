@@ -4,6 +4,6 @@ const extractDuration = (timestamp: number) => {
   const minutes = date.getMinutes();
 
   return `${hours}h ${minutes}m`;
-}
+};
 
-export { extractDuration }
+export { extractDuration };
