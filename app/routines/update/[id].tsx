@@ -1,71 +1,47 @@
-import React, { useState } from "react";
-import { ScrollView } from "react-native";
-import { ThemedView } from "@/components/ui/ThemedView";
-import StyledInput from "@/components/ui/StyledInput";
-import StyledButton from "@/components/ui/StyledButton";
+import React from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useRoutineStore } from "@/stores/routineStore";
+import RoutineForm from "@/components/forms/RoutineForm/RoutineForm";
+import { RoutineFormValues } from "@/app/types/routineTypes";
 
-const UpdateRoutine = () => {
+const EditRoutine: React.FC = () => {
   const router = useRouter();
   const updateRoutine = useRoutineStore((state) => state.updateRoutine);
   const { id } = useLocalSearchParams();
-  const routineToUpdate = useRoutineStore((state) =>
-    state.routines.find((r) => r.id === id),
+  const editingRoutine = useRoutineStore((state) =>
+    state.routines.find((routine) => routine.id === id),
   );
 
-  const [title, setTitle] = useState(routineToUpdate?.title || "");
-  const [description, setDescription] = useState(
-    routineToUpdate?.description || "",
-  );
+  // TODO does it okay?
+  if (!editingRoutine) {
+    return null; // or show an error, loading, or fallback
+  }
 
-  const handleSubmit = () => {
-    if (!title.trim()) return;
-
-    // TODO make it better?
-    if (!routineToUpdate) {
-      return null;
-    }
+  // TODO react hook form?
+  // TODO need better VALIDATION
+  const handleSubmit = (routine: RoutineFormValues) => {
+    if (!routine.title.trim()) return;
 
     updateRoutine({
-      id: routineToUpdate.id,
-      title: title.trim(),
-      description: description.trim(),
-      startTime: routineToUpdate.startTime,
-      expectedDuration: routineToUpdate.expectedDuration,
-      actualDuration: routineToUpdate.actualDuration,
-      days: routineToUpdate.days,
+      id: id as string, // TODO does it okay?
+      title: routine.title.trim(),
+      description: routine.description.trim(),
+      startTime: routine.startTime,
+      expectedDuration: routine.expectedDuration,
+      days: routine.days,
+      actualDuration: 0,
     });
 
     router.back();
   };
 
   return (
-    <ThemedView className="flex-1">
-      <ScrollView className="flex-1 p-4" contentContainerStyle={{ gap: 8 }}>
-        <StyledInput
-          placeholder="Routine Title"
-          value={title}
-          onChangeText={setTitle}
-        />
-
-        <StyledInput
-          placeholder="Description (optional)"
-          value={description}
-          onChangeText={setDescription}
-          multiline
-          numberOfLines={4}
-          textAlignVertical="top"
-        />
-
-        <StyledButton
-          text="Save"
-          onPress={handleSubmit}
-          className="ml-auto mr-4 mt-2"
-        />
-      </ScrollView>
-    </ThemedView>
+    <RoutineForm
+      initialValues={editingRoutine}
+      submitText="Edit routine"
+      onSubmit={handleSubmit}
+    />
   );
 };
 
-export default UpdateRoutine;
+export default EditRoutine;

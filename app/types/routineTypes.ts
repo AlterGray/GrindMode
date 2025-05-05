@@ -1,6 +1,6 @@
 import { DayType } from "./commonTypes";
 
-export type Routine = {
+type Routine = {
   id: string;
   title: string;
   description: string;
@@ -11,14 +11,34 @@ export type Routine = {
   days: DayType[];
 };
 
-export type RoutineState = {
+type RoutineInput = Omit<Routine, "id" | "status" | "actualDuration">;
+type RoutineUpdate = Omit<Routine, "status">;
+type RoutineFormValues = {
+  id?: string; // only used in edit
+  title: string;
+  description: string;
+  startTime: number;
+  expectedDuration: number;
+  days: DayType[];
+};
+
+type RoutineState = {
   routines: Routine[];
-  addRoutine: (
-    routine: Omit<Routine, "id" | "status" | "actualDuration">,
-  ) => void;
+  addRoutine: (routine: RoutineInput) => void;
   removeRoutines: (routineIds: string[]) => void;
-  updateRoutine: (routine: Omit<Routine, "status">) => void;
+  updateRoutine: (routine: RoutineUpdate) => void;
   completeRoutines: (routineIds: string[]) => void;
   selectedIds: string[];
   setSelectedIds: (id: string[]) => void;
+};
+
+type RoutineStatus = "done" | "undone" | "overdue";
+
+export {
+  Routine,
+  RoutineInput,
+  RoutineUpdate,
+  RoutineFormValues,
+  RoutineState,
+  RoutineStatus,
 };

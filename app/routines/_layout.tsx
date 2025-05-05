@@ -5,42 +5,46 @@ import { useThemeStore } from "@/stores/themeStore";
 
 const RoutineLayout = () => {
   const isDark = useThemeStore((state) => state.isDark);
+  const theme = isDark ? Colors.dark : Colors.light;
+  const backgroundColor = theme.backgroundSecondary;
+  const textColor = theme.textPrimary;
 
   const screenOptions = {
     headerStyle: {
-      backgroundColor: isDark
-        ? Colors.dark.backgroundSecondary
-        : Colors.light.backgroundSecondary,
+      backgroundColor,
     },
     headerTitleStyle: {
-      color: isDark ? Colors.dark.textPrimary : Colors.light.textPrimary,
+      color: textColor,
     },
-    headerTintColor: isDark
-      ? Colors.dark.textPrimary
-      : Colors.light.textPrimary,
+    headerTintColor: textColor,
   };
 
-  const screens = {
-    create: {
+  const screens = [
+    {
       name: "create",
       options: {
         title: "Create Routine",
         headerShown: true,
       },
     },
-    update: {
+    {
       name: "update",
       options: {
         title: "Edit Routine",
         headerShown: true,
       },
     },
-  };
+  ];
 
   return (
     <Stack screenOptions={screenOptions}>
-      <Stack.Screen {...screens.update} />
-      <Stack.Screen {...screens.create} />
+      {screens.map((screen) => (
+        <Stack.Screen
+          key={screen.name}
+          name={screen.name}
+          options={screen.options}
+        />
+      ))}
     </Stack>
   );
 };

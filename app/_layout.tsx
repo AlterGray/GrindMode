@@ -22,6 +22,10 @@ const RootLayout = () => {
   const { colorScheme, isDark } = useThemeStore();
   const { setColorScheme } = useColorScheme();
 
+  const backgroundColor = isDark
+    ? Colors.dark.backgroundSecondary
+    : Colors.light.backgroundSecondary;
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
@@ -41,18 +45,13 @@ const RootLayout = () => {
     <ThemeProvider>
       <Stack
         screenOptions={{
-          navigationBarColor: isDark
-            ? Colors.dark.backgroundSecondary
-            : Colors.light.backgroundSecondary,
-          statusBarBackgroundColor: isDark
-            ? Colors.dark.backgroundSecondary
-            : Colors.light.backgroundSecondary,
-          statusBarStyle: isDark ? "light" : "dark",
+          navigationBarColor: backgroundColor,
+          statusBarBackgroundColor: backgroundColor,
+          statusBarStyle: colorScheme === "dark" ? "light" : "dark",
           headerShown: false,
         }}
       >
         <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="routines" />
       </Stack>
     </ThemeProvider>
   );

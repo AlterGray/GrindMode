@@ -7,30 +7,25 @@ const getStoredRoutines = (): Routine[] => {
   return storedRoutines ? JSON.parse(storedRoutines) : [];
 };
 
-export const useRoutineStore = create<RoutineState>((set) => ({
+export const useRoutineStore = create<RoutineState>()((set) => ({
   routines: getStoredRoutines(),
   addRoutine: (routine) =>
     set((state) => {
-      const newId = Date.now();
-      const newRoutines = [
-        ...state.routines,
-        {
-          id: newId.toString(),
-          status: "undone" as const,
-          actualDuration: 0,
-          ...routine,
-        },
-      ]; // TODO why as const?
+      const newRoutine: Routine = {
+        id: Date.now().toString(),
+        status: "undone",
+        actualDuration: 0,
+        ...routine,
+      };
+      const newRoutines = [...state.routines, newRoutine];
       storage.set("routines", JSON.stringify(newRoutines));
       return { routines: newRoutines };
     }),
   removeRoutines: (routineIds) =>
     set((state) => {
-      let newRoutines: Routine[] = [];
-      state.routines.forEach((r) => {
-        if (!routineIds.includes(r.id)) newRoutines.push(r);
-      });
-
+      const newRoutines = state.routines.filter(
+        (r) => !routineIds.includes(r.id),
+      );
       storage.set("routines", JSON.stringify(newRoutines));
       return { routines: newRoutines };
     }),
@@ -44,31 +39,27 @@ export const useRoutineStore = create<RoutineState>((set) => ({
     }),
   completeRoutines: (routineIds) =>
     set((state) => {
-      const routines = state.routines.map((r) => {
-        if (routineIds.includes(r.id)) {
-          if (r.status === "undone") {
-            const nowTimeMinutes =
-              new Date().getHours() * 60 + new Date().getMinutes();
-            const routineTimeMinutes =
-              new Date(r.startTime).getHours() * 60 +
-              new Date(r.startTime).getMinutes();
-            const isGood =
-              nowTimeMinutes - routineTimeMinutes < 10 &&
-              r.actualDuration - r.expectedDuration < 15;
+      const newRoutines = state.routines.map((r) => {
+        if (routineIds.includes(r.id) && r.status === "undone") {
+          const nowTimeMinutes =
+            new Date().getHours() * 60 + new Date().getMinutes();
+          const routineTimeMinutes =
+            new Date(r.startTime).getHours() * 60 +
+            new Date(r.startTime).getMinutes();
+          const isGood =
+            nowTimeMinutes - routineTimeMinutes < 10 &&
+            r.actualDuration - r.expectedDuration < 15;
 
-            r.status = isGood ? "done" : "overdue"; // TODO make enums?
-          }
+          return {
+            ...r,
+            status: isGood ? ("done" as const) : ("overdue" as const),
+          };
         }
-
         return r;
       });
-
-      storage.set("routines", JSON.stringify(routines));
-      return { routines };
+      storage.set("routines", JSON.stringify(newRoutines));
+      return { routines: newRoutines };
     }),
   selectedIds: [],
-  setSelectedIds: (ids: string[]) =>
-    set(() => ({
-      selectedIds: ids,
-    })),
+  setSelectedIds: (ids) => set(() => ({ selectedIds: ids })),
 }));

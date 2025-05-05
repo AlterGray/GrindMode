@@ -1,21 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ThemedView } from "@/components/ui/ThemedView";
-import CreateButton from "@/components/CreateButton";
+import { ThemedView } from "@/components/common/ThemedView";
+import CreateButton from "@/components/common/CreateButton";
 import { usePathname, useRouter } from "expo-router";
 import { useRoutineStore } from "@/stores/routineStore";
-import StyledList from "@/components/ui/StyledList/StyledList";
+import StyledList from "@/components/StyledList";
 import { useActionModalStore } from "@/stores/actionsModalStore";
-import TouchBlocker from "@/components/ui/TouchBlocker";
-import { ItemComponent } from "@/components/routine/ListItemComponent";
+import TouchBlocker from "@/components/common/TouchBlocker";
+import { RoutineListItem } from "@/components/routine/RoutineListItem";
 import RoutineConfirmDialog from "@/components/routine/RoutineConfirmDialog";
 import { ActionType } from "../types/actionModalTypes";
 import { useActionDialog } from "@/hooks/useActionDialog";
+import { useSelectableItems } from "@/hooks/useSelectableItems";
+import { Routine } from "../types/routineTypes";
 
-const index = () => {
+const Index = () => {
   const router = useRouter();
   const pathName = usePathname();
   // TODO REFACTOR IT
-  const { isOpen, setIsOpen, setText } = useActionModalStore();
+  const { setIsOpen, setText } = useActionModalStore();
   const data = useRoutineStore((state) => state.routines);
 
   const [isConfirmDialogOpened, setIsConfirmDialogOpened] = useState(false);
@@ -25,46 +27,15 @@ const index = () => {
     router.push({ pathname: "/routines/update/[id]", params: { id } });
   };
   const [isRedirecting, setIsRedirecting] = useState(false);
-
-  const [selectedItems, setSelectedItems] = useState([] as string[]);
-  const [isSelectingItems, setIsSelectingItems] = useState(false);
+  const {
+    isSelecting,
+    resetSelection,
+    selectedItems,
+    selectedItemsRef,
+    startSelecting,
+    toggleItem,
+  } = useSelectableItems();
   // TODO move logic to component
-
-  const selectItem = (id: string) => {
-    let newItems = [] as string[];
-
-    if (selectedItems.includes(id)) {
-      newItems = selectedItems.filter((itemId) => itemId !== id);
-    } else {
-      newItems = [...selectedItems, id];
-    }
-
-    if (newItems.length === 0) {
-      setIsSelectingItems(false);
-      setIsOpen(false);
-    }
-
-    setSelectedItems(newItems);
-    setText(newItems.length.toString());
-  };
-
-  const startSelectingItems = (id: string) => {
-    if (isRedirecting) return;
-
-    let newItems = [] as string[];
-
-    setIsOpen(true);
-
-    if (selectedItems.includes(id)) {
-      newItems = selectedItems.filter((itemId) => itemId === id);
-    } else {
-      newItems = [...selectedItems, id];
-    }
-
-    setIsSelectingItems(true);
-    setSelectedItems(newItems);
-    setText(newItems.length.toString());
-  };
 
   const removeRoutines = useRoutineStore((state) => state.removeRoutines);
   const completeRoutines = useRoutineStore((state) => state.completeRoutines);
@@ -77,24 +48,21 @@ const index = () => {
     onPress: () => {
       completeRoutines(selectedItemsRef.current);
       setIsOpen(false);
-      setSelectedItems([]);
+      resetSelection();
     },
     iconName: "checkmark",
   };
 
   useActionDialog({
     actions: [removeAction, completeAction],
-    onReset: () => {
-      setSelectedItems([]);
-      setIsSelectingItems(false);
-    },
+    onReset: resetSelection,
   });
 
   const onConfirm = () => {
     removeRoutines(selectedItems);
     setIsOpen(false);
     setIsConfirmDialogOpened(false);
-    setSelectedItems([]);
+    resetSelection();
   };
 
   // fixed redirecting issue
@@ -106,7 +74,6 @@ const index = () => {
   }, [pathName]);
 
   // TODO refactore it
-  const selectedItemsRef = useRef<string[]>([]);
   useEffect(() => {
     selectedItemsRef.current = selectedItems;
   }, [selectedItems]);
@@ -114,14 +81,15 @@ const index = () => {
   return (
     <ThemedView className="flex-1 items-center justify-center">
       <TouchBlocker>
+        {/* TODO does it ok? */}
         <StyledList
-          selectedItems={selectedItems}
-          startSelectingItems={startSelectingItems}
-          isSelectingItems={isSelectingItems}
-          onSelectItem={selectItem}
+          selectedIds={selectedItems}
+          startSelectingItems={startSelecting}
+          isSelectingItems={isSelecting}
+          onItemSelect={toggleItem}
           onPress={redirectToUpdate}
           data={data}
-          itemComponent={(item) => <ItemComponent item={item} />}
+          renderContent={(item) => <RoutineListItem item={item as Routine} />}
         />
       </TouchBlocker>
 
@@ -136,4 +104,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

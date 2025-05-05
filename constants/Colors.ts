@@ -48,6 +48,16 @@ export const Colors = {
     tabInactive: "#d1d5db",
     tabActive: "#4b5563",
     disabledTab: "#e5e7eb",
+
+    // STATUS COLORS (List Item)
+    statusDone: "#22c55e", // green-500
+    statusDoneBackground: "#f0fdf4", // green-50
+
+    statusUndone: "#3b82f6", // blue-500
+    statusUndoneBackground: "#eff6ff", // blue-50
+
+    statusOverdue: "#ef4444", // red-500
+    statusOverdueBackground: "#fef2f2", // red-50
   },
 
   dark: {
@@ -99,5 +109,15 @@ export const Colors = {
     tabInactive: "#4b5563",
     tabActive: "#d1d5db",
     disabledTab: "rgba(209, 213, 219, 0.3)",
+
+    // STATUS COLORS (List Item)
+    statusDone: "#22c55e",
+    statusDoneBackground: "#0c1f15", // soft dark green hint
+
+    statusUndone: "#3b82f6",
+    statusUndoneBackground: "#0d1b2a", // soft dark blue hint
+
+    statusOverdue: "#ef4444",
+    statusOverdueBackground: "#2c0b0e", // soft dark red hint
   },
 };
