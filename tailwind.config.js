@@ -1,20 +1,20 @@
-const { Colors } = require('./constants/Colors');
+const { Colors } = require("./src/constants/Colors");
 
 module.exports = {
-  darkMode: 'class',
-  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
+  darkMode: "class",
+  content: ["./app/**/*.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
       colors: Colors,
       fontFamily: {
-        sans: ['Inter', 'Arial', 'sans-serif'],
+        sans: ["Inter", "Arial", "sans-serif"],
       },
       borderRadius: {
-        'lg': '8px',
-        'md': '4px',
+        lg: "8px",
+        md: "4px",
       },
     },
   },
   plugins: [],
-}
+};

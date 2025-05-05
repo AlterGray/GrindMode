@@ -2,11 +2,11 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 
-import { useThemeStore } from "@/stores/themeStore";
-import { useTab } from "@/hooks/useTab";
-import { useActionModalStore } from "@/stores/actionsModalStore";
-import ActionModal from "@/components/ActionsModal/ActionModal";
-import { Colors } from "@/constants/Colors";
+import { useThemeStore } from "../../src/stores/themeStore";
+import { useTab } from "@hooks/useTab";
+import { useActionModalStore } from "@ui/ActionsModal/actionsModalStore";
+import ActionModal from "@ui/ActionsModal/ActionModal";
+import { Colors } from "../../src/constants/Colors";
 
 const TabsLayout = () => {
   const { colorScheme } = useThemeStore();

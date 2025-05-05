@@ -1,8 +1,8 @@
 import React from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useRoutineStore } from "@/stores/routineStore";
-import RoutineForm from "@/components/forms/RoutineForm/RoutineForm";
-import { RoutineFormValues } from "@/app/types/routineTypes";
+import { useRoutineStore } from "@features/routine/routineStore";
+import CreateUpdateForm from "@features/routine/forms/CreateUpdateForm/CreateUpdateForm";
+import { RoutineFormValues } from "@features/routine/routineTypes";
 
 const EditRoutine: React.FC = () => {
   const router = useRouter();
@@ -36,7 +36,7 @@ const EditRoutine: React.FC = () => {
   };
 
   return (
-    <RoutineForm
+    <CreateUpdateForm
       initialValues={editingRoutine}
       submitText="Edit routine"
       onSubmit={handleSubmit}

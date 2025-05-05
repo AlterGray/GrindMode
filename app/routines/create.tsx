@@ -1,9 +1,9 @@
 import React from "react";
 import { useRouter } from "expo-router";
-import { useRoutineStore } from "@/stores/routineStore";
-import RoutineForm from "@/components/forms/RoutineForm/RoutineForm";
-import { RoutineInput } from "../types/routineTypes";
-import { DayType } from "../types/commonTypes";
+import { useRoutineStore } from "@features/routine/routineStore";
+import CreateUpdateForm from "@features/routine/forms/CreateUpdateForm/CreateUpdateForm";
+import { RoutineInput } from "@features/routine/routineTypes";
+import { DayType } from "@shared/types/commonTypes";
 
 const CreateRoutine: React.FC = () => {
   const router = useRouter();
@@ -42,7 +42,7 @@ const CreateRoutine: React.FC = () => {
   };
 
   return (
-    <RoutineForm
+    <CreateUpdateForm
       initialValues={initialValues}
       submitText="Create routine"
       onSubmit={handleSubmit}

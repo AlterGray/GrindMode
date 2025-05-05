@@ -4,12 +4,12 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { useThemeStore } from "@/stores/themeStore";
-import { Colors } from "@/constants/Colors";
+import { ThemeProvider } from "@shared/providers/ThemeProvider";
+import { useThemeStore } from "../src/stores/themeStore";
+import { Colors } from "../src/constants/Colors";
 import { useColorScheme } from "nativewind";
 
-import "@/global.css";
+import "../global.css";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

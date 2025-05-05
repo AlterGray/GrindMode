@@ -1,18 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ThemedView } from "@/components/common/ThemedView";
-import CreateButton from "@/components/common/CreateButton";
+import ThemedView from "@ui/ThemedView";
+import CreateButton from "@ui/CreateButton";
 import { usePathname, useRouter } from "expo-router";
-import { useRoutineStore } from "@/stores/routineStore";
-import StyledList from "@/components/StyledList";
-import { useActionModalStore } from "@/stores/actionsModalStore";
-import TouchBlocker from "@/components/common/TouchBlocker";
-import { RoutineListItem } from "@/components/routine/RoutineListItem";
-import RoutineConfirmDialog from "@/components/routine/RoutineConfirmDialog";
-import { ActionType } from "../types/actionModalTypes";
-import { useActionDialog } from "@/hooks/useActionDialog";
-import { useSelectableItems } from "@/hooks/useSelectableItems";
-import { Routine } from "../types/routineTypes";
+import { useRoutineStore } from "@features/routine/routineStore";
+import StyledList from "@ui/StyledList/StyledList";
+import { useActionModalStore } from "@ui/ActionsModal/actionsModalStore";
+import TouchBlocker from "@ui/TouchBlocker";
+import RoutineListItem from "@features/routine/RoutineListItem";
+import RemoveRoutineDialog from "@features/routine/RemoveRoutineDialog";
+import { ActionType } from "@ui/ActionsModal/actionModalTypes";
+import { useActionModal } from "@ui/ActionsModal/useActionModal";
+import { useSelectableItems } from "@hooks/useSelectableItems";
+import { Routine } from "@features/routine/routineTypes";
 
+// TODO
 const Index = () => {
   const router = useRouter();
   const pathName = usePathname();
@@ -53,7 +54,7 @@ const Index = () => {
     iconName: "checkmark",
   };
 
-  useActionDialog({
+  useActionModal({
     actions: [removeAction, completeAction],
     onReset: resetSelection,
   });
@@ -95,7 +96,7 @@ const Index = () => {
 
       <CreateButton onPress={() => router.push("/routines/create")} />
 
-      <RoutineConfirmDialog
+      <RemoveRoutineDialog
         isOpen={isConfirmDialogOpened}
         onConfirm={onConfirm}
         onCancel={() => setIsConfirmDialogOpened(false)}
