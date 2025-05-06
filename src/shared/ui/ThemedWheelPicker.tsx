@@ -6,8 +6,9 @@ import {
   RenderItemProps,
 } from "react-native-wheel-picker-expo/lib/typescript/types";
 
+// TODO recheck renderItem returns component
 export type ThemedWheelPickerProps = {
-  renderItem: (props: RenderItemProps) => JSX.Element;
+  renderItem: (props: RenderItemProps) => React.ReactNode;
   items: { label: string; value: any }[];
   widht?: number;
   height?: number;

@@ -1,4 +1,4 @@
-import { RoutineFormValues } from "../../../routineTypes";
+import { RoutineFormValues } from "@features/routine/routineTypes";
 import { useReducer } from "react";
 import { Action, ActionTypes } from "./types";
 import {

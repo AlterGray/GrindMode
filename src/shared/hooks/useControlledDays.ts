@@ -12,6 +12,7 @@ export const useControlledDays = ({
 }: UseControlledDaysParams) => {
   const [activeDays, setActiveDays] = useState<DayType[]>(days);
 
+  // TODO infinite renders
   useEffect(() => {
     setActiveDays(days);
   }, [days]);

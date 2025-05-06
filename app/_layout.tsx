@@ -41,6 +41,10 @@ const RootLayout = () => {
   }
 
   // TODO stack vs slot
+  // TODO do i really need @types/react?
+  // react-test-renderer: deprecated?
+  // recheck whole package json and npm package versions
+  // when and how use: --legacy-peer-deps
   return (
     <ThemeProvider>
       <Stack
