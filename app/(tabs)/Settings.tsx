@@ -1,6 +1,6 @@
 import React from "react";
 import ThemedView from "@ui/ThemedView";
-import { useThemeStore } from "@/stores/themeStore";
+import { useThemeStore } from "@shared/stores/themeStore";
 import StyledButton from "@ui/StyledButton";
 
 const settings = () => {

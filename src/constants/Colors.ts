@@ -7,8 +7,8 @@ export const Colors = {
     textAccent: "#64748b",
 
     // BACKGROUND
-    background: "#f8f9fa",
-    backgroundSecondary: "#e5e7eb",
+    background: "#fff",
+    backgroundSecondary: "#fff",
     backgroundSurface: "#ffffff",
 
     // LISTS

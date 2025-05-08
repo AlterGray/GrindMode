@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack } from "expo-router";
-import { Colors } from "../../src/constants/Colors";
-import { useThemeStore } from "../../src/stores/themeStore";
+import { Colors } from "@/constants/Colors";
+import { useThemeStore } from "@shared/stores/themeStore";
 
 const RoutineLayout = () => {
   const isDark = useThemeStore((state) => state.isDark);

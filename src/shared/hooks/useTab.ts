@@ -1,5 +1,5 @@
 import { useActionModalStore } from "@ui/ActionsModal/actionsModalStore";
-import { useThemeStore } from "@/stores/themeStore";
+import { useThemeStore } from "@shared/stores/themeStore";
 import { Colors } from "@/constants/Colors";
 import { ViewStyle } from "react-native";
 

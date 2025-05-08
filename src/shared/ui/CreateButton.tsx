@@ -1,7 +1,7 @@
 import { Pressable } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
-import { useThemeStore } from "../../stores/themeStore";
+import { useThemeStore } from "@shared/stores/themeStore";
 import { Colors } from "@/constants/Colors";
 
 type CreateButtonProps = {

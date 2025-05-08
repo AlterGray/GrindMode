@@ -2,7 +2,7 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 
-import { useThemeStore } from "../../src/stores/themeStore";
+import { useThemeStore } from "../../src/shared/stores/themeStore";
 import { useTab } from "@hooks/useTab";
 import { useActionModalStore } from "@ui/ActionsModal/actionsModalStore";
 import ActionModal from "@ui/ActionsModal/ActionModal";

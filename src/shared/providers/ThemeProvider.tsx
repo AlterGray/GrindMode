@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useColorScheme } from "react-native";
-import { useThemeStore } from "../../stores/themeStore";
+import { useThemeStore } from "../stores/themeStore";
 import ThemedView from "@ui/ThemedView";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {

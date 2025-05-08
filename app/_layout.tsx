@@ -5,7 +5,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { ThemeProvider } from "@shared/providers/ThemeProvider";
-import { useThemeStore } from "../src/stores/themeStore";
+import { useThemeStore } from "../src/shared/stores/themeStore";
 import { Colors } from "../src/constants/Colors";
 import { useColorScheme } from "nativewind";
 
