@@ -31,7 +31,7 @@ const StyledList: React.FC<StyledListProps> = ({
     return (
       <NoItemsInList
         text={noItemsText}
-        actionButton={<StyledButton text="Create new one" />}
+        actionButton={<StyledButton title="Create new one" />}
       />
     );
   }

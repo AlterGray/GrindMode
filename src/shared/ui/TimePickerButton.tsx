@@ -19,7 +19,7 @@ const TimePickerButton: React.FC<TimePickerButtonProps> = ({
   return (
     <>
       <StyledButton
-        text={formatTimeLabel(time)}
+        title={formatTimeLabel(time)}
         variant="text"
         size="sm"
         onPress={() => setIsOpen(true)}

@@ -47,13 +47,13 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
             <StyledButton
               variant={cancelVariant}
               onPress={onCancel}
-              text={cancelText}
+              title={cancelText}
               color={secondaryButtonColor}
             />
             <StyledButton
               variant={confirmVariant}
               onPress={onConfirm}
-              text={confirmText}
+              title={confirmText}
               color={primaryButtonColor}
             />
           </View>

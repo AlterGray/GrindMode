@@ -18,7 +18,7 @@ const DurationPickerButton: React.FC<DurationPickerButtonProps> = ({
   return (
     <>
       <StyledButton
-        text={formatDurationLabel(duration)}
+        title={formatDurationLabel(duration)}
         variant="text"
         size="sm"
         onPress={() => setIsOpen(true)}

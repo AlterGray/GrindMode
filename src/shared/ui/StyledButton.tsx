@@ -14,7 +14,7 @@ type StyledButtonProps = {
 };
 
 const StyledButton: React.FC<StyledButtonProps> = ({
-  title: text,
+  title,
   variant = "primary",
   size = "md",
   fullWidth = false,
@@ -69,7 +69,7 @@ const StyledButton: React.FC<StyledButtonProps> = ({
       } ${className}`}
       onPress={onPress}
     >
-      <Text className={`${textVariantStyles} ${titleClassName}`}>{text}</Text>
+      <Text className={`${textVariantStyles} ${titleClassName}`}>{title}</Text>
     </TouchableOpacity>
   );
 };
