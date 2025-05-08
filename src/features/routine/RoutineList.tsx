@@ -50,14 +50,13 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const removeRoutinesFromFolder = useRoutineStore(
     (state) => state.removeRoutinesFromFolder,
   );
-  type MenuAction = "add" | "remove" | "move" | "none";
-  const [currentMenuAction, setCurrentMenuAction] =
-    useState<MenuAction>("none");
+  type MenuAction = "add" | "move";
+  const [currentMenuAction, setCurrentMenuAction] = useState<MenuAction>("add");
 
   const {
     isSelecting,
     resetSelection,
-    selectedItems,
+    selectedItems: selectedRoutines,
     selectedItemsRef,
     startSelecting,
     toggleItem,
@@ -90,7 +89,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
 
   const removeRoutines = useRoutineStore((state) => state.removeRoutines);
   const onConfirm = () => {
-    removeRoutines(selectedItems);
+    removeRoutines(selectedRoutines);
     setIsOpen(false);
     setIsConfirmDialogOpened(false);
     resetSelection();
@@ -98,8 +97,8 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
 
   // TODO refactore it
   useEffect(() => {
-    selectedItemsRef.current = selectedItems;
-  }, [selectedItems]);
+    selectedItemsRef.current = selectedRoutines;
+  }, [selectedRoutines]);
 
   // TODO bug
   useEffect(() => {
@@ -109,9 +108,10 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     }
   }, [pathName]);
 
+  // TODO open modal with confirmation
   const removeFromFolderAction = {
     label: "Remove from folder",
-    onPress: () => handleRemoveRoutinesFromFolder(folderId),
+    onPress: () => handleRemoveRoutinesFromFolder(selectedRoutines, folderId),
   };
   const addToFolderAction = {
     label: "Add to folder",
@@ -128,11 +128,16 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     },
   };
 
-  const menuActions = [addToFolderAction];
-  if (folderId !== "-1") {
-    menuActions.push(removeFromFolderAction);
-    menuActions.push(moveToFolderAction);
-  }
+  const menuActions = React.useMemo(() => {
+    const actions = [addToFolderAction];
+
+    if (folderId !== "-1") {
+      actions.push(removeFromFolderAction);
+      actions.push(moveToFolderAction);
+    }
+
+    return actions;
+  }, [selectedRoutines.length]);
 
   useActionModal({
     actions: [removeAction, completeAction],
@@ -143,26 +148,32 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
 
   // TODO name is too long
   const handleAddRoutinesToFolder = (folderId: string) => {
-    addRoutinesToFolder(selectedItems, folderId);
+    addRoutinesToFolder(selectedRoutines, folderId);
     setIsNavModalOpened(false);
     setIsOpen(false);
   };
 
-  const handleRemoveRoutinesFromFolder = (folderId: string) => {
-    removeRoutinesFromFolder(selectedItems, folderId);
+  const closeDialogs = () => {
     setIsNavModalOpened(false);
     setIsOpen(false);
+  };
+
+  const handleRemoveRoutinesFromFolder = (
+    selectedItems: string[],
+    folderId: string,
+  ) => {
+    removeRoutinesFromFolder(selectedItems, folderId);
+    closeDialogs();
   };
 
   const navModalAction = (sfolderId: string) => {
     if (currentMenuAction === "add") {
       handleAddRoutinesToFolder(sfolderId);
     } else if (currentMenuAction === "move") {
-      handleRemoveRoutinesFromFolder(folderId);
+      handleRemoveRoutinesFromFolder(selectedRoutines, folderId);
       handleAddRoutinesToFolder(sfolderId);
     }
-    setIsNavModalOpened(false);
-    setIsOpen(false);
+    closeDialogs();
   };
   const navModalActions = folders
     .map((folder) => ({
@@ -177,8 +188,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     iconName: "add",
     title: "Create new folder",
     onPress: () => {
-      setIsNavModalOpened(false);
-      setIsOpen(false);
+      closeDialogs();
       router.push(routes.folder);
     },
   });
@@ -188,7 +198,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
       <TouchBlocker>
         {/* TODO does it ok? */}
         <StyledList
-          selectedIds={selectedItems}
+          selectedIds={selectedRoutines}
           startSelectingItems={startSelecting}
           isSelectingItems={isSelecting}
           onItemSelect={toggleItem}
