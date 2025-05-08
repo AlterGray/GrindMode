@@ -15,6 +15,9 @@ import { usePathname, useRouter } from "expo-router";
 import ConfirmDialog from "@shared/ui/ConfirmDialog";
 import ToggleOptions from "@shared/ui/ToggleOptions/ToggleOptions";
 import React from "react";
+import NavModal from "@shared/ui/NavModal/NavModal";
+import { useFolderStore } from "@features/folder/folderStore";
+import { Ionicons } from "@expo/vector-icons";
 
 type RoutineListProps = {
   folderId: string;
@@ -27,6 +30,8 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const router = useRouter();
   const pathName = usePathname();
   const [isConfirmDialogOpened, setIsConfirmDialogOpened] = useState(false);
+  const [isNavModalOpened, setIsNavModalOpened] = useState(false);
+  const folders = useFolderStore((state) => state.folders);
 
   type Option = "folder" | "routine";
   const options: { label: string; value: Option }[] = [
@@ -99,9 +104,28 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     onReset: resetSelection,
     isMenuAction: true,
     menuActions: [
-      { label: "Add to folder", onPress: () => {} },
-      { label: "Move to folder", onPress: () => {} },
+      { label: "Add to folder", onPress: () => setIsNavModalOpened(true) },
+      { label: "Move to folder", onPress: () => setIsNavModalOpened(true) },
     ],
+  });
+
+  const navModalActions = folders
+    .map((folder) => ({
+      title: folder.name,
+      onPress: () => alert(folder.name),
+      iconName: "folder-outline" as keyof typeof Ionicons.glyphMap,
+    }))
+    .filter((f) => f.title !== "All routines");
+
+  // TODO move it to nav modal?
+  navModalActions.push({
+    iconName: "add",
+    title: "Create new folder",
+    onPress: () => {
+      setIsNavModalOpened(false);
+      setIsOpen(false);
+      router.push(routes.folder);
+    },
   });
 
   return (
@@ -142,6 +166,12 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
         }
         primaryButtonColor="primary"
         primaryButtonText="Create"
+      />
+      <NavModal
+        isVisible={isNavModalOpened}
+        onClose={() => setIsNavModalOpened(false)}
+        title="Select folder"
+        actions={navModalActions}
       />
     </ThemedView>
   );
