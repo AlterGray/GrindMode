@@ -44,6 +44,15 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const { setIsOpen } = useActionModalStore();
   const routines = useRoutineStore((state) => state.routines);
   const completeRoutines = useRoutineStore((state) => state.completeRoutines);
+  const addRoutinesToFolder = useRoutineStore(
+    (state) => state.addRoutinesToFolder,
+  );
+  const removeRoutinesFromFolder = useRoutineStore(
+    (state) => state.removeRoutinesFromFolder,
+  );
+  type MenuAction = "add" | "remove" | "move" | "none";
+  const [currentMenuAction, setCurrentMenuAction] =
+    useState<MenuAction>("none");
 
   const {
     isSelecting,
@@ -100,20 +109,62 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     }
   }, [pathName]);
 
+  const removeFromFolderAction = {
+    label: "Remove from folder",
+    onPress: () => handleRemoveRoutinesFromFolder(folderId),
+  };
+  const addToFolderAction = {
+    label: "Add to folder",
+    onPress: () => setIsNavModalOpened(true),
+  };
+  const moveToFolderAction = {
+    label: "Move to folder",
+    onPress: () => {
+      setCurrentMenuAction("move");
+      setIsNavModalOpened(true);
+    },
+  };
+
+  const menuActions = [addToFolderAction];
+  if (folderId !== "-1") {
+    menuActions.push(removeFromFolderAction);
+    menuActions.push(moveToFolderAction);
+  }
+
   useActionModal({
     actions: [removeAction, completeAction],
     onReset: resetSelection,
     isMenuAction: true,
-    menuActions: [
-      { label: "Add to folder", onPress: () => setIsNavModalOpened(true) },
-      { label: "Move to folder", onPress: () => setIsNavModalOpened(true) },
-    ],
+    menuActions: menuActions,
   });
 
+  // TODO name is too long
+  const handleAddRoutinesToFolder = (folderId: string) => {
+    addRoutinesToFolder(selectedItems, folderId);
+    setIsNavModalOpened(false);
+    setIsOpen(false);
+  };
+
+  const handleRemoveRoutinesFromFolder = (folderId: string) => {
+    removeRoutinesFromFolder(selectedItems, folderId);
+    setIsNavModalOpened(false);
+    setIsOpen(false);
+  };
+
+  const navModalAction = (sfolderId: string) => {
+    if (currentMenuAction === "add") {
+      handleAddRoutinesToFolder(sfolderId);
+    } else if (currentMenuAction === "move") {
+      handleRemoveRoutinesFromFolder(folderId);
+      handleAddRoutinesToFolder(sfolderId);
+    }
+    setIsNavModalOpened(false);
+    setIsOpen(false);
+  };
   const navModalActions = folders
     .map((folder) => ({
       title: folder.name,
-      onPress: () => alert(folder.name),
+      onPress: () => navModalAction(folder.id),
       iconName: "folder-outline" as keyof typeof Ionicons.glyphMap,
     }))
     .filter((f) => f.title !== "All routines");
@@ -139,7 +190,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
           isSelectingItems={isSelecting}
           onItemSelect={toggleItem}
           onPress={redirectToUpdate}
-          data={routines.filter((r) => r.folderId === folderId)}
+          data={routines.filter((r) => r.folderIds.includes(folderId))}
           renderContent={(item) => <RoutineListItem item={item as Routine} />}
         />
       </TouchBlocker>

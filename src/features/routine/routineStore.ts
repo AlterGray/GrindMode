@@ -13,7 +13,7 @@ export const useRoutineStore = create<RoutineState>()((set) => ({
     set((state) => {
       const newRoutine: Routine = {
         id: Date.now().toString(),
-        folderId: "-1",
+        folderIds: ["-1"],
         status: "undone",
         actualDuration: 0,
         ...routine,
@@ -58,6 +58,26 @@ export const useRoutineStore = create<RoutineState>()((set) => ({
         }
         return r;
       });
+      storage.set("routines", JSON.stringify(newRoutines));
+      return { routines: newRoutines };
+    }),
+  addRoutinesToFolder: (routineIds, folderId) =>
+    set((state) => {
+      const newRoutines = state.routines.map((r) =>
+        routineIds.includes(r.id)
+          ? { ...r, folderIds: [...r.folderIds, folderId] }
+          : r,
+      );
+      storage.set("routines", JSON.stringify(newRoutines));
+      return { routines: newRoutines };
+    }),
+  removeRoutinesFromFolder: (routineIds, folderId) =>
+    set((state) => {
+      const newRoutines = state.routines.map((r) =>
+        routineIds.includes(r.id)
+          ? { ...r, folderIds: r.folderIds.filter((id) => id !== folderId) }
+          : r,
+      );
       storage.set("routines", JSON.stringify(newRoutines));
       return { routines: newRoutines };
     }),
