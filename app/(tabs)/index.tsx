@@ -1,5 +1,4 @@
 import React from "react";
-import { useRoutineStore } from "@features/routine/routineStore";
 import ScrollTabs from "@shared/ui/ScrollTabs/ScrollTabs";
 import { useFolderStore } from "@features/folder/folderStore";
 import RoutineList from "@features/routine/RoutineList";
