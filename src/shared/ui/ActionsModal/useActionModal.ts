@@ -10,6 +10,7 @@ type UseActionModalProps = {
   menuActions: PopoverMenuItem[];
 };
 
+// TODO does it ok?
 export const useActionModal = ({
   actions,
   onReset,
@@ -25,5 +26,5 @@ export const useActionModal = ({
     setActions(actions);
     setMenuActions(menuActions);
     setIsMenuAction(isMenuAction);
-  }, [isOpen]);
+  }, [isOpen, menuActions]);
 };
