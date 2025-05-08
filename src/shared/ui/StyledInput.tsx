@@ -7,8 +7,10 @@ interface StyledInputProps extends TextInputProps {
 
 const StyledInput = React.forwardRef<TextInput, StyledInputProps>(
   ({ className = "", ...props }, ref) => {
-    const baseClasses =
-      "rounded-md px-4 py-3 text-base bg-light-inputBackground text-light-inputText dark:bg-dark-inputBackground dark:text-dark-inputText";
+    const baseClasses = [
+      "shadow-md shadow-black rounded-md px-4 py-3 text-base",
+      "bg-light-inputBackground text-light-inputText dark:bg-dark-inputBackground dark:text-dark-inputText",
+    ].join(" ");
     const placeholderStyles =
       "placeholder:text-light-textSecondary placeholder:dark:text-dark-textSecondary";
 
