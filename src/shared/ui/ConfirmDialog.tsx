@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, View } from "react-native";
+import { Modal, Pressable, View } from "react-native";
 import ThemedText from "./ThemedText";
 import ThemedView from "./ThemedView";
 import StyledButton from "./StyledButton";
@@ -7,7 +7,7 @@ import StyledButton from "./StyledButton";
 type ConfirmDialogProps = {
   isVisible: boolean;
   title?: string;
-  message?: string;
+  message?: React.ReactNode;
   primaryButtonText?: string;
   secondaryButtonText?: string;
   confirmVariant?: "primary" | "secondary" | "text";
@@ -18,6 +18,9 @@ type ConfirmDialogProps = {
   onCancel: () => void;
 };
 
+// TODO rewrite with expo modal?
+// https://docs.expo.dev/router/advanced/modals/
+// TODO finish it
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   isVisible,
   title = "Are you sure?",
@@ -31,18 +34,27 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   onConfirm,
   onCancel,
 }) => {
-  const overlayStyle = "flex-1 items-center justify-center bg-black/50";
-  const containerStyle = "w-10/12 rounded-xl p-4 bg-backgroundSurface";
-  const titleStyle = "mb-1 text-base font-medium";
+  const overlayStyle =
+    "flex-1 items-center justify-center bg-slate-900/20 dark:bg-slate-200/20";
+  const containerStyle = "w-10/12 rounded-xl p-4 bg-backgroundSurface gap-2";
+  const titleStyle = "mb-1 text-base font-medium text-lg";
   const messageStyle = "mb-4 text-sm text-muted";
   const buttonRowStyle = "flex-row justify-end gap-2";
 
   return (
-    <Modal transparent visible={isVisible} animationType="fade">
-      <View className={overlayStyle}>
+    <Modal
+      transparent
+      statusBarTranslucent
+      navigationBarTranslucent
+      onRequestClose={onCancel}
+      visible={isVisible}
+      animationType="fade"
+    >
+      <Pressable onPress={onCancel} className="absolute inset-0"></Pressable>
+      <ThemedView className={overlayStyle} pointerEvents="box-none">
         <ThemedView className={containerStyle}>
           <ThemedText className={titleStyle}>{title}</ThemedText>
-          <ThemedText className={messageStyle}>{message}</ThemedText>
+          {message}
           <View className={buttonRowStyle}>
             <StyledButton
               variant={cancelVariant}
@@ -58,7 +70,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
             />
           </View>
         </ThemedView>
-      </View>
+      </ThemedView>
     </Modal>
   );
 };
