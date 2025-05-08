@@ -17,10 +17,10 @@ const ScrollTabs: React.FC<ScrollTabsProps> = ({ tabs }) => {
   return (
     <ThemedView className="flex-1">
       {tabs.length > 1 ? (
-        <ThemedView className="bg-light-backgroundSecondary px-4 dark:bg-dark-backgroundSecondary">
+        <ThemedView className="bg-light-backgroundSurface px-4 dark:bg-dark-backgroundSurface">
           <ScrollView
             horizontal
-            className="flex-grow-0 overflow-hidden px-4 dark:bg-dark-backgroundSecondary"
+            className="flex-grow-0 overflow-hidden px-4 dark:bg-dark-backgroundSurface"
           >
             {tabs.map((tab, index) => (
               <TabItem

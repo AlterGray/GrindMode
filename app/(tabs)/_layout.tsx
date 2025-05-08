@@ -19,12 +19,12 @@ const TabsLayout = () => {
     <Tabs
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: theme.background,
+          backgroundColor: theme.backgroundSurface,
           borderTopColor: theme.border,
         },
         tabBarActiveTintColor: isOpen ? iconColor : theme.tabActive,
         tabBarInactiveTintColor: isOpen ? iconColor : theme.tabInactive,
-        headerStyle: { backgroundColor: theme.backgroundSecondary },
+        headerStyle: { backgroundColor: theme.backgroundSurface },
         headerTintColor: theme.textPrimary,
       }}
     >

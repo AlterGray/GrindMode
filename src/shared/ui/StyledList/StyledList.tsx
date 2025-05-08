@@ -56,7 +56,7 @@ const StyledList: React.FC<StyledListProps> = ({
           {renderContent ? renderContent(item) : defaultRenderContent(item)}
         </StyledItem>
       )}
-      className="w-full"
+      className="w-full bg-light-background dark:bg-dark-background"
     />
   );
 };

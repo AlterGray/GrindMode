@@ -56,14 +56,14 @@ const ActionModal = () => {
     <ThemedView
       className={[
         "w-full flex-row items-center justify-between shadow-md shadow-black/40",
-        "bg-light-backgroundSecondary dark:bg-dark-backgroundSecondary",
+        "bg-light-backgroundSurface dark:bg-dark-backgroundSurface",
       ].join(" ")}
     >
       {/* Header section */}
       <ThemedView
         className={[
           "h-16 flex-row items-center justify-between gap-6",
-          "bg-light-backgroundSecondary px-4 dark:bg-dark-backgroundSecondary",
+          "bg-light-backgroundSurface px-4 dark:bg-dark-backgroundSurface",
         ].join(" ")}
       >
         {/* TODO add effect on touch */}
@@ -79,7 +79,7 @@ const ActionModal = () => {
 
       {/* Actions */}
       {resultActions.length !== 0 && (
-        <ThemedView className="flex-row gap-6 bg-light-backgroundSecondary px-4 py-2 dark:bg-dark-backgroundSecondary">
+        <ThemedView className="flex-row gap-6 bg-light-backgroundSurface px-4 py-2 dark:bg-dark-backgroundSurface">
           {resultActions.map((action) => (
             <Ionicons
               key={action.iconName}

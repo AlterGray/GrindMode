@@ -23,8 +23,8 @@ const RootLayout = () => {
   const { setColorScheme } = useColorScheme();
 
   const backgroundColor = isDark
-    ? Colors.dark.backgroundSecondary
-    : Colors.light.backgroundSecondary;
+    ? Colors.dark.backgroundSurface
+    : Colors.light.backgroundSurface;
 
   useEffect(() => {
     if (loaded) {

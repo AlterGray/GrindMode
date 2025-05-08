@@ -29,7 +29,7 @@ const PopoverMenu: React.FC<PopoverMenuProps> = ({
       <ThemedView className={`absolute inset-0 bg-transparent`}>
         <ThemedView
           style={{ top: position.y, left: position.x }}
-          className={`w-1/2 gap-1 bg-light-backgroundSecondary p-2`}
+          className={`w-1/2 gap-1 bg-light-backgroundSurface p-2`}
         >
           {items.map((item) => (
             <StyledButton
