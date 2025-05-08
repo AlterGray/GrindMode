@@ -115,7 +115,10 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   };
   const addToFolderAction = {
     label: "Add to folder",
-    onPress: () => setIsNavModalOpened(true),
+    onPress: () => {
+      setCurrentMenuAction("add");
+      setIsNavModalOpened(true);
+    },
   };
   const moveToFolderAction = {
     label: "Move to folder",
