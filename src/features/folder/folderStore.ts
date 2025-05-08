@@ -17,7 +17,9 @@ const getStoredFolders = () => {
   const jsonFolders = storage.getString("folders");
   const folders = jsonFolders ? JSON.parse(jsonFolders) : [];
 
-  return [{ name: "All", id: "-1" }, ...folders];
+  if (folders.length === 0) return [{ name: "All routines", id: "-1" }];
+
+  return folders;
 };
 
 // TODO does it make sense to move storage logic into separate file?
