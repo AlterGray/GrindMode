@@ -6,6 +6,7 @@ type ToggleOptionsItemProps = {
 };
 
 // TODO refactor it
+// TODO make more reusable
 const ToggleOptionsItem: React.FC<ToggleOptionsItemProps> = ({
   title,
   isSelected,
