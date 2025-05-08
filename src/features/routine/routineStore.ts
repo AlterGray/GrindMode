@@ -13,6 +13,7 @@ export const useRoutineStore = create<RoutineState>()((set) => ({
     set((state) => {
       const newRoutine: Routine = {
         id: Date.now().toString(),
+        folderId: "-1",
         status: "undone",
         actualDuration: 0,
         ...routine,

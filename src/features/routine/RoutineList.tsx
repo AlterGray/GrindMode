@@ -16,8 +16,12 @@ import ConfirmDialog from "@shared/ui/ConfirmDialog";
 import ToggleOptions from "@shared/ui/ToggleOptions/ToggleOptions";
 import React from "react";
 
+type RoutineListProps = {
+  folderId: string;
+};
+
 // TODO refactor it
-const RoutineList: React.FC = () => {
+const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [isCreateDialogOpened, setIsCreateDialogOpened] = useState(false);
   const router = useRouter();
@@ -31,7 +35,7 @@ const RoutineList: React.FC = () => {
   ];
   const [option, setOption] = useState(options[0].value);
 
-  const { setIsOpen, setText } = useActionModalStore();
+  const { setIsOpen } = useActionModalStore();
   const routines = useRoutineStore((state) => state.routines);
   const completeRoutines = useRoutineStore((state) => state.completeRoutines);
 
@@ -50,8 +54,8 @@ const RoutineList: React.FC = () => {
   };
 
   const routes = {
-    routine: "/routines/create" as const,
     folder: "/folders/create" as const,
+    routine: "/routines/create" as const,
   };
 
   const removeAction: ActionType = {
@@ -110,7 +114,7 @@ const RoutineList: React.FC = () => {
           isSelectingItems={isSelecting}
           onItemSelect={toggleItem}
           onPress={redirectToUpdate}
-          data={routines}
+          data={routines.filter((r) => r.folderId === folderId)}
           renderContent={(item) => <RoutineListItem item={item as Routine} />}
         />
       </TouchBlocker>
@@ -125,7 +129,7 @@ const RoutineList: React.FC = () => {
       <ConfirmDialog
         isVisible={isCreateDialogOpened}
         onConfirm={() => {
-          router.push(routes[option] as any);
+          router.push(routes[option]);
           setIsCreateDialogOpened(false);
         }}
         onCancel={() => setIsCreateDialogOpened(false)}
