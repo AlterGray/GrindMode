@@ -21,10 +21,11 @@ type ConfirmDialogProps = {
 // TODO rewrite with expo modal?
 // https://docs.expo.dev/router/advanced/modals/
 // TODO finish it
+// TODO make it global
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   isVisible,
   title = "Are you sure?",
-  message = "This action cannot be undone.",
+  message = <ThemedText>This action cannot be undone.</ThemedText>,
   primaryButtonText: confirmText = "Confirm",
   secondaryButtonText: cancelText = "Cancel",
   confirmVariant = "primary",
