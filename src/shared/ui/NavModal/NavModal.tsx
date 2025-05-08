@@ -31,24 +31,19 @@ const NavModal: React.FC<NavModalProps> = ({
   return (
     <Modal transparent animationType="slide" visible={isVisible}>
       <Pressable onPress={onClose} className="absolute inset-0" />
-      <ThemedView
-        className="flex-1 justify-end gap-4 bg-transparent"
-        pointerEvents="box-none"
-      >
-        <ThemedView className="w-full gap-4 bg-light-backgroundSurface px-4 py-4">
-          <ThemedText className="ml-8" variant="h4">
-            {title}
-          </ThemedText>
-          {/* // TODO create shared list item button */}
-          {actions.map((action) => (
-            <NavModalListItem
-              key={action.title}
-              onPress={action.onPress}
-              iconName={action.iconName}
-              title={action.title}
-            />
-          ))}
-        </ThemedView>
+      <ThemedView className="absolute bottom-0 w-full gap-4 bg-light-backgroundSurface px-4 py-4 dark:bg-dark-backgroundSurface">
+        <ThemedText className="ml-8" variant="h4">
+          {title}
+        </ThemedText>
+        {/* // TODO create shared list item button */}
+        {actions.map((action) => (
+          <NavModalListItem
+            key={action.title}
+            onPress={action.onPress}
+            iconName={action.iconName}
+            title={action.title}
+          />
+        ))}
       </ThemedView>
     </Modal>
   );

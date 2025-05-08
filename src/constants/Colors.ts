@@ -18,21 +18,21 @@ export const Colors = {
     selectedListItemBorder: "#cbd5e1",
 
     // BUTTON VARIANTS
-    buttonPrimaryBackground: "#64748b",
+    buttonPrimaryBackground: "#3b82f6",
     buttonPrimaryText: "#ffffff",
-    buttonPrimaryBorder: "#64748b",
+    buttonPrimaryBorder: "#3b82f6",
 
     buttonSecondaryBackground: "#e5e7eb",
     buttonSecondaryText: "#1a1a1d",
     buttonSecondaryBorder: "#cbd5e1",
 
     buttonTextBackground: "transparent",
-    buttonTextText: "#64748b",
+    buttonTextText: "#3b82f6",
     buttonTextBorder: "transparent",
 
-    buttonDangerBackground: "#fee2e2",
+    buttonDangerBackground: "#fca5a5",
     buttonDangerText: "#b91c1c",
-    buttonDangerBorder: "#fca5a5",
+    buttonDangerBorder: "#f87171",
 
     inputBackground: "#ffffff",
     inputText: "#1a1a1d",
@@ -68,9 +68,9 @@ export const Colors = {
     textAccent: "#64748b",
 
     // BACKGROUND
-    background: "#0f1115",
-    backgroundSecondary: "#1a1d22",
-    backgroundSurface: "#000000",
+    background: "#101317",
+    backgroundSecondary: "#1c1f24",
+    backgroundSurface: "#24282d",
 
     // LISTS
     listItemBackground: "#1a1d22",
@@ -79,16 +79,16 @@ export const Colors = {
     selectedListItemBorder: "#64748b",
 
     // BUTTON VARIANTS
-    buttonPrimaryBackground: "#64748b",
+    buttonPrimaryBackground: "#2563eb",
     buttonPrimaryText: "#ffffff",
-    buttonPrimaryBorder: "#64748b",
+    buttonPrimaryBorder: "#2563eb",
 
-    buttonSecondaryBackground: "#1f2937",
+    buttonSecondaryBackground: "#374151",
     buttonSecondaryText: "#e5e7eb",
-    buttonSecondaryBorder: "#374151",
+    buttonSecondaryBorder: "#4b5563",
 
     buttonTextBackground: "transparent",
-    buttonTextText: "#64748b",
+    buttonTextText: "#2563eb",
     buttonTextBorder: "transparent",
 
     buttonDangerBackground: "#7f1d1d",

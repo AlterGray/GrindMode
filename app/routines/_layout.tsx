@@ -6,7 +6,7 @@ import { useThemeStore } from "@shared/stores/themeStore";
 const RoutineLayout = () => {
   const isDark = useThemeStore((state) => state.isDark);
   const theme = isDark ? Colors.dark : Colors.light;
-  const backgroundColor = theme.backgroundSecondary;
+  const backgroundColor = theme.backgroundSurface;
   const textColor = theme.textPrimary;
 
   const screenOptions = {

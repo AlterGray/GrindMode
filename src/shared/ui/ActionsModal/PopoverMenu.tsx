@@ -1,7 +1,5 @@
 import { Modal, Pressable } from "react-native";
 import ThemedView from "../ThemedView";
-import ThemedText from "../ThemedText";
-import { useEffect, useState } from "react";
 import StyledButton from "../StyledButton";
 
 // TODO move to separate file
@@ -26,21 +24,19 @@ const PopoverMenu: React.FC<PopoverMenuProps> = ({
   return (
     <Modal transparent visible={visible} animationType="fade">
       <Pressable onPress={handleClose} className="absolute inset-0"></Pressable>
-      <ThemedView className={`absolute inset-0 bg-transparent`}>
-        <ThemedView
-          style={{ top: position.y, left: position.x }}
-          className={`w-1/2 gap-1 bg-light-backgroundSurface p-2`}
-        >
-          {items.map((item) => (
-            <StyledButton
-              key={item.label}
-              onPress={item.onPress}
-              className="bg-slate-50"
-              title={item.label}
-              variant="text"
-            />
-          ))}
-        </ThemedView>
+      <ThemedView
+        style={{ top: position.y, left: position.x }}
+        className={`w-1/2 gap-1 bg-light-backgroundSurface p-2 dark:bg-dark-backgroundSurface`}
+      >
+        {items.map((item) => (
+          <StyledButton
+            key={item.label}
+            onPress={item.onPress}
+            className="bg-slate-50"
+            title={item.label}
+            variant="text"
+          />
+        ))}
       </ThemedView>
     </Modal>
   );

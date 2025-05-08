@@ -15,6 +15,7 @@ const TabsLayout = () => {
 
   const theme = Colors[colorScheme];
 
+  // TODO make global color for all layout headers
   return (
     <Tabs
       screenOptions={{
