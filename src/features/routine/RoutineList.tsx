@@ -18,6 +18,7 @@ import React from "react";
 import NavModal from "@shared/ui/NavModal/NavModal";
 import { useFolderStore } from "@features/folder/folderStore";
 import { Ionicons } from "@expo/vector-icons";
+import FolderListItem from "@features/folder/components/FolderListItem";
 
 type RoutineListProps = {
   folderId: string;
@@ -172,6 +173,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
         onClose={() => setIsNavModalOpened(false)}
         title="Select folder"
         actions={navModalActions}
+        CustomListItem={FolderListItem}
       />
     </ThemedView>
   );

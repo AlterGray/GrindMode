@@ -52,6 +52,7 @@ const ActionModal = () => {
     }
   }, []);
 
+  // TODO rewrite with <Modal />
   return (
     <ThemedView
       className={[
