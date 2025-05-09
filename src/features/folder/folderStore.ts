@@ -10,7 +10,7 @@ type FolderState = {
   folders: Folder[];
   addFolder: (name: string) => void;
   removeFolder: (id: string) => void;
-  renameFolder: (folder: Folder) => void;
+  renameFolder: (folderId: string, name: string) => void;
 };
 
 const getStoredFolders = () => {
@@ -39,10 +39,10 @@ export const useFolderStore = create<FolderState>()((set) => ({
       storage.set("folders", JSON.stringify(folders));
       return { folders };
     }),
-  renameFolder: (folder) =>
+  renameFolder: (folderId, name) =>
     set((state) => {
       const folders = state.folders.map((f) => {
-        if (f.id === folder.id) f.name = folder.name;
+        if (f.id === folderId) f.name = name;
         return f;
       });
       storage.set("folders", JSON.stringify(folders));
