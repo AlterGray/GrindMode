@@ -128,6 +128,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     },
   };
 
+  // TOOD FIX IT, IF WE DON'T USE MEMO THEN APP CRASHES, REALLY CONFUSING WHEN FORGETTING ABOUT IT
   const menuActions = React.useMemo(() => {
     const actions = [addToFolderAction];
 

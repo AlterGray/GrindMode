@@ -2,16 +2,19 @@ import ThemedView from "../ThemedView";
 import { ScrollView } from "react-native";
 import { useState } from "react";
 import TabItem from "./TabItem";
+import { PopoverMenuItem } from "../ActionsModal/PopoverMenu";
 
 // TODO improve to make using is easy and consice
 type ScrollTabsProps = {
   tabs: {
     title: string;
     content: React.ReactNode;
+    menuItems: PopoverMenuItem[];
   }[];
+  onCloseTab: (index: number) => void;
 };
 
-const ScrollTabs: React.FC<ScrollTabsProps> = ({ tabs }) => {
+const ScrollTabs: React.FC<ScrollTabsProps> = ({ tabs, onCloseTab }) => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
   return (
@@ -28,6 +31,8 @@ const ScrollTabs: React.FC<ScrollTabsProps> = ({ tabs }) => {
                 title={tab.title}
                 isActive={selectedTabIndex === index}
                 onPress={() => setSelectedTabIndex(index)}
+                onClose={() => onCloseTab(index)}
+                menuItems={tab.menuItems}
               />
             ))}
           </ScrollView>
