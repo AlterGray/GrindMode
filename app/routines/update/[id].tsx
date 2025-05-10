@@ -30,6 +30,7 @@ const EditRoutine: React.FC = () => {
       expectedDuration: routine.expectedDuration,
       days: routine.days,
       actualDuration: 0,
+      folderIds: editingRoutine.folderIds,
     });
 
     router.back();
