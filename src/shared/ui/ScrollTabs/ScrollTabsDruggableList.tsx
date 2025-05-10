@@ -17,7 +17,7 @@ type Item = {
 };
 
 // TODO pass just array?
-type CustomDruggableListProps = {
+type ScrollTabsDruggableListProps = {
   items: Item[];
   onDragEnd: (item: DragEndParams<Item>) => void;
   isReordering: boolean;
@@ -26,13 +26,13 @@ type CustomDruggableListProps = {
 };
 
 // TODO extract draggable list into separate component
-const CustomDruggableList = ({
+const ScrollTabsDruggableList = ({
   items,
   onDragEnd,
   isReordering,
   onPress,
   onClose,
-}: CustomDruggableListProps) => {
+}: ScrollTabsDruggableListProps) => {
   const renderItem = ({ item, drag }: RenderItemParams<Item>) => {
     return (
       <OpacityDecorator activeOpacity={0.8}>
@@ -65,4 +65,4 @@ const CustomDruggableList = ({
   );
 };
 
-export default CustomDruggableList;
+export default ScrollTabsDruggableList;
