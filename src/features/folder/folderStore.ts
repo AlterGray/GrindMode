@@ -4,20 +4,24 @@ import { create } from "zustand";
 type Folder = {
   id: string;
   name: string;
+  order: number;
 };
 
+// TODO handle or restrict same orders
 type FolderState = {
   folders: Folder[];
   addFolder: (name: string) => void;
   removeFolder: (id: string) => void;
   renameFolder: (folderId: string, name: string) => void;
+  setFolders: (folders: Folder[]) => void;
 };
 
 const getStoredFolders = () => {
   const jsonFolders = storage.getString("folders");
   const folders = jsonFolders ? JSON.parse(jsonFolders) : [];
 
-  if (folders.length === 0) return [{ name: "All routines", id: "-1" }];
+  if (folders.length === 0)
+    return [{ name: "All routines", id: "-1", order: -1 }];
 
   return folders;
 };
@@ -28,7 +32,11 @@ export const useFolderStore = create<FolderState>()((set) => ({
   addFolder: (name) =>
     set((state) => {
       const id = Date.now().toString();
-      const addedFolder = { id, name };
+      const addedFolder = {
+        id,
+        name,
+        order: state.folders.length,
+      };
       const folders = [...state.folders, addedFolder];
       storage.set("folders", JSON.stringify(folders));
       return { folders };
@@ -45,6 +53,11 @@ export const useFolderStore = create<FolderState>()((set) => ({
         if (f.id === folderId) f.name = name;
         return f;
       });
+      storage.set("folders", JSON.stringify(folders));
+      return { folders };
+    }),
+  setFolders: (folders) =>
+    set(() => {
       storage.set("folders", JSON.stringify(folders));
       return { folders };
     }),

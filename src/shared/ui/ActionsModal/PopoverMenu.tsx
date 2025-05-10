@@ -31,6 +31,7 @@ const PopoverMenu: React.FC<PopoverMenuProps> = ({
         {items.map((item) => (
           <StyledButton
             key={item.label}
+            // TODO also close menu when action is pressed
             onPress={item.onPress}
             className="bg-slate-50"
             title={item.label}

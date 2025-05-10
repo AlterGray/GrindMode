@@ -3,7 +3,6 @@ import ThemedText from "../ThemedText";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { useRef, useState } from "react";
-import ConfirmDialog from "../ConfirmDialog";
 import PopoverMenu, { PopoverMenuItem } from "../ActionsModal/PopoverMenu";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
@@ -13,7 +12,9 @@ type TabItemProps = {
   isActive: boolean;
   onPress: () => void;
   onClose: () => void;
+  isReordering: boolean;
   menuItems: PopoverMenuItem[];
+  onLongPress: () => void;
 };
 
 const TabItem: React.FC<TabItemProps> = ({
@@ -21,14 +22,15 @@ const TabItem: React.FC<TabItemProps> = ({
   isActive,
   onPress,
   onClose,
+  isReordering,
   menuItems,
+  onLongPress,
 }) => {
   // TODO get actual values
   const MENU_WIDTH = 210;
   const MENU_HEIGHT = 200;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const buttonRef = useRef<View>(null);
 
   const [menuPosition, setMenuPosition] = useState<{ x: number; y: number }>({
@@ -80,10 +82,22 @@ const TabItem: React.FC<TabItemProps> = ({
       <Pressable
         ref={buttonRef}
         onPress={onPress}
-        onLongPress={openMenu}
+        onLongPress={isReordering ? onLongPress : openMenu}
         className="gap-1 rounded-md px-4 py-4 active:bg-light-highlight active:opacity-80 active:dark:bg-dark-highlight"
       >
         <ThemedText>{title}</ThemedText>
+
+        {isReordering && (
+          <View className="absolute right-0">
+            <Ionicons
+              name="close-circle"
+              size={22}
+              color={Colors.light.icon}
+              onPress={onClose}
+              className="relative w-full"
+            />
+          </View>
+        )}
 
         <View
           className={`m-auto h-1 w-1/2 rounded-md ${
@@ -100,12 +114,6 @@ const TabItem: React.FC<TabItemProps> = ({
           position={menuPosition}
         />
       )}
-
-      <ConfirmDialog
-        isVisible={isDialogOpen}
-        onCancel={() => setIsDialogOpen(false)}
-        onConfirm={onClose}
-      />
     </View>
   );
 };
