@@ -24,7 +24,6 @@ type ScrollTabsProps = {
   isReordering: boolean;
   onCloseTab: (index: string) => void;
   onDragEnd: (item: DragEndParams<Item>) => void;
-  isActive: boolean;
 };
 
 const ScrollTabs: React.FC<ScrollTabsProps> = ({
