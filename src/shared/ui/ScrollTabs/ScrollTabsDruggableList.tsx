@@ -23,6 +23,7 @@ type ScrollTabsDruggableListProps = {
   isReordering: boolean;
   onPress: (index: string) => void;
   onClose: (index: string) => void;
+  selectedTab: string;
 };
 
 // TODO extract draggable list into separate component
@@ -32,13 +33,14 @@ const ScrollTabsDruggableList = ({
   isReordering,
   onPress,
   onClose,
+  selectedTab,
 }: ScrollTabsDruggableListProps) => {
   const renderItem = ({ item, drag }: RenderItemParams<Item>) => {
     return (
       <OpacityDecorator activeOpacity={0.8}>
         <ScaleDecorator activeScale={0.85}>
           <TabItem
-            isActive={false}
+            isActive={selectedTab === item.id}
             isReordering={isReordering}
             menuItems={item.menuItems}
             title={item.title}

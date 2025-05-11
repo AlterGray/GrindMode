@@ -24,6 +24,7 @@ type ScrollTabsProps = {
   isReordering: boolean;
   onCloseTab: (index: string) => void;
   onDragEnd: (item: DragEndParams<Item>) => void;
+  isActive: boolean;
 };
 
 const ScrollTabs: React.FC<ScrollTabsProps> = ({
@@ -44,6 +45,7 @@ const ScrollTabs: React.FC<ScrollTabsProps> = ({
             isReordering={isReordering}
             onPress={setSelectedTab}
             onClose={onCloseTab}
+            selectedTab={selectedTab}
           />
         </ThemedView>
       ) : null}

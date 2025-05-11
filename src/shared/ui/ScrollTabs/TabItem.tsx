@@ -99,11 +99,13 @@ const TabItem: React.FC<TabItemProps> = ({
           </View>
         )}
 
-        <View
-          className={`m-auto h-1 w-1/2 rounded-md ${
-            isActive && "bg-light-tabActive dark:bg-dark-tabActive"
-          }`}
-        />
+        {isActive && (
+          <View
+            className={
+              "m-auto h-1 w-1/2 rounded-sm bg-light-tabActive dark:bg-dark-tabActive"
+            }
+          />
+        )}
       </Pressable>
 
       {menuItems.length > 0 && (
