@@ -188,11 +188,6 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     },
   });
 
-  // const handleClose = () => {
-  //   closeModal();
-  //   // resetSelection();
-  // };
-
   return (
     <ThemedView className="flex-1 items-center justify-center">
       <TouchBlocker>
@@ -207,7 +202,6 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
               [removeAction, completeAction],
               true,
               menuActions,
-              // closeModal,
               resetSelection,
             );
           }}
