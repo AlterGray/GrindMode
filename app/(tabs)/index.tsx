@@ -50,7 +50,7 @@ const Index = () => {
     menuItems.push({
       label: "Reorder",
       onPress: () => {
-        openModal("Reorder items", actions, false, [], () => {
+        setActionModal(true, "Reorder items", actions, false, [], () => {
           setIsReordering(false);
         });
         setIsReordering(true);
@@ -80,7 +80,7 @@ const Index = () => {
     })
     .filter((i) => i !== undefined);
 
-  const openModal = useActionModalStore((state) => state.openModal);
+  const setActionModal = useActionModalStore((state) => state.setActionModal);
   const closeModal = useActionModalStore((state) => state.closeModal);
 
   const actions = [

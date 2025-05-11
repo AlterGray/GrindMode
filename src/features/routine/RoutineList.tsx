@@ -32,7 +32,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const pathName = usePathname();
   const [isConfirmDialogOpened, setIsConfirmDialogOpened] = useState(false);
   const [isNavModalOpened, setIsNavModalOpened] = useState(false);
-  const openModal = useActionModalStore((state) => state.openModal);
+  const setActionModal = useActionModalStore((state) => state.setActionModal);
   const closeModal = useActionModalStore((state) => state.closeModal);
   const folders = useFolderStore((state) => state.folders);
 
@@ -43,7 +43,6 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   ];
   const [option, setOption] = useState(options[0].value);
 
-  const { setText } = useActionModalStore();
   const routines = useRoutineStore((state) => state.routines);
   const completeRoutines = useRoutineStore((state) => state.completeRoutines);
   const addRoutinesToFolder = useRoutineStore(
@@ -202,7 +201,8 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
           selectedIds={selectedRoutines}
           startSelectingItems={(id) => {
             startSelecting(id);
-            openModal(
+            setActionModal(
+              true,
               `1 items selected`,
               [removeAction, completeAction],
               true,
@@ -213,8 +213,11 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
           }}
           isSelectingItems={isSelecting}
           onItemSelect={(id) => {
+            setActionModal(
+              true,
+              `${selectedItemsRef.current.length} items selected`,
+            );
             toggleItem(id);
-            setText(`${selectedItemsRef.current.length} items selected`); // TODO wrong number FIX IT
           }}
           onPress={redirectToUpdate}
           data={routines.filter((r) => r.folderIds.includes(folderId))}

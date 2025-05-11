@@ -5,17 +5,13 @@ import { PopoverMenuItem } from "./PopoverMenu";
 type ActionModalStore = {
   isOpen: boolean;
   text: string;
-  setText: (text: string) => void;
   actions: ActionType[];
   isMenuAction: boolean;
-  setIsMenuAction: (isMenuAction: boolean) => void;
   menuActions: PopoverMenuItem[];
-  setMenuActions: (menuActions: PopoverMenuItem[]) => void;
-  setActions: (actions: ActionType[]) => void;
   closeModal: () => void;
   onCloseDialog: () => void;
-  setOnCloseDialog: (action: () => void) => void;
-  openModal: (
+  setActionModal: (
+    isOpen?: boolean,
     text?: string,
     actions?: ActionType[],
     isMenuAction?: boolean,
@@ -28,26 +24,10 @@ type ActionModalStore = {
 export const useActionModalStore = create<ActionModalStore>()((set, get) => ({
   isOpen: false,
   text: "",
-  setText: (text) => set(() => ({ text })),
   actions: [],
   isMenuAction: false,
-  setIsMenuAction: (isMenuAction) => set(() => ({ isMenuAction })),
   menuActions: [],
-  setMenuActions: (menuActions) => set(() => ({ menuActions })),
-  setActions: (actions) => set(() => ({ actions })),
   onCloseDialog: () => {},
-  setOnCloseDialog: (action) => set(() => ({ onCloseDialog: action })),
-  // TODO use partial update
-  openModal: (text, actions, isMenuAction, menuActions, onCloseDialog) => {
-    set((state) => ({
-      isOpen: true,
-      text: text ?? state.text,
-      actions: actions ?? state.actions,
-      isMenuAction: isMenuAction ?? state.isMenuAction,
-      menuActions: menuActions ?? state.menuActions,
-      onCloseDialog: onCloseDialog ?? state.onCloseDialog,
-    }));
-  },
   closeModal: () => {
     const { onCloseDialog } = get();
     onCloseDialog?.(); // Call the callback before closing
@@ -58,6 +38,24 @@ export const useActionModalStore = create<ActionModalStore>()((set, get) => ({
       isMenuAction: false,
       menuActions: [],
       onCloseDialog: () => {},
+    }));
+  },
+  // TODO use partial update
+  setActionModal: (
+    isOpen,
+    text,
+    actions,
+    isMenuAction,
+    menuActions,
+    onCloseDialog,
+  ) => {
+    set((state) => ({
+      isOpen: isOpen ?? state.isOpen,
+      text: text ?? state.text,
+      actions: actions ?? state.actions,
+      isMenuAction: isMenuAction ?? state.isMenuAction,
+      menuActions: menuActions ?? state.menuActions,
+      onCloseDialog: onCloseDialog ?? state.onCloseDialog,
     }));
   },
 }));
