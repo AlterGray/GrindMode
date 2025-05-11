@@ -5,7 +5,6 @@ import RoutineListItem from "./RoutineListItem";
 import { Routine } from "./routineTypes";
 import CreateButton from "@shared/ui/CreateButton";
 import RemoveRoutineDialog from "./RemoveRoutineDialog";
-import { useActionModal } from "@shared/ui/ActionsModal/useActionModal";
 import { useEffect, useState } from "react";
 import { useRoutineStore } from "./routineStore";
 import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
@@ -22,6 +21,7 @@ import FolderListItem from "@features/folder/components/FolderListItem";
 
 type RoutineListProps = {
   folderId: string;
+  setIsReordering: (isReordering: boolean) => void;
 };
 
 // TODO refactor it
@@ -32,6 +32,8 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const pathName = usePathname();
   const [isConfirmDialogOpened, setIsConfirmDialogOpened] = useState(false);
   const [isNavModalOpened, setIsNavModalOpened] = useState(false);
+  const openModal = useActionModalStore((state) => state.openModal);
+  const closeModal = useActionModalStore((state) => state.closeModal);
   const folders = useFolderStore((state) => state.folders);
 
   type Option = "folder" | "routine";
@@ -41,7 +43,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   ];
   const [option, setOption] = useState(options[0].value);
 
-  const { setIsOpen } = useActionModalStore();
+  const { setText } = useActionModalStore();
   const routines = useRoutineStore((state) => state.routines);
   const completeRoutines = useRoutineStore((state) => state.completeRoutines);
   const addRoutinesToFolder = useRoutineStore(
@@ -79,7 +81,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const completeAction: ActionType = {
     onPress: () => {
       completeRoutines(selectedItemsRef.current);
-      setIsOpen(false);
+      closeModal();
       resetSelection();
     },
     iconName: "checkmark",
@@ -90,7 +92,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const removeRoutines = useRoutineStore((state) => state.removeRoutines);
   const onConfirm = () => {
     removeRoutines(selectedRoutines);
-    setIsOpen(false);
+    closeModal();
     setIsConfirmDialogOpened(false);
     resetSelection();
   };
@@ -140,23 +142,16 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     return actions;
   }, [selectedRoutines.length]);
 
-  useActionModal({
-    actions: [removeAction, completeAction],
-    onReset: resetSelection,
-    isMenuAction: true,
-    menuActions: menuActions,
-  });
-
   // TODO name is too long
   const handleAddRoutinesToFolder = (folderId: string) => {
     addRoutinesToFolder(selectedRoutines, folderId);
     setIsNavModalOpened(false);
-    setIsOpen(false);
+    closeModal();
   };
 
   const closeDialogs = () => {
     setIsNavModalOpened(false);
-    setIsOpen(false);
+    closeModal();
   };
 
   const handleRemoveRoutinesFromFolder = (
@@ -200,17 +195,27 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
         {/* TODO does it ok? */}
         <StyledList
           selectedIds={selectedRoutines}
-          startSelectingItems={startSelecting}
+          startSelectingItems={(id) => {
+            startSelecting(id);
+            openModal(
+              `1 items selected`,
+              [removeAction, completeAction],
+              true,
+              menuActions,
+              resetSelection,
+            );
+          }}
           isSelectingItems={isSelecting}
-          onItemSelect={toggleItem}
+          onItemSelect={(id) => {
+            toggleItem(id);
+            setText(`${selectedItemsRef.current.length} items selected`); // TODO wrong number FIX IT
+          }}
           onPress={redirectToUpdate}
           data={routines.filter((r) => r.folderIds.includes(folderId))}
           renderContent={(item) => <RoutineListItem item={item as Routine} />}
         />
       </TouchBlocker>
-
       <CreateButton onPress={() => setIsCreateDialogOpened(true)} />
-
       <RemoveRoutineDialog
         isOpen={isConfirmDialogOpened}
         onConfirm={onConfirm}
@@ -240,6 +245,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
         actions={navModalActions}
         CustomListItem={FolderListItem}
       />
+      Cannot find name 'get'.ts(2304)
     </ThemedView>
   );
 };

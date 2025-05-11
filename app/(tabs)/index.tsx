@@ -6,7 +6,6 @@ import ConfirmDialog from "@shared/ui/ConfirmDialog";
 import ThemedText from "@shared/ui/ThemedText";
 import { View } from "react-native";
 import StyledInput from "@shared/ui/StyledInput";
-import { useActionModal } from "@shared/ui/ActionsModal/useActionModal";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { PopoverMenuItem } from "@shared/ui/ActionsModal/PopoverMenu";
 
@@ -51,7 +50,9 @@ const Index = () => {
     menuItems.push({
       label: "Reorder",
       onPress: () => {
-        setIsOpen(true);
+        openModal("Reorder items", actions, false, [], () => {
+          setIsReordering(false);
+        });
         setIsReordering(true);
       },
     });
@@ -68,32 +69,26 @@ const Index = () => {
           id: folder.id,
           title: folder.name,
           order: folder.order,
-          content: <RoutineList folderId={folder.id} />,
+          content: (
+            <RoutineList
+              folderId={folder.id}
+              setIsReordering={setIsReordering}
+            />
+          ),
           menuItems: getMenuItems(folder.id),
         };
     })
     .filter((i) => i !== undefined);
 
-  const { setIsOpen } = useActionModalStore();
+  const openModal = useActionModalStore((state) => state.openModal);
+  const closeModal = useActionModalStore((state) => state.closeModal);
 
   const actions = [
     {
       iconName: "checkmark" as const,
-      onPress: () => setIsOpen(false),
+      onPress: closeModal,
     },
   ];
-
-  // const qq = useMemo(() => actions, [reorderedFolders.length]);
-
-  // TODO too much modals, hard to close it(from user perspective)
-  // TODO use header for this
-  // TODO FIX IT, IF WE DON'T USE MEMO THEN APP CRASHES, REALLY CONFUSING WHEN FORGETTING ABOUT IT
-  useActionModal({
-    actions: actions,
-    isMenuAction: false,
-    menuActions: useMemo(() => [], []),
-    onReset: () => setIsReordering(false),
-  });
 
   return (
     <>
@@ -115,7 +110,10 @@ const Index = () => {
           }}
         />
       ) : (
-        <RoutineList folderId={"-1"} />
+        <RoutineList
+          folderId={"-1"}
+          setIsReordering={() => setIsReordering(false)}
+        />
       )}
 
       {/* // TODO MOVE it to children component? */}

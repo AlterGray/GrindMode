@@ -12,15 +12,8 @@ import { ActionType } from "./actionModalTypes";
 import { View } from "react-native";
 
 const ActionModal = () => {
-  const {
-    isOpen,
-    setIsOpen,
-    text,
-    actions,
-    isMenuAction,
-    menuActions,
-    onCloseDialog,
-  } = useActionModalStore();
+  const { isOpen, closeModal, text, actions, isMenuAction, menuActions } =
+    useActionModalStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isDark = useThemeStore((state) => state.isDark);
   const menuButtonRef = useRef<View>(null);
@@ -32,12 +25,6 @@ const ActionModal = () => {
     iconName: "ellipsis-vertical",
   };
   const resultActions = [...actions];
-
-  useEffect(() => {
-    if (!isOpen) {
-      onCloseDialog();
-    }
-  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -53,6 +40,7 @@ const ActionModal = () => {
   }, []);
 
   // TODO rewrite with <Modal />
+  // TODO use router stack?
   return (
     <ThemedView
       className={[
@@ -70,7 +58,7 @@ const ActionModal = () => {
         {/* TODO add effect on touch */}
         <IconButton
           iconName="close-outline"
-          onPress={() => setIsOpen(false)}
+          onPress={closeModal}
           color={iconColor}
         />
         {text && (
@@ -104,6 +92,7 @@ const ActionModal = () => {
         </ThemedView>
       )}
       {/* TODO rename in other place(like onClose for handleClose)? */}
+      {/* TODO hardcoded position */}
       <PopoverMenu
         visible={isMenuOpen}
         handleClose={() => setIsMenuOpen(false)}
