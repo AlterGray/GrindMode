@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-export const useSelectableItems = () => {
+export const useSelectableItems = (onClose: () => void) => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [isSelecting, setIsSelecting] = useState(false);
   const selectedItemsRef = useRef<string[]>([]);
@@ -24,7 +24,10 @@ export const useSelectableItems = () => {
       : [...selectedItems, id];
 
     setSelectedItems(newItems);
-    if (newItems.length === 0) resetSelection();
+    if (newItems.length === 0) {
+      onClose();
+      resetSelection();
+    }
   };
 
   const resetSelection = () => {

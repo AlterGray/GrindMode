@@ -36,6 +36,7 @@ const PopoverMenu: React.FC<PopoverMenuProps> = ({
               item.onPress();
               handleClose();
             }}
+            // TODO update color
             className="bg-slate-50"
             title={item.label}
             variant="text"

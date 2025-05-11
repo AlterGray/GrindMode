@@ -24,6 +24,7 @@ type ActionModalStore = {
   ) => void;
 };
 
+// TODO keep only open/update/close?
 export const useActionModalStore = create<ActionModalStore>()((set, get) => ({
   isOpen: false,
   text: "",

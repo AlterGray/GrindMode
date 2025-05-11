@@ -62,7 +62,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     selectedItemsRef,
     startSelecting,
     toggleItem,
-  } = useSelectableItems();
+  } = useSelectableItems(closeModal);
 
   const redirectToUpdate = (id: string) => {
     setIsRedirecting(true);
@@ -81,7 +81,6 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const completeAction: ActionType = {
     onPress: () => {
       completeRoutines(selectedItemsRef.current);
-      closeModal();
       resetSelection();
     },
     iconName: "checkmark",
