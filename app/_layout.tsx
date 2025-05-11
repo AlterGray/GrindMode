@@ -10,6 +10,7 @@ import { Colors } from "../src/constants/Colors";
 import { useColorScheme } from "nativewind";
 
 import "../global.css";
+import ConfirmDialog from "@shared/ui/ConfirmDialog/ConfirmDialog";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -58,6 +59,7 @@ const RootLayout = () => {
       >
         <Stack.Screen name="(tabs)" />
       </Stack>
+      <ConfirmDialog />
     </ThemeProvider>
   );
 };

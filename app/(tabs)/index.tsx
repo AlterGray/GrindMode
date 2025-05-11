@@ -1,28 +1,33 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import ScrollTabs from "@shared/ui/ScrollTabs/ScrollTabs";
 import { useFolderStore } from "@features/folder/folderStore";
 import RoutineList from "@features/routine/RoutineList";
-import ConfirmDialog from "@shared/ui/ConfirmDialog";
+import ConfirmDialog from "@shared/ui/ConfirmDialog/ConfirmDialog";
 import ThemedText from "@shared/ui/ThemedText";
 import { View } from "react-native";
 import StyledInput from "@shared/ui/StyledInput";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { PopoverMenuItem } from "@shared/ui/ActionsModal/PopoverMenu";
+import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
 
 // TODO
 const Index = () => {
   const folders = useFolderStore((state) => state.folders);
   const removeFolder = useFolderStore((state) => state.removeFolder);
   const renameFolder = useFolderStore((state) => state.renameFolder);
-  const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
-  const [isRenameDialogOpen, setIsRenameDialogOpen] = useState(false);
   const [folderId, setFolderId] = useState("");
   const [folderName, setFolderName] = useState("");
   const [isReordering, setIsReordering] = useState(false);
   const setFolders = useFolderStore((state) => state.setFolders);
+  const setConfirmDialog = useConfirmDialogStore(
+    (state) => state.setConfirmDialog,
+  );
+  const closeConfirmDialog = useConfirmDialogStore(
+    (state) => state.closeConfirmModal,
+  );
 
   const handleRemoveFolder = (folderId: string) => {
-    setIsRemoveDialogOpen(false);
+    closeConfirmDialog();
     removeFolder(folderId);
   };
 
@@ -35,14 +40,14 @@ const Index = () => {
           // TODO when remove folder which is active then app crashes
           label: "Delete folder",
           onPress: () => {
-            setIsRemoveDialogOpen(true);
+            openRemoveDialog();
             setFolderId(folderId2);
           },
         },
         {
           label: "Rename folder",
           onPress: () => {
-            setIsRenameDialogOpen(true);
+            openRenameDialog();
             setFolderId(folderId2);
           },
         },
@@ -90,6 +95,38 @@ const Index = () => {
     },
   ];
 
+  const openRenameDialog = () => {
+    /* TODO add animation for routine list even if a few items there */
+    setConfirmDialog({
+      isOpen: true,
+      title: "Rename folder",
+      message: (
+        <View>
+          <StyledInput placeholder="Folder name" onChangeText={setFolderName} />
+        </View>
+      ),
+      onCancel: closeConfirmDialog,
+      onConfirm: () => {
+        renameFolder(folderId, folderName);
+        closeConfirmDialog();
+      },
+      primaryColor: "primary",
+    });
+  };
+
+  const openRemoveDialog = () => {
+    setConfirmDialog({
+      isOpen: true,
+      title: "Remove folder",
+      message: (
+        <ThemedText>Are you sure you want to remove this folder?</ThemedText>
+      ),
+      primaryButtonText: "Remove",
+      onCancel: closeConfirmDialog,
+      onConfirm: () => handleRemoveFolder(folderId),
+    });
+  };
+
   return (
     <>
       {isFoldersExists ? (
@@ -97,7 +134,7 @@ const Index = () => {
           tabs={tabs}
           onCloseTab={(id) => {
             setFolderId(id);
-            setIsRemoveDialogOpen(true);
+            openRemoveDialog();
           }}
           isReordering={isReordering}
           onDragEnd={(item) => {
@@ -115,39 +152,6 @@ const Index = () => {
           setIsReordering={() => setIsReordering(false)}
         />
       )}
-
-      {/* // TODO MOVE it to children component? */}
-      <ConfirmDialog
-        isVisible={isRemoveDialogOpen}
-        onCancel={() => setIsRemoveDialogOpen(false)}
-        onConfirm={() => handleRemoveFolder(folderId)}
-        title="Remove folder"
-        message={
-          <ThemedText>
-            "Are you sure you want to remove this folder?"
-          </ThemedText>
-        }
-      />
-      {/* TODO make it global */}
-      {/* TODO add animation for routine list even if a few items there */}
-      <ConfirmDialog
-        isVisible={isRenameDialogOpen}
-        onCancel={() => setIsRenameDialogOpen(false)}
-        onConfirm={() => {
-          renameFolder(folderId, folderName);
-          setIsRenameDialogOpen(false);
-        }}
-        title="Rename folder"
-        message={
-          <View>
-            <StyledInput
-              placeholder="Folder name"
-              onChangeText={setFolderName}
-            />
-          </View>
-        }
-        primaryButtonColor="primary"
-      />
     </>
   );
 };

@@ -1,0 +1,22 @@
+import React from "react";
+import DefaultMessage from "./DefaultMessage";
+
+const DEFAULT_TITLE = "Are you sure?";
+const DEFAULT_MESSAGE = React.createElement(DefaultMessage);
+const DEFAULT_PRIMARY_BUTTON_TEXT = "Confirm";
+const DEFAULT_SECONDARY_BUTTON_TEXT = "Cancel";
+const DEFAULT_PRIMARY_VARIANT = "primary";
+const DEFAULT_SECONDARY_VARIANT = "text";
+const DEFAULT_PRIMARY_COLOR = "danger";
+const DEFAULT_SECONDARY_COLOR = "secondary";
+
+export {
+  DEFAULT_TITLE,
+  DEFAULT_MESSAGE,
+  DEFAULT_PRIMARY_BUTTON_TEXT,
+  DEFAULT_SECONDARY_BUTTON_TEXT,
+  DEFAULT_PRIMARY_VARIANT,
+  DEFAULT_SECONDARY_VARIANT,
+  DEFAULT_PRIMARY_COLOR,
+  DEFAULT_SECONDARY_COLOR,
+};

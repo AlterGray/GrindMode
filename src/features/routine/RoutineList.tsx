@@ -4,20 +4,20 @@ import TouchBlocker from "@shared/ui/TouchBlocker";
 import RoutineListItem from "./RoutineListItem";
 import { Routine } from "./routineTypes";
 import CreateButton from "@shared/ui/CreateButton";
-import RemoveRoutineDialog from "./RemoveRoutineDialog";
 import { useEffect, useState } from "react";
 import { useRoutineStore } from "./routineStore";
 import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
 import { useSelectableItems } from "@shared/hooks/useSelectableItems";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { usePathname, useRouter } from "expo-router";
-import ConfirmDialog from "@shared/ui/ConfirmDialog";
 import ToggleOptions from "@shared/ui/ToggleOptions/ToggleOptions";
 import React from "react";
 import NavModal from "@shared/ui/NavModal/NavModal";
 import { useFolderStore } from "@features/folder/folderStore";
 import { Ionicons } from "@expo/vector-icons";
 import FolderListItem from "@features/folder/components/FolderListItem";
+import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
+import ThemedText from "@shared/ui/ThemedText";
 
 type RoutineListProps = {
   folderId: string;
@@ -27,14 +27,18 @@ type RoutineListProps = {
 // TODO refactor it
 const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const [isCreateDialogOpened, setIsCreateDialogOpened] = useState(false);
   const router = useRouter();
   const pathName = usePathname();
-  const [isConfirmDialogOpened, setIsConfirmDialogOpened] = useState(false);
   const [isNavModalOpened, setIsNavModalOpened] = useState(false);
   const setActionModal = useActionModalStore((state) => state.setActionModal);
   const closeModal = useActionModalStore((state) => state.closeModal);
   const folders = useFolderStore((state) => state.folders);
+  const setConfirmDialog = useConfirmDialogStore(
+    (state) => state.setConfirmDialog,
+  );
+  const closeConfirmModal = useConfirmDialogStore(
+    (state) => state.closeConfirmModal,
+  );
 
   type Option = "folder" | "routine";
   const options: { label: string; value: Option }[] = [
@@ -74,7 +78,23 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   };
 
   const removeAction: ActionType = {
-    onPress: () => setIsConfirmDialogOpened(true),
+    onPress: () => {
+      setConfirmDialog({
+        isOpen: true,
+        title: "Remove routine",
+        message: (
+          <ThemedText>Are you sure you want to remove this routine?</ThemedText>
+        ),
+        primaryColor: "danger",
+        primaryButtonText: "Remove",
+        secondaryColor: "secondary",
+        onConfirm: () => {
+          removeRoutines(selectedRoutines);
+          closeConfirmModal();
+        },
+        onCancel: () => closeConfirmModal(),
+      });
+    },
     iconName: "trash-outline",
   };
   const completeAction: ActionType = {
@@ -92,7 +112,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const onConfirm = () => {
     removeRoutines(selectedRoutines);
     closeModal();
-    setIsConfirmDialogOpened(false);
+    closeConfirmModal();
     resetSelection();
   };
 
@@ -218,13 +238,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
           renderContent={(item) => <RoutineListItem item={item as Routine} />}
         />
       </TouchBlocker>
-      <CreateButton onPress={() => setIsCreateDialogOpened(true)} />
-      <RemoveRoutineDialog
-        isOpen={isConfirmDialogOpened}
-        onConfirm={onConfirm}
-        onCancel={() => setIsConfirmDialogOpened(false)}
-      />
-      <ConfirmDialog
+      {/* <ConfirmDialog
         isVisible={isCreateDialogOpened}
         onConfirm={() => {
           router.push(routes[option]);
@@ -240,6 +254,27 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
         }
         primaryButtonColor="primary"
         primaryButtonText="Create"
+      /> */}
+      <CreateButton
+        onPress={() => {
+          setConfirmDialog({
+            isOpen: true,
+            title: "Select what you want to create",
+            message: (
+              <ToggleOptions
+                options={options}
+                onChange={(option) => setOption(option as Option)}
+              />
+            ),
+            primaryButtonText: "Create",
+            primaryColor: "primary",
+            onConfirm: () => {
+              router.push(routes[option]);
+              closeConfirmModal();
+            },
+            onCancel: () => closeConfirmModal(),
+          });
+        }}
       />
       <NavModal
         isVisible={isNavModalOpened}
