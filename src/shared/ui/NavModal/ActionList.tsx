@@ -7,11 +7,14 @@ export type Action = {
   title: string;
   onPress: () => void;
   iconName?: keyof typeof Ionicons.glyphMap;
+  isMarked?: boolean;
 };
+
 type ListItemProps = {
   title: string;
   onPress: () => void;
   iconName?: keyof typeof Ionicons.glyphMap;
+  isMarked?: boolean;
 };
 
 type ActionListProps = {
@@ -36,6 +39,7 @@ const ActionList: React.FC<ActionListProps> = ({ actions, CustomListItem }) => (
           onPress={action.onPress}
           iconName={action.iconName}
           title={action.title}
+          isMarked={action.isMarked}
         />
       ),
     )}

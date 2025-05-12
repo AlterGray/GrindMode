@@ -23,7 +23,6 @@ type NavModalProps = {
 const NavModal: React.FC<NavModalProps> = ({
   title,
   actions,
-  CustomListItem,
   isVisible,
   onClose,
 }) => {
@@ -36,7 +35,7 @@ const NavModal: React.FC<NavModalProps> = ({
           {title}
         </ThemedText>
 
-        <ActionList actions={actions} CustomListItem={CustomListItem} />
+        <ActionList actions={actions} />
       </ThemedView>
     </Modal>
   );

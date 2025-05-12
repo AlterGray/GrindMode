@@ -15,7 +15,6 @@ import React from "react";
 import NavModal from "@shared/ui/NavModal/NavModal";
 import { useFolderStore } from "@features/folder/folderStore";
 import { Ionicons } from "@expo/vector-icons";
-import FolderListItem from "@features/folder/components/FolderListItem";
 import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
 import ThemedText from "@shared/ui/ThemedText";
 
@@ -195,6 +194,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
       title: folder.name,
       onPress: () => navModalAction(folder.id),
       iconName: "folder-outline" as keyof typeof Ionicons.glyphMap,
+      isMarked: routines.some((r) => r.folderIds.includes(folder.id)),
     }))
     .filter((f) => f.title !== "All routines");
 
@@ -206,6 +206,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
       closeDialogs();
       router.push(routes.folder);
     },
+    isMarked: false,
   });
 
   return (
@@ -238,23 +239,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
           renderContent={(item) => <RoutineListItem item={item as Routine} />}
         />
       </TouchBlocker>
-      {/* <ConfirmDialog
-        isVisible={isCreateDialogOpened}
-        onConfirm={() => {
-          router.push(routes[option]);
-          setIsCreateDialogOpened(false);
-        }}
-        onCancel={() => setIsCreateDialogOpened(false)}
-        title="Select what you want to create"
-        message={
-          <ToggleOptions
-            options={options}
-            onChange={(option) => setOption(option as Option)}
-          />
-        }
-        primaryButtonColor="primary"
-        primaryButtonText="Create"
-      /> */}
+
       <CreateButton
         onPress={() => {
           setConfirmDialog({
@@ -281,7 +266,6 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
         onClose={() => setIsNavModalOpened(false)}
         title="Select folder"
         actions={navModalActions}
-        CustomListItem={FolderListItem}
       />
     </ThemedView>
   );
