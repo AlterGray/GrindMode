@@ -158,7 +158,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     }
 
     return actions;
-  }, [selectedRoutines.length]);
+  }, [selectedRoutines.length, folderId]);
 
   // TODO name is too long
   const handleAddRoutinesToFolder = (folderId: string) => {
