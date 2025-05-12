@@ -1,4 +1,4 @@
-import { Modal, Pressable } from "react-native";
+import { LayoutChangeEvent, Modal, Pressable, View } from "react-native";
 import ThemedView from "../ThemedView";
 import StyledButton from "../StyledButton";
 
@@ -9,24 +9,32 @@ export type PopoverMenuItem = {
 };
 
 type PopoverMenuProps = {
+  ref?: React.RefObject<View | null>;
   items: PopoverMenuItem[];
   visible: boolean;
   position: { x: number; y: number };
   handleClose: () => void;
+  onLayout?: (event: LayoutChangeEvent) => void;
 };
 
 const PopoverMenu: React.FC<PopoverMenuProps> = ({
+  ref,
   visible,
   items,
   position,
   handleClose,
+  onLayout,
 }) => {
   return (
     <Modal transparent visible={visible} animationType="fade">
       <Pressable onPress={handleClose} className="absolute inset-0"></Pressable>
       <ThemedView
+        ref={ref}
+        onLayout={onLayout}
         style={{ top: position.y, left: position.x }}
-        className={`w-1/2 gap-1 bg-light-backgroundSurface p-2 dark:bg-dark-backgroundSurface`}
+        className={
+          "w-1/2 gap-1 bg-light-backgroundSecondary p-2 dark:bg-dark-backgroundSecondary"
+        }
       >
         {items.map((item) => (
           <StyledButton

@@ -11,6 +11,7 @@ import { useColorScheme } from "nativewind";
 
 import "../global.css";
 import ConfirmDialog from "@shared/ui/ConfirmDialog/ConfirmDialog";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -48,19 +49,21 @@ const RootLayout = () => {
   // recheck whole package json and npm package versions
   // when and how use: --legacy-peer-deps
   return (
-    <ThemeProvider>
-      <Stack
-        screenOptions={{
-          navigationBarColor: backgroundColor,
-          statusBarBackgroundColor: backgroundColor,
-          statusBarStyle: colorScheme === "dark" ? "light" : "dark",
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-      <ConfirmDialog />
-    </ThemeProvider>
+    <GestureHandlerRootView>
+      <ThemeProvider>
+        <Stack
+          screenOptions={{
+            navigationBarColor: backgroundColor,
+            statusBarBackgroundColor: backgroundColor,
+            statusBarStyle: colorScheme === "dark" ? "light" : "dark",
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+        <ConfirmDialog />
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 };
 

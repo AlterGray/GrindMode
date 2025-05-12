@@ -1,5 +1,5 @@
 // TODO does it really make sense to use global alias for each import?
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ThemedView from "@ui/ThemedView";
 import IconButton from "@ui/IconButton";
 import ThemedText from "@ui/ThemedText";
@@ -10,13 +10,15 @@ import { Ionicons } from "@expo/vector-icons";
 import PopoverMenu from "./PopoverMenu";
 import { ActionType } from "./actionModalTypes";
 import { View } from "react-native";
+import useMenuPosition from "@shared/hooks/useMenuPosition";
 
 const ActionModal = () => {
   const { isOpen, closeModal, text, actions, isMenuAction, menuActions } =
     useActionModalStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isDark = useThemeStore((state) => state.isDark);
-  const menuButtonRef = useRef<View>(null);
+  const buttonRef = useRef<View>(null);
+  const menuRef = useRef<View>(null);
 
   const iconColor = isDark ? Colors.dark.icon : Colors.light.icon;
   // TODO extract to separate component
@@ -28,16 +30,11 @@ const ActionModal = () => {
 
   if (!isOpen) return null;
 
-  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
-
-  // TODO does it okay?
-  useLayoutEffect(() => {
-    if (menuButtonRef.current) {
-      menuButtonRef.current.measure((x, y) => {
-        setMenuPosition({ x, y }); // Adjust y to position below the button
-      });
-    }
-  }, []);
+  const {
+    position: menuPosition,
+    size: menuSize,
+    handleMenuLayout,
+  } = useMenuPosition(buttonRef);
 
   // TODO rewrite with <Modal />
   // TODO use router stack?
@@ -79,7 +76,7 @@ const ActionModal = () => {
             />
           ))}
           {isMenuAction && (
-            <View ref={menuButtonRef}>
+            <View ref={buttonRef}>
               <Ionicons
                 key={menuAction.iconName}
                 name={menuAction.iconName}
@@ -94,13 +91,12 @@ const ActionModal = () => {
       {/* TODO rename in other place(like onClose for handleClose)? */}
       {/* TODO hardcoded position */}
       <PopoverMenu
+        onLayout={handleMenuLayout}
+        ref={menuRef}
         visible={isMenuOpen}
         handleClose={() => setIsMenuOpen(false)}
         items={menuActions}
-        position={{
-          x: menuPosition.x + 110,
-          y: menuPosition.y + 40,
-        }}
+        position={menuPosition}
       />
     </ThemedView>
   );

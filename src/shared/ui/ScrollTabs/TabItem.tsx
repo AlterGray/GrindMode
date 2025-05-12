@@ -1,21 +1,11 @@
-import { Pressable, View, Dimensions } from "react-native";
+import { Pressable, View } from "react-native";
 import ThemedText from "../ThemedText";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
-import { useRef, useState } from "react";
-import PopoverMenu, { PopoverMenuItem } from "../ActionsModal/PopoverMenu";
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
-
-type TabItemProps = {
-  title: string;
-  isActive: boolean;
-  onPress: () => void;
-  onClose: () => void;
-  isReordering: boolean;
-  menuItems: PopoverMenuItem[];
-  onLongPress: () => void;
-};
+import { useLayoutEffect, useRef, useState } from "react";
+import PopoverMenu from "../ActionsModal/PopoverMenu";
+import { TabItemProps } from "./types";
+import useMenuPosition from "@shared/hooks/useMenuPosition";
 
 const TabItem: React.FC<TabItemProps> = ({
   title,
@@ -26,56 +16,17 @@ const TabItem: React.FC<TabItemProps> = ({
   menuItems,
   onLongPress,
 }) => {
-  // TODO get actual values
-  const MENU_WIDTH = 210;
-  const MENU_HEIGHT = 200;
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const buttonRef = useRef<View>(null);
+  const menuRef = useRef<View>(null);
 
-  const [menuPosition, setMenuPosition] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
+  const {
+    position: menuPosition,
+    size: menuSize,
+    handleMenuLayout,
+  } = useMenuPosition(buttonRef);
 
-  const getMenuPosition = async () => {
-    return new Promise<{ x: number; y: number }>((resolve) => {
-      if (!buttonRef.current) {
-        resolve({ x: 0, y: 0 });
-        return;
-      }
-
-      buttonRef.current.measure((x, y, width, height, pageX, pageY) => {
-        let posX = pageX + x - width;
-        let posY = pageY + height;
-
-        // Adjust X position to prevent overflow
-        if (posX + MENU_WIDTH > SCREEN_WIDTH) {
-          posX = SCREEN_WIDTH - MENU_WIDTH; // 8px margin
-        }
-        if (posX < 0) {
-          posX = 8; // Prevent left overflow
-        }
-
-        // Adjust Y position to prevent overflow
-        if (posY + MENU_HEIGHT > SCREEN_HEIGHT) {
-          posY = SCREEN_HEIGHT - MENU_HEIGHT - 8; // 8px margin
-        }
-
-        resolve({ x: posX, y: posY });
-      });
-    });
-  };
-
-  const updateMenuPosition = async () => {
-    const position = await getMenuPosition();
-    setMenuPosition(position);
-  };
-
-  const openMenu = async () => {
-    await updateMenuPosition();
-    setIsMenuOpen(true);
-  };
+  const openMenu = () => setIsMenuOpen(true);
 
   return (
     <View>
@@ -108,14 +59,14 @@ const TabItem: React.FC<TabItemProps> = ({
         )}
       </Pressable>
 
-      {menuItems.length > 0 && (
-        <PopoverMenu
-          items={menuItems}
-          visible={isMenuOpen}
-          handleClose={() => setIsMenuOpen(false)}
-          position={menuPosition}
-        />
-      )}
+      <PopoverMenu
+        ref={menuRef}
+        items={menuItems}
+        visible={isMenuOpen}
+        handleClose={() => setIsMenuOpen(false)}
+        position={menuPosition}
+        onLayout={handleMenuLayout}
+      />
     </View>
   );
 };
