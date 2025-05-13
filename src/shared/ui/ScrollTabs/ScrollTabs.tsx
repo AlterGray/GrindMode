@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DraggableList from "../DraggableList";
-import { DraggableItem, DraggableItemProps, ScrollTabsProps } from "./types";
+import { DraggableItem, ScrollTabsProps } from "./types";
 import TabItem from "./TabItem";
 import {
   OpacityDecorator,
@@ -24,6 +24,7 @@ const ScrollTabs: React.FC<ScrollTabsProps> = ({
           isReordering={isReordering}
           menuItems={item.menuItems}
           title={item.title}
+          color={item.color}
           onPress={() => setSelectedTab(item.id)}
           onClose={() => onCloseTab(item.id)}
           onLongPress={drag}

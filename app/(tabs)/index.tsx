@@ -73,6 +73,7 @@ const Index = () => {
         return {
           id: folder.id,
           title: folder.name,
+          color: folder.color,
           order: folder.order,
           content: (
             <RoutineList

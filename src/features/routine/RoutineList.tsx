@@ -17,6 +17,9 @@ import { useFolderStore } from "@features/folder/folderStore";
 import { Ionicons } from "@expo/vector-icons";
 import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
 import ThemedText from "@shared/ui/ThemedText";
+import { Colors } from "@/constants/Colors";
+import { useThemeStore } from "@shared/stores/themeStore";
+import { FolderColorType } from "@features/folder/types";
 
 type RoutineListProps = {
   folderId: string;
@@ -189,11 +192,18 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     }
     closeDialogs();
   };
+  const isDark = useThemeStore((state) => state.isDark);
+  // TODO
+  const color = (label: FolderColorType) =>
+    Colors.folderColors[label as FolderColorType]?.[
+      isDark ? "dark" : "light"
+    ] as FolderColorType;
   const navModalActions = folders
     .map((folder) => ({
       title: folder.name,
       onPress: () => navModalAction(folder.id),
       iconName: "folder-outline" as keyof typeof Ionicons.glyphMap,
+      iconColor: color(folder.color as FolderColorType),
       isMarked: routines.some((r) => r.folderIds.includes(folder.id)),
     }))
     .filter((f) => f.title !== "All routines");
@@ -207,6 +217,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
       router.push(routes.folder);
     },
     isMarked: false,
+    iconColor: color("default"),
   });
 
   return (
@@ -248,6 +259,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
             message: (
               <ToggleOptions
                 options={options}
+                // TODO bug stale state
                 onChange={(option) => setOption(option as Option)}
               />
             ),

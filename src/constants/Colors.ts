@@ -120,4 +120,48 @@ export const Colors = {
     statusOverdue: "#ef4444",
     statusOverdueBackground: "#2c0b0e", // soft dark red hint
   },
+  folderColors: {
+    default: {
+      light: "#000",
+      dark: "#d1d5db",
+    },
+    red: {
+      light: "#FF7F6B",
+      dark: "#FF5733",
+    },
+    amber: {
+      light: "#FFCC80",
+      dark: "#FFB233",
+    },
+    yellow: {
+      light: "#FFDE7D",
+      dark: "#FFD333",
+    },
+    green: {
+      light: "#81C784",
+      dark: "#519657",
+    },
+    lightBlue: {
+      light: "#80D6FF",
+      dark: "#50A6FF",
+    },
+    blue: {
+      light: "#7DA6FF",
+      dark: "#50A6FF",
+    },
+    pink: {
+      light: "#FF80B5",
+      dark: "#FF33A6",
+    },
+  },
+  folderColorsNames: [
+    "default",
+    "red",
+    "amber",
+    "yellow",
+    "green",
+    "lightBlue",
+    "blue",
+    "pink",
+  ],
 };

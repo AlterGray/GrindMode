@@ -5,12 +5,13 @@ type Folder = {
   id: string;
   name: string;
   order: number;
+  color: string;
 };
 
 // TODO handle or restrict same orders
 type FolderState = {
   folders: Folder[];
-  addFolder: (name: string) => void;
+  addFolder: (name: string, color: string) => void;
   removeFolder: (id: string) => void;
   renameFolder: (folderId: string, name: string) => void;
   setFolders: (folders: Folder[]) => void;
@@ -21,7 +22,7 @@ const getStoredFolders = () => {
   const folders = jsonFolders ? JSON.parse(jsonFolders) : [];
 
   if (folders.length === 0)
-    return [{ name: "All routines", id: "-1", order: -1 }];
+    return [{ name: "All routines", id: "-1", order: -1, color: "default" }];
 
   return folders;
 };
@@ -29,13 +30,14 @@ const getStoredFolders = () => {
 // TODO does it make sense to move storage logic into separate file?
 export const useFolderStore = create<FolderState>()((set) => ({
   folders: getStoredFolders(),
-  addFolder: (name) =>
+  addFolder: (name, color) =>
     set((state) => {
       const id = Date.now().toString();
       const addedFolder = {
         id,
         name,
         order: state.folders.length,
+        color,
       };
       const folders = [...state.folders, addedFolder];
       storage.set("folders", JSON.stringify(folders));

@@ -2,13 +2,16 @@ import { Pressable, View } from "react-native";
 import ThemedText from "../ThemedText";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import PopoverMenu from "../ActionsModal/PopoverMenu";
 import { TabItemProps } from "./types";
 import useMenuPosition from "@shared/hooks/useMenuPosition";
+import { useThemeStore } from "@shared/stores/themeStore";
+import { FolderColorType } from "@features/folder/types";
 
 const TabItem: React.FC<TabItemProps> = ({
   title,
+  color,
   isActive,
   onPress,
   onClose,
@@ -20,6 +23,7 @@ const TabItem: React.FC<TabItemProps> = ({
   const buttonRef = useRef<View>(null);
   const menuRef = useRef<View>(null);
 
+  // TODO remove menu size?
   const {
     position: menuPosition,
     size: menuSize,
@@ -27,6 +31,9 @@ const TabItem: React.FC<TabItemProps> = ({
   } = useMenuPosition(buttonRef);
 
   const openMenu = () => setIsMenuOpen(true);
+  const isDark = useThemeStore((state) => state.isDark);
+  const computedColor =
+    Colors.folderColors[color as FolderColorType]?.[isDark ? "dark" : "light"];
 
   return (
     <View>
@@ -36,14 +43,14 @@ const TabItem: React.FC<TabItemProps> = ({
         onLongPress={isReordering ? onLongPress : openMenu}
         className="gap-1 rounded-md px-4 py-4 active:bg-light-highlight active:opacity-80 active:dark:bg-dark-highlight"
       >
-        <ThemedText>{title}</ThemedText>
+        <ThemedText style={{ color: computedColor }}>{title}</ThemedText>
 
         {isReordering && (
           <View className="absolute right-0">
             <Ionicons
               name="close-circle"
               size={22}
-              color={Colors.light.icon}
+              color={computedColor}
               onPress={onClose}
               className="relative w-full"
             />

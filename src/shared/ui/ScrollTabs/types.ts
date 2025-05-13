@@ -3,6 +3,7 @@ import { PopoverMenuItem } from "../ActionsModal/PopoverMenu";
 
 type TabItemProps = {
   title: string;
+  color: string;
   isActive: boolean;
   onPress: () => void;
   onClose: () => void;
@@ -14,16 +15,8 @@ type TabItemProps = {
 type DraggableItem = {
   id: string;
   title: string;
+  color: string;
   menuItems: PopoverMenuItem[];
-};
-
-type DraggableItemProps<T> = {
-  item: T;
-  selectedTab: string;
-  isReordering: boolean;
-  onPress: (id: string) => void;
-  onClose: (id: string) => void;
-  drag: () => void;
 };
 
 type ScrollTabsItem = {
@@ -39,6 +32,7 @@ type ScrollTabsProps = {
   tabs: {
     id: string;
     title: string;
+    color: string;
     order?: number;
     content: React.ReactNode;
     menuItems: PopoverMenuItem[];
@@ -48,10 +42,4 @@ type ScrollTabsProps = {
   onDragEnd: (item: DragEndParams<ScrollTabsItem>) => void;
 };
 
-export type {
-  TabItemProps,
-  ScrollTabsItem,
-  DraggableItem,
-  DraggableItemProps,
-  ScrollTabsProps,
-};
+export type { TabItemProps, ScrollTabsItem, DraggableItem, ScrollTabsProps };

@@ -1,12 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, View } from "react-native";
 import ThemedText from "../ThemedText";
-import { Colors } from "@/constants/Colors";
-import { useThemeStore } from "@shared/stores/themeStore";
+import { FolderColorType } from "@features/folder/types";
 
 type NavModalListItemProps = {
   onPress: () => void;
   iconName?: keyof typeof Ionicons.glyphMap;
+  iconColor?: FolderColorType;
   title: string;
   isMarked?: boolean;
 };
@@ -14,13 +14,10 @@ type NavModalListItemProps = {
 const NavModalListItem: React.FC<NavModalListItemProps> = ({
   onPress,
   iconName,
+  iconColor,
   title,
   isMarked = false,
 }) => {
-  const { colorScheme } = useThemeStore();
-  const theme = Colors[colorScheme];
-  const iconColor = theme.icon;
-
   return (
     <View>
       <Pressable
@@ -29,7 +26,12 @@ const NavModalListItem: React.FC<NavModalListItemProps> = ({
       >
         <View className="flex-row items-center gap-8">
           {iconName && <Ionicons name={iconName} size={24} color={iconColor} />}
-          <ThemedText className={`${!iconName && "ml-16"}`}>{title}</ThemedText>
+          <ThemedText
+            className={`${!iconName && "ml-16"}`}
+            style={{ color: iconColor }}
+          >
+            {title}
+          </ThemedText>
         </View>
         {isMarked && <Ionicons name="checkmark" size={24} color={iconColor} />}
       </Pressable>
