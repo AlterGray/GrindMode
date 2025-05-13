@@ -68,7 +68,8 @@ const Index = () => {
   const isFoldersExists = folders.length > 1;
   const tabs = folders
     .map((folder) => {
-      if (folder.id === "-1" && folders.length == 1) return;
+      const isSingleDefaultFolder = folder.id === "-1" && folders.length === 1;
+      if (isSingleDefaultFolder) return;
       else
         return {
           id: folder.id,

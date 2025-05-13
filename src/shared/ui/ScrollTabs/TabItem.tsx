@@ -1,13 +1,13 @@
 import { Pressable, View } from "react-native";
 import ThemedText from "../ThemedText";
 import { Ionicons } from "@expo/vector-icons";
-import { Colors } from "@/constants/Colors";
 import { useRef, useState } from "react";
 import PopoverMenu from "../ActionsModal/PopoverMenu";
 import { TabItemProps } from "./types";
 import useMenuPosition from "@shared/hooks/useMenuPosition";
-import { useThemeStore } from "@shared/stores/themeStore";
 import { FolderColorType } from "@features/folder/types";
+import ActiveIndicator from "../ActiveIndicator";
+import { getFolderColor } from "@features/folder/utils";
 
 const TabItem: React.FC<TabItemProps> = ({
   title,
@@ -24,16 +24,11 @@ const TabItem: React.FC<TabItemProps> = ({
   const menuRef = useRef<View>(null);
 
   // TODO remove menu size?
-  const {
-    position: menuPosition,
-    size: menuSize,
-    handleMenuLayout,
-  } = useMenuPosition(buttonRef);
+  const { position: menuPosition, handleMenuLayout } =
+    useMenuPosition(buttonRef);
 
   const openMenu = () => setIsMenuOpen(true);
-  const isDark = useThemeStore((state) => state.isDark);
-  const computedColor =
-    Colors.folderColors[color as FolderColorType]?.[isDark ? "dark" : "light"];
+  const computedColor = getFolderColor(color as FolderColorType);
 
   return (
     <View>
@@ -57,13 +52,8 @@ const TabItem: React.FC<TabItemProps> = ({
           </View>
         )}
 
-        {isActive && (
-          <View
-            className={
-              "m-auto h-1 w-1/2 rounded-sm bg-light-tabActive dark:bg-dark-tabActive"
-            }
-          />
-        )}
+        {/* // TODO ADD ANIMATION */}
+        <ActiveIndicator isActive={isActive} color={computedColor} />
       </Pressable>
 
       <PopoverMenu

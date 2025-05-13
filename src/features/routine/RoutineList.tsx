@@ -17,9 +17,8 @@ import { useFolderStore } from "@features/folder/folderStore";
 import { Ionicons } from "@expo/vector-icons";
 import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
 import ThemedText from "@shared/ui/ThemedText";
-import { Colors } from "@/constants/Colors";
-import { useThemeStore } from "@shared/stores/themeStore";
 import { FolderColorType } from "@features/folder/types";
+import { getFolderColor } from "@features/folder/utils";
 
 type RoutineListProps = {
   folderId: string;
@@ -33,7 +32,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const pathName = usePathname();
   const [isNavModalOpened, setIsNavModalOpened] = useState(false);
   const setActionModal = useActionModalStore((state) => state.setActionModal);
-  const closeModal = useActionModalStore((state) => state.closeModal);
+  const closeActionModal = useActionModalStore((state) => state.closeModal);
   const folders = useFolderStore((state) => state.folders);
   const setConfirmDialog = useConfirmDialogStore(
     (state) => state.setConfirmDialog,
@@ -67,7 +66,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     selectedItemsRef,
     startSelecting,
     toggleItem,
-  } = useSelectableItems(closeModal);
+  } = useSelectableItems(closeActionModal);
 
   const redirectToUpdate = (id: string) => {
     setIsRedirecting(true);
@@ -79,6 +78,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     routine: "/routines/create" as const,
   };
 
+  // TODO bug
   const removeAction: ActionType = {
     onPress: () => {
       setConfirmDialog({
@@ -90,10 +90,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
         primaryColor: "danger",
         primaryButtonText: "Remove",
         secondaryColor: "secondary",
-        onConfirm: () => {
-          removeRoutines(selectedRoutines);
-          closeConfirmModal();
-        },
+        onConfirm: onConfirm,
         onCancel: () => closeConfirmModal(),
       });
     },
@@ -103,7 +100,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     onPress: () => {
       completeRoutines(selectedItemsRef.current);
       resetSelection();
-      closeModal();
+      closeActionModal();
     },
     iconName: "checkmark",
   };
@@ -113,7 +110,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const removeRoutines = useRoutineStore((state) => state.removeRoutines);
   const onConfirm = () => {
     removeRoutines(selectedRoutines);
-    closeModal();
+    closeActionModal();
     closeConfirmModal();
     resetSelection();
   };
@@ -167,12 +164,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const handleAddRoutinesToFolder = (folderId: string) => {
     addRoutinesToFolder(selectedRoutines, folderId);
     setIsNavModalOpened(false);
-    closeModal();
-  };
-
-  const closeDialogs = () => {
-    setIsNavModalOpened(false);
-    closeModal();
+    closeActionModal();
   };
 
   const handleRemoveRoutinesFromFolder = (
@@ -181,6 +173,11 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   ) => {
     removeRoutinesFromFolder(selectedItems, folderId);
     closeDialogs();
+  };
+
+  const closeDialogs = () => {
+    setIsNavModalOpened(false);
+    closeActionModal();
   };
 
   const navModalAction = (sfolderId: string) => {
@@ -192,12 +189,9 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     }
     closeDialogs();
   };
-  const isDark = useThemeStore((state) => state.isDark);
+
   // TODO
-  const color = (label: FolderColorType) =>
-    Colors.folderColors[label as FolderColorType]?.[
-      isDark ? "dark" : "light"
-    ] as FolderColorType;
+  const color = (name: FolderColorType) => getFolderColor(name);
   const navModalActions = folders
     .map((folder) => ({
       title: folder.name,

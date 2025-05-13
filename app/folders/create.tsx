@@ -1,7 +1,7 @@
 import { Colors } from "@/constants/Colors";
 import { useFolderStore } from "@features/folder/folderStore";
 import { FolderColorType as FolderColorType } from "@features/folder/types";
-import { useThemeStore } from "@shared/stores/themeStore";
+import { getFolderColor } from "@features/folder/utils";
 import StyledButton from "@shared/ui/StyledButton";
 import StyledInput from "@shared/ui/StyledInput";
 import ThemedText from "@shared/ui/ThemedText";
@@ -16,8 +16,6 @@ const CreateFolder = () => {
   const router = useRouter();
   const { addFolder } = useFolderStore();
 
-  const isDark = useThemeStore((state) => state.isDark);
-
   const [folderColor, setFolderColor] = useState<FolderColorType>("default");
 
   const items = (Colors.folderColorsNames as FolderColorType[]).map(
@@ -27,9 +25,10 @@ const CreateFolder = () => {
     }),
   );
 
-  const getColor = (label: FolderColorType) =>
-    Colors.folderColors[label]?.[isDark ? "dark" : "light"] ??
-    Colors.folderColors["default"][isDark ? "dark" : "light"];
+  const handleCreateFolder = () => {
+    addFolder(name, folderColor);
+    router.back();
+  };
 
   return (
     <ThemedView className="flex-1">
@@ -43,7 +42,6 @@ const CreateFolder = () => {
 
         <ThemedView className="flex-row items-center gap-8">
           <ThemedText>Folder color:</ThemedText>
-          {/* // TODO ? vs && */}
           <ThemedView className="max-h-16 flex-1 justify-center overflow-hidden">
             <WheelPickerExpo
               items={items}
@@ -53,7 +51,7 @@ const CreateFolder = () => {
               renderItem={({ label }) => (
                 <ThemedView
                   style={{
-                    backgroundColor: getColor(label as FolderColorType),
+                    backgroundColor: getFolderColor(label as FolderColorType),
                     width: 15,
                     height: 15,
                   }}
@@ -71,10 +69,7 @@ const CreateFolder = () => {
 
         <StyledButton
           title="Create"
-          onPress={() => {
-            addFolder(name, folderColor);
-            router.back();
-          }}
+          onPress={() => handleCreateFolder()}
           className="ml-auto mr-2"
         />
       </ScrollView>

@@ -1,66 +1,53 @@
-import { storage } from "@shared/lib/storage";
 import { create } from "zustand";
+import { Folder, FolderState } from "./types";
+import { getDefaultFolder, getStoredFolders, saveFolders } from "./storage";
 
-type Folder = {
-  id: string;
-  name: string;
-  order: number;
-  color: string;
-};
-
-// TODO handle or restrict same orders
-type FolderState = {
-  folders: Folder[];
-  addFolder: (name: string, color: string) => void;
-  removeFolder: (id: string) => void;
-  renameFolder: (folderId: string, name: string) => void;
-  setFolders: (folders: Folder[]) => void;
-};
-
-const getStoredFolders = () => {
-  const jsonFolders = storage.getString("folders");
-  const folders = jsonFolders ? JSON.parse(jsonFolders) : [];
-
-  if (folders.length === 0)
-    return [{ name: "All routines", id: "-1", order: -1, color: "default" }];
-
-  return folders;
-};
-
-// TODO does it make sense to move storage logic into separate file?
 export const useFolderStore = create<FolderState>()((set) => ({
-  folders: getStoredFolders(),
+  folders: (() => {
+    const storedFolders = getStoredFolders();
+    const defaultFolder = getDefaultFolder();
+
+    if (!storedFolders.some((folder: Folder) => folder.id === "-1"))
+      return [defaultFolder, ...storedFolders];
+
+    return storedFolders;
+  })(),
   addFolder: (name, color) =>
     set((state) => {
       const id = Date.now().toString();
-      const addedFolder = {
+      const newFolder = {
         id,
         name,
         order: state.folders.length,
         color,
       };
-      const folders = [...state.folders, addedFolder];
-      storage.set("folders", JSON.stringify(folders));
+      const folders = [...state.folders, newFolder];
+      saveFolders(folders);
       return { folders };
     }),
   removeFolder: (id) =>
     set((state) => {
-      const folders = state.folders.filter((f) => f.id !== id);
-      storage.set("folders", JSON.stringify(folders));
-      return { folders };
+      const filteredFolders = state.folders.filter((f) => f.id !== id);
+
+      const updatedFolders = filteredFolders.map((folder, index) => ({
+        ...folder,
+        order: index,
+      }));
+
+      saveFolders(updatedFolders);
+      return { folders: updatedFolders };
     }),
   renameFolder: (folderId, name) =>
     set((state) => {
-      const folders = state.folders.map((f) => {
-        if (f.id === folderId) f.name = name;
-        return f;
-      });
-      storage.set("folders", JSON.stringify(folders));
-      return { folders };
+      const updatedFolders = state.folders.map((folder) =>
+        folder.id === folderId ? { ...folder, name } : folder,
+      );
+      saveFolders(updatedFolders);
+      return { folders: updatedFolders };
     }),
   setFolders: (folders) =>
     set(() => {
-      storage.set("folders", JSON.stringify(folders));
+      saveFolders(folders);
       return { folders };
     }),
 }));
