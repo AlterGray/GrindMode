@@ -103,9 +103,7 @@ const Index = () => {
       isOpen: true,
       title: "Rename folder",
       message: (
-        <View>
-          <StyledInput placeholder="Folder name" onChangeText={setFolderName} />
-        </View>
+        <StyledInput placeholder="Folder name" onChangeText={setFolderName} />
       ),
       onCancel: closeConfirmDialog,
       onConfirm: () => {

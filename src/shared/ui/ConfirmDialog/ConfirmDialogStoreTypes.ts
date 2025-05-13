@@ -3,10 +3,11 @@ import {
   StyledButtonVariant,
 } from "@shared/types/commonTypes";
 
+// TODO React.ReactNode | string
 export type ConfirmDialogStore = {
   isOpen: boolean;
   title: string;
-  message: React.ReactNode;
+  message: React.ReactNode | string;
   primaryButtonText: string;
   secondaryButtonText: string;
   primaryVariant: StyledButtonVariant;

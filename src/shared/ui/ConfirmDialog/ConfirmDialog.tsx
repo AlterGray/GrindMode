@@ -44,7 +44,11 @@ const ConfirmDialog: React.FC = () => {
       <ThemedView className={overlayStyle} pointerEvents="box-none">
         <ThemedView className={containerStyle}>
           <ThemedText className={titleStyle}>{title}</ThemedText>
-          {message}
+          {typeof message === "string" ? (
+            <ThemedText className={messageStyle}>{message}</ThemedText>
+          ) : (
+            message
+          )}
           <View className={buttonRowStyle}>
             <StyledButton
               variant={cancelVariant}
