@@ -11,7 +11,7 @@ import { useState } from "react";
 import { ScrollView } from "react-native";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 
-const CreateFolder = () => {
+const create = () => {
   const [name, setName] = useState("");
   const router = useRouter();
   const { addFolder } = useFolderStore();
@@ -77,7 +77,7 @@ const CreateFolder = () => {
   );
 };
 
-export default CreateFolder;
+export default create;
 
 // TODO:
 // NOTES
