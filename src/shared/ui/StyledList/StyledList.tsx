@@ -31,7 +31,7 @@ const StyledList: React.FC<StyledListProps> = ({
     return (
       <NoItemsInList
         text={noItemsText}
-        actionButton={<StyledButton text="Create new one" />}
+        actionButton={<StyledButton title="Create new one" />}
       />
     );
   }
@@ -56,7 +56,7 @@ const StyledList: React.FC<StyledListProps> = ({
           {renderContent ? renderContent(item) : defaultRenderContent(item)}
         </StyledItem>
       )}
-      className="w-full"
+      className="w-full bg-light-background dark:bg-dark-background"
     />
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 
-import { useThemeStore } from "../../src/stores/themeStore";
+import { useThemeStore } from "../../src/shared/stores/themeStore";
 import { useTab } from "@hooks/useTab";
 import { useActionModalStore } from "@ui/ActionsModal/actionsModalStore";
 import ActionModal from "@ui/ActionsModal/ActionModal";
@@ -15,16 +15,17 @@ const TabsLayout = () => {
 
   const theme = Colors[colorScheme];
 
+  // TODO make global color for all layout headers
   return (
     <Tabs
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: theme.background,
+          backgroundColor: theme.backgroundSurface,
           borderTopColor: theme.border,
         },
         tabBarActiveTintColor: isOpen ? iconColor : theme.tabActive,
         tabBarInactiveTintColor: isOpen ? iconColor : theme.tabInactive,
-        headerStyle: { backgroundColor: theme.backgroundSecondary },
+        headerStyle: { backgroundColor: theme.backgroundSurface },
         headerTintColor: theme.textPrimary,
       }}
     >

@@ -5,15 +5,18 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { ThemeProvider } from "@shared/providers/ThemeProvider";
-import { useThemeStore } from "../src/stores/themeStore";
+import { useThemeStore } from "../src/shared/stores/themeStore";
 import { Colors } from "../src/constants/Colors";
 import { useColorScheme } from "nativewind";
 
 import "../global.css";
+import ConfirmDialog from "@shared/ui/ConfirmDialog/ConfirmDialog";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+// TODO make shadow of header bar smaller
 const RootLayout = () => {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -23,8 +26,8 @@ const RootLayout = () => {
   const { setColorScheme } = useColorScheme();
 
   const backgroundColor = isDark
-    ? Colors.dark.backgroundSecondary
-    : Colors.light.backgroundSecondary;
+    ? Colors.dark.backgroundSurface
+    : Colors.light.backgroundSurface;
 
   useEffect(() => {
     if (loaded) {
@@ -46,18 +49,21 @@ const RootLayout = () => {
   // recheck whole package json and npm package versions
   // when and how use: --legacy-peer-deps
   return (
-    <ThemeProvider>
-      <Stack
-        screenOptions={{
-          navigationBarColor: backgroundColor,
-          statusBarBackgroundColor: backgroundColor,
-          statusBarStyle: colorScheme === "dark" ? "light" : "dark",
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-    </ThemeProvider>
+    <GestureHandlerRootView>
+      <ThemeProvider>
+        <Stack
+          screenOptions={{
+            navigationBarColor: backgroundColor,
+            statusBarBackgroundColor: backgroundColor,
+            statusBarStyle: colorScheme === "dark" ? "light" : "dark",
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+        <ConfirmDialog />
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 };
 

@@ -2,6 +2,7 @@ import { DayType } from "../../shared/types/commonTypes";
 
 type Routine = {
   id: string;
+  folderIds: string[];
   title: string;
   description: string;
   status: "undone" | "done" | "overdue";
@@ -11,7 +12,10 @@ type Routine = {
   days: DayType[];
 };
 
-type RoutineInput = Omit<Routine, "id" | "status" | "actualDuration">;
+type RoutineInput = Omit<
+  Routine,
+  "id" | "folderIds" | "status" | "actualDuration"
+>;
 type RoutineUpdate = Omit<Routine, "status">;
 type RoutineFormValues = {
   id?: string; // only used in edit
@@ -24,12 +28,14 @@ type RoutineFormValues = {
 
 type RoutineState = {
   routines: Routine[];
+  selectedIds: string[];
+  setSelectedIds: (id: string[]) => void;
   addRoutine: (routine: RoutineInput) => void;
   removeRoutines: (routineIds: string[]) => void;
   updateRoutine: (routine: RoutineUpdate) => void;
   completeRoutines: (routineIds: string[]) => void;
-  selectedIds: string[];
-  setSelectedIds: (id: string[]) => void;
+  addRoutinesToFolder: (routineIds: string[], folderId: string) => void;
+  removeRoutinesFromFolder: (routineIds: string[], folderId: string) => void;
 };
 
 type RoutineStatus = "done" | "undone" | "overdue";

@@ -2,24 +2,24 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 type StyledButtonProps = {
-  text: string;
+  title: string;
   variant?: "primary" | "secondary" | "text";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   className?: string;
-  textClassName?: string;
+  titleClassName?: string;
   color?: "primary" | "secondary" | "danger";
   children?: never;
   onPress?: () => void;
 };
 
 const StyledButton: React.FC<StyledButtonProps> = ({
-  text,
+  title,
   variant = "primary",
   size = "md",
   fullWidth = false,
   className = "",
-  textClassName = "",
+  titleClassName = "",
   color = "primary",
   onPress,
 }) => {
@@ -69,7 +69,7 @@ const StyledButton: React.FC<StyledButtonProps> = ({
       } ${className}`}
       onPress={onPress}
     >
-      <Text className={`${textVariantStyles} ${textClassName}`}>{text}</Text>
+      <Text className={`${textVariantStyles} ${titleClassName}`}>{title}</Text>
     </TouchableOpacity>
   );
 };

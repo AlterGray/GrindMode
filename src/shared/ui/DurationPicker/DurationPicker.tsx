@@ -57,13 +57,13 @@ const DurationPicker: React.FC<DurationPickerProps> = ({
             <StyledButton
               variant="text"
               onPress={onCancel}
-              text="Cancel"
+              title="Cancel"
               color="primary"
             />
             <StyledButton
               variant="primary"
               onPress={() => onConfirm(totalDuration)}
-              text="Confirm"
+              title="Confirm"
             />
           </View>
         </ThemedView>

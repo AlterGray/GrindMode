@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/Colors";
-import { useThemeStore } from "@/stores/themeStore";
+import { useThemeStore } from "@shared/stores/themeStore";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 import {
   ItemType,

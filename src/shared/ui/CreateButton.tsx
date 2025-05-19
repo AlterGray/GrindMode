@@ -1,15 +1,51 @@
-import { Pressable } from "react-native";
-import React from "react";
-import { FontAwesome } from "@expo/vector-icons";
-import { useThemeStore } from "../../stores/themeStore";
 import { Colors } from "@/constants/Colors";
+import { FontAwesome } from "@expo/vector-icons";
+import { useThemeStore } from "@shared/stores/themeStore";
+import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
+import ToggleOptions from "@shared/ui/ToggleOptions/ToggleOptions";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { Pressable } from "react-native";
+
+// TODO
+// export type Option = "folder" | "routine";
 
 type CreateButtonProps = {
-  onPress: () => void;
+  options: { label: string; value: string }[];
+  routes: Record<string, string>;
 };
 
-const CreateButton: React.FC<CreateButtonProps> = ({ onPress }) => {
-  const { isDark } = useThemeStore();
+const CreateButton = ({ options, routes }: CreateButtonProps) => {
+  const [option, setOption] = useState(options[0].value);
+  const router = useRouter();
+  const isDark = useThemeStore((state) => state.isDark);
+
+  const setConfirmDialog = useConfirmDialogStore(
+    (state) => state.setConfirmDialog,
+  );
+  const closeConfirmModal = useConfirmDialogStore(
+    (state) => state.closeConfirmModal,
+  );
+
+  const onPress = () =>
+    setConfirmDialog({
+      isOpen: true,
+      title: "Select what you want to create",
+      message: (
+        <ToggleOptions
+          options={options}
+          // TODO bug stale state
+          onChange={(option) => setOption(option)}
+        />
+      ),
+      primaryButtonText: "Create",
+      primaryColor: "primary",
+      onConfirm: () => {
+        router.push(routes[option]);
+        closeConfirmModal();
+      },
+      onCancel: () => closeConfirmModal(),
+    });
 
   return (
     <Pressable

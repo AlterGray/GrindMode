@@ -1,107 +1,158 @@
-import React, { useEffect, useRef, useState } from "react";
-import ThemedView from "@ui/ThemedView";
-import CreateButton from "@ui/CreateButton";
-import { usePathname, useRouter } from "expo-router";
-import { useRoutineStore } from "@features/routine/routineStore";
-import StyledList from "@ui/StyledList/StyledList";
-import { useActionModalStore } from "@ui/ActionsModal/actionsModalStore";
-import TouchBlocker from "@ui/TouchBlocker";
-import RoutineListItem from "@features/routine/RoutineListItem";
-import RemoveRoutineDialog from "@features/routine/RemoveRoutineDialog";
-import { ActionType } from "@ui/ActionsModal/actionModalTypes";
-import { useActionModal } from "@ui/ActionsModal/useActionModal";
-import { useSelectableItems } from "@hooks/useSelectableItems";
-import { Routine } from "@features/routine/routineTypes";
+import React, { useState } from "react";
+import ScrollTabs from "@shared/ui/ScrollTabs/ScrollTabs";
+import { useFolderStore } from "@features/folder/folderStore";
+import RoutineList from "@features/routine/RoutineList";
+import ConfirmDialog from "@shared/ui/ConfirmDialog/ConfirmDialog";
+import ThemedText from "@shared/ui/ThemedText";
+import { View } from "react-native";
+import StyledInput from "@shared/ui/StyledInput";
+import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+import { PopoverMenuItem } from "@shared/ui/ActionsModal/PopoverMenu";
+import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
 
 // TODO
 const Index = () => {
-  const router = useRouter();
-  const pathName = usePathname();
-  // TODO REFACTOR IT
-  const { setIsOpen, setText } = useActionModalStore();
-  const data = useRoutineStore((state) => state.routines);
+  const folders = useFolderStore((state) => state.folders);
+  const removeFolder = useFolderStore((state) => state.removeFolder);
+  const renameFolder = useFolderStore((state) => state.renameFolder);
+  const [folderId, setFolderId] = useState("");
+  const [folderName, setFolderName] = useState("");
+  const [isReordering, setIsReordering] = useState(false);
+  const setFolders = useFolderStore((state) => state.setFolders);
+  const setConfirmDialog = useConfirmDialogStore(
+    (state) => state.setConfirmDialog,
+  );
+  const closeConfirmDialog = useConfirmDialogStore(
+    (state) => state.closeConfirmModal,
+  );
 
-  const [isConfirmDialogOpened, setIsConfirmDialogOpened] = useState(false);
-
-  const redirectToUpdate = (id: string) => {
-    setIsRedirecting(true);
-    router.push({ pathname: "/routines/update/[id]", params: { id } });
+  const handleRemoveFolder = (folderId: string) => {
+    closeConfirmDialog();
+    removeFolder(folderId);
   };
-  const [isRedirecting, setIsRedirecting] = useState(false);
-  const {
-    isSelecting,
-    resetSelection,
-    selectedItems,
-    selectedItemsRef,
-    startSelecting,
-    toggleItem,
-  } = useSelectableItems();
-  // TODO move logic to component
 
-  const removeRoutines = useRoutineStore((state) => state.removeRoutines);
-  const completeRoutines = useRoutineStore((state) => state.completeRoutines);
+  const getMenuItems = (folderId2: string) => {
+    let menuItems: PopoverMenuItem[] = [];
 
-  const removeAction: ActionType = {
-    onPress: () => setIsConfirmDialogOpened(true),
-    iconName: "trash-outline",
+    if (folderId2 !== "-1")
+      menuItems = [
+        {
+          // TODO when remove folder which is active then app crashes
+          label: "Delete folder",
+          onPress: () => {
+            openRemoveDialog();
+            setFolderId(folderId2);
+          },
+        },
+        {
+          label: "Rename folder",
+          onPress: () => {
+            openRenameDialog();
+            setFolderId(folderId2);
+          },
+        },
+      ];
+    menuItems.push({
+      label: "Reorder",
+      onPress: () => {
+        setActionModal(true, "Reorder items", actions, false, [], () => {
+          setIsReordering(false);
+        });
+        setIsReordering(true);
+      },
+    });
+
+    return menuItems;
   };
-  const completeAction: ActionType = {
-    onPress: () => {
-      completeRoutines(selectedItemsRef.current);
-      setIsOpen(false);
-      resetSelection();
+
+  const isFoldersExists = folders.length > 1;
+  const tabs = folders
+    .map((folder) => {
+      const isSingleDefaultFolder = folder.id === "-1" && folders.length === 1;
+      if (isSingleDefaultFolder) return;
+      else
+        return {
+          id: folder.id,
+          title: folder.name,
+          color: folder.color,
+          order: folder.order,
+          content: (
+            <RoutineList
+              folderId={folder.id}
+              setIsReordering={setIsReordering}
+            />
+          ),
+          menuItems: getMenuItems(folder.id),
+        };
+    })
+    .filter((i) => i !== undefined);
+
+  const setActionModal = useActionModalStore((state) => state.setActionModal);
+  const closeModal = useActionModalStore((state) => state.closeModal);
+
+  const actions = [
+    {
+      iconName: "checkmark" as const,
+      onPress: closeModal,
     },
-    iconName: "checkmark",
+  ];
+
+  const openRenameDialog = () => {
+    /* TODO add animation for routine list even if a few items there */
+    setConfirmDialog({
+      isOpen: true,
+      title: "Rename folder",
+      message: (
+        <StyledInput placeholder="Folder name" onChangeText={setFolderName} />
+      ),
+      onCancel: closeConfirmDialog,
+      onConfirm: () => {
+        renameFolder(folderId, folderName);
+        closeConfirmDialog();
+      },
+      primaryColor: "primary",
+    });
   };
 
-  useActionModal({
-    actions: [removeAction, completeAction],
-    onReset: resetSelection,
-  });
-
-  const onConfirm = () => {
-    removeRoutines(selectedItems);
-    setIsOpen(false);
-    setIsConfirmDialogOpened(false);
-    resetSelection();
+  const openRemoveDialog = () => {
+    setConfirmDialog({
+      isOpen: true,
+      title: "Remove folder",
+      message: (
+        <ThemedText>Are you sure you want to remove this folder?</ThemedText>
+      ),
+      primaryButtonText: "Remove",
+      onCancel: closeConfirmDialog,
+      onConfirm: () => handleRemoveFolder(folderId),
+    });
   };
-
-  // fixed redirecting issue
-  useEffect(() => {
-    if (pathName === "/") {
-      // TODO
-      setIsRedirecting(false);
-    }
-  }, [pathName]);
-
-  // TODO refactore it
-  useEffect(() => {
-    selectedItemsRef.current = selectedItems;
-  }, [selectedItems]);
 
   return (
-    <ThemedView className="flex-1 items-center justify-center">
-      <TouchBlocker>
-        {/* TODO does it ok? */}
-        <StyledList
-          selectedIds={selectedItems}
-          startSelectingItems={startSelecting}
-          isSelectingItems={isSelecting}
-          onItemSelect={toggleItem}
-          onPress={redirectToUpdate}
-          data={data}
-          renderContent={(item) => <RoutineListItem item={item as Routine} />}
+    <>
+      {isFoldersExists ? (
+        <ScrollTabs
+          tabs={tabs}
+          onCloseTab={(id) => {
+            setFolderId(id);
+            openRemoveDialog();
+          }}
+          isReordering={isReordering}
+          onDragEnd={(item) => {
+            const newFolders = item.data.map((f, i) => {
+              const newFolder = folders.find((folder) => folder.id === f.id);
+              newFolder!.order = i;
+              return newFolder!;
+            });
+            setFolders(newFolders);
+          }}
         />
-      </TouchBlocker>
-
-      <CreateButton onPress={() => router.push("/routines/create")} />
-
-      <RemoveRoutineDialog
-        isOpen={isConfirmDialogOpened}
-        onConfirm={onConfirm}
-        onCancel={() => setIsConfirmDialogOpened(false)}
-      />
-    </ThemedView>
+      ) : (
+        <RoutineList
+          folderId={"-1"}
+          setIsReordering={() => setIsReordering(false)}
+        />
+      )}
+    </>
   );
 };
 

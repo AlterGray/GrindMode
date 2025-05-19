@@ -62,7 +62,7 @@ const CreateUpdateForm: React.FC<RoutineFormProps> = ({
         <DaysGrid onChange={setDays} items={days} />
 
         <StyledButton
-          text={submitText}
+          title={submitText}
           onPress={handleSubmit}
           className="ml-auto mr-4 mt-2"
         />

@@ -1,8 +1,8 @@
-import { Text } from "react-native";
+import { Text, TextProps } from "react-native";
 
 type TextVariant = "h4" | "regular";
 
-type ThemedTextProps = {
+type ThemedTextProps = TextProps & {
   variant?: TextVariant;
   className?: string;
   color?: "primary" | "secondary" | "muted";
@@ -14,6 +14,7 @@ const ThemedText: React.FC<ThemedTextProps> = ({
   className = "",
   color = "primary",
   children,
+  ...props
 }) => {
   const variantStyles: Record<TextVariant, string> = {
     regular: "",
@@ -31,6 +32,7 @@ const ThemedText: React.FC<ThemedTextProps> = ({
   return (
     <Text
       className={`${selectedColorClasses} ${variantStyles[variant]} ${className}`}
+      {...props}
     >
       {children}
     </Text>

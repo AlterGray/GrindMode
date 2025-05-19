@@ -11,4 +11,7 @@ enum DayType {
 
 type DayItemType = { value: DayType; display: string };
 
-export { DayType, DayItemType };
+type StyledButtonVariant = "primary" | "secondary" | "text";
+type StyledButtonColor = "primary" | "secondary" | "danger";
+
+export { DayType, DayItemType, StyledButtonVariant, StyledButtonColor };

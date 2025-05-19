@@ -1,11 +1,9 @@
-import { useActionModalStore } from "@ui/ActionsModal/actionsModalStore";
 import { useState, useEffect, useRef } from "react";
 
-export const useSelectableItems = () => {
+export const useSelectableItems = (onReset: () => void) => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [isSelecting, setIsSelecting] = useState(false);
   const selectedItemsRef = useRef<string[]>([]);
-  const { setIsOpen } = useActionModalStore();
 
   useEffect(() => {
     selectedItemsRef.current = selectedItems;
@@ -18,7 +16,6 @@ export const useSelectableItems = () => {
 
     setIsSelecting(true);
     setSelectedItems(newItems);
-    setIsOpen(true);
   };
 
   const toggleItem = (id: string) => {
@@ -27,13 +24,15 @@ export const useSelectableItems = () => {
       : [...selectedItems, id];
 
     setSelectedItems(newItems);
-    if (newItems.length === 0) resetSelection();
+    if (newItems.length === 0) {
+      onReset();
+      resetSelection();
+    }
   };
 
   const resetSelection = () => {
     setIsSelecting(false);
     setSelectedItems([]);
-    setIsOpen(false);
   };
 
   return {
