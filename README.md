@@ -42,3 +42,8 @@ expo start
 🧩 Templates for common routines
 
 ☁️ Cloud sync and backup
+
+## 📄 License
+
+This project is licensed under the **Business Source License 1.1** — commercial use is prohibited.  
+For commercial use or licensing, contact: reborn.muffin@gmail.com
