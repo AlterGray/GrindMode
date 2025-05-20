@@ -1,14 +1,14 @@
 import { Pressable, View } from "react-native";
 import ThemedText from "../ThemedText";
 import { Ionicons } from "@expo/vector-icons";
-import { useRef, useState } from "react";
-import PopoverMenu from "../ActionsModal/PopoverMenu";
+import { useRef } from "react";
 import { TabItemProps } from "./types";
-import useMenuPosition from "@shared/hooks/useMenuPosition";
+import { usePopoverMenu } from "@shared/hooks/usePopoverMenu";
 import { FolderColorType } from "@features/folder/types";
 import ActiveIndicator from "../ActiveIndicator";
 import { getFolderColor } from "@features/folder/utils";
 
+// TODO replace this things with "item"
 const TabItem: React.FC<TabItemProps> = ({
   title,
   color,
@@ -19,15 +19,11 @@ const TabItem: React.FC<TabItemProps> = ({
   menuItems,
   onLongPress,
 }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const buttonRef = useRef<View>(null);
-  const menuRef = useRef<View>(null);
 
   // TODO remove menu size?
-  const { position: menuPosition, handleMenuLayout } =
-    useMenuPosition(buttonRef);
+  const { openMenu } = usePopoverMenu(buttonRef);
 
-  const openMenu = () => setIsMenuOpen(true);
   const computedColor = getFolderColor(color as FolderColorType);
 
   return (
@@ -35,11 +31,11 @@ const TabItem: React.FC<TabItemProps> = ({
       <Pressable
         ref={buttonRef}
         onPress={onPress}
-        onLongPress={isReordering ? onLongPress : openMenu}
+        onLongPress={isReordering ? onLongPress : () => openMenu(menuItems)}
         className="gap-1 rounded-md px-4 py-4 active:bg-light-highlight active:opacity-80 active:dark:bg-dark-highlight"
       >
         <ThemedText style={{ color: computedColor }}>{title}</ThemedText>
-
+        // TODO does it make sense to rewrite with "status"?
         {isReordering && (
           <View className="absolute right-0">
             <Ionicons
@@ -51,19 +47,9 @@ const TabItem: React.FC<TabItemProps> = ({
             />
           </View>
         )}
-
         {/* // TODO ADD ANIMATION */}
         <ActiveIndicator isActive={isActive} color={computedColor} />
       </Pressable>
-
-      <PopoverMenu
-        ref={menuRef}
-        items={menuItems}
-        visible={isMenuOpen}
-        handleClose={() => setIsMenuOpen(false)}
-        position={menuPosition}
-        onLayout={handleMenuLayout}
-      />
     </View>
   );
 };

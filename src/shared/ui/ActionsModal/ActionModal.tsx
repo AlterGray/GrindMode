@@ -1,5 +1,5 @@
 // TODO does it really make sense to use global alias for each import?
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import ThemedView from "@ui/ThemedView";
 import IconButton from "@ui/IconButton";
 import ThemedText from "@ui/ThemedText";
@@ -7,34 +7,27 @@ import { useActionModalStore } from "./actionsModalStore";
 import { useThemeStore } from "@shared/stores/themeStore";
 import { Colors } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
-import PopoverMenu from "./PopoverMenu";
 import { ActionType } from "./actionModalTypes";
 import { View } from "react-native";
-import useMenuPosition from "@shared/hooks/useMenuPosition";
+import { usePopoverMenu } from "@shared/hooks/usePopoverMenu";
 
 const ActionModal = () => {
   const { isOpen, closeModal, text, actions, isMenuAction, menuActions } =
     useActionModalStore();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isDark = useThemeStore((state) => state.isDark);
   const buttonRef = useRef<View>(null);
-  const menuRef = useRef<View>(null);
 
   const iconColor = isDark ? Colors.dark.icon : Colors.light.icon;
+  const { openMenu } = usePopoverMenu(buttonRef);
+
   // TODO extract to separate component
   const menuAction: ActionType = {
-    onPress: () => setIsMenuOpen(true),
+    onPress: () => openMenu(menuActions),
     iconName: "ellipsis-vertical",
   };
   const resultActions = [...actions];
 
   if (!isOpen) return null;
-
-  const {
-    position: menuPosition,
-    size: menuSize,
-    handleMenuLayout,
-  } = useMenuPosition(buttonRef);
 
   // TODO rewrite with <Modal />
   // TODO use router stack?
@@ -62,7 +55,7 @@ const ActionModal = () => {
           <ThemedText className="text-base font-medium">{text}</ThemedText>
         )}
       </ThemedView>
-
+      // TODO
       {/* Actions */}
       {resultActions.length !== 0 && (
         <ThemedView className="flex-row gap-6 bg-light-backgroundSurface px-4 py-2 dark:bg-dark-backgroundSurface">
@@ -88,16 +81,6 @@ const ActionModal = () => {
           )}
         </ThemedView>
       )}
-      {/* TODO rename in other place(like onClose for handleClose)? */}
-      {/* TODO hardcoded position */}
-      <PopoverMenu
-        onLayout={handleMenuLayout}
-        ref={menuRef}
-        visible={isMenuOpen}
-        handleClose={() => setIsMenuOpen(false)}
-        items={menuActions}
-        position={menuPosition}
-      />
     </ThemedView>
   );
 };

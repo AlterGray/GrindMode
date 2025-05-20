@@ -1,6 +1,6 @@
 import { ActionType } from "@ui/ActionsModal/actionModalTypes";
 import { create } from "zustand";
-import { PopoverMenuItem } from "./PopoverMenu";
+import { PopoverMenuItem } from "../PopoverMenu/types";
 
 type ActionModalStore = {
   isOpen: boolean;
@@ -29,6 +29,8 @@ export const useActionModalStore = create<ActionModalStore>()((set, get) => ({
   menuActions: [],
   onCloseDialog: () => {},
   closeModal: () => {
+    // TODO check if all respective stores has this method
+    // TODO better set just default state?
     const { onCloseDialog } = get();
     onCloseDialog?.(); // Call the callback before closing
     set(() => ({
@@ -48,7 +50,7 @@ export const useActionModalStore = create<ActionModalStore>()((set, get) => ({
     isMenuAction,
     menuActions,
     onCloseDialog,
-  ) => {
+  ) =>
     set((state) => ({
       isOpen: isOpen ?? state.isOpen,
       text: text ?? state.text,
@@ -56,6 +58,5 @@ export const useActionModalStore = create<ActionModalStore>()((set, get) => ({
       isMenuAction: isMenuAction ?? state.isMenuAction,
       menuActions: menuActions ?? state.menuActions,
       onCloseDialog: onCloseDialog ?? state.onCloseDialog,
-    }));
-  },
+    })),
 }));
