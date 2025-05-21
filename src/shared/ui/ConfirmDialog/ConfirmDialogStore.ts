@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ConfirmDialogStore } from "./ConfirmDialogStoreTypes";
+import { ConfirmDialogStore } from "./types";
 import { getDefaultState } from "./getDefaultState";
 
 const useConfirmDialogStore = create<ConfirmDialogStore>((set) => ({

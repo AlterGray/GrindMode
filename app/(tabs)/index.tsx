@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import ScrollTabs from "@shared/ui/ScrollTabs/ScrollTabs";
 import { useFolderStore } from "@features/folder/folderStore";
 import RoutineList from "@features/routine/RoutineList";
-import ConfirmDialog from "@shared/ui/ConfirmDialog/ConfirmDialog";
 import ThemedText from "@shared/ui/ThemedText";
-import { View } from "react-native";
 import StyledInput from "@shared/ui/StyledInput";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
-import { PopoverMenuItem } from "@shared/ui/ActionsModal/PopoverMenu";
 import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
+import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 
 // TODO
 const Index = () => {
@@ -102,15 +100,12 @@ const Index = () => {
     setConfirmDialog({
       isOpen: true,
       title: "Rename folder",
-      message: (
-        <StyledInput placeholder="Folder name" onChangeText={setFolderName} />
-      ),
       onCancel: closeConfirmDialog,
       onConfirm: () => {
         renameFolder(folderId, folderName);
         closeConfirmDialog();
       },
-      primaryColor: "primary",
+      variant: "input",
     });
   };
 
@@ -118,10 +113,7 @@ const Index = () => {
     setConfirmDialog({
       isOpen: true,
       title: "Remove folder",
-      message: (
-        <ThemedText>Are you sure you want to remove this folder?</ThemedText>
-      ),
-      primaryButtonText: "Remove",
+      variant: "remove",
       onCancel: closeConfirmDialog,
       onConfirm: () => handleRemoveFolder(folderId),
     });

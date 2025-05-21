@@ -1,19 +1,12 @@
-import {
-  StyledButtonColor,
-  StyledButtonVariant,
-} from "@shared/types/commonTypes";
+// TODO add enum for proper use?
+type ConfirmDialogVariant = "confirm" | "input" | "remove" | "custom";
 
 // TODO React.ReactNode | string
 export type ConfirmDialogStore = {
   isOpen: boolean;
   title: string;
   message: React.ReactNode | string;
-  primaryButtonText: string;
-  secondaryButtonText: string;
-  primaryVariant: StyledButtonVariant;
-  cancelVariant: StyledButtonVariant;
-  primaryColor: StyledButtonColor;
-  secondaryColor: StyledButtonColor;
+  variant: ConfirmDialogVariant;
   onConfirm: () => void;
   onCancel: () => void;
   setConfirmDialog: (
