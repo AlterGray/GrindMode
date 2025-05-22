@@ -1,5 +1,6 @@
 import { storage } from "@shared/lib/storage";
 import { Folder } from "./types";
+import { DEFAULT_FOLDER } from "@/constants/Folders";
 
 const getStoredFolders = () => {
   const jsonFolders = storage.getString("folders");
@@ -13,7 +14,12 @@ const saveFolders = (folders: Folder[]) => {
 };
 
 const getDefaultFolder = () => {
-  return { name: "All routines", id: "-1", order: -1, color: "default" };
+  return {
+    name: "All routines",
+    id: DEFAULT_FOLDER,
+    order: -1,
+    color: "default",
+  };
 };
 
 export { getStoredFolders, saveFolders, getDefaultFolder };

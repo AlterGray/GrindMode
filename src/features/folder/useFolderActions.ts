@@ -1,3 +1,4 @@
+import { DEFAULT_FOLDER } from "@/constants/Folders";
 import { useRoutineStore } from "@features/routine/routineStore";
 import React, { useState } from "react";
 
@@ -55,7 +56,7 @@ const useFolderActions = (
   const menuActions = React.useMemo(() => {
     const actions = [addToFolderAction];
 
-    if (folderId !== "-1") {
+    if (folderId !== DEFAULT_FOLDER) {
       actions.push(removeFromFolderAction);
       actions.push(moveToFolderAction);
     }

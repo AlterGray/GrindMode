@@ -1,13 +1,14 @@
 import { create } from "zustand";
 import { Folder, FolderState } from "./types";
 import { getDefaultFolder, getStoredFolders, saveFolders } from "./storage";
+import { DEFAULT_FOLDER } from "@/constants/Folders";
 
 export const useFolderStore = create<FolderState>()((set) => ({
   folders: (() => {
     const storedFolders = getStoredFolders();
     const defaultFolder = getDefaultFolder();
 
-    if (!storedFolders.some((folder: Folder) => folder.id === "-1"))
+    if (!storedFolders.some((folder: Folder) => folder.id === DEFAULT_FOLDER))
       return [defaultFolder, ...storedFolders];
 
     return storedFolders;

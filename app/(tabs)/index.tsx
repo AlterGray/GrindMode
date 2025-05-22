@@ -6,6 +6,7 @@ import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 import { ConfirmDialogVariant } from "@shared/ui/ConfirmDialog/types";
+import { DEFAULT_FOLDER } from "@/constants/Folders";
 
 // TODO
 const Index = () => {
@@ -26,19 +27,19 @@ const Index = () => {
     removeFolder(folderId);
   };
 
-  const getMenuItems = (folderId2: string) => {
+  const getMenuItems = (folderId: string) => {
     let menuItems: PopoverMenuItem[] = [];
 
-    if (folderId2 !== "-1")
+    if (folderId !== DEFAULT_FOLDER)
       menuItems = [
         {
           // TODO when remove folder which is active then app crashes
           label: "Delete folder",
-          onPress: () => openRemoveDialog(folderId2),
+          onPress: () => openRemoveDialog(folderId),
         },
         {
           label: "Rename folder",
-          onPress: () => openRenameDialog(folderId2),
+          onPress: () => openRenameDialog(folderId),
         },
       ];
     menuItems.push({
@@ -57,7 +58,8 @@ const Index = () => {
   const isFoldersExists = folders.length > 1;
   const tabs = folders
     .map((folder) => {
-      const isSingleDefaultFolder = folder.id === "-1" && folders.length === 1;
+      const isSingleDefaultFolder =
+        folder.id === DEFAULT_FOLDER && folders.length === 1;
       if (isSingleDefaultFolder) return;
       else
         return {
@@ -132,7 +134,7 @@ const Index = () => {
         />
       ) : (
         <RoutineList
-          folderId={"-1"}
+          folderId={DEFAULT_FOLDER}
           setIsReordering={() => setIsReordering(false)}
         />
       )}

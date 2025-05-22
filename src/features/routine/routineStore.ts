@@ -1,3 +1,4 @@
+import { DEFAULT_FOLDER } from "@/constants/Folders";
 import { Routine, RoutineState } from "@features/routine/routineTypes";
 import { storage } from "@lib/storage";
 import { create } from "zustand";
@@ -13,7 +14,7 @@ export const useRoutineStore = create<RoutineState>()((set) => ({
     set((state) => {
       const newRoutine: Routine = {
         id: Date.now().toString(),
-        folderIds: ["-1"],
+        folderIds: [DEFAULT_FOLDER],
         status: "undone",
         actualDuration: 0,
         ...routine,
