@@ -1,18 +1,23 @@
-// TODO add enum for proper use?
-type ConfirmDialogVariant = "confirm" | "input" | "remove" | "custom";
+export enum ConfirmDialogVariant {
+  Confirm = "confirm",
+  Input = "input",
+  Remove = "remove",
+  Custom = "custom",
+}
 
-// TODO React.ReactNode | string
 export type ConfirmDialogStore = {
   isOpen: boolean;
   title: string;
-  message: React.ReactNode | string;
   variant: ConfirmDialogVariant;
-  onConfirm: () => void;
+  message?: React.ReactNode;
+  placeholder?: string;
+  initialValue?: string;
+  onConfirm: (value?: string) => void;
   onCancel: () => void;
   setConfirmDialog: (
     options: Partial<
       Omit<ConfirmDialogStore, "setConfirmDialog" | "closeConfirmModal">
     >,
   ) => void;
-  closeConfirmModal: () => void;
+  closeConfirmDialog: () => void;
 };

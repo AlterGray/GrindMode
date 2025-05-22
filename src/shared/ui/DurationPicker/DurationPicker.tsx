@@ -55,13 +55,12 @@ const DurationPicker: React.FC<DurationPickerProps> = ({
           {/* Actions */}
           <View className="flex-row justify-end gap-2">
             <StyledButton
-              variant="text"
+              variant="secondary-text-20"
               onPress={onCancel}
               title="Cancel"
-              color="primary"
             />
             <StyledButton
-              variant="primary"
+              variant="primary-contained-20"
               onPress={() => onConfirm(totalDuration)}
               title="Confirm"
             />

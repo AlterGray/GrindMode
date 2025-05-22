@@ -5,63 +5,46 @@ import ThemedView from "../ThemedView";
 import StyledButton from "../StyledButton";
 import useConfirmDialogStore from "./ConfirmDialogStore";
 import StyledInput from "../StyledInput";
+import { ConfirmDialogVariant } from "./types";
+import { getDialogConfig } from "./utils";
 
-// TODO rewrite with expo modal?
-// https://docs.expo.dev/router/advanced/modals/
-// TODO finish it
-// TODO make it global
 const ConfirmDialog: React.FC = () => {
-  const { isOpen, title, message, onConfirm, onCancel, variant } =
-    useConfirmDialogStore();
-
-  const overlayStyle =
-    "flex-1 items-center justify-center bg-slate-900/20 dark:bg-slate-200/20";
-  const containerStyle = "w-10/12 rounded-xl p-4 bg-backgroundSurface gap-2";
-  const titleStyle = "mb-1 text-base font-medium text-lg";
-  const messageStyle = "mb-4 text-sm text-muted";
-  const buttonRowStyle = "flex-row justify-end gap-2";
+  const dialog = useConfirmDialogStore();
+  const config = getDialogConfig(dialog.variant);
 
   let content: React.ReactNode;
-  switch (variant) {
-    case "confirm":
-      content = <ThemedText className={messageStyle}>{message}</ThemedText>;
-      break;
-    case "custom":
-      content = message;
-      break;
-    case "input":
-      content = <StyledInput />;
-      break;
-    case "remove":
-      content = <ThemedText className={messageStyle}>{message}</ThemedText>;
-      break;
+
+  if (dialog.variant === ConfirmDialogVariant.Input) {
+    content = <StyledInput value={dialog.initialValue} />;
+  } else if (dialog.variant === ConfirmDialogVariant.Custom) {
+    content = dialog.message;
+  } else {
+    content = (
+      <ThemedText className="text-muted mb-4 text-sm">
+        {dialog.message ?? config.message}
+      </ThemedText>
+    );
   }
+
   return (
-    <Modal
-      transparent
-      statusBarTranslucent
-      navigationBarTranslucent
-      onRequestClose={onCancel}
-      visible={isOpen}
-      animationType="fade"
-    >
-      <Pressable onPress={onCancel} className="absolute inset-0"></Pressable>
-      <ThemedView className={overlayStyle} pointerEvents="box-none">
-        <ThemedView className={containerStyle}>
-          <ThemedText className={titleStyle}>{title}</ThemedText>
+    <Modal transparent visible={dialog.isOpen} animationType="fade">
+      <Pressable className="absolute inset-0" onPress={dialog.onCancel} />
+      <ThemedView className="flex-1 items-center justify-center bg-slate-900/20 dark:bg-slate-200/20">
+        <ThemedView className="bg-backgroundSurface w-10/12 gap-2 rounded-xl p-4">
+          <ThemedText className="mb-1 text-lg font-medium">
+            {dialog.title}
+          </ThemedText>
           {content}
-          <View className={buttonRowStyle}>
+          <View className="flex-row justify-end gap-2">
             <StyledButton
-              variant={"secondary"}
-              onPress={onCancel}
-              title={"Cancel"}
-              color={"secondary"}
+              variant={config.secondary.variant}
+              title={config.secondary.title}
+              onPress={dialog.onCancel}
             />
             <StyledButton
-              variant={"primary"}
-              onPress={onConfirm}
-              title={"Confirm"}
-              color={"primary"}
+              variant={config.primary.variant}
+              title={config.primary.title}
+              onPress={dialog.onConfirm}
             />
           </View>
         </ThemedView>

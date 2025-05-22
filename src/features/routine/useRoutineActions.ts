@@ -2,6 +2,7 @@ import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
 import { useRoutineStore } from "./routineStore";
 import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+import { ConfirmDialogVariant } from "@shared/ui/ConfirmDialog/types";
 
 // TODO bad custom hook
 const useRoutineActions = (
@@ -13,7 +14,7 @@ const useRoutineActions = (
   const completeRoutines = useRoutineStore((state) => state.completeRoutines);
   const closeActionModal = useActionModalStore((state) => state.closeModal);
   const closeConfirmModal = useConfirmDialogStore(
-    (state) => state.closeConfirmModal,
+    (state) => state.closeConfirmDialog,
   );
   const setConfirmDialog = useConfirmDialogStore(
     (state) => state.setConfirmDialog,
@@ -33,9 +34,7 @@ const useRoutineActions = (
         isOpen: true,
         title: "Remove routine",
         message: "Are you sure you want to remove this routine?",
-        primaryColor: "danger",
-        primaryButtonText: "Remove",
-        secondaryColor: "secondary",
+        variant: ConfirmDialogVariant.Remove,
         onConfirm: onConfirm,
         onCancel: onCancel,
       }),

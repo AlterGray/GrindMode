@@ -6,6 +6,7 @@ import ToggleOptions from "@shared/ui/ToggleOptions/ToggleOptions";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable } from "react-native";
+import { ConfirmDialogVariant } from "./ConfirmDialog/types";
 
 // TODO
 // export type Option = "folder" | "routine";
@@ -24,7 +25,7 @@ const CreateButton = ({ options, routes }: CreateButtonProps) => {
     (state) => state.setConfirmDialog,
   );
   const closeConfirmModal = useConfirmDialogStore(
-    (state) => state.closeConfirmModal,
+    (state) => state.closeConfirmDialog,
   );
 
   const onPress = () =>
@@ -38,10 +39,10 @@ const CreateButton = ({ options, routes }: CreateButtonProps) => {
           onChange={(option) => setOption(option)}
         />
       ),
-      primaryButtonText: "Create",
-      primaryColor: "primary",
+      variant: ConfirmDialogVariant.Custom,
       onConfirm: () => {
-        router.push(routes[option]);
+        // TODO
+        router.push(routes[option] as any);
         closeConfirmModal();
       },
       onCancel: () => closeConfirmModal(),

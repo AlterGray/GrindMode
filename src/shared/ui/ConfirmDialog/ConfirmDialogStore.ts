@@ -1,21 +1,22 @@
 import { create } from "zustand";
 import { ConfirmDialogStore } from "./types";
-import { getDefaultState } from "./getDefaultState";
+import { getDefaultDialogState } from "./getDefaultState";
 
 const useConfirmDialogStore = create<ConfirmDialogStore>((set) => ({
-  ...getDefaultState(),
+  ...getDefaultDialogState(),
   setConfirmDialog: (options) => {
     set((state) => ({
       ...state,
       ...options,
-      isOpen: options.isOpen !== undefined ? options.isOpen : state.isOpen,
+      isOpen: options.isOpen !== undefined ? options.isOpen : true,
     }));
   },
-  closeConfirmModal: () => {
-    set(() => ({
-      ...getDefaultState(),
-    }));
-  },
+  closeConfirmDialog: () =>
+    set((state) => ({
+      ...state,
+      ...getDefaultDialogState(),
+      isOpen: false,
+    })),
 }));
 
 export default useConfirmDialogStore;

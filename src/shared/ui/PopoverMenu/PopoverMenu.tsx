@@ -25,7 +25,7 @@ const PopoverMenu: React.FC = () => {
       // TODO update color
       className="bg-slate-50"
       title={item.label}
-      variant="text"
+      variant="secondary-text-20"
     />
   ));
 

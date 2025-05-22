@@ -2,26 +2,23 @@ import React, { useState } from "react";
 import ScrollTabs from "@shared/ui/ScrollTabs/ScrollTabs";
 import { useFolderStore } from "@features/folder/folderStore";
 import RoutineList from "@features/routine/RoutineList";
-import ThemedText from "@shared/ui/ThemedText";
-import StyledInput from "@shared/ui/StyledInput";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
+import { ConfirmDialogVariant } from "@shared/ui/ConfirmDialog/types";
 
 // TODO
 const Index = () => {
   const folders = useFolderStore((state) => state.folders);
   const removeFolder = useFolderStore((state) => state.removeFolder);
   const renameFolder = useFolderStore((state) => state.renameFolder);
-  const [folderId, setFolderId] = useState("");
-  const [folderName, setFolderName] = useState("");
   const [isReordering, setIsReordering] = useState(false);
   const setFolders = useFolderStore((state) => state.setFolders);
   const setConfirmDialog = useConfirmDialogStore(
     (state) => state.setConfirmDialog,
   );
   const closeConfirmDialog = useConfirmDialogStore(
-    (state) => state.closeConfirmModal,
+    (state) => state.closeConfirmDialog,
   );
 
   const handleRemoveFolder = (folderId: string) => {
@@ -37,17 +34,11 @@ const Index = () => {
         {
           // TODO when remove folder which is active then app crashes
           label: "Delete folder",
-          onPress: () => {
-            openRemoveDialog();
-            setFolderId(folderId2);
-          },
+          onPress: () => openRemoveDialog(folderId2),
         },
         {
           label: "Rename folder",
-          onPress: () => {
-            openRenameDialog();
-            setFolderId(folderId2);
-          },
+          onPress: () => openRenameDialog(folderId2),
         },
       ];
     menuItems.push({
@@ -95,25 +86,29 @@ const Index = () => {
     },
   ];
 
-  const openRenameDialog = () => {
+  const openRenameDialog = (folderId: string) => {
+    const folder = folders.find((folder) => folder.id === folderId);
+    const name = folder?.name;
     /* TODO add animation for routine list even if a few items there */
     setConfirmDialog({
       isOpen: true,
       title: "Rename folder",
       onCancel: closeConfirmDialog,
-      onConfirm: () => {
-        renameFolder(folderId, folderName);
+      onConfirm: (value) => {
+        // TODO "!"
+        renameFolder(folderId, value!);
         closeConfirmDialog();
       },
-      variant: "input",
+      variant: ConfirmDialogVariant.Input,
+      initialValue: name,
     });
   };
 
-  const openRemoveDialog = () => {
+  const openRemoveDialog = (folderId: string) => {
     setConfirmDialog({
       isOpen: true,
       title: "Remove folder",
-      variant: "remove",
+      variant: ConfirmDialogVariant.Remove,
       onCancel: closeConfirmDialog,
       onConfirm: () => handleRemoveFolder(folderId),
     });
@@ -124,10 +119,7 @@ const Index = () => {
       {isFoldersExists ? (
         <ScrollTabs
           tabs={tabs}
-          onCloseTab={(id) => {
-            setFolderId(id);
-            openRemoveDialog();
-          }}
+          onCloseTab={openRemoveDialog}
           isReordering={isReordering}
           onDragEnd={(item) => {
             const newFolders = item.data.map((f, i) => {

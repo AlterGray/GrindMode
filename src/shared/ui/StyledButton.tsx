@@ -1,75 +1,76 @@
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 
+export type Variant =
+  | "primary-contained-20"
+  | "secondary-text-10"
+  | "secondary-text-20"
+  | "remove-contained-20";
+
 type StyledButtonProps = {
   title: string;
-  variant?: "primary" | "secondary" | "text";
-  size?: "sm" | "md" | "lg";
+  variant?: Variant;
   fullWidth?: boolean;
   className?: string;
   titleClassName?: string;
-  color?: "primary" | "secondary" | "danger";
   children?: never;
   onPress?: () => void;
 };
 
 const StyledButton: React.FC<StyledButtonProps> = ({
   title,
-  variant = "primary",
-  size = "md",
+  variant = "primary-contained-20",
   fullWidth = false,
   className = "",
   titleClassName = "",
-  color = "primary",
   onPress,
 }) => {
-  const baseStyles = "rounded-lg items-center justify-center";
-  const commonBgColors = {
+  // Parse variant: "primary-contained-20" => intent, style, size
+  const [intent, style, sizeRaw] = variant.split("-") as [
+    "primary" | "secondary" | "remove",
+    "contained" | "text",
+    "10" | "20",
+  ];
+
+  // Map intent to styles
+  const bgColorMap = {
     primary:
       "bg-light-buttonPrimaryBackground dark:bg-dark-buttonPrimaryBackground",
     secondary:
       "bg-light-buttonSecondaryBackground dark:bg-dark-buttonSecondaryBackground",
-    danger:
+    remove:
       "bg-light-buttonDangerBackground dark:bg-dark-buttonDangerBackground",
     text: "bg-transparent",
   };
 
-  const commonTextColors = {
+  const textColorMap = {
     primary: "text-light-buttonPrimaryText dark:text-dark-buttonPrimaryText",
     secondary:
       "text-light-buttonSecondaryText dark:text-dark-buttonSecondaryText",
-    danger: "text-light-buttonDangerText dark:text-dark-buttonDangerText",
+    remove: "text-light-buttonDangerText dark:text-dark-buttonDangerText",
     text: "text-light-textPrimary dark:text-dark-textPrimary",
   };
 
-  const sizeStyles = {
-    sm: "py-2 px-4",
-    md: "py-3 px-6",
-    lg: "py-4 px-8",
+  const sizeStylesMap = {
+    "10": "py-2 px-4 text-sm",
+    "20": "py-3 px-6 text-base",
   };
 
-  const isTextVariant = variant === "text";
-  const bgColor = isTextVariant ? commonBgColors.text : commonBgColors[color];
-  const textColor = commonTextColors[color];
+  const isText = style === "text";
+  const bgColor = isText ? bgColorMap.text : bgColorMap[intent];
+  const textColor = isText ? textColorMap.text : textColorMap[intent];
+  const sizeStyle = sizeStylesMap[sizeRaw as keyof typeof sizeStylesMap];
 
-  const activeStyles = isTextVariant
-    ? `p-4 active:opacity-50 ${bgColor}`
-    : `elevation-sm ${bgColor}`;
-
-  const textButtonVariantStyles =
-    "text-light-textAccent font-medium border-b-[1px] border-radius-2 border-light-buttonPrimaryBorder";
-
-  const textVariantStyles =
-    variant === "text" ? `${textColor} ${textButtonVariantStyles}` : textColor;
+  const activeStyles = isText ? "p-4 active:opacity-50" : "elevation-sm";
 
   return (
     <TouchableOpacity
-      className={`${baseStyles} ${activeStyles} ${sizeStyles[size]} ${
-        fullWidth ? "w-full" : ""
-      } ${className}`}
+      className={`items-center justify-center rounded-lg ${bgColor} ${sizeStyle} ${activeStyles} ${fullWidth ? "w-full" : ""} ${className}`}
       onPress={onPress}
     >
-      <Text className={`${textVariantStyles} ${titleClassName}`}>{title}</Text>
+      <Text className={`${textColor} font-medium ${titleClassName}`}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };

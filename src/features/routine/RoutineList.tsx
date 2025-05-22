@@ -17,6 +17,7 @@ import { getFolderColor } from "@features/folder/utils";
 import useRoutineActions from "./useRoutineActions";
 import useFolderActions from "@features/folder/useFolderActions";
 import CreateButton from "@shared/ui/CreateButton";
+import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
 
 type RoutineListProps = {
   folderId: string;
@@ -29,6 +30,9 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [isNavModalOpened, setIsNavModalOpened] = useState(false);
   const openNavModal = () => setIsNavModalOpened(true);
+  const closeConfirmDialog = useConfirmDialogStore(
+    (state) => state.closeConfirmDialog,
+  );
 
   const pathName = usePathname();
   const setActionModal = useActionModalStore((state) => state.setActionModal);
@@ -60,7 +64,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const { removeAction, completeAction } = useRoutineActions(
     selectedRoutines,
     resetSelection,
-    closeActionModal,
+    closeConfirmDialog,
   );
   const {
     currentMenuAction,
