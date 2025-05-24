@@ -1,9 +1,11 @@
 import { ConfirmDialogStore, ConfirmDialogVariant } from "./types";
 
-export function getDefaultDialogState(): Omit<
+type DefaultDialogState = Omit<
   ConfirmDialogStore,
-  "setConfirmDialog" | "closeConfirmDialog"
-> {
+  "openConfirmDialog" | "closeConfirmDialog"
+>;
+
+export function getDefaultDialogState(): DefaultDialogState {
   return {
     isOpen: false,
     title: "",

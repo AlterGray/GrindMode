@@ -21,16 +21,15 @@ const CreateButton = ({ options, routes }: CreateButtonProps) => {
   const router = useRouter();
   const isDark = useThemeStore((state) => state.isDark);
 
-  const setConfirmDialog = useConfirmDialogStore(
-    (state) => state.setConfirmDialog,
+  const openConfirmDialog = useConfirmDialogStore(
+    (state) => state.openConfirmDialog,
   );
   const closeConfirmModal = useConfirmDialogStore(
     (state) => state.closeConfirmDialog,
   );
 
   const onPress = () =>
-    setConfirmDialog({
-      isOpen: true,
+    openConfirmDialog({
       title: "Select what you want to create",
       message: (
         <ToggleOptions

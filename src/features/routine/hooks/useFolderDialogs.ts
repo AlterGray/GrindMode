@@ -4,8 +4,8 @@ import { ConfirmDialogVariant } from "@shared/ui/ConfirmDialog/types";
 
 const useFolderDialogs = () => {
   const folders = useFolderStore((state) => state.folders);
-  const setConfirmDialog = useConfirmDialogStore(
-    (state) => state.setConfirmDialog,
+  const openConfirmDialog = useConfirmDialogStore(
+    (state) => state.openConfirmDialog,
   );
   const closeConfirmDialog = useConfirmDialogStore(
     (state) => state.closeConfirmDialog,
@@ -23,8 +23,7 @@ const useFolderDialogs = () => {
     const folder = folders.find((folder) => folder.id === folderId);
     const name = folder?.name;
     /* TODO add animation for routine list even if a few items there */
-    setConfirmDialog({
-      isOpen: true,
+    openConfirmDialog({
       title: "Rename folder",
       onCancel: closeConfirmDialog,
       onConfirm: (value) => {
@@ -38,8 +37,7 @@ const useFolderDialogs = () => {
   };
 
   const openRemoveDialog = (folderId: string) => {
-    setConfirmDialog({
-      isOpen: true,
+    openConfirmDialog({
       title: "Remove folder",
       variant: ConfirmDialogVariant.Remove,
       onCancel: closeConfirmDialog,

@@ -17,8 +17,8 @@ const useRoutineActions = (
   const closeConfirmModal = useConfirmDialogStore(
     (state) => state.closeConfirmDialog,
   );
-  const setConfirmDialog = useConfirmDialogStore(
-    (state) => state.setConfirmDialog,
+  const openConfirmDialog = useConfirmDialogStore(
+    (state) => state.openConfirmDialog,
   );
 
   const onConfirm = (routineIds: string[]) => {
@@ -31,8 +31,7 @@ const useRoutineActions = (
   // TODO bug
   const getRemoveAction = (routineIds: string[]): ActionType => ({
     onPress: () =>
-      setConfirmDialog({
-        isOpen: true,
+      openConfirmDialog({
         title: "Remove routine",
         message: "Are you sure you want to remove this routine?",
         variant: ConfirmDialogVariant.Remove,

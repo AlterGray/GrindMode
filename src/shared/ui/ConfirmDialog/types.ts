@@ -1,11 +1,18 @@
-export enum ConfirmDialogVariant {
+enum ConfirmDialogVariant {
   Confirm = "confirm",
   Input = "input",
   Remove = "remove",
   Custom = "custom",
 }
 
-export type ConfirmDialogStore = {
+type ConfirmDialogOptions = Partial<
+  Omit<
+    ConfirmDialogStore,
+    "openConfirmDialog" | "closeConfirmDialog" | "isOpen"
+  >
+>;
+
+type ConfirmDialogStore = {
   isOpen: boolean;
   title: string;
   variant: ConfirmDialogVariant;
@@ -14,10 +21,10 @@ export type ConfirmDialogStore = {
   initialValue?: string;
   onConfirm: (value?: string) => void;
   onCancel: () => void;
-  setConfirmDialog: (
-    options: Partial<
-      Omit<ConfirmDialogStore, "setConfirmDialog" | "closeConfirmModal">
-    >,
-  ) => void;
+  openConfirmDialog: (options: ConfirmDialogOptions) => void;
   closeConfirmDialog: () => void;
 };
+
+export { ConfirmDialogVariant, ConfirmDialogOptions };
+// TODO DO IT EVERYWHERE
+export type { ConfirmDialogStore };

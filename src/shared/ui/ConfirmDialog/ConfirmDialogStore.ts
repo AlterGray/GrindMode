@@ -4,11 +4,10 @@ import { getDefaultDialogState } from "./getDefaultState";
 
 const useConfirmDialogStore = create<ConfirmDialogStore>((set) => ({
   ...getDefaultDialogState(),
-  setConfirmDialog: (options) => {
+  openConfirmDialog: (options) => {
     set((state) => ({
       ...state,
       ...options,
-      isOpen: options.isOpen !== undefined ? options.isOpen : true,
     }));
   },
   closeConfirmDialog: () =>
