@@ -1,12 +1,12 @@
 import { Colors } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 import { useThemeStore } from "@shared/stores/themeStore";
-import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
+import useConfirmModalStore from "@shared/ui/ConfirmModal/ConfirmModalStore";
 import ToggleOptions from "@shared/ui/ToggleOptions/ToggleOptions";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable } from "react-native";
-import { ConfirmDialogVariant } from "./ConfirmDialog/types";
+import { ConfirmModalVariant } from "./ConfirmModal/types";
 
 // TODO
 // export type Option = "folder" | "routine";
@@ -21,11 +21,11 @@ const CreateButton = ({ options, routes }: CreateButtonProps) => {
   const router = useRouter();
   const isDark = useThemeStore((state) => state.isDark);
 
-  const openConfirmDialog = useConfirmDialogStore(
-    (state) => state.openConfirmDialog,
+  const openConfirmDialog = useConfirmModalStore(
+    (state) => state.openConfirmModal,
   );
-  const closeConfirmModal = useConfirmDialogStore(
-    (state) => state.closeConfirmDialog,
+  const closeConfirmModal = useConfirmModalStore(
+    (state) => state.closeConfirmModal,
   );
 
   const onPress = () =>
@@ -38,7 +38,7 @@ const CreateButton = ({ options, routes }: CreateButtonProps) => {
           onChange={(option) => setOption(option)}
         />
       ),
-      variant: ConfirmDialogVariant.Custom,
+      variant: ConfirmModalVariant.Custom,
       onConfirm: () => {
         // TODO
         router.push(routes[option] as any);

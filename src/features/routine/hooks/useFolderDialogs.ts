@@ -1,14 +1,14 @@
 import { useFolderStore } from "@features/folder/folderStore";
-import useConfirmDialogStore from "@shared/ui/ConfirmDialog/ConfirmDialogStore";
-import { ConfirmDialogVariant } from "@shared/ui/ConfirmDialog/types";
+import useConfirmModalStore from "@shared/ui/ConfirmModal/ConfirmModalStore";
+import { ConfirmModalVariant } from "@shared/ui/ConfirmModal/types";
 
 const useFolderDialogs = () => {
   const folders = useFolderStore((state) => state.folders);
-  const openConfirmDialog = useConfirmDialogStore(
-    (state) => state.openConfirmDialog,
+  const openConfirmDialog = useConfirmModalStore(
+    (state) => state.openConfirmModal,
   );
-  const closeConfirmDialog = useConfirmDialogStore(
-    (state) => state.closeConfirmDialog,
+  const closeConfirmDialog = useConfirmModalStore(
+    (state) => state.closeConfirmModal,
   );
 
   const removeFolder = useFolderStore((state) => state.removeFolder);
@@ -31,7 +31,7 @@ const useFolderDialogs = () => {
         renameFolder(folderId, value!);
         closeConfirmDialog();
       },
-      variant: ConfirmDialogVariant.Input,
+      variant: ConfirmModalVariant.Input,
       initialValue: name,
     });
   };
@@ -39,7 +39,7 @@ const useFolderDialogs = () => {
   const openRemoveDialog = (folderId: string) => {
     openConfirmDialog({
       title: "Remove folder",
-      variant: ConfirmDialogVariant.Remove,
+      variant: ConfirmModalVariant.Remove,
       onCancel: closeConfirmDialog,
       onConfirm: () => handleRemoveFolder(folderId),
     });

@@ -10,10 +10,10 @@ import { Colors } from "../src/constants/Colors";
 import { useColorScheme } from "nativewind";
 
 import "../global.css";
-import ConfirmDialog from "@shared/ui/ConfirmDialog/ConfirmDialog";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import PopoverMenu from "@shared/ui/PopoverMenu/PopoverMenu";
 import ActionModal from "@shared/ui/ActionsModal/ActionModal";
+import ConfirmModal from "@shared/ui/ConfirmModal/components/ConfirmModal";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -64,7 +64,7 @@ const RootLayout = () => {
         >
           <Stack.Screen name="(tabs)" />
         </Stack>
-        <ConfirmDialog />
+        <ConfirmModal />
         <PopoverMenu />
         <ActionModal />
       </ThemeProvider>

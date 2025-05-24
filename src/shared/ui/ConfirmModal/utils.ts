@@ -1,7 +1,8 @@
 import { Variant } from "../StyledButton";
-import { ConfirmDialogVariant } from "./types";
+import { ConfirmModalVariant } from "./types";
 
-export const getDialogConfig = (variant: ConfirmDialogVariant) => {
+// TODO default message exist but if I don't put it then it empty, why if logic here add default value
+export const getModalConfig = (variant: ConfirmModalVariant) => {
   const defaultMessage = (op: string) => `Press "${op}" to confirm operation.`;
   // TODO replace with enum!
   let primary: { title: string; variant: Variant };
@@ -9,22 +10,22 @@ export const getDialogConfig = (variant: ConfirmDialogVariant) => {
   let message: string;
 
   switch (variant) {
-    case ConfirmDialogVariant.Confirm:
+    case ConfirmModalVariant.Confirm:
       primary = { title: "Confirm", variant: "primary-contained-20" };
       secondary = { title: "Cancel", variant: "secondary-text-20" };
       message = defaultMessage("Confirm");
       break;
-    case ConfirmDialogVariant.Remove:
+    case ConfirmModalVariant.Remove:
       primary = { title: "Remove", variant: "remove-contained-20" };
       secondary = { title: "Cancel", variant: "secondary-text-20" };
       message = defaultMessage("Remove");
       break;
-    case ConfirmDialogVariant.Input:
+    case ConfirmModalVariant.Input:
       primary = { title: "Confirm", variant: "primary-contained-20" };
       secondary = { title: "Cancel", variant: "secondary-text-20" };
       message = ""; // input handled in UI
       break;
-    case ConfirmDialogVariant.Custom:
+    case ConfirmModalVariant.Custom:
     default:
       primary = { title: "Confirm", variant: "primary-contained-20" };
       secondary = { title: "Cancel", variant: "secondary-text-20" };
