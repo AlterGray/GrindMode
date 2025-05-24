@@ -5,7 +5,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useThemeStore } from "../../src/shared/stores/themeStore";
 import { useTab } from "@hooks/useTab";
 import { useActionModalStore } from "@ui/ActionsModal/actionsModalStore";
-import ActionModal from "@ui/ActionsModal/ActionModal";
 import { Colors } from "../../src/constants/Colors";
 
 const TabsLayout = () => {
@@ -37,7 +36,6 @@ const TabsLayout = () => {
           tabBarIcon: ({ color }) => (
             <FontAwesome name="envira" size={22} color={color} />
           ),
-          header: isOpen ? () => <ActionModal /> : undefined,
         }}
       />
       <Tabs.Screen

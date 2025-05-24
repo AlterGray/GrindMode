@@ -1,23 +1,14 @@
 import { DEFAULT_FOLDER } from "@/constants/Folders";
-import { useRoutineStore } from "@features/routine/routineStore";
-import React, { useState } from "react";
 
-const useFolderActions = (
+const getFolderActions = (
   routineIds: string[],
   folderId: string,
   onClose: () => void,
   onPress: () => void,
+  setCurrentMenuAction: (action: any) => void,
+  removeRoutinesFromFolder: (items: string[], folderId: string) => void,
+  addRoutinesToFolder: (routineIds: string[], folderId: string) => void,
 ) => {
-  type MenuAction = "add" | "move";
-  const [currentMenuAction, setCurrentMenuAction] = useState<MenuAction>("add");
-
-  const removeRoutinesFromFolder = useRoutineStore(
-    (state) => state.removeRoutinesFromFolder,
-  );
-  const addRoutinesToFolder = useRoutineStore(
-    (state) => state.addRoutinesToFolder,
-  );
-
   const handleRemoveRoutinesFromFolder = (
     selectedItems: string[],
     folderId: string,
@@ -27,10 +18,10 @@ const useFolderActions = (
   };
 
   // TODO open modal with confirmation
-  const removeFromFolderAction = {
+  const removeFromFolderAction = (ids: string[]) => ({
     label: "Remove from folder",
-    onPress: () => handleRemoveRoutinesFromFolder(routineIds, folderId),
-  };
+    onPress: () => handleRemoveRoutinesFromFolder(ids, folderId),
+  });
   const addToFolderAction = {
     label: "Add to folder",
     onPress: () => {
@@ -53,23 +44,22 @@ const useFolderActions = (
   };
 
   // TOOD FIX IT, IF WE DON'T USE MEMO THEN APP CRASHES, REALLY CONFUSING WHEN FORGETTING ABOUT IT
-  const menuActions = React.useMemo(() => {
+  const getMenuActions = () => {
     const actions = [addToFolderAction];
 
     if (folderId !== DEFAULT_FOLDER) {
-      actions.push(removeFromFolderAction);
       actions.push(moveToFolderAction);
+      actions.push(removeFromFolderAction(routineIds));
     }
 
     return actions;
-  }, [routineIds.length, folderId]);
+  };
 
   return {
-    currentMenuAction,
-    menuActions,
+    menuActions: getMenuActions(),
     handleAddRoutinesToFolder,
     handleRemoveRoutinesFromFolder,
   };
 };
 
-export default useFolderActions;
+export default getFolderActions;

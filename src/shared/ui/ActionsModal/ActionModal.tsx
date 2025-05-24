@@ -34,7 +34,7 @@ const ActionModal = () => {
   return (
     <ThemedView
       className={[
-        "w-full flex-row items-center justify-between shadow-md shadow-black/40",
+        "absolute w-full flex-row items-center justify-between py-1",
         "bg-light-backgroundSurface dark:bg-dark-backgroundSurface",
       ].join(" ")}
     >

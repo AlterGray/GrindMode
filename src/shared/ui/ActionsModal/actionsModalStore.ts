@@ -2,6 +2,10 @@ import { ActionType } from "@ui/ActionsModal/actionModalTypes";
 import { create } from "zustand";
 import { PopoverMenuItem } from "../PopoverMenu/types";
 
+type ActionModalOptions = Partial<
+  Omit<ActionModalStore, "closeModal" | "setActionModal">
+>;
+
 type ActionModalStore = {
   isOpen: boolean;
   text: string;
@@ -10,14 +14,7 @@ type ActionModalStore = {
   menuActions: PopoverMenuItem[];
   closeModal: () => void;
   onCloseDialog: () => void;
-  setActionModal: (
-    isOpen?: boolean,
-    text?: string,
-    actions?: ActionType[],
-    isMenuAction?: boolean,
-    menuActions?: PopoverMenuItem[],
-    onCloseDialog?: () => void,
-  ) => void;
+  setActionModal: (options: ActionModalOptions) => void;
 };
 
 // TODO keep only open/update/close?
@@ -43,20 +40,9 @@ export const useActionModalStore = create<ActionModalStore>()((set, get) => ({
     }));
   },
   // TODO use partial update
-  setActionModal: (
-    isOpen,
-    text,
-    actions,
-    isMenuAction,
-    menuActions,
-    onCloseDialog,
-  ) =>
+  setActionModal: (options) =>
     set((state) => ({
-      isOpen: isOpen ?? state.isOpen,
-      text: text ?? state.text,
-      actions: actions ?? state.actions,
-      isMenuAction: isMenuAction ?? state.isMenuAction,
-      menuActions: menuActions ?? state.menuActions,
-      onCloseDialog: onCloseDialog ?? state.onCloseDialog,
+      ...state,
+      ...options,
     })),
 }));

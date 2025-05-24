@@ -7,23 +7,22 @@ import ThemedText from "../ThemedText";
 import { ItemData } from "./types";
 
 type StyledListProps = {
-  startSelectingItems: (id: string) => void;
+  selectedItems: string[];
+  // change to status?
+  isSelecting: boolean;
   onPress: (id: string) => void;
-  selectedIds: string[];
   data: ItemData[];
-  isSelectingItems: boolean;
-  onItemSelect: (id: string) => void;
   renderContent?: (item: ItemData) => ReactNode;
   noItemsText?: string;
+  toggleItem: (itemId: string) => void;
 };
 
 const StyledList: React.FC<StyledListProps> = ({
-  startSelectingItems,
+  selectedItems,
+  isSelecting,
   onPress,
+  toggleItem,
   data,
-  isSelectingItems,
-  onItemSelect,
-  selectedIds,
   renderContent = null,
   noItemsText = "No items yet",
 }) => {
@@ -47,11 +46,11 @@ const StyledList: React.FC<StyledListProps> = ({
       renderItem={({ item }) => (
         <StyledItem
           item={item}
-          isSelecting={isSelectingItems}
-          isSelected={selectedIds.includes(item.id)}
-          onLongPress={startSelectingItems}
+          isSelecting={isSelecting}
+          isSelected={selectedItems.includes(item.id)}
+          onLongPress={toggleItem}
           onPress={onPress}
-          onSelect={onItemSelect}
+          onSelect={toggleItem}
         >
           {renderContent ? renderContent(item) : defaultRenderContent(item)}
         </StyledItem>

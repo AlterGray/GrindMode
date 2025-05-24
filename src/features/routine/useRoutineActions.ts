@@ -6,7 +6,6 @@ import { ConfirmDialogVariant } from "@shared/ui/ConfirmDialog/types";
 
 // TODO bad custom hook
 const useRoutineActions = (
-  routineIds: string[],
   resetSelection: () => void,
   onCancel: () => void,
 ) => {
@@ -20,7 +19,7 @@ const useRoutineActions = (
     (state) => state.setConfirmDialog,
   );
 
-  const onConfirm = () => {
+  const onConfirm = (routineIds: string[]) => {
     removeRoutines(routineIds);
     closeActionModal();
     closeConfirmModal();
@@ -28,29 +27,29 @@ const useRoutineActions = (
   };
 
   // TODO bug
-  const removeAction: ActionType = {
+  const getRemoveAction = (routineIds: string[]): ActionType => ({
     onPress: () =>
       setConfirmDialog({
         isOpen: true,
         title: "Remove routine",
         message: "Are you sure you want to remove this routine?",
         variant: ConfirmDialogVariant.Remove,
-        onConfirm: onConfirm,
+        onConfirm: () => onConfirm(routineIds),
         onCancel: onCancel,
       }),
     iconName: "trash-outline",
-  };
+  });
 
-  const completeAction: ActionType = {
+  const getCompleteAction = (routineIds: string[]): ActionType => ({
     onPress: () => {
       completeRoutines(routineIds);
       resetSelection();
       closeActionModal();
     },
     iconName: "checkmark",
-  };
+  });
 
-  return { removeAction, completeAction };
+  return { getRemoveAction, getCompleteAction };
 };
 
 export default useRoutineActions;
