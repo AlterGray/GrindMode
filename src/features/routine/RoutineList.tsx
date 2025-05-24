@@ -19,13 +19,15 @@ type RoutineListProps = {
 
 const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   const [isNavModalOpen, setIsNavModalOpen] = useState(false);
-  const setActionModal = useActionModalStore((state) => state.setActionModal);
+  const closeActionModal = useActionModalStore(
+    (state) => state.closeActionModal,
+  );
   const routines = useRoutineStore((state) => state.routines);
   const router = useRouter();
 
   const closeDialogs = () => {
     setIsNavModalOpen(false);
-    setActionModal({ isOpen: false });
+    closeActionModal();
     resetSelection();
   };
 

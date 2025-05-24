@@ -12,7 +12,7 @@ import { View } from "react-native";
 import { usePopoverMenu } from "@shared/hooks/usePopoverMenu";
 
 const ActionModal = () => {
-  const { isOpen, closeModal, text, actions, isMenuAction, menuActions } =
+  const { isOpen, closeActionModal, text, actions, isMenuAction, menuActions } =
     useActionModalStore();
   const isDark = useThemeStore((state) => state.isDark);
   const buttonRef = useRef<View>(null);
@@ -48,7 +48,7 @@ const ActionModal = () => {
         {/* TODO add effect on touch */}
         <IconButton
           iconName="close-outline"
-          onPress={closeModal}
+          onPress={closeActionModal}
           color={iconColor}
         />
         {text && (

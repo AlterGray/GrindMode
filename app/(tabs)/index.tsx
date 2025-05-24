@@ -5,7 +5,7 @@ import RoutineList from "@features/routine/RoutineList";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 import { DEFAULT_FOLDER } from "@/constants/Folders";
-import useFolderDialogs from "@features/routine/hooks/useRoutineDialogs";
+import useFolderDialogs from "@features/routine/hooks/useFolderDialogs";
 import { getScrollTabsFromFolders } from "@features/folder/utils";
 
 // TODO
@@ -13,15 +13,17 @@ const Index = () => {
   const folders = useFolderStore((state) => state.folders);
   const [isReordering, setIsReordering] = useState(false);
   const setFolders = useFolderStore((state) => state.setFolders);
-  const setActionModal = useActionModalStore((state) => state.setActionModal);
-  const closeModal = useActionModalStore((state) => state.closeModal);
+  const openActionModal = useActionModalStore((state) => state.openActionModal);
+  const closeActionModal = useActionModalStore(
+    (state) => state.closeActionModal,
+  );
   const { openRenameDialog, openRemoveDialog } = useFolderDialogs();
 
   // TODO make shared action type
   const actions = [
     {
       iconName: "checkmark" as const,
-      onPress: closeModal,
+      onPress: closeActionModal,
     },
   ];
 
@@ -44,8 +46,7 @@ const Index = () => {
     menuItems.push({
       label: "Reorder",
       onPress: () => {
-        setActionModal({
-          isOpen: true,
+        openActionModal({
           text: "Reorder items",
           actions: actions,
           onCloseDialog: () => setIsReordering(false),

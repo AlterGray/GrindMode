@@ -11,7 +11,9 @@ const useRoutineActions = (
 ) => {
   const removeRoutines = useRoutineStore((state) => state.removeRoutines);
   const completeRoutines = useRoutineStore((state) => state.completeRoutines);
-  const closeActionModal = useActionModalStore((state) => state.closeModal);
+  const closeActionModal = useActionModalStore(
+    (state) => state.closeActionModal,
+  );
   const closeConfirmModal = useConfirmDialogStore(
     (state) => state.closeConfirmDialog,
   );

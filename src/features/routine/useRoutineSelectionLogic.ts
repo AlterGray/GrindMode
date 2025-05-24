@@ -9,7 +9,10 @@ export const useRoutineSelectionLogic = (
   onOpenNavModal: () => void,
   onCloseDialogs: () => void,
 ) => {
-  const setActionModal = useActionModalStore((state) => state.setActionModal);
+  const openActionModal = useActionModalStore((state) => state.openActionModal);
+  const closeActionModal = useActionModalStore(
+    (state) => state.closeActionModal,
+  );
 
   const [selectedRoutines, setSelectedRoutines] = useState<string[]>([]);
   const [isSelecting, setIsSelecting] = useState(false);
@@ -47,19 +50,20 @@ export const useRoutineSelectionLogic = (
       addRoutinesToFolder,
     );
     const count = selectedItems.length;
-    setActionModal({
-      isOpen: count > 0,
-      text: `${count} item${count === 1 ? "" : "s"} selected`,
-      isMenuAction: true,
-      menuActions: menuActions,
-      actions: [
-        getRemoveAction(selectedItems),
-        getCompleteAction(selectedItems),
-      ],
-      onCloseDialog: resetSelection,
-    });
-  };
 
+    if (count > 0) {
+      openActionModal({
+        text: `${count} item${count === 1 ? "" : "s"} selected`,
+        isMenuAction: true,
+        menuActions: menuActions,
+        actions: [
+          getRemoveAction(selectedItems),
+          getCompleteAction(selectedItems),
+        ],
+        onCloseDialog: resetSelection,
+      });
+    } else closeActionModal();
+  };
   const toggleRoutine = (id: string) => {
     const isAlreadySelected = selectedRoutines.includes(id);
     const updatedRoutines = isAlreadySelected
