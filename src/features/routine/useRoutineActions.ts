@@ -28,7 +28,6 @@ const useRoutineActions = (
     resetSelection();
   };
 
-  // TODO bug
   const getRemoveAction = (routineIds: string[]): ActionType => ({
     onPress: () =>
       openConfirmDialog({

@@ -70,6 +70,5 @@ const CreateUpdateForm: React.FC<RoutineFormProps> = ({
     </ThemedView>
   );
 };
-// TODO export default vs export const
 
 export default CreateUpdateForm;
