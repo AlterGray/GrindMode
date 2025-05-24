@@ -1,7 +1,7 @@
 import { DayItemType, DayType } from "@shared/types/commonTypes";
 
 // TODO refactor it
-const DAYS = [
+export const DAYS = [
   DayType.SUNDAY,
   DayType.MONDAY,
   DayType.TUESDAY,
@@ -12,7 +12,7 @@ const DAYS = [
 ];
 
 // TODO SAME AS TYPE
-const DAY_ITEMS_LIST: DayItemType[] = [
+export const DAY_ITEMS_LIST: DayItemType[] = [
   { value: DayType.SUNDAY, display: "S" },
   { value: DayType.MONDAY, display: "M" },
   { value: DayType.TUESDAY, display: "T" },
@@ -21,5 +21,3 @@ const DAY_ITEMS_LIST: DayItemType[] = [
   { value: DayType.FRIDAY, display: "F" },
   { value: DayType.SATURDAY, display: "S" },
 ];
-
-export { DAYS, DAY_ITEMS_LIST };

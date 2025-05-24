@@ -1,6 +1,4 @@
-type PopoverMenuItem = {
+export type PopoverMenuItem = {
   label: string;
   onPress: () => void;
 };
-
-export { PopoverMenuItem };

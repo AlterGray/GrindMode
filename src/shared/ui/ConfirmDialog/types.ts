@@ -1,18 +1,18 @@
-enum ConfirmDialogVariant {
+export enum ConfirmDialogVariant {
   Confirm = "confirm",
   Input = "input",
   Remove = "remove",
   Custom = "custom",
 }
 
-type ConfirmDialogOptions = Partial<
+export type ConfirmDialogOptions = Partial<
   Omit<
     ConfirmDialogStore,
     "openConfirmDialog" | "closeConfirmDialog" | "isOpen"
   >
 >;
 
-type ConfirmDialogStore = {
+export type ConfirmDialogStore = {
   isOpen: boolean;
   title: string;
   variant: ConfirmDialogVariant;
@@ -24,7 +24,3 @@ type ConfirmDialogStore = {
   openConfirmDialog: (options: ConfirmDialogOptions) => void;
   closeConfirmDialog: () => void;
 };
-
-export { ConfirmDialogVariant, ConfirmDialogOptions };
-// TODO DO IT EVERYWHERE
-export type { ConfirmDialogStore };

@@ -1,8 +1,8 @@
-const getSizeClass = (size: "small" | "regular") => {
+export const getSizeClass = (size: "small" | "regular") => {
   return size === "regular" ? "w-8 h-8" : "w-6 h-6";
 };
 
-const getStyle = (isActive: boolean, size: "small" | "regular") => {
+export const getStyle = (isActive: boolean, size: "small" | "regular") => {
   const base = "justify-center items-center rounded-full border";
 
   const sizeClass = size === "regular" ? "w-8 h-8" : "w-6 h-6";
@@ -13,5 +13,3 @@ const getStyle = (isActive: boolean, size: "small" | "regular") => {
 
   return `${base} ${sizeClass} ${stateClass}`;
 };
-
-export { getSizeClass, getStyle };

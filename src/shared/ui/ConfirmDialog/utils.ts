@@ -1,7 +1,7 @@
 import { Variant } from "../StyledButton";
 import { ConfirmDialogVariant } from "./types";
 
-const getDialogConfig = (variant: ConfirmDialogVariant) => {
+export const getDialogConfig = (variant: ConfirmDialogVariant) => {
   const defaultMessage = (op: string) => `Press "${op}" to confirm operation.`;
   // TODO replace with enum!
   let primary: { title: string; variant: Variant };
@@ -37,5 +37,3 @@ const getDialogConfig = (variant: ConfirmDialogVariant) => {
     message,
   };
 };
-
-export { getDialogConfig };

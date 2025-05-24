@@ -29,4 +29,4 @@ export const folderColorsNames = [
 // TODO naming
 export type FolderColorType = (typeof folderColorsNames)[number];
 
-export { Folder, FolderState };
+export type { Folder, FolderState };

@@ -5,7 +5,7 @@ import { Dimensions, View } from "react-native";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-const usePopoverMenu = (buttonRef: RefObject<View | null>) => {
+export const usePopoverMenu = (buttonRef: RefObject<View | null>) => {
   const { setPopoverMenu, hideMenu } = usePopoverMenuStore.getState();
 
   const openMenu = (items: PopoverMenuItem[]) => {
@@ -36,5 +36,3 @@ const usePopoverMenu = (buttonRef: RefObject<View | null>) => {
 
   return { openMenu, hideMenu };
 };
-
-export { usePopoverMenu };

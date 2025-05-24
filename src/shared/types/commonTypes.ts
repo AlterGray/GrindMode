@@ -1,5 +1,5 @@
 // TODO move it?
-enum DayType {
+export enum DayType {
   SUNDAY = "SUNDAY",
   MONDAY = "MONDAY",
   TUESDAY = "TUESDAY",
@@ -9,9 +9,7 @@ enum DayType {
   SATURDAY = "SATURDAY",
 }
 
-type DayItemType = { value: DayType; display: string };
+export type DayItemType = { value: DayType; display: string };
 
-type StyledButtonVariant = "primary" | "secondary" | "text";
-type StyledButtonColor = "primary" | "secondary" | "danger";
-
-export { DayType, DayItemType, StyledButtonVariant, StyledButtonColor };
+export type StyledButtonVariant = "primary" | "secondary" | "text";
+export type StyledButtonColor = "primary" | "secondary" | "danger";

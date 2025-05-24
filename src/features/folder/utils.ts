@@ -5,13 +5,14 @@ import { DEFAULT_FOLDER } from "@/constants/Folders";
 import { ReactNode } from "react";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 
+// TODO hook!!!!!!!!!!!
 const isDark = useThemeStore((state) => state.isDark);
 // TODO: do we really need "??""
-const getFolderColor = (label: FolderColorType) =>
+export const getFolderColor = (label: FolderColorType) =>
   Colors.folderColors[label]?.[isDark ? "dark" : "light"] ??
   Colors.folderColors["default"][isDark ? "dark" : "light"];
 
-const foldersToScrollTabs = (
+export const foldersToScrollTabs = (
   folders: Folder[],
   getContent: (folderId: string) => ReactNode,
   getFolderMenuItems: (folderId: string) => PopoverMenuItem[],
@@ -32,5 +33,3 @@ const foldersToScrollTabs = (
         };
     })
     .filter((i) => i !== undefined);
-
-export { getFolderColor, foldersToScrollTabs as getScrollTabsFromFolders };

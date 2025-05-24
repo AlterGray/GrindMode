@@ -1,6 +1,6 @@
 import { DayType } from "@shared/types/commonTypes";
 
-enum ActionTypes {
+export enum ActionTypes {
   SET_TITLE = "SET_TITLE",
   SET_DESCRIPTION = "SET_DESCRIPTION",
   SET_START_TIME = "SET_START_TIME",
@@ -9,11 +9,9 @@ enum ActionTypes {
 }
 
 // TODO check syntax?
-type Action =
+export type Action =
   | { type: ActionTypes.SET_TITLE; payload: string }
   | { type: ActionTypes.SET_DESCRIPTION; payload: string }
   | { type: ActionTypes.SET_START_TIME; payload: number }
   | { type: ActionTypes.SET_EXPECTED_DURATION; payload: number }
   | { type: ActionTypes.SET_DAYS; payload: DayType[] };
-
-export { ActionTypes, Action };

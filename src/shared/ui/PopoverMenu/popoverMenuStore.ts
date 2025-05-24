@@ -13,7 +13,7 @@ type PopoverMenuStore = {
   ) => void;
 };
 
-const usePopoverMenuStore = create<PopoverMenuStore>()((set) => ({
+export const usePopoverMenuStore = create<PopoverMenuStore>()((set) => ({
   visible: false,
   items: [],
   position: { x: 0, y: 0 },
@@ -31,5 +31,3 @@ const usePopoverMenuStore = create<PopoverMenuStore>()((set) => ({
       handleLayoutChange: handleLayoutChange ?? state.handleLayoutChange,
     })),
 }));
-
-export { usePopoverMenuStore };
