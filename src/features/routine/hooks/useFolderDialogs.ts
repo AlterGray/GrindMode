@@ -4,10 +4,13 @@ import { ConfirmDialogVariant } from "@shared/ui/ConfirmDialog/types";
 
 const useFolderDialogs = () => {
   const folders = useFolderStore((state) => state.folders);
-  // TODO remove closeConfirmDialog from store
   const setConfirmDialog = useConfirmDialogStore(
     (state) => state.setConfirmDialog,
   );
+  const closeConfirmDialog = useConfirmDialogStore(
+    (state) => state.closeConfirmDialog,
+  );
+
   const removeFolder = useFolderStore((state) => state.removeFolder);
   const renameFolder = useFolderStore((state) => state.renameFolder);
 
@@ -15,8 +18,6 @@ const useFolderDialogs = () => {
     closeConfirmDialog();
     removeFolder(folderId);
   };
-
-  const closeConfirmDialog = () => setConfirmDialog({ isOpen: false });
 
   const openRenameDialog = (folderId: string) => {
     const folder = folders.find((folder) => folder.id === folderId);
