@@ -6,7 +6,7 @@ import { TabItemProps } from "./types";
 import { usePopoverMenu } from "@shared/hooks/usePopoverMenu";
 import { FolderColorType } from "@features/folder/types";
 import ActiveIndicator from "../ActiveIndicator";
-import { getFolderColor } from "@features/folder/utils";
+import { useFolderColor } from "@features/folder/useFolderColor";
 
 // TODO replace this things with "item"
 const TabItem: React.FC<TabItemProps> = ({
@@ -19,6 +19,7 @@ const TabItem: React.FC<TabItemProps> = ({
   menuItems,
   onLongPress,
 }) => {
+  const getFolderColor = useFolderColor();
   const buttonRef = useRef<View>(null);
 
   // TODO remove menu size?

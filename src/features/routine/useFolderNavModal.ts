@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useFolderStore } from "@features/folder/folderStore";
 import { FolderColorType } from "@features/folder/types";
 import useFolderActions from "@features/folder/getFolderActions";
-import { getFolderColor } from "@features/folder/utils";
+import { useFolderColor } from "@features/folder/useFolderColor";
 import { useRouter } from "expo-router";
 import { useRoutineStore } from "./routineStore";
 
@@ -17,12 +17,15 @@ const useFolderNavModal = (
     .filter((r) => routineIds.includes(r.id))
     .filter((r) => r.folderIds.includes(folderId));
   const folders = useFolderStore((state) => state.folders);
+
   const removeRoutinesFromFolder = useRoutineStore(
     (state) => state.removeRoutinesFromFolder,
   );
   const addRoutinesToFolder = useRoutineStore(
     (state) => state.addRoutinesToFolder,
   );
+  const getFolderColor = useFolderColor();
+
   const { handleAddRoutinesToFolder, handleRemoveRoutinesFromFolder } =
     useFolderActions(
       routineIds,

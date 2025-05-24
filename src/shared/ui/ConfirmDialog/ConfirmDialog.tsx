@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Modal, Pressable, View } from "react-native";
 import ThemedText from "../ThemedText";
 import ThemedView from "../ThemedView";
@@ -11,11 +11,23 @@ import { getDialogConfig } from "./utils";
 const ConfirmDialog: React.FC = () => {
   const dialog = useConfirmDialogStore();
   const config = getDialogConfig(dialog.variant);
+  const [inputText, setInputText] = useState("");
 
   let content: React.ReactNode;
 
+  const resetInput = () => setInputText(dialog.initialValue ?? "");
+  useEffect(() => {
+    if (dialog.isOpen && dialog.variant === ConfirmDialogVariant.Input) {
+      resetInput();
+    }
+  }, [dialog.isOpen, dialog.initialValue, dialog.variant]);
   if (dialog.variant === ConfirmDialogVariant.Input) {
-    content = <StyledInput value={dialog.initialValue} />;
+    content = (
+      <StyledInput
+        value={inputText}
+        onChangeText={(text) => setInputText(text)}
+      />
+    );
   } else if (dialog.variant === ConfirmDialogVariant.Custom) {
     content = dialog.message;
   } else {
@@ -44,7 +56,7 @@ const ConfirmDialog: React.FC = () => {
             <StyledButton
               variant={config.primary.variant}
               title={config.primary.title}
-              onPress={dialog.onConfirm}
+              onPress={() => dialog.onConfirm(inputText)}
             />
           </View>
         </ThemedView>

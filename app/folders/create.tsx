@@ -1,7 +1,7 @@
 import { Colors } from "@/constants/Colors";
 import { useFolderStore } from "@features/folder/folderStore";
 import { FolderColorType as FolderColorType } from "@features/folder/types";
-import { getFolderColor } from "@features/folder/utils";
+import { useFolderColor } from "@features/folder/useFolderColor";
 import StyledButton from "@shared/ui/StyledButton";
 import StyledInput from "@shared/ui/StyledInput";
 import ThemedText from "@shared/ui/ThemedText";
@@ -17,6 +17,7 @@ const create = () => {
   const { addFolder } = useFolderStore();
 
   const [folderColor, setFolderColor] = useState<FolderColorType>("default");
+  const getFolderColor = useFolderColor();
 
   const items = (Colors.folderColorsNames as FolderColorType[]).map(
     (name: FolderColorType) => ({

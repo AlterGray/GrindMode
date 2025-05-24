@@ -1,16 +1,7 @@
-import { Colors } from "@/constants/Colors";
-import { useThemeStore } from "@shared/stores/themeStore";
-import { Folder, FolderColorType } from "./types";
+import { Folder } from "./types";
 import { DEFAULT_FOLDER } from "@/constants/Folders";
 import { ReactNode } from "react";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
-
-// TODO hook!!!!!!!!!!!
-const isDark = useThemeStore((state) => state.isDark);
-// TODO: do we really need "??""
-export const getFolderColor = (label: FolderColorType) =>
-  Colors.folderColors[label]?.[isDark ? "dark" : "light"] ??
-  Colors.folderColors["default"][isDark ? "dark" : "light"];
 
 export const foldersToScrollTabs = (
   folders: Folder[],
