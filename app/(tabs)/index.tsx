@@ -6,7 +6,7 @@ import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 import { DEFAULT_FOLDER } from "@/constants/Folders";
 import useFolderDialogs from "@features/routine/hooks/useFolderDialogs";
-import { getScrollTabsFromFolders } from "@features/folder/utils";
+import { foldersToScrollTabs } from "@features/folder/utils";
 
 // TODO
 const Index = () => {
@@ -59,7 +59,7 @@ const Index = () => {
   };
 
   const isFoldersExists = folders.length > 1;
-  const tabs = getScrollTabsFromFolders(
+  const tabs = foldersToScrollTabs(
     folders,
     (folderId) => <RoutineList folderId={folderId} />,
     (folderId) => getFolderMenuItems(folderId),

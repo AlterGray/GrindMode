@@ -43,5 +43,6 @@ export const useActionModalStore = create<ActionModalStore>()((set, get) => ({
     set((state) => ({
       ...state,
       ...options,
+      isOpen: true,
     })),
 }));

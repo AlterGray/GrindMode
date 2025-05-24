@@ -8,6 +8,7 @@ const useConfirmDialogStore = create<ConfirmDialogStore>((set) => ({
     set((state) => ({
       ...state,
       ...options,
+      isOpen: true,
     }));
   },
   closeConfirmDialog: () =>
