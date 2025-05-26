@@ -5,6 +5,7 @@ import React from "react";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
+// TODO move it?
 type TimePickerButtonProps = {
   time: number;
   onChange: (value: number) => void;
