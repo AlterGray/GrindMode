@@ -26,7 +26,7 @@ export const useActionModalStore = create<ActionModalStore>()((set, get) => ({
   menuActions: [],
   onCloseDialog: () => {},
   closeActionModal: () => {
-    // TODO check if all respective stores has this method
+    // TODO check if all similar stores has this method
     // TODO better set just default state?
     const { onCloseDialog } = get();
     onCloseDialog?.(); // Call the callback before closing

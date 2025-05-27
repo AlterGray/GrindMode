@@ -36,7 +36,7 @@ const TabItem: React.FC<TabItemProps> = ({
         className="gap-1 rounded-md px-4 py-4 active:bg-light-highlight active:opacity-80 active:dark:bg-dark-highlight"
       >
         <ThemedText style={{ color: computedColor }}>{title}</ThemedText>
-        // TODO does it make sense to rewrite with "status"?
+        {/* // TODO does it make sense to rewrite with "status"? */}
         {isReordering && (
           <View className="absolute right-0">
             <Ionicons

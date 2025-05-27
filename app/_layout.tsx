@@ -64,6 +64,7 @@ const RootLayout = () => {
         >
           <Stack.Screen name="(tabs)" />
         </Stack>
+        {/* // TODO extract to modals */}
         <ConfirmModal />
         <PopoverMenu />
         <ActionModal />
