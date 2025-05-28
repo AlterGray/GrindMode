@@ -1,5 +1,4 @@
-import { Colors } from "@/constants/Colors";
-import { useThemeStore } from "@shared/stores/themeStore";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 import {
   ItemType,
@@ -23,8 +22,7 @@ const ThemedWheelPicker: React.FC<ThemedWheelPickerProps> = ({
   initialIndex = 0,
   onChange,
 }) => {
-  const isDark = useThemeStore((state) => state.isDark);
-  const theme = isDark ? "dark" : "light";
+  const theme = useThemeColors();
 
   return (
     <WheelPickerExpo
@@ -34,8 +32,8 @@ const ThemedWheelPicker: React.FC<ThemedWheelPickerProps> = ({
       items={items}
       onChange={onChange}
       renderItem={renderItem}
-      selectedStyle={{ borderColor: Colors[theme].tabActive, borderWidth: 2 }}
-      backgroundColor={Colors[theme].background}
+      selectedStyle={{ borderColor: theme.tabActive, borderWidth: 2 }}
+      backgroundColor={theme.background}
     />
   );
 };

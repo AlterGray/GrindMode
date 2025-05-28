@@ -36,6 +36,7 @@ const create = () => {
     <ThemedView className="flex-1">
       <ScrollView className="mx-2 p-4" contentContainerStyle={{ gap: 8 }}>
         {/* // Validate name("All" not allowed) */}
+        {/* use keyboard avoid? */}
         <StyledInput
           placeholder="Folder name"
           value={name}

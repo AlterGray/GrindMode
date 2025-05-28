@@ -1,11 +1,9 @@
 import React from "react";
 import { Stack } from "expo-router";
-import { Colors } from "@/constants/Colors";
-import { useThemeStore } from "@shared/stores/themeStore";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 
 const RoutineLayout = () => {
-  const isDark = useThemeStore((state) => state.isDark);
-  const theme = isDark ? Colors.dark : Colors.light;
+  const theme = useThemeColors();
   const backgroundColor = theme.backgroundSurface;
   const textColor = theme.textPrimary;
 

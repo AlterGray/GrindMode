@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { ROUTES } from "@/constants/routes";
 
 // TODO move it?
@@ -18,3 +19,6 @@ export type StyledButtonColor = "primary" | "secondary" | "danger";
 
 export type ValueOf<T> = T[keyof T];
 export type RouteType = ValueOf<typeof ROUTES>;
+
+export type Theme = typeof Colors.light;
+export type ColorName = keyof Theme;

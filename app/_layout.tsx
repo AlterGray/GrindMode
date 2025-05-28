@@ -6,7 +6,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { ThemeProvider } from "@shared/providers/ThemeProvider";
 import { useThemeStore } from "../src/shared/stores/themeStore";
-import { Colors } from "../src/constants/Colors";
 import { useColorScheme } from "nativewind";
 
 import "../global.css";
@@ -14,6 +13,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import PopoverMenu from "@shared/ui/PopoverMenu/PopoverMenu";
 import ActionModal from "@shared/ui/ActionsModal/ActionModal";
 import ConfirmModal from "@shared/ui/ConfirmModal/components/ConfirmModal";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -24,12 +24,10 @@ const RootLayout = () => {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  const { colorScheme, isDark } = useThemeStore();
+  const colorScheme = useThemeStore((state) => state.colorScheme);
+  // TODO
   const { setColorScheme } = useColorScheme();
-
-  const backgroundColor = isDark
-    ? Colors.dark.backgroundSurface
-    : Colors.light.backgroundSurface;
+  const backgroundColor = useThemeColors("backgroundSurface");
 
   useEffect(() => {
     if (loaded) {

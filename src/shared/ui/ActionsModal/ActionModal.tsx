@@ -1,15 +1,13 @@
 import React from "react";
 import ThemedView from "@ui/ThemedView";
 import { useActionModalStore } from "./actionsModalStore";
-import { useThemeStore } from "@shared/stores/themeStore";
-import { Colors } from "@/constants/Colors";
 import ActionModalButtons from "./ActionModalButtons";
 import CloseButtonAndText from "./CloseButtonAndText";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 
 const ActionModal = () => {
   const { isOpen } = useActionModalStore();
-  const isDark = useThemeStore((state) => state.isDark);
-  const iconColor = isDark ? Colors.dark.icon : Colors.light.icon;
+  const iconColor = useThemeColors("icon");
 
   if (!isOpen) return null;
 

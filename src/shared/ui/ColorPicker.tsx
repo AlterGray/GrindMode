@@ -1,8 +1,7 @@
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 import ThemedView from "./ThemedView";
 import { ItemType } from "react-native-wheel-picker-expo/lib/typescript/types";
-import { useThemeStore } from "@shared/stores/themeStore";
-import { Colors } from "@/constants/Colors";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 
 type ColorPickerProps = {
   items: ItemType[];
@@ -10,8 +9,7 @@ type ColorPickerProps = {
 };
 
 const ColorPicker: React.FC<ColorPickerProps> = ({ items, onChange }) => {
-  const isDark = useThemeStore((state) => state.isDark);
-  const theme = isDark ? "dark" : "light";
+  const theme = useThemeColors();
   const getColorByLabel = (label: string) =>
     items.find((item) => item.label == label)?.value;
   return (
@@ -32,10 +30,10 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ items, onChange }) => {
         )}
         width={70}
         selectedStyle={{
-          borderColor: Colors[theme].border,
+          borderColor: theme.border,
           borderWidth: 2,
         }}
-        backgroundColor={Colors[theme].background}
+        backgroundColor={theme.background}
       />
     </ThemedView>
   );

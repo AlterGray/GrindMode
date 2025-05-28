@@ -1,6 +1,4 @@
-import { Colors } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
-import { useThemeStore } from "@shared/stores/themeStore";
 import useConfirmModalStore from "@shared/ui/ConfirmModal/ConfirmModalStore";
 import ToggleOptions from "@shared/ui/ToggleOptions/ToggleOptions";
 import { useRouter } from "expo-router";
@@ -8,6 +6,7 @@ import { useState } from "react";
 import { Pressable } from "react-native";
 import { ConfirmModalVariant } from "./ConfirmModal/types";
 import { RouteType } from "@shared/types/commonTypes";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 
 type CreateButtonProps = {
   options: { label: string; value: string }[];
@@ -17,7 +16,7 @@ type CreateButtonProps = {
 const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
   const [option, setOption] = useState(options[0].value);
   const router = useRouter();
-  const isDark = useThemeStore((state) => state.isDark);
+  const iconColor = useThemeColors("icon");
 
   const openConfirmDialog = useConfirmModalStore(
     (state) => state.openConfirmModal,
@@ -53,11 +52,7 @@ const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
       ].join(" ")}
     >
       {/* TODO vs Ionic */}
-      <FontAwesome
-        size={24}
-        name="plus"
-        color={isDark ? Colors.dark.icon : Colors.light.icon}
-      />
+      <FontAwesome size={24} name="plus" color={iconColor} />
     </Pressable>
   );
 };

@@ -4,7 +4,7 @@ import { Colors } from "@/constants/Colors";
 
 export const useFolderColor = () => {
   const isDark = useThemeStore((state) => state.isDark);
-  // TODO: do we really need "??""
+  // TODO: do we really need "??"", restructure colors to repeat same structure as in Colors?
   const getFolderColor = (label: FolderColorType) =>
     Colors.folderColors[label]?.[isDark ? "dark" : "light"] ??
     Colors.folderColors["default"][isDark ? "dark" : "light"];
