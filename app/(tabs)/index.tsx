@@ -34,7 +34,6 @@ const Index = () => {
     if (folderId !== DEFAULT_FOLDER)
       menuItems = [
         {
-          // TODO when remove folder which is active then app crashes
           label: "Delete folder",
           onPress: () => openRemoveDialog(folderId),
         },

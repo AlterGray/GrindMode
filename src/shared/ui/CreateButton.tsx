@@ -16,7 +16,7 @@ type CreateButtonProps = {
   routes: Record<string, string>;
 };
 
-const CreateButton = ({ options, routes }: CreateButtonProps) => {
+const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
   const [option, setOption] = useState(options[0].value);
   const router = useRouter();
   const isDark = useThemeStore((state) => state.isDark);

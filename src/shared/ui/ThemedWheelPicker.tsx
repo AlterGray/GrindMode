@@ -6,7 +6,6 @@ import {
   RenderItemProps,
 } from "react-native-wheel-picker-expo/lib/typescript/types";
 
-// TODO recheck renderItem returns component
 export type ThemedWheelPickerProps = {
   renderItem: (props: RenderItemProps) => React.ReactNode;
   items: { label: string; value: any }[];
@@ -25,6 +24,7 @@ const ThemedWheelPicker: React.FC<ThemedWheelPickerProps> = ({
   onChange,
 }) => {
   const isDark = useThemeStore((state) => state.isDark);
+  const theme = isDark ? "dark" : "light";
 
   return (
     <WheelPickerExpo
@@ -34,10 +34,8 @@ const ThemedWheelPicker: React.FC<ThemedWheelPickerProps> = ({
       items={items}
       onChange={onChange}
       renderItem={renderItem}
-      selectedStyle={{ borderColor: Colors.light.tabActive, borderWidth: 2 }}
-      backgroundColor={
-        isDark ? Colors.dark.background : Colors.light.background
-      }
+      selectedStyle={{ borderColor: Colors[theme].tabActive, borderWidth: 2 }}
+      backgroundColor={Colors[theme].background}
     />
   );
 };

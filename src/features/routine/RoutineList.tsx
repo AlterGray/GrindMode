@@ -86,6 +86,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
         />
       </TouchBlocker>
 
+      {/* TODO stale state */}
       <CreateButton options={options} routes={createRoutes} />
 
       <NavModal

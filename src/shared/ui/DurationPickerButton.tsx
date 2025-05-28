@@ -9,7 +9,6 @@ type DurationPickerButtonProps = {
   onChange: (value: number) => void;
 };
 
-// TODO move it?
 const DurationPickerButton: React.FC<DurationPickerButtonProps> = ({
   duration,
   onChange,

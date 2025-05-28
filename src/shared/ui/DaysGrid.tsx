@@ -8,7 +8,6 @@ type DaysGridProps = {
   onChange: (days: DayType[]) => void;
 };
 
-// TODO REMOVE CLASSNAME?
 const DaysGrid: React.FC<DaysGridProps> = ({ items, onChange }) => {
   return (
     <ThemedView className="gap-2">
