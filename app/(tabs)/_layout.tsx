@@ -1,6 +1,6 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 import { useThemeStore } from "../../src/shared/stores/themeStore";
 import { useTab } from "@hooks/useTab";
@@ -34,7 +34,7 @@ const TabsLayout = () => {
           title: "Daily routine",
           tabBarItemStyle: { pointerEvents },
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="envira" size={22} color={color} />
+            <Ionicons name="flame-sharp" size={26} color={color} />
           ),
         }}
       />
@@ -44,7 +44,7 @@ const TabsLayout = () => {
           title: "Settings",
           tabBarItemStyle: { pointerEvents },
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="cog" size={22} color={color} />
+            <Ionicons name="build-sharp" size={26} color={color} />
           ),
         }}
       />

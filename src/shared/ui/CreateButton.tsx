@@ -1,4 +1,4 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import useConfirmModalStore from "@shared/ui/ConfirmModal/ConfirmModalStore";
 import ToggleOptions from "@shared/ui/ToggleOptions/ToggleOptions";
 import { useRouter } from "expo-router";
@@ -46,13 +46,10 @@ const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
   return (
     <Pressable
       onPress={onPress}
-      className={[
-        "elevation-sm absolute bottom-10 right-10 h-14 w-14 items-center justify-center rounded-full p-4",
-        "bg-light-secondaryBackground dark:bg-dark-buttonSecondaryBackground",
-      ].join(" ")}
+      className={"absolute bottom-10 right-10 rounded-full"}
     >
-      {/* TODO vs Ionic */}
-      <FontAwesome size={24} name="plus" color={iconColor} />
+      {/* TODO add shadow */}
+      <Ionicons size={56} name="add-circle-sharp" color={iconColor} />
     </Pressable>
   );
 };
