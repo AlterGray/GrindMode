@@ -12,6 +12,7 @@ import { useRouter } from "expo-router";
 import { ItemData } from "@shared/ui/StyledList/types";
 import { Routine } from "./routineTypes";
 import { useRoutineSelectionLogic } from "./useRoutineSelectionLogic";
+import { ROUTES } from "@/constants/routes";
 
 type RoutineListProps = {
   folderId: string;
@@ -56,7 +57,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   );
 
   const handlePressRoutine = (id: string) => {
-    router.push({ pathname: "/routines/update/[id]", params: { id } });
+    router.push({ pathname: ROUTES.ROUTINES_UPDATE, params: { id } });
   };
 
   const options = [
@@ -65,9 +66,9 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   ];
 
   const createRoutes = {
-    folder: "/folders/create",
-    routine: "/routines/create",
-  } as const;
+    folder: ROUTES.FOLDERS_CREATE,
+    routine: ROUTES.ROUTINES_CREATE,
+  };
 
   const routinesInFolder = routines.filter((r) =>
     r.folderIds.includes(folderId),

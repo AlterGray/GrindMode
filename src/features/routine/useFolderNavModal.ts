@@ -5,6 +5,7 @@ import useFolderActions from "@features/folder/getFolderActions";
 import { useFolderColor } from "@features/folder/useFolderColor";
 import { useRouter } from "expo-router";
 import { useRoutineStore } from "./routineStore";
+import { ROUTES } from "@/constants/routes";
 
 const useFolderNavModal = (
   routineIds: string[],
@@ -68,8 +69,7 @@ const useFolderNavModal = (
     title: "Create new folder",
     onPress: () => {
       closeDialogs();
-      // TODO hardcoded
-      router.push("/folders/create");
+      router.push(ROUTES.FOLDERS_CREATE);
     },
     isMarked: false,
     iconColor: color("default"),

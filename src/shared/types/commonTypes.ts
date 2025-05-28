@@ -1,3 +1,5 @@
+import { ROUTES } from "@/constants/routes";
+
 // TODO move it?
 export enum DayType {
   SUNDAY = "SUNDAY",
@@ -13,3 +15,6 @@ export type DayItemType = { value: DayType; display: string };
 
 export type StyledButtonVariant = "primary" | "secondary" | "text";
 export type StyledButtonColor = "primary" | "secondary" | "danger";
+
+export type ValueOf<T> = T[keyof T];
+export type RouteType = ValueOf<typeof ROUTES>;

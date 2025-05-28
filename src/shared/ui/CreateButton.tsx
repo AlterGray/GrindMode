@@ -7,13 +7,11 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable } from "react-native";
 import { ConfirmModalVariant } from "./ConfirmModal/types";
-
-// TODO
-// export type Option = "folder" | "routine";
+import { RouteType } from "@shared/types/commonTypes";
 
 type CreateButtonProps = {
   options: { label: string; value: string }[];
-  routes: Record<string, string>;
+  routes: Record<string, RouteType>;
 };
 
 const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
@@ -40,8 +38,7 @@ const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
       ),
       variant: ConfirmModalVariant.Custom,
       onConfirm: () => {
-        // TODO
-        router.push(routes[option] as any);
+        router.push(routes[option]);
         closeConfirmModal();
       },
       onCancel: () => closeConfirmModal(),
@@ -55,6 +52,7 @@ const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
         "bg-light-secondaryBackground dark:bg-dark-buttonSecondaryBackground",
       ].join(" ")}
     >
+      {/* TODO vs Ionic */}
       <FontAwesome
         size={24}
         name="plus"
