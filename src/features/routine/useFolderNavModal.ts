@@ -5,7 +5,7 @@ import useFolderActions from "@features/folder/getFolderActions";
 import { useFolderColor } from "@features/folder/useFolderColor";
 import { useRouter } from "expo-router";
 import { useRoutineStore } from "./routineStore";
-import { ROUTES } from "@/constants/routes";
+import { ROUTES } from "@shared/constants/routes";
 
 const useFolderNavModal = (
   routineIds: string[],

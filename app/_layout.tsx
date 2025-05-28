@@ -5,7 +5,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { ThemeProvider } from "@shared/providers/ThemeProvider";
-import { useThemeStore } from "../src/shared/stores/themeStore";
+import { useThemeStore } from "@shared/stores/themeStore";
 import { useColorScheme } from "nativewind";
 
 import "../global.css";
@@ -35,7 +35,7 @@ const RootLayout = () => {
     }
   }, [loaded]);
 
-  // TODO
+  // TODO fix theme changing
   useEffect(() => {
     setColorScheme(colorScheme);
   }, [colorScheme]);

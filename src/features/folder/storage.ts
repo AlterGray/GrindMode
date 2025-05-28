@@ -1,6 +1,6 @@
 import { storage } from "@shared/lib/storage";
 import { Folder } from "./types";
-import { DEFAULT_FOLDER } from "@/constants/Folders";
+import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 
 export const getStoredFolders = () => {
   const jsonFolders = storage.getString("folders");
@@ -9,6 +9,7 @@ export const getStoredFolders = () => {
   return folders;
 };
 
+// TODO same for routines?
 export const saveFolders = (folders: Folder[]) => {
   storage.set("folders", JSON.stringify(folders));
 };

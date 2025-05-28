@@ -8,12 +8,12 @@ const EditRoutine: React.FC = () => {
   const router = useRouter();
   const updateRoutine = useRoutineStore((state) => state.updateRoutine);
   const { id } = useLocalSearchParams();
-  const editingRoutine = useRoutineStore((state) =>
+  const routineToEdit = useRoutineStore((state) =>
     state.routines.find((routine) => routine.id === id),
   );
 
   // TODO does it okay?
-  if (!editingRoutine) {
+  if (!routineToEdit) {
     return null; // or show an error, loading, or fallback
   }
 
@@ -30,7 +30,7 @@ const EditRoutine: React.FC = () => {
       expectedDuration: routine.expectedDuration,
       days: routine.days,
       actualDuration: 0,
-      folderIds: editingRoutine.folderIds,
+      folderIds: routineToEdit.folderIds,
     });
 
     router.back();
@@ -38,7 +38,7 @@ const EditRoutine: React.FC = () => {
 
   return (
     <CreateUpdateForm
-      initialValues={editingRoutine}
+      initialValues={routineToEdit}
       submitText="Edit routine"
       onSubmit={handleSubmit}
     />

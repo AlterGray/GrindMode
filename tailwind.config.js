@@ -1,4 +1,4 @@
-const { Colors } = require("./src/constants/Colors");
+const { Colors } = require("./src/shared/constants/Colors");
 
 module.exports = {
   darkMode: "class",

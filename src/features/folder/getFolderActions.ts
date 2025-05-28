@@ -1,4 +1,4 @@
-import { DEFAULT_FOLDER } from "@/constants/Folders";
+import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 
 const getFolderActions = (
   routineIds: string[],

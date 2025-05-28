@@ -2,10 +2,10 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
-import { useThemeStore } from "../../src/shared/stores/themeStore";
-import { useTab } from "@hooks/useTab";
-import { useActionModalStore } from "@ui/ActionsModal/actionsModalStore";
-import { Colors } from "../../src/constants/Colors";
+import { useThemeStore } from "@shared/stores/themeStore";
+import { useTab } from "@shared/hooks/useTab";
+import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+import { Colors } from "@shared/constants/Colors";
 
 const TabsLayout = () => {
   const { colorScheme } = useThemeStore();
@@ -44,6 +44,7 @@ const TabsLayout = () => {
           title: "Settings",
           tabBarItemStyle: { pointerEvents },
           tabBarIcon: ({ color }) => (
+            // TODO move size to constants?
             <Ionicons name="build-sharp" size={26} color={color} />
           ),
         }}

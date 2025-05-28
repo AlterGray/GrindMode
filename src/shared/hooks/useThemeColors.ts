@@ -1,4 +1,4 @@
-import { Colors } from "@/constants/Colors";
+import { Colors } from "@shared/constants/Colors";
 import { useThemeStore } from "@shared/stores/themeStore";
 import { ColorName, Theme } from "@shared/types/commonTypes";
 

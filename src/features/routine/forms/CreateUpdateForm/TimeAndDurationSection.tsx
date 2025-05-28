@@ -1,7 +1,7 @@
 import DurationPickerButton from "@shared/ui/DurationPickerButton";
-import TimePickerButton from "@ui/TimePickerButton";
-import ThemedText from "@ui/ThemedText";
-import ThemedView from "@ui/ThemedView";
+import TimePickerButton from "@shared/ui/TimePickerButton";
+import ThemedText from "@shared/ui/ThemedText";
+import ThemedView from "@shared/ui/ThemedView";
 import React from "react";
 
 const TimeAndDurationSection = ({

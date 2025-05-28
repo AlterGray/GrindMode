@@ -9,12 +9,7 @@
       "@app/*": ["src/app/*"],
       "@features/*": ["src/features/*"],
       "@shared/*": ["src/shared/*"],
-      "@ui/*": ["src/shared/ui/*"],
-      "@hooks/*": ["src/shared/hooks/*"],
-      "@lib/*": ["src/shared/lib/*"],
-      "@types/*": ["src/shared/types/*"],
-      "@providers/*": ["src/shared/providers/*"],
-      "@/*": ["src/*"],
+      "@/*": ["src/*"]
     }
   },
   "include": [

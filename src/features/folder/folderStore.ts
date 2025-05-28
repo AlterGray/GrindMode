@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Folder, FolderState } from "./types";
 import { getDefaultFolder, getStoredFolders, saveFolders } from "./storage";
-import { DEFAULT_FOLDER } from "@/constants/Folders";
+import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 
 export const useFolderStore = create<FolderState>()((set) => ({
   folders: (() => {
@@ -23,6 +23,7 @@ export const useFolderStore = create<FolderState>()((set) => ({
         color,
       };
       const folders = [...state.folders, newFolder];
+      // TODO implement autosaving to prevent bugs related to missed sync with mmkv
       saveFolders(folders);
       return { folders };
     }),

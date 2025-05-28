@@ -1,4 +1,4 @@
-import { Colors } from "@/constants/Colors";
+import { Colors } from "@shared/constants/Colors";
 import { useFolderStore } from "@features/folder/folderStore";
 import { FolderColorType as FolderColorType } from "@features/folder/types";
 import { useFolderColor } from "@features/folder/useFolderColor";
@@ -15,7 +15,7 @@ import { ScrollView } from "react-native";
 const create = () => {
   const [name, setName] = useState("");
   const router = useRouter();
-  const { addFolder } = useFolderStore();
+  const addFolder = useFolderStore((state) => state.addFolder);
 
   const [folderColor, setFolderColor] = useState<FolderColorType>("default");
   const getFolderColor = useFolderColor();

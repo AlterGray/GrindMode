@@ -1,6 +1,6 @@
-import { DEFAULT_FOLDER } from "@/constants/Folders";
+import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 import { Routine, RoutineState } from "@features/routine/routineTypes";
-import { storage } from "@lib/storage";
+import { storage } from "@shared/lib/storage";
 import { create } from "zustand";
 
 const getStoredRoutines = (): Routine[] => {

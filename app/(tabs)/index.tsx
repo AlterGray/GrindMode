@@ -4,7 +4,7 @@ import { useFolderStore } from "@features/folder/folderStore";
 import RoutineList from "@features/routine/RoutineList";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
-import { DEFAULT_FOLDER } from "@/constants/Folders";
+import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 import useFolderDialogs from "@features/routine/hooks/useFolderDialogs";
 import { foldersToScrollTabs } from "@features/folder/utils";
 

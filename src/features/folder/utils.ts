@@ -1,5 +1,5 @@
 import { Folder } from "./types";
-import { DEFAULT_FOLDER } from "@/constants/Folders";
+import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 import { ReactNode } from "react";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 

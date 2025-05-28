@@ -1,5 +1,5 @@
-import { Colors } from "@/constants/Colors";
-import { ROUTES } from "@/constants/routes";
+import { Colors } from "@shared/constants/Colors";
+import { ROUTES } from "@shared/constants/routes";
 
 // TODO move it?
 export enum DayType {

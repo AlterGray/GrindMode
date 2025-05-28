@@ -1,6 +1,6 @@
 import { useThemeStore } from "@shared/stores/themeStore";
 import { FolderColorType } from "./types";
-import { Colors } from "@/constants/Colors";
+import { Colors } from "@shared/constants/Colors";
 
 export const useFolderColor = () => {
   const isDark = useThemeStore((state) => state.isDark);

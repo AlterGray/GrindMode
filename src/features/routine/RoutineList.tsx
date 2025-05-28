@@ -12,7 +12,7 @@ import { useRouter } from "expo-router";
 import { ItemData } from "@shared/ui/StyledList/types";
 import { Routine } from "./routineTypes";
 import { useRoutineSelectionLogic } from "./useRoutineSelectionLogic";
-import { ROUTES } from "@/constants/routes";
+import { ROUTES } from "@shared/constants/routes";
 
 type RoutineListProps = {
   folderId: string;

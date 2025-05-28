@@ -1,6 +1,6 @@
-import { useActionModalStore } from "@ui/ActionsModal/actionsModalStore";
+import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { useThemeStore } from "@shared/stores/themeStore";
-import { Colors } from "@/constants/Colors";
+import { Colors } from "@shared/constants/Colors";
 import { ViewStyle } from "react-native";
 
 export const useTab = () => {
