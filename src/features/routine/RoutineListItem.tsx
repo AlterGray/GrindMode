@@ -1,6 +1,6 @@
-import ThemedText from "@ui/ThemedText";
-import DaysPicker from "@ui/DaysPicker/DaysPicker";
-import { extractDuration } from "@lib/utils/common";
+import ThemedText from "@shared/ui/ThemedText";
+import DaysPicker from "@shared/ui/DaysPicker/DaysPicker";
+import { extractDuration } from "@shared/lib/utils/common";
 import { Routine } from "./routineTypes";
 import { View } from "react-native";
 import { useRoutineStore } from "./routineStore";

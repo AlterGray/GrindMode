@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
-import ThemedView from "@ui/ThemedView";
-import ThemedText from "@ui/ThemedText";
+import ThemedView from "@shared/ui/ThemedView";
+import ThemedText from "@shared/ui/ThemedText";
 import DurationPickerItem from "./DurationPickerItem";
-import ThemedWheelPicker from "@ui/ThemedWheelPicker";
+import ThemedWheelPicker from "@shared/ui/ThemedWheelPicker";
 
 type MinutesPickerProps = {
   initialIndex?: number;

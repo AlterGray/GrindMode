@@ -1,4 +1,4 @@
-import StyledInput from "@ui/StyledInput";
+import StyledInput from "@shared/ui/StyledInput";
 import React from "react";
 
 const TitleDescriptionSection = ({

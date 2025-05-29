@@ -1,4 +1,4 @@
-import { ActionType } from "@ui/ActionsModal/actionModalTypes";
+import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
 import { create } from "zustand";
 import { PopoverMenuItem } from "../PopoverMenu/types";
 

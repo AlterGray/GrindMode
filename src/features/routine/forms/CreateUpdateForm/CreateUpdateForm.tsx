@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { ScrollView } from "react-native";
-import ThemedView from "@ui/ThemedView";
-import StyledButton from "@ui/StyledButton";
-import DaysGrid from "@ui/DaysGrid";
+import ThemedView from "@shared/ui/ThemedView";
+import StyledButton from "@shared/ui/StyledButton";
+import DaysGrid from "@shared/ui/DaysGrid";
 import { RoutineFormValues } from "../../routineTypes";
 import TitleDescriptionSection from "./TitleDescriptionSection";
 import TimeAndDurationSection from "./TimeAndDurationSection";

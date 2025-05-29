@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { DayType } from "@shared/types/commonTypes";
 import { DAY_ITEMS_LIST } from "../../entities/days";
 import DaysPickerItem from "./DaysPickerItem";
-import { useControlledDays } from "@hooks/useControlledDays";
+import { useControlledDays } from "@shared/hooks/useControlledDays";
 
 type DaysPickerProps = {
   onChange: (days: DayType[]) => void;

@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { useThemeStore } from "../stores/themeStore";
-import ThemedView from "@ui/ThemedView";
+import ThemedView from "@shared/ui/ThemedView";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const systemColorScheme = useColorScheme();
   const { toggleTheme, isDark } = useThemeStore();
 
+  // TODO u don't need useEffect here!!!
   useEffect(() => {
     if (systemColorScheme === "dark" && !isDark) toggleTheme();
   }, [systemColorScheme, toggleTheme]);

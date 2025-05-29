@@ -1,5 +1,5 @@
 import React from "react";
-import ThemedView from "@ui/ThemedView";
+import ThemedView from "@shared/ui/ThemedView";
 import { useActionModalStore } from "./actionsModalStore";
 import ActionModalButtons from "./ActionModalButtons";
 import CloseButtonAndText from "./CloseButtonAndText";

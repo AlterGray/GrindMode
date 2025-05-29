@@ -1,7 +1,7 @@
-import DurationPicker from "@ui/DurationPicker/DurationPicker";
-import StyledButton from "@ui/StyledButton";
+import DurationPicker from "@shared/ui/DurationPicker/DurationPicker";
+import StyledButton from "@shared/ui/StyledButton";
 import { useState } from "react";
-import { formatDurationLabel } from "@lib/utils/common";
+import { formatDurationLabel } from "@shared/lib/utils/common";
 import React from "react";
 
 type DurationPickerButtonProps = {

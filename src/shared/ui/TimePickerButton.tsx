@@ -1,6 +1,6 @@
 import { useState } from "react";
 import StyledButton from "./StyledButton";
-import { formatTimeLabel } from "@lib/utils/common";
+import { formatTimeLabel } from "@shared/lib/utils/common";
 import React from "react";
 
 import DateTimePicker from "@react-native-community/datetimepicker";

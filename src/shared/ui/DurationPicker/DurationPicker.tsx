@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Modal, View } from "react-native";
-import ThemedView from "@ui/ThemedView";
-import ThemedText from "@ui/ThemedText";
-import StyledButton from "@ui/StyledButton";
+import ThemedView from "@shared/ui/ThemedView";
+import ThemedText from "@shared/ui/ThemedText";
+import StyledButton from "@shared/ui/StyledButton";
 import HoursPicker from "./HoursPicker";
 import MinutesPicker from "./MinutesPicker";
 

@@ -1,4 +1,4 @@
-import { storage } from "@lib/storage";
+import { storage } from "@shared/lib/storage";
 import { create } from "zustand";
 
 type ThemeState = {
