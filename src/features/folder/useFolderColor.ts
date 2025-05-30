@@ -2,6 +2,7 @@ import { useThemeStore } from "@shared/stores/themeStore";
 import { FolderColorType } from "./types";
 import { Colors } from "@shared/constants/Colors";
 
+// TODO use only one hook for changeTheme
 export const useFolderColor = () => {
   const isDark = useThemeStore((state) => state.isDark);
   // TODO: do we really need "??"", restructure colors to repeat same structure as in Colors?

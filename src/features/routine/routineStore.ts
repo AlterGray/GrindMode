@@ -20,6 +20,7 @@ export const useRoutineStore = create<RoutineState>()((set) => ({
         ...routine,
       };
       const newRoutines = [...state.routines, newRoutine];
+      // TODO make it automatic to don't forget to update storage
       storage.set("routines", JSON.stringify(newRoutines));
       return { routines: newRoutines };
     }),

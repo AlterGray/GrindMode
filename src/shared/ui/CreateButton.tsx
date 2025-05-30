@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Ionicons } from "@expo/vector-icons";
-import ToggleOptions from "@shared/ui/ToggleOptions/ToggleOptions";
+import ToggleList from "@shared/ui/ToggleList/ToggleList";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable } from "react-native";
@@ -15,20 +15,35 @@ type CreateButtonProps = {
 };
 
 const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
-  const [option, setOption] = useState(options[0].value);
+  const [selectedOption, setSelectedOption] = useState(options[0].value);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const router = useRouter();
   const iconColor = useThemeColors("icon");
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+    // Reset selection each time modal is opened
+    setSelectedOption(options[0].value);
+  };
+
+  const onConfirm = () => {
+    router.push(routes[selectedOption]);
+    setIsModalOpen(false);
+  };
+
   const getToggleOptions = () => (
-    <ToggleOptions options={options} onChange={(option) => setOption(option)} />
+    <ToggleList
+      options={options}
+      selectedOption={selectedOption}
+      onChange={(option) => setSelectedOption(option)}
+    />
   );
 
   return (
     <>
       <Pressable
-        onPress={() => setIsModalOpen(true)}
+        onPress={handleOpenModal}
         className={"absolute bottom-10 right-10 rounded-full"}
       >
         {/* TODO add shadow */}
@@ -37,12 +52,8 @@ const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
       <FloatingModal
         isOpen={isModalOpen}
         title="What do you want to create?"
-        // TODO renderFunction VS React.ReactNode
         renderContent={getToggleOptions}
-        onConfirm={() => {
-          router.push(routes[option]);
-          setIsModalOpen(false);
-        }}
+        onConfirm={onConfirm}
         onCancel={() => setIsModalOpen(false)}
         variant={FloatingModalVariant.Confirm}
       />

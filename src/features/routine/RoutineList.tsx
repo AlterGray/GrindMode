@@ -19,6 +19,7 @@ type RoutineListProps = {
 };
 
 const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
+  // TODO use zustand?
   const [isNavModalOpen, setIsNavModalOpen] = useState(false);
   const closeActionModal = useActionModalStore(
     (state) => state.closeActionModal,

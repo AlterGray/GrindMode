@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { DayItemType, DayType } from "@shared/types/commonTypes";
 
 type UseControlledDaysParams = {
@@ -6,16 +6,12 @@ type UseControlledDaysParams = {
   onChange: (updated: DayType[]) => void;
 };
 
+// TODO remove onChange form hook
 export const useControlledDays = ({
   days,
   onChange,
 }: UseControlledDaysParams) => {
   const [activeDays, setActiveDays] = useState<DayType[]>(days);
-
-  // TODO infinite renders
-  useEffect(() => {
-    setActiveDays(days);
-  }, [days]);
 
   const toggleDay = useCallback(
     (day: DayItemType) => {

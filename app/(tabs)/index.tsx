@@ -13,6 +13,7 @@ import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/Glob
 const Index = () => {
   const folders = useFolderStore((state) => state.folders);
   const [folderIdToEdit, setFolderIdToEdit] = useState("");
+  // TODO use status?
   const [isReordering, setIsReordering] = useState(false);
   const [isRenameDialogOpen, setIsRenameDialogOpen] = useState(false);
 

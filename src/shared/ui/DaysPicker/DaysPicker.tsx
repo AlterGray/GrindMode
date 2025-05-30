@@ -18,7 +18,7 @@ const DaysPicker: React.FC<DaysPickerProps> = ({
 }) => {
   const { toggleDay, activeDays } = useControlledDays({
     days: initialItems,
-    onChange: (updated) => onChange(updated),
+    onChange: onChange,
   });
 
   return (
