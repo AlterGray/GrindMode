@@ -10,6 +10,7 @@ import { Colors } from "@shared/constants/Colors";
 const TabsLayout = () => {
   const { colorScheme } = useThemeStore();
   const { pointerEvents, iconColor } = useTab();
+  // todo remove destrucure
   const { isOpen } = useActionModalStore();
 
   const theme = Colors[colorScheme];

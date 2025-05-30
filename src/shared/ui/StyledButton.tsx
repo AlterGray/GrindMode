@@ -1,15 +1,10 @@
+import { ButtonVariant } from "@shared/types/commonTypes";
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 
-export type Variant =
-  | "primary-contained-20"
-  | "secondary-text-10"
-  | "secondary-text-20"
-  | "remove-contained-20";
-
 type StyledButtonProps = {
   title: string;
-  variant?: Variant;
+  variant?: ButtonVariant;
   fullWidth?: boolean;
   className?: string;
   titleClassName?: string;

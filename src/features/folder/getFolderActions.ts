@@ -49,6 +49,7 @@ const getFolderActions = (
 
     if (folderId !== DEFAULT_FOLDER) {
       actions.push(moveToFolderAction);
+      // TODO can remove this?
       actions.push(removeFromFolderAction(routineIds));
     }
 

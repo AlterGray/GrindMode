@@ -8,12 +8,13 @@ import { ThemeProvider } from "@shared/providers/ThemeProvider";
 import { useThemeStore } from "@shared/stores/themeStore";
 import { useColorScheme } from "nativewind";
 
-import "../global.css";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import PopoverMenu from "@shared/ui/PopoverMenu/PopoverMenu";
 import ActionModal from "@shared/ui/ActionsModal/ActionModal";
-import ConfirmModal from "@shared/ui/ConfirmModal/components/ConfirmModal";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import GlobalFloatingModal from "@shared/ui/GlobalFloatingModal/GlobalFloatingModal";
+
+import "../global.css";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -63,7 +64,7 @@ const RootLayout = () => {
           <Stack.Screen name="(tabs)" />
         </Stack>
         {/* // TODO extract to modals */}
-        <ConfirmModal />
+        <GlobalFloatingModal />
         <PopoverMenu />
         <ActionModal />
       </ThemeProvider>

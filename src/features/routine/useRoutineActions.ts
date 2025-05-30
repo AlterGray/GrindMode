@@ -1,8 +1,8 @@
 import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
 import { useRoutineStore } from "./routineStore";
-import useConfirmModalStore from "@shared/ui/ConfirmModal/ConfirmModalStore";
+import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
-import { ConfirmModalVariant } from "@shared/ui/ConfirmModal/types";
+import { FloatingModalVariant } from "@shared/types/commonTypes";
 
 // TODO bad custom hook
 const useRoutineActions = (
@@ -14,14 +14,14 @@ const useRoutineActions = (
   const closeActionModal = useActionModalStore(
     (state) => state.closeActionModal,
   );
-  const closeConfirmModal = useConfirmModalStore(
-    (state) => state.closeConfirmModal,
+  const closeConfirmModal = useGlobalFloatingModalStore(
+    (state) => state.closeModal,
   );
-  const openConfirmDialog = useConfirmModalStore(
-    (state) => state.openConfirmModal,
+  const openRemoveDialog = useGlobalFloatingModalStore(
+    (state) => state.openModal,
   );
 
-  const onConfirm = (routineIds: string[]) => {
+  const handleRemoveConfirm = (routineIds: string[]) => {
     removeRoutines(routineIds);
     closeActionModal();
     closeConfirmModal();
@@ -30,11 +30,11 @@ const useRoutineActions = (
 
   const getRemoveAction = (routineIds: string[]): ActionType => ({
     onPress: () =>
-      openConfirmDialog({
+      openRemoveDialog({
         title: "Remove routine",
-        message: "Are you sure you want to remove this routine?",
-        variant: ConfirmModalVariant.Remove,
-        onConfirm: () => onConfirm(routineIds),
+        text: "Are you sure you want to remove this routine?",
+        variant: FloatingModalVariant.Danger,
+        onConfirm: () => handleRemoveConfirm(routineIds),
         onCancel: onCancel,
       }),
     iconName: "trash-outline",

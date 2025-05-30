@@ -1,18 +1,15 @@
 import { View } from "react-native";
-import StyledButton, { Variant } from "../../StyledButton";
+import StyledButton from "@shared/ui/StyledButton";
+import { ButtonProps } from "@shared/types/commonTypes";
 
-// TODO make "Variant" shared type
-type ButtonConfig = { variant: Variant; title: string };
-
-// TODO use enum/type?
-type ConfirmDialogControlsProps = {
-  primary: ButtonConfig;
-  secondary: ButtonConfig;
+type ControlsProps = {
+  primary: ButtonProps;
+  secondary: ButtonProps;
   onCancel: () => void;
   onConfirm: () => void;
 };
 
-const ConfirmModalControls: React.FC<ConfirmDialogControlsProps> = ({
+const Controls: React.FC<ControlsProps> = ({
   primary,
   secondary,
   onCancel,
@@ -34,4 +31,4 @@ const ConfirmModalControls: React.FC<ConfirmDialogControlsProps> = ({
   );
 };
 
-export default ConfirmModalControls;
+export default Controls;

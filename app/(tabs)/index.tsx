@@ -5,19 +5,27 @@ import RoutineList from "@features/routine/RoutineList";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 import { DEFAULT_FOLDER } from "@shared/constants/Folders";
-import useFolderDialogs from "@features/routine/hooks/useFolderDialogs";
 import { foldersToScrollTabs } from "@features/folder/utils";
+import { FloatingModalVariant } from "@shared/types/commonTypes";
+import FolderRenameDialog from "@features/folder/components/FolderRenameDialog";
+import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
 
-// TODO
 const Index = () => {
   const folders = useFolderStore((state) => state.folders);
+  const [folderIdToEdit, setFolderIdToEdit] = useState("");
   const [isReordering, setIsReordering] = useState(false);
+  const [isRenameDialogOpen, setIsRenameDialogOpen] = useState(false);
+
   const setFolders = useFolderStore((state) => state.setFolders);
   const openActionModal = useActionModalStore((state) => state.openActionModal);
   const closeActionModal = useActionModalStore(
     (state) => state.closeActionModal,
   );
-  const { openRenameDialog, openRemoveDialog } = useFolderDialogs();
+  const openRemoveDialog = useGlobalFloatingModalStore(
+    (state) => state.openModal,
+  );
+  const removeFolder = useFolderStore((state) => state.removeFolder);
+  const renameFolder = useFolderStore((state) => state.renameFolder);
 
   // TODO make shared action type
   const actions = [
@@ -27,6 +35,15 @@ const Index = () => {
     },
   ];
 
+  const handleOpenRemoveDialog = (folderId: string) => {
+    openRemoveDialog({
+      title: "Remove folder",
+      variant: FloatingModalVariant.Danger,
+      onConfirm: () => removeFolder(folderId),
+    });
+    setFolderIdToEdit(folderId);
+  };
+
   // TODO make selectedFolder zustand controlled and introduce hook
   const getFolderMenuItems = (folderId: string) => {
     let menuItems: PopoverMenuItem[] = [];
@@ -35,11 +52,14 @@ const Index = () => {
       menuItems = [
         {
           label: "Delete folder",
-          onPress: () => openRemoveDialog(folderId),
+          onPress: () => handleOpenRemoveDialog(folderId),
         },
         {
           label: "Rename folder",
-          onPress: () => openRenameDialog(folderId),
+          onPress: () => {
+            setIsRenameDialogOpen(true);
+            setFolderIdToEdit(folderId);
+          },
         },
       ];
     menuItems.push({
@@ -64,12 +84,14 @@ const Index = () => {
     (folderId) => getFolderMenuItems(folderId),
   );
 
+  const folderToRename = folders.find((f) => f.id === folderIdToEdit);
+
   return (
     <>
       {isFoldersExists ? (
         <ScrollTabs
           tabs={tabs}
-          onCloseTab={openRemoveDialog}
+          onCloseTab={handleOpenRemoveDialog}
           isReordering={isReordering}
           onDragEnd={(item) => {
             const newFolders = item.data.map((f, i) => {
@@ -83,6 +105,16 @@ const Index = () => {
       ) : (
         <RoutineList folderId={DEFAULT_FOLDER} />
       )}
+
+      <FolderRenameDialog
+        isOpen={isRenameDialogOpen}
+        initialValue={folderToRename?.name ?? ""}
+        onConfirm={(newName) => {
+          renameFolder(folderIdToEdit, newName);
+          setIsRenameDialogOpen(false);
+        }}
+        onCancel={() => setIsRenameDialogOpen(false)}
+      />
     </>
   );
 };
