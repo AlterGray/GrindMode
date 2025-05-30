@@ -1,13 +1,13 @@
-import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
-import { useThemeStore } from "@shared/stores/themeStore";
-import { Colors } from "@shared/constants/Colors";
 import { ViewStyle } from "react-native";
+import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+import { Colors } from "@shared/constants/Colors";
+import { useTheme } from "./useTheme";
 
 export const useTab = () => {
   const isActionModalOpened = useActionModalStore((state) => state.isOpen);
-  const { colorScheme } = useThemeStore();
+  const { colorScheme } = useTheme();
 
-  const theme = colorScheme === "dark" ? Colors.dark : Colors.light;
+  const theme = Colors[colorScheme];
 
   return {
     pointerEvents: isActionModalOpened

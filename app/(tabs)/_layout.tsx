@@ -2,17 +2,17 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
-import { useThemeStore } from "@shared/stores/themeStore";
 import { useTab } from "@shared/hooks/useTab";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { Colors } from "@shared/constants/Colors";
+import { useTheme } from "@shared/hooks/useTheme";
 
 const TabsLayout = () => {
-  const { colorScheme } = useThemeStore();
   const { pointerEvents, iconColor } = useTab();
   // todo remove destrucure
   const { isOpen } = useActionModalStore();
 
+  const { colorScheme } = useTheme();
   const theme = Colors[colorScheme];
 
   // TODO make global color for all layout headers

@@ -1,10 +1,10 @@
 import React from "react";
 import ThemedView from "@shared/ui/ThemedView";
-import { useThemeStore } from "@shared/stores/themeStore";
 import StyledButton from "@shared/ui/StyledButton";
+import { useTheme } from "@shared/hooks/useTheme";
 
 const settings = () => {
-  const { toggleTheme } = useThemeStore();
+  const { toggleTheme } = useTheme();
 
   return (
     <ThemedView className="flex-1 items-center justify-center">

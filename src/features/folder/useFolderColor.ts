@@ -1,14 +1,14 @@
-import { useThemeStore } from "@shared/stores/themeStore";
+import { useTheme } from "@shared/hooks/useTheme";
 import { FolderColorType } from "./types";
 import { Colors } from "@shared/constants/Colors";
 
 // TODO use only one hook for changeTheme
 export const useFolderColor = () => {
-  const isDark = useThemeStore((state) => state.isDark);
+  const { colorScheme } = useTheme();
   // TODO: do we really need "??"", restructure colors to repeat same structure as in Colors?
   const getFolderColor = (label: FolderColorType) =>
-    Colors.folderColors[label]?.[isDark ? "dark" : "light"] ??
-    Colors.folderColors["default"][isDark ? "dark" : "light"];
+    Colors.folderColors[label]?.[colorScheme] ??
+    Colors.folderColors["default"][colorScheme];
 
   return getFolderColor;
 };

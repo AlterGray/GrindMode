@@ -1,12 +1,12 @@
 import { Colors } from "@shared/constants/Colors";
-import { useThemeStore } from "@shared/stores/themeStore";
 import { ColorName, Theme } from "@shared/types/commonTypes";
+import { useTheme } from "./useTheme";
 
 export function useThemeColors(): Theme;
 export function useThemeColors(colorName: ColorName): Theme[ColorName];
 export function useThemeColors(colorName?: ColorName) {
-  const isDark = useThemeStore((theme) => theme.isDark);
-  const theme = isDark ? Colors.dark : Colors.light;
+  const { colorScheme } = useTheme();
+  const theme = Colors[colorScheme];
 
   if (colorName) {
     return theme[colorName];
