@@ -17,7 +17,7 @@ type FloatingModalProps = {
   primaryButton?: ButtonProps;
   secondaryButton?: ButtonProps;
   variant: FloatingModalVariantType;
-  onConfirm: () => void;
+  onConfirm?: () => void;
   onCancel: () => void;
 };
 
@@ -31,8 +31,7 @@ const FloatingModal: React.FC<FloatingModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
-  const { primary, secondary } = getModalConfig(variant);
-
+  const { primary, secondary, controlsVariant } = getModalConfig(variant);
   return (
     <Modal transparent visible={isOpen} animationType="fade">
       <Backdrop onCancel={onCancel} />
@@ -46,6 +45,7 @@ const FloatingModal: React.FC<FloatingModalProps> = ({
           secondary={secondaryButton ?? secondary}
           onCancel={onCancel}
           onConfirm={onConfirm}
+          variant={controlsVariant}
         />
       </Container>
     </Modal>

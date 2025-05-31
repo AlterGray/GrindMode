@@ -14,7 +14,7 @@ export enum DayType {
 
 export enum FloatingModalVariant {
   Confirm = "CONFIRM",
-  Ok = "OK",
+  Cancel = "CANCEL",
   Danger = "DANGER",
 }
 

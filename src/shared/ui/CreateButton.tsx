@@ -42,7 +42,7 @@ const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
         isOpen={isModalOpen}
         title="What do you want to create?"
         renderContent={getToggleOptions}
-        variant={FloatingModalVariant.Confirm}
+        variant={FloatingModalVariant.Cancel}
         onCancel={() => setIsModalOpen(false)}
       />
     </>
