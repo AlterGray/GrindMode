@@ -7,11 +7,12 @@ import { Colors } from "@shared/constants/Colors";
 import { useTab } from "@shared/hooks/useTab";
 import { useTheme } from "@shared/hooks/useTheme";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+import ThemeButton from "@shared/ui/ThemeButton";
 
 const TabsLayout = () => {
   const { pointerEvents, iconColor } = useTab();
   // todo remove destrucure
-  const { isOpen } = useActionModalStore();
+  const isOpen = useActionModalStore((state) => state.isOpen);
 
   const { colorScheme } = useTheme();
   const theme = Colors[colorScheme];
@@ -28,8 +29,10 @@ const TabsLayout = () => {
         tabBarInactiveTintColor: isOpen ? iconColor : theme.tabInactive,
         headerStyle: { backgroundColor: theme.backgroundSurface },
         headerTintColor: theme.textPrimary,
+        headerRight: () => <ThemeButton iconColor={iconColor} />, // TODO add settings button
       }}
     >
+      {/* TODO add bage? */}
       <Tabs.Screen
         name="index"
         options={{
