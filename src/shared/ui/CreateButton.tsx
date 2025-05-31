@@ -15,35 +15,24 @@ type CreateButtonProps = {
 };
 
 const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
-  const [selectedOption, setSelectedOption] = useState(options[0].value);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const router = useRouter();
   const iconColor = useThemeColors("icon");
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-    // Reset selection each time modal is opened
-    setSelectedOption(options[0].value);
-  };
-
-  const onConfirm = () => {
-    router.push(routes[selectedOption]);
+  const onPress = (option: string) => {
+    router.push(routes[option]);
     setIsModalOpen(false);
   };
 
   const getToggleOptions = () => (
-    <ToggleList
-      options={options}
-      selectedOption={selectedOption}
-      onChange={(option) => setSelectedOption(option)}
-    />
+    <ToggleList options={options} onPress={onPress} />
   );
 
   return (
     <>
       <Pressable
-        onPress={handleOpenModal}
+        onPress={() => setIsModalOpen(true)}
         className={"absolute bottom-10 right-10 rounded-full"}
       >
         {/* TODO add shadow */}
@@ -53,9 +42,8 @@ const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
         isOpen={isModalOpen}
         title="What do you want to create?"
         renderContent={getToggleOptions}
-        onConfirm={onConfirm}
-        onCancel={() => setIsModalOpen(false)}
         variant={FloatingModalVariant.Confirm}
+        onCancel={() => setIsModalOpen(false)}
       />
     </>
   );

@@ -1,5 +1,5 @@
-import { Pressable, View } from "react-native";
-import ToggleOptionsItem from "./ToggleListItem";
+import { View } from "react-native";
+import StyledButton from "../StyledButton";
 
 type ToggleOptions = {
   label: string;
@@ -9,25 +9,20 @@ type ToggleOptions = {
 // TODO remove selected prop and remove confirm button to forward user right after press
 type ToggleListProps = {
   options: ToggleOptions[];
-  selectedOption: string;
-  onChange: (option: string) => void;
+  onPress: (option: string) => void;
 };
 
 // TODO refactor it
-const ToggleList: React.FC<ToggleListProps> = ({
-  options,
-  selectedOption,
-  onChange,
-}) => {
+const ToggleList: React.FC<ToggleListProps> = ({ options, onPress }) => {
   return (
     <View>
       {options.map((option) => (
-        <Pressable key={option.value} onPress={() => onChange(option.value)}>
-          <ToggleOptionsItem
-            title={option.label}
-            isSelected={selectedOption === option.value}
-          />
-        </Pressable>
+        <StyledButton
+          key={option.value}
+          variant="secondary-sharped-20"
+          onPress={() => onPress(option.value)}
+          title={option.label}
+        />
       ))}
     </View>
   );

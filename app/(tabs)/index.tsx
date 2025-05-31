@@ -10,7 +10,9 @@ import { FloatingModalVariant } from "@shared/types/commonTypes";
 import FolderRenameDialog from "@features/folder/components/FolderRenameDialog";
 import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
 
+// TODO performance, too many rerenders(use some tools/techniques to analyz and found it, read articles from like dan abramow and watch it synyak)
 const Index = () => {
+  // TODO custom hooks + more zustand store for declarative style, intoduce selectors and status flags
   const folders = useFolderStore((state) => state.folders);
   const [folderIdToEdit, setFolderIdToEdit] = useState("");
   // TODO use status?
