@@ -19,20 +19,15 @@ const FolderRenameDialog: React.FC<FolderRenameDialogProps> = ({
 }) => {
   const [name, setName] = useState(initialValue);
 
-  const input = () => (
-    <StyledInput
-      key={initialValue}
-      value={name}
-      onChangeText={setName}
-      autoFocus
-    />
+  const getInput = () => (
+    <StyledInput value={name} onChangeText={setName} autoFocus />
   );
 
   return (
     <FloatingModal
       isOpen={isOpen}
       title="Enter new folder name"
-      renderContent={input}
+      renderContent={getInput}
       variant={FloatingModalVariant.Confirm}
       onConfirm={() => onConfirm(name)}
       onCancel={onCancel}
