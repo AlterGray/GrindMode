@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { FloatingModalVariant } from "@shared/types/commonTypes";
 import FloatingModal from "@shared/ui/FloatingModal/FloatingModal";
@@ -19,10 +19,9 @@ const FolderRenameDialog: React.FC<FolderRenameDialogProps> = ({
 }) => {
   const [name, setName] = useState(initialValue);
 
-  // TODO don't need?
-  useEffect(() => setName(initialValue), [initialValue]);
-
-  const input = () => <StyledInput value={name} onChangeText={setName} />;
+  const input = () => (
+    <StyledInput value={name} onChangeText={setName} autoFocus />
+  );
 
   return (
     <FloatingModal

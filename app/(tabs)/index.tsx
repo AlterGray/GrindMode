@@ -113,6 +113,7 @@ const Index = () => {
 
       <FolderRenameDialog
         isOpen={isRenameDialogOpen}
+        key={folderToRename?.name}
         initialValue={folderToRename?.name ?? ""}
         onConfirm={(newName) => {
           renameFolder(folderIdToEdit, newName);

@@ -17,7 +17,6 @@ import "../global.css";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-// TODO make shadow of header bar smaller
 const RootLayout = () => {
   // TODO
   const [loaded] = useFonts({
@@ -25,7 +24,6 @@ const RootLayout = () => {
   });
 
   const { colorScheme } = useTheme();
-  // TODO
   const backgroundColor = useThemeColors("backgroundSurface");
 
   useEffect(() => {
