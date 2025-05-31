@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { Pressable } from "react-native";
+import { Keyboard, Pressable } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -18,9 +18,25 @@ type CreateButtonProps = {
 
 const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShow, setIsShow] = useState(true);
 
   const router = useRouter();
   const iconColor = useThemeColors("icon");
+
+  // TODO add animation?
+  useEffect(() => {
+    const showSub = Keyboard.addListener("keyboardDidShow", () =>
+      setIsShow(false),
+    );
+    const hideSub = Keyboard.addListener("keyboardDidHide", () =>
+      setIsShow(true),
+    );
+
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
 
   const onPress = (option: string) => {
     router.push(routes[option]);
@@ -33,13 +49,6 @@ const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
 
   return (
     <>
-      <Pressable
-        onPress={() => setIsModalOpen(true)}
-        className={"absolute bottom-10 right-10 rounded-full"}
-      >
-        {/* TODO add shadow */}
-        <Ionicons size={56} name="add-circle-sharp" color={iconColor} />
-      </Pressable>
       <FloatingModal
         isOpen={isModalOpen}
         title="What do you want to create?"
@@ -47,6 +56,15 @@ const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
         variant={FloatingModalVariant.Cancel}
         onCancel={() => setIsModalOpen(false)}
       />
+      {isShow && (
+        <Pressable
+          onPress={() => setIsModalOpen(true)}
+          className={"absolute bottom-10 right-10 rounded-full"}
+        >
+          {/* TODO add shadow */}
+          <Ionicons size={56} name="add-circle-sharp" color={iconColor} />
+        </Pressable>
+      )}
     </>
   );
 };

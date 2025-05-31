@@ -29,7 +29,8 @@ const TabsLayout = () => {
         tabBarInactiveTintColor: isOpen ? iconColor : theme.tabInactive,
         headerStyle: { backgroundColor: theme.backgroundSurface },
         headerTintColor: theme.textPrimary,
-        headerRight: () => <ThemeButton iconColor={iconColor} />, // TODO add settings button
+        headerRight: () => <ThemeButton iconColor={iconColor} />,
+        tabBarHideOnKeyboard: true,
       }}
     >
       {/* TODO add bage? */}
