@@ -1,6 +1,6 @@
-import { ButtonVariant } from "@shared/types/commonTypes";
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
+import { ButtonVariant } from "@shared/types/commonTypes";
 
 type StyledButtonProps = {
   title: string;
@@ -8,8 +8,38 @@ type StyledButtonProps = {
   fullWidth?: boolean;
   className?: string;
   titleClassName?: string;
-  children?: never;
+  children?: React.ReactNode;
   onPress?: () => void;
+};
+
+const variantClassMap: Record<
+  ButtonVariant,
+  { container: string; text: string }
+> = {
+  "primary-contained-20": {
+    container:
+      "bg-light-buttonPrimaryBackground dark:bg-dark-buttonPrimaryBackground py-3 px-6 text-base rounded-lg elevation-sm",
+    text: "text-light-buttonPrimaryText dark:text-dark-buttonPrimaryText",
+  },
+  "remove-contained-20": {
+    container:
+      "bg-light-buttonDangerBackground dark:bg-dark-buttonDangerBackground py-3 px-6 text-base rounded-lg elevation-sm",
+    text: "text-light-buttonDangerText dark:text-dark-buttonDangerText",
+  },
+  "secondary-text-20": {
+    container:
+      "bg-transparent py-3 px-6 text-base rounded-lg active:opacity-50",
+    text: "text-light-textPrimary dark:text-dark-textPrimary",
+  },
+  "secondary-sharped-20": {
+    container:
+      "bg-light-buttonSecondaryBackground dark:bg-dark-buttonSecondaryBackground p-4 border-b border-light-listItemBorder dark:border-light-listItemBorder rounded-sm active:opacity-60",
+    text: "text-light-buttonSecondaryText dark:text-dark-buttonSecondaryText",
+  },
+  "secondary-text-10": {
+    container: "bg-transparent py-2 px-4 text-sm rounded-lg active:opacity-50",
+    text: "text-light-textPrimary dark:text-dark-textPrimary",
+  },
 };
 
 const StyledButton: React.FC<StyledButtonProps> = ({
@@ -19,53 +49,20 @@ const StyledButton: React.FC<StyledButtonProps> = ({
   className = "",
   titleClassName = "",
   onPress,
+  children = null,
 }) => {
-  // Parse variant: "primary-contained-20" => intent, style, size
-  const [intent, style, sizeRaw] = variant.split("-") as [
-    "primary" | "secondary" | "remove",
-    "contained" | "text",
-    "10" | "20",
-  ];
-
-  // Map intent to styles
-  const bgColorMap = {
-    primary:
-      "bg-light-buttonPrimaryBackground dark:bg-dark-buttonPrimaryBackground",
-    secondary:
-      "bg-light-buttonSecondaryBackground dark:bg-dark-buttonSecondaryBackground",
-    remove:
-      "bg-light-buttonDangerBackground dark:bg-dark-buttonDangerBackground",
-    text: "bg-transparent",
-  };
-
-  const textColorMap = {
-    primary: "text-light-buttonPrimaryText dark:text-dark-buttonPrimaryText",
-    secondary:
-      "text-light-buttonSecondaryText dark:text-dark-buttonSecondaryText",
-    remove: "text-light-buttonDangerText dark:text-dark-buttonDangerText",
-    text: "text-light-textPrimary dark:text-dark-textPrimary",
-  };
-
-  const sizeStylesMap = {
-    "10": "py-2 px-4 text-sm",
-    "20": "py-3 px-6 text-base",
-  };
-
-  const isText = style === "text";
-  const bgColor = isText ? bgColorMap.text : bgColorMap[intent];
-  const textColor = isText ? textColorMap.text : textColorMap[intent];
-  const sizeStyle = sizeStylesMap[sizeRaw as keyof typeof sizeStylesMap];
-
-  const activeStyles = isText ? "p-4 active:opacity-50" : "elevation-sm";
+  const { container, text } = variantClassMap[variant];
 
   return (
     <TouchableOpacity
-      className={`items-center justify-center rounded-lg ${bgColor} ${sizeStyle} ${activeStyles} ${fullWidth ? "w-full" : ""} ${className}`}
+      className={`items-center justify-center ${container} ${fullWidth ? "w-full" : ""} ${className}`}
       onPress={onPress}
     >
-      <Text className={`${textColor} font-medium ${titleClassName}`}>
-        {title}
-      </Text>
+      {children ? (
+        children
+      ) : (
+        <Text className={`${text} font-medium ${titleClassName}`}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };

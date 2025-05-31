@@ -20,9 +20,6 @@ export enum FloatingModalVariant {
 
 export type DayItemType = { value: DayType; display: string };
 
-export type StyledButtonVariant = "primary" | "secondary" | "text";
-export type StyledButtonColor = "primary" | "secondary" | "danger";
-
 export type ValueOf<T> = T[keyof T];
 export type RouteType = ValueOf<typeof ROUTES>;
 
@@ -35,6 +32,7 @@ export type ButtonVariant =
   | "primary-contained-20"
   | "secondary-text-10"
   | "secondary-text-20"
-  | "remove-contained-20";
+  | "remove-contained-20"
+  | "secondary-sharped-20";
 
 export type ButtonProps = { title: string; variant: ButtonVariant };
