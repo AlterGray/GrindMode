@@ -20,7 +20,12 @@ const FolderRenameDialog: React.FC<FolderRenameDialogProps> = ({
   const [name, setName] = useState(initialValue);
 
   const input = () => (
-    <StyledInput value={name} onChangeText={setName} autoFocus />
+    <StyledInput
+      key={initialValue}
+      value={name}
+      onChangeText={setName}
+      autoFocus
+    />
   );
 
   return (
