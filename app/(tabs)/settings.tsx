@@ -1,7 +1,8 @@
 import React from "react";
-import ThemedView from "@shared/ui/ThemedView";
-import StyledButton from "@shared/ui/StyledButton";
+
 import { useTheme } from "@shared/hooks/useTheme";
+import StyledButton from "@shared/ui/StyledButton";
+import ThemedView from "@shared/ui/ThemedView";
 
 const settings = () => {
   const { toggleTheme } = useTheme();

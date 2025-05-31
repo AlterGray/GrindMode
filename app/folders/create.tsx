@@ -1,15 +1,18 @@
-import { Colors } from "@shared/constants/Colors";
+import { useState } from "react";
+import { ScrollView } from "react-native";
+
+import { useRouter } from "expo-router";
+
 import { useFolderStore } from "@features/folder/folderStore";
-import { FolderColorType as FolderColorType } from "@features/folder/types";
+import { FolderColorType } from "@features/folder/types";
 import { useFolderColor } from "@features/folder/useFolderColor";
+
+import { Colors } from "@shared/constants/Colors";
 import ColorPicker from "@shared/ui/ColorPicker";
 import StyledButton from "@shared/ui/StyledButton";
 import StyledInput from "@shared/ui/StyledInput";
 import ThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
-import { useRouter } from "expo-router";
-import { useState } from "react";
-import { ScrollView } from "react-native";
 
 // TODO rename file?
 const create = () => {

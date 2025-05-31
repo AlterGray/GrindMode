@@ -1,9 +1,11 @@
 import React from "react";
+
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 import ThemedView from "@shared/ui/ThemedView";
-import { useActionModalStore } from "./actionsModalStore";
+
 import ActionModalButtons from "./ActionModalButtons";
 import CloseButtonAndText from "./CloseButtonAndText";
-import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { useActionModalStore } from "./actionsModalStore";
 
 const ActionModal = () => {
   const { isOpen } = useActionModalStore();

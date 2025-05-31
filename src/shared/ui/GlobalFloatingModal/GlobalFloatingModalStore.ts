@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { GlobalFloatingModalState } from "./types";
+
 import { getDefaultModalState } from "./getDefaultState";
+import { GlobalFloatingModalState } from "./types";
 
 export const useGlobalFloatingModalStore = create<GlobalFloatingModalState>(
   (set) => ({

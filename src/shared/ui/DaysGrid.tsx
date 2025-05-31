@@ -1,4 +1,5 @@
 import { DayType } from "@shared/types/commonTypes";
+
 import DaysPicker from "./DaysPicker/DaysPicker";
 import ThemedText from "./ThemedText";
 import ThemedView from "./ThemedView";

@@ -1,18 +1,21 @@
+import { useState } from "react";
+
+import { useRouter } from "expo-router";
+
+import { ROUTES } from "@shared/constants/routes";
+import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import CreateButton from "@shared/ui/CreateButton";
 import NavModal from "@shared/ui/NavModal/NavModal";
 import StyledList from "@shared/ui/StyledList/StyledList";
+import { ItemData } from "@shared/ui/StyledList/types";
 import ThemedView from "@shared/ui/ThemedView";
 import TouchBlocker from "@shared/ui/TouchBlocker";
+
 import RoutineListItem from "./RoutineListItem";
-import useFolderNavModal from "./useFolderNavModal";
-import { useState } from "react";
-import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { useRoutineStore } from "./routineStore";
-import { useRouter } from "expo-router";
-import { ItemData } from "@shared/ui/StyledList/types";
 import { Routine } from "./routineTypes";
+import useFolderNavModal from "./useFolderNavModal";
 import { useRoutineSelectionLogic } from "./useRoutineSelectionLogic";
-import { ROUTES } from "@shared/constants/routes";
 
 type RoutineListProps = {
   folderId: string;

@@ -1,6 +1,8 @@
 import { Modal, Pressable } from "react-native";
-import ThemedView from "../ThemedView";
-import StyledButton from "../StyledButton";
+
+import StyledButton from "@shared/ui/StyledButton";
+import ThemedView from "@shared/ui/ThemedView";
+
 import { usePopoverMenuStore } from "./popoverMenuStore";
 import { PopoverMenuItem } from "./types";
 

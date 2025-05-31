@@ -1,9 +1,11 @@
-import ThemedView from "../ThemedView";
-import { useActionModalStore } from "./actionsModalStore";
-import IconButton from "../IconButton";
-import { View } from "react-native";
 import { useRef } from "react";
+import { View } from "react-native";
+
 import { usePopoverMenu } from "@shared/hooks/usePopoverMenu";
+import IconButton from "@shared/ui/IconButton";
+import ThemedView from "@shared/ui/ThemedView";
+
+import { useActionModalStore } from "./actionsModalStore";
 
 type ActionModalActionsProps = {
   // TODO align naming between differnt action types

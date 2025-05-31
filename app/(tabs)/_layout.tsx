@@ -1,11 +1,12 @@
 import React from "react";
-import { Tabs } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 
-import { useTab } from "@shared/hooks/useTab";
-import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+
 import { Colors } from "@shared/constants/Colors";
+import { useTab } from "@shared/hooks/useTab";
 import { useTheme } from "@shared/hooks/useTheme";
+import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 
 const TabsLayout = () => {
   const { pointerEvents, iconColor } = useTab();

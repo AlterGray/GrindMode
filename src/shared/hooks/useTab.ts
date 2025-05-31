@@ -1,6 +1,8 @@
 import { ViewStyle } from "react-native";
-import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+
 import { Colors } from "@shared/constants/Colors";
+import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+
 import { useTheme } from "./useTheme";
 
 export const useTab = () => {

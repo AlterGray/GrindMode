@@ -1,12 +1,14 @@
 import { useState } from "react";
-import DraggableList from "../DraggableList";
-import { DraggableItem, ScrollTabsProps } from "./types";
-import TabItem from "./TabItem";
 import {
   OpacityDecorator,
   ScaleDecorator,
 } from "react-native-draggable-flatlist";
-import ThemedView from "../ThemedView";
+
+import DraggableList from "@shared/ui/DraggableList";
+import ThemedView from "@shared/ui/ThemedView";
+
+import TabItem from "./TabItem";
+import { DraggableItem, ScrollTabsProps } from "./types";
 
 const ScrollTabs: React.FC<ScrollTabsProps> = ({
   tabs,

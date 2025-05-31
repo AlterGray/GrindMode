@@ -1,6 +1,8 @@
-import { Ionicons } from "@expo/vector-icons";
 import { Pressable, View } from "react-native";
-import ThemedText from "../ThemedText";
+
+import { Ionicons } from "@expo/vector-icons";
+
+import ThemedText from "@shared/ui/ThemedText";
 
 type NavModalListItemProps = {
   onPress: () => void;

@@ -1,18 +1,18 @@
+import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
 
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import PopoverMenu from "@shared/ui/PopoverMenu/PopoverMenu";
-import ActionModal from "@shared/ui/ActionsModal/ActionModal";
+import { useTheme } from "@shared/hooks/useTheme";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import ActionModal from "@shared/ui/ActionsModal/ActionModal";
 import GlobalFloatingModal from "@shared/ui/GlobalFloatingModal/GlobalFloatingModal";
+import PopoverMenu from "@shared/ui/PopoverMenu/PopoverMenu";
 
 import "../global.css";
-import { useTheme } from "@shared/hooks/useTheme";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

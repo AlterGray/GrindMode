@@ -1,12 +1,14 @@
 import React from "react";
-
-import { Ionicons } from "@expo/vector-icons";
-import ToggleList from "@shared/ui/ToggleList/ToggleList";
-import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable } from "react-native";
-import { FloatingModalVariant, RouteType } from "@shared/types/commonTypes";
+
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { FloatingModalVariant, RouteType } from "@shared/types/commonTypes";
+import ToggleList from "@shared/ui/ToggleList/ToggleList";
+
 import FloatingModal from "./FloatingModal/FloatingModal";
 
 type CreateButtonProps = {

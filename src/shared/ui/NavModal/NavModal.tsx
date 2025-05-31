@@ -1,9 +1,12 @@
 import React from "react";
 import { Modal, Pressable } from "react-native";
-import ThemedText from "../ThemedText";
-import ThemedView from "../ThemedView";
-import ActionList, { Action } from "./ActionList";
+
 import { Ionicons } from "@expo/vector-icons";
+
+import ThemedText from "@shared/ui/ThemedText";
+import ThemedView from "@shared/ui/ThemedView";
+
+import ActionList, { Action } from "./ActionList";
 
 // Types
 type ModalListItemProps = {

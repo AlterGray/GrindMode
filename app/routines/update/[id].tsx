@@ -1,7 +1,9 @@
 import React from "react";
+
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useRoutineStore } from "@features/routine/routineStore";
+
 import CreateUpdateForm from "@features/routine/forms/CreateUpdateForm/CreateUpdateForm";
+import { useRoutineStore } from "@features/routine/routineStore";
 import { RoutineFormValues } from "@features/routine/routineTypes";
 
 const EditRoutine: React.FC = () => {

@@ -1,6 +1,7 @@
 import FloatingModal from "@shared/ui/FloatingModal/FloatingModal";
 import { getModalConfig } from "@shared/ui/FloatingModal/utils";
 import ThemedText from "@shared/ui/ThemedText";
+
 import { useGlobalFloatingModalStore } from "./GlobalFloatingModalStore";
 
 const GlobalFloatingModal: React.FC = () => {

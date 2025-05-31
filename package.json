@@ -21,6 +21,7 @@
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
     "@testing-library/react-native": "^13.2.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/react": "^19.0.0",
     "expo": "^53.0.7",
     "expo-blur": "~14.1.4",

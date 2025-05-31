@@ -1,5 +1,6 @@
 import { DragEndParams } from "react-native-draggable-flatlist";
-import { PopoverMenuItem } from "../PopoverMenu/types";
+
+import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 
 type TabItemProps = {
   title: string;

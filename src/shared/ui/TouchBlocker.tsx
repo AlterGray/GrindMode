@@ -1,9 +1,10 @@
 import React, { ReactNode } from "react";
 import {
-  View,
-  TouchableWithoutFeedback,
   GestureResponderEvent,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
+
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 
 type TouchBlockerProps = {

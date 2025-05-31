@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Stack } from "expo-router";
+
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 
 const RoutineLayout = () => {

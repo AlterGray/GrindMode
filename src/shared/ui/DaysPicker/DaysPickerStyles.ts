@@ -1,3 +1,4 @@
+// TODO REFACTOR ALL FILE
 export const getSizeClass = (size: "small" | "regular") => {
   return size === "regular" ? "w-8 h-8" : "w-6 h-6";
 };

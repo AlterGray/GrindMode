@@ -1,7 +1,9 @@
 import { create } from "zustand";
-import { Folder, FolderState } from "./types";
-import { getDefaultFolder, getStoredFolders, saveFolders } from "./storage";
+
 import { DEFAULT_FOLDER } from "@shared/constants/Folders";
+
+import { getDefaultFolder, getStoredFolders, saveFolders } from "./storage";
+import { Folder, FolderState } from "./types";
 
 export const useFolderStore = create<FolderState>()((set) => ({
   folders: (() => {

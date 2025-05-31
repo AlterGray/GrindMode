@@ -1,11 +1,14 @@
 import React, { useCallback } from "react";
 import { ScrollView } from "react-native";
-import ThemedView from "@shared/ui/ThemedView";
-import StyledButton from "@shared/ui/StyledButton";
+
+import { RoutineFormValues } from "@features/routine/routineTypes";
+
 import DaysGrid from "@shared/ui/DaysGrid";
-import { RoutineFormValues } from "../../routineTypes";
-import TitleDescriptionSection from "./TitleDescriptionSection";
+import StyledButton from "@shared/ui/StyledButton";
+import ThemedView from "@shared/ui/ThemedView";
+
 import TimeAndDurationSection from "./TimeAndDurationSection";
+import TitleDescriptionSection from "./TitleDescriptionSection";
 import { useCreateUpdateForm } from "./useCreateUpdateForm";
 
 type RoutineFormProps = {

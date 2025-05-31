@@ -1,11 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useFolderStore } from "@features/folder/folderStore";
-import { FolderColorType } from "@features/folder/types";
-import useFolderActions from "@features/folder/getFolderActions";
-import { useFolderColor } from "@features/folder/useFolderColor";
 import { useRouter } from "expo-router";
-import { useRoutineStore } from "./routineStore";
+
+import { useFolderStore } from "@features/folder/folderStore";
+import useFolderActions from "@features/folder/getFolderActions";
+import { FolderColorType } from "@features/folder/types";
+import { useFolderColor } from "@features/folder/useFolderColor";
+
 import { ROUTES } from "@shared/constants/routes";
+
+import { useRoutineStore } from "./routineStore";
 
 const useFolderNavModal = (
   routineIds: string[],

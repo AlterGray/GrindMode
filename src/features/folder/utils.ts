@@ -1,7 +1,9 @@
-import { Folder } from "./types";
-import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 import { ReactNode } from "react";
+
+import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
+
+import { Folder } from "./types";
 
 export const foldersToScrollTabs = (
   folders: Folder[],

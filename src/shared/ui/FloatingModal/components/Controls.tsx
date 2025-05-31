@@ -1,6 +1,7 @@
 import { View } from "react-native";
-import StyledButton from "@shared/ui/StyledButton";
+
 import { ButtonProps } from "@shared/types/commonTypes";
+import StyledButton from "@shared/ui/StyledButton";
 
 type ControlsProps = {
   primary?: ButtonProps;

@@ -1,7 +1,8 @@
+import IconButton from "@shared/ui/IconButton";
+import ThemedText from "@shared/ui/ThemedText";
+import ThemedView from "@shared/ui/ThemedView";
+
 import { useActionModalStore } from "./actionsModalStore";
-import IconButton from "../IconButton";
-import ThemedView from "../ThemedView";
-import ThemedText from "../ThemedText";
 
 type MenuActionButtonProps = {
   iconColor: string;

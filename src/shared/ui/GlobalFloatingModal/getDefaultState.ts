@@ -1,4 +1,5 @@
 import { FloatingModalVariant } from "@shared/types/commonTypes";
+
 import { DefaultGlobalModalState } from "./types";
 
 export function getDefaultModalState(): DefaultGlobalModalState {

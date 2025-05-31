@@ -1,4 +1,4 @@
-import { DayType } from "../../shared/types/commonTypes";
+import { DayType } from "@shared/types/commonTypes";
 
 export type Routine = {
   id: string;

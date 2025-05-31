@@ -1,14 +1,16 @@
 import React from "react";
 import { Modal } from "react-native";
-import Backdrop from "./components/Backdrop";
-import Container from "./components/Container";
-import ThemedText from "@shared/ui/ThemedText";
-import Controls from "./components/Controls";
-import { getModalConfig } from "./utils";
+
 import {
   ButtonProps,
   FloatingModalVariantType,
 } from "@shared/types/commonTypes";
+import ThemedText from "@shared/ui/ThemedText";
+
+import Backdrop from "./components/Backdrop";
+import Container from "./components/Container";
+import Controls from "./components/Controls";
+import { getModalConfig } from "./utils";
 
 type FloatingModalProps = {
   isOpen: boolean;

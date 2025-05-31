@@ -1,12 +1,16 @@
-import { Pressable, View } from "react-native";
-import ThemedText from "../ThemedText";
-import { Ionicons } from "@expo/vector-icons";
 import { useRef } from "react";
-import { TabItemProps } from "./types";
-import { usePopoverMenu } from "@shared/hooks/usePopoverMenu";
+import { Pressable, View } from "react-native";
+
+import { Ionicons } from "@expo/vector-icons";
+
 import { FolderColorType } from "@features/folder/types";
-import ActiveIndicator from "../ActiveIndicator";
 import { useFolderColor } from "@features/folder/useFolderColor";
+
+import { usePopoverMenu } from "@shared/hooks/usePopoverMenu";
+
+import ActiveIndicator from "../ActiveIndicator";
+import ThemedText from "../ThemedText";
+import { TabItemProps } from "./types";
 
 // TODO replace this things with "item"
 const TabItem: React.FC<TabItemProps> = ({

@@ -1,6 +1,9 @@
-import { RoutineFormValues } from "@features/routine/routineTypes";
 import { useReducer } from "react";
-import { Action, ActionTypes } from "./types";
+
+import { RoutineFormValues } from "@features/routine/routineTypes";
+
+import { DayType } from "@shared/types/commonTypes";
+
 import {
   setDays,
   setDescription,
@@ -8,7 +11,7 @@ import {
   setStartTime,
   setTitle,
 } from "./actions";
-import { DayType } from "@shared/types/commonTypes";
+import { Action, ActionTypes } from "./types";
 
 const reducer = (
   state: RoutineFormValues,

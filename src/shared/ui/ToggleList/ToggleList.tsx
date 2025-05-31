@@ -1,18 +1,17 @@
 import { View } from "react-native";
-import StyledButton from "../StyledButton";
+
+import StyledButton from "@shared/ui/StyledButton";
 
 type ToggleOptions = {
   label: string;
   value: string;
 };
 
-// TODO remove selected prop and remove confirm button to forward user right after press
 type ToggleListProps = {
   options: ToggleOptions[];
   onPress: (option: string) => void;
 };
 
-// TODO refactor it
 const ToggleList: React.FC<ToggleListProps> = ({ options, onPress }) => {
   return (
     <View>

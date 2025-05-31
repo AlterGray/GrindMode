@@ -1,6 +1,8 @@
 import { create } from "zustand";
-import { PopoverMenuItem } from "./types";
+
 import { LayoutChangeEvent } from "react-native";
+
+import { PopoverMenuItem } from "./types";
 
 type PopoverMenuStore = {
   items: PopoverMenuItem[];

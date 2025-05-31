@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
-import ThemedView from "../ThemedView";
-import ThemedText from "../ThemedText";
+
+import ThemedText from "@shared/ui/ThemedText";
+import ThemedView from "@shared/ui/ThemedView";
 
 type NoItemsInListProps = {
   text: string;

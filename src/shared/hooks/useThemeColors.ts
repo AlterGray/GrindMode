@@ -1,5 +1,6 @@
 import { Colors } from "@shared/constants/Colors";
 import { ColorName, Theme } from "@shared/types/commonTypes";
+
 import { useTheme } from "./useTheme";
 
 export function useThemeColors(): Theme;

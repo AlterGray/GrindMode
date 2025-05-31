@@ -1,9 +1,10 @@
-import { useThemeColors } from "@shared/hooks/useThemeColors";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 import {
   ItemType,
   RenderItemProps,
 } from "react-native-wheel-picker-expo/lib/typescript/types";
+
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 
 export type ThemedWheelPickerProps = {
   renderItem: (props: RenderItemProps) => React.ReactNode;

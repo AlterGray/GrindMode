@@ -1,7 +1,8 @@
-import { usePopoverMenuStore } from "@shared/ui/PopoverMenu/popoverMenuStore";
-import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 import { RefObject } from "react";
 import { Dimensions, View } from "react-native";
+
+import { usePopoverMenuStore } from "@shared/ui/PopoverMenu/popoverMenuStore";
+import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 

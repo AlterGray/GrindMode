@@ -1,6 +1,8 @@
-import { Ionicons } from "@expo/vector-icons";
-import NavModalListItem from "./NavModalListItem";
 import React from "react";
+
+import { Ionicons } from "@expo/vector-icons";
+
+import NavModalListItem from "./NavModalListItem";
 
 // TODO move to separate file
 export type Action = {

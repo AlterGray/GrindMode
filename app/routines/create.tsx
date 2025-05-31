@@ -1,8 +1,11 @@
 import React from "react";
+
 import { useRouter } from "expo-router";
-import { useRoutineStore } from "@features/routine/routineStore";
+
 import CreateUpdateForm from "@features/routine/forms/CreateUpdateForm/CreateUpdateForm";
+import { useRoutineStore } from "@features/routine/routineStore";
 import { RoutineInput } from "@features/routine/routineTypes";
+
 import { DayType } from "@shared/types/commonTypes";
 
 const CreateRoutine: React.FC = () => {

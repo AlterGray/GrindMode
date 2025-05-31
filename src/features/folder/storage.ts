@@ -1,6 +1,7 @@
-import { storage } from "@shared/lib/storage";
-import { Folder } from "./types";
 import { DEFAULT_FOLDER } from "@shared/constants/Folders";
+import { storage } from "@shared/lib/storage";
+
+import { Folder } from "./types";
 
 export const getStoredFolders = () => {
   const jsonFolders = storage.getString("folders");

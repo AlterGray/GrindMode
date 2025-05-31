@@ -1,7 +1,9 @@
 import WheelPickerExpo from "react-native-wheel-picker-expo";
-import ThemedView from "./ThemedView";
 import { ItemType } from "react-native-wheel-picker-expo/lib/typescript/types";
+
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+
+import ThemedView from "./ThemedView";
 
 type ColorPickerProps = {
   items: ItemType[];

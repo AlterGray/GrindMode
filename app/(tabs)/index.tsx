@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import ScrollTabs from "@shared/ui/ScrollTabs/ScrollTabs";
-import { useFolderStore } from "@features/folder/folderStore";
-import RoutineList from "@features/routine/RoutineList";
-import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
-import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
-import { DEFAULT_FOLDER } from "@shared/constants/Folders";
-import { foldersToScrollTabs } from "@features/folder/utils";
-import { FloatingModalVariant } from "@shared/types/commonTypes";
+
 import FolderRenameDialog from "@features/folder/components/FolderRenameDialog";
+import { useFolderStore } from "@features/folder/folderStore";
+import { foldersToScrollTabs } from "@features/folder/utils";
+import RoutineList from "@features/routine/RoutineList";
+
+import { DEFAULT_FOLDER } from "@shared/constants/Folders";
+import { FloatingModalVariant } from "@shared/types/commonTypes";
+import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
+import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
+import ScrollTabs from "@shared/ui/ScrollTabs/ScrollTabs";
 
 // TODO performance, too many rerenders(use some tools/techniques to analyz and found it, read articles from like dan abramow and watch it synyak)
 const Index = () => {

@@ -1,8 +1,9 @@
-import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
-import { useRoutineStore } from "./routineStore";
-import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
-import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
+import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
+import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
+
+import { useRoutineStore } from "./routineStore";
 
 // TODO bad custom hook
 const useRoutineActions = (

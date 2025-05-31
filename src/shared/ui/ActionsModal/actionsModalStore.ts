@@ -1,6 +1,7 @@
-import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
 import { create } from "zustand";
-import { PopoverMenuItem } from "../PopoverMenu/types";
+
+import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
+import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
 
 type ActionModalOptions = Partial<
   Omit<ActionModalStore, "closeActionModal" | "openActionModal" | "isOpen">

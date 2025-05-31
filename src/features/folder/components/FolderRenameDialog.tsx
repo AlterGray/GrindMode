@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
+
 import { FloatingModalVariant } from "@shared/types/commonTypes";
 import FloatingModal from "@shared/ui/FloatingModal/FloatingModal";
 import StyledInput from "@shared/ui/StyledInput";
-import { useEffect, useState } from "react";
 
 type FolderRenameDialogProps = {
   isOpen: boolean;
@@ -18,6 +19,7 @@ const FolderRenameDialog: React.FC<FolderRenameDialogProps> = ({
 }) => {
   const [name, setName] = useState(initialValue);
 
+  // TODO don't need?
   useEffect(() => setName(initialValue), [initialValue]);
 
   const input = () => <StyledInput value={name} onChangeText={setName} />;

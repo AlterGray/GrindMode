@@ -1,9 +1,11 @@
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 import { useState } from "react";
-import StyledButton from "./StyledButton";
-import { formatTimeLabel } from "@shared/lib/utils/common";
 import React from "react";
 
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { formatTimeLabel } from "@shared/lib/utils/common";
+
+import StyledButton from "./StyledButton";
 
 type TimePickerButtonProps = {
   time: number;

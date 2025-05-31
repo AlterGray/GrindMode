@@ -1,7 +1,9 @@
 import React from "react";
 import { Pressable } from "react-native";
-import { DayItemType, DayType } from "../../types/commonTypes";
-import ThemedText from "../ThemedText";
+
+import { DayItemType, DayType } from "@shared/types/commonTypes";
+import ThemedText from "@shared/ui/ThemedText";
+
 import { getStyle } from "./DaysPickerStyles";
 
 // TODO REFACTOR THIS AND PARENT COMPONENT

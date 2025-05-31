@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
+
 import { ButtonVariant } from "@shared/types/commonTypes";
 
 type StyledButtonProps = {

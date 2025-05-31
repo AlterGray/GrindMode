@@ -1,9 +1,11 @@
 import React, { ReactNode } from "react";
 import { FlatList } from "react-native";
-import StyledItem from "./StyledItem";
+
+import StyledButton from "@shared/ui/StyledButton";
+import ThemedText from "@shared/ui/ThemedText";
+
 import NoItemsInList from "./NoItemsInList";
-import StyledButton from "../StyledButton";
-import ThemedText from "../ThemedText";
+import StyledItem from "./StyledItem";
 import { ItemData } from "./types";
 
 type StyledListProps = {
