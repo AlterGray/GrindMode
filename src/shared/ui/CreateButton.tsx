@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
-import { Keyboard, Pressable } from "react-native";
+import { Pressable } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
+import { useKeyboardVisible } from "@shared/hooks/useKeyboardVisible";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { FloatingModalVariant, RouteType } from "@shared/types/commonTypes";
 import ToggleList from "@shared/ui/ToggleList/ToggleList";
@@ -18,25 +19,10 @@ type CreateButtonProps = {
 
 const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isShow, setIsShow] = useState(true);
+  const isShow = useKeyboardVisible();
 
   const router = useRouter();
   const iconColor = useThemeColors("icon");
-
-  // TODO add animation?
-  useEffect(() => {
-    const showSub = Keyboard.addListener("keyboardDidShow", () =>
-      setIsShow(false),
-    );
-    const hideSub = Keyboard.addListener("keyboardDidHide", () =>
-      setIsShow(true),
-    );
-
-    return () => {
-      showSub.remove();
-      hideSub.remove();
-    };
-  }, []);
 
   const onPress = (option: string) => {
     router.push(routes[option]);
