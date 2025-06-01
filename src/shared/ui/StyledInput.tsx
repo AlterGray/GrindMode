@@ -1,20 +1,23 @@
-import React, { useEffect, useRef } from "react";
+import { useAutoFocus } from "@shared/hooks/useAutoFocus";
+import React, { useRef } from "react";
 import { TextInput, TextInputProps } from "react-native";
 
 interface StyledInputProps extends TextInputProps {
   autoFocus?: boolean;
   className?: string;
-  ref?: React.Ref<TextInput>;
+  ref?: React.RefObject<TextInput>;
 }
 
 const StyledInput: React.FC<StyledInputProps> = ({
-  autoFocus,
+  autoFocus = false,
   className = "",
   ref,
   ...props
 }) => {
   const localRef = useRef<TextInput>(null);
   const refToUse = ref || localRef;
+
+  useAutoFocus(refToUse, autoFocus);
 
   const baseClasses = [
     "shadow-md rounded-md px-4 py-3 text-base",
@@ -23,23 +26,6 @@ const StyledInput: React.FC<StyledInputProps> = ({
 
   const placeholderStyles =
     "placeholder:text-light-textSecondary placeholder:dark:text-dark-textSecondary";
-
-  const focusInput = () => {
-    if (typeof refToUse === "function") {
-      localRef.current?.focus();
-    } else {
-      refToUse?.current?.focus();
-    }
-  };
-
-  useEffect(() => {
-    if (autoFocus) {
-      const timeoutID = setTimeout(() => {
-        focusInput();
-      }, 100);
-      return () => clearTimeout(timeoutID);
-    }
-  }, [autoFocus]);
 
   return (
     <TextInput
