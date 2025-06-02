@@ -1,50 +1,49 @@
-# Welcome to your Expo app 👋
+# Grind Mode 🧠🔥
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Grind Mode** is a minimalistic and blazing-fast mobile app designed to help users build, track, and maintain daily routines and plans with discipline. The core idea is to make planning and habit consistency frictionless — like having a smart, adaptable notebook in your pocket.
 
-## Get started
+## 🚀 Features
 
-1. Install dependencies
+- 📅 **Create and customize routines**
+- 📌 **Group routines by folders**
+- ⚡ **Lightning-fast UX with focus on simplicity**
+- 🌙 **Dark mode** 
 
-   ```bash
-   npm install
-   ```
+## 🛠 Tech Stack
 
-2. Start the app
+- **React Native** – Cross-platform mobile development
+- **Expo** – Rapid development and deployment
+- **TypeScript** – Type safety for scalable code
+- **Zustand** – Lightweight state management
+- **NativeWind** – Tailwind-like styling for React Native
 
-   ```bash
-    npx expo start
-   ```
+## 📱 Philosophy
 
-In the output, you'll find options to open the app in a
+Grind Mode is built with one main principle: discipline through simplicity. Users shouldn't have to fight the app to build good habits — it should feel like second nature. That’s why performance and minimal UX are top priorities.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Inspired by David Goggins, the app emphasizes consistency, resilience, and self-accountability.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 📦 Installation
 
-## Get a fresh project
-
-When you're ready, run:
+Make sure you have [Node.js](https://nodejs.org), [Expo CLI](https://docs.expo.dev/get-started/installation/), and [Yarn](https://yarnpkg.com/) or npm installed.
 
 ```bash
-npm run reset-project
+git clone https://github.com/yourusername/grind-mode.git
+cd grind-mode
+yarn install
+expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## ✅ Future Plans
+🧠 Smart reminders and nudges
 
-## Learn more
+🔔 Notifications integration
 
-To learn more about developing your project with Expo, look at the following resources:
+🧩 Templates for common routines
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+☁️ Cloud sync and backup
 
-## Join the community
+## 📄 License
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is licensed under the **Business Source License 1.1** — commercial use is prohibited.  
+For commercial use or licensing, contact: reborn.muffin@gmail.com
