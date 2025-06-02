@@ -19,6 +19,7 @@ const Index = () => {
   const folders = useFolderStore((state) => state.folders);
   const selectedFolderId = useFolderStore((state) => state.selectedId);
   const setSelectedFolderId = useFolderStore((state) => state.setSelectedId);
+  const previousFolder = useFolderStore((state) => state.previousSelectedId);
   // TODO use status?
   const [isReordering, setIsReordering] = useState(false);
   const [isRenameDialogOpen, setIsRenameDialogOpen] = useState(false);
@@ -46,7 +47,10 @@ const Index = () => {
     openRemoveDialog({
       title: "Remove folder",
       variant: FloatingModalVariant.Danger,
-      onConfirm: () => removeFolder(folderId),
+      onConfirm: () => {
+        removeFolder(folderId);
+        setSelectedFolderId(previousFolder || DEFAULT_FOLDER);
+      },
     });
     setRenamingFolderId(folderId);
   };
