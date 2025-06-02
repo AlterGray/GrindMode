@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import getFolderActions from "@features/folder/getFolderActions";
+import useFolderActions from "@features/folder/useFolderActions";
 
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 
@@ -8,8 +8,7 @@ import { useRoutineStore } from "./routineStore";
 import useRoutineActions from "./useRoutineActions";
 
 // TODO
-export const useRoutineSelectionLogic = (
-  folderId: string,
+export const useRoutineSelection = (
   onOpenNavModal: () => void,
   onCloseDialogs: () => void,
 ) => {
@@ -17,15 +16,18 @@ export const useRoutineSelectionLogic = (
   const closeActionModal = useActionModalStore(
     (state) => state.closeActionModal,
   );
-
-  const [selectedRoutines, setSelectedRoutines] = useState<string[]>([]);
-  const [isSelecting, setIsSelecting] = useState(false);
+  // TODO use selectors?
+  const selectedRoutineIds = useRoutineStore((state) => state.selectedIds);
+  const setSelectedRoutineIds = useRoutineStore(
+    (state) => state.setSelectedIds,
+  );
+  const setIsSelecting = useRoutineStore((state) => state.setIsSelecting);
 
   type MenuAction = "add" | "move";
   const [currentMenuAction, setCurrentMenuAction] = useState<MenuAction>("add");
 
   const resetSelection = () => {
-    setSelectedRoutines([]);
+    setSelectedRoutineIds([]);
     setIsSelecting(false);
   };
 
@@ -43,23 +45,22 @@ export const useRoutineSelectionLogic = (
   const addRoutinesToFolder = useRoutineStore(
     (state) => state.addRoutinesToFolder,
   );
+
+  const { menuActions: folderMenuActions } = useFolderActions(
+    onCloseDialogs,
+    onOpenNavModal,
+    (action: MenuAction) => setCurrentMenuAction(action),
+    removeRoutinesFromFolder,
+    addRoutinesToFolder,
+  );
   const updateActionModal = (selectedItems: string[]) => {
-    const { menuActions } = getFolderActions(
-      selectedItems,
-      folderId,
-      onCloseDialogs,
-      onOpenNavModal,
-      (action: MenuAction) => setCurrentMenuAction(action),
-      removeRoutinesFromFolder,
-      addRoutinesToFolder,
-    );
     const count = selectedItems.length;
 
     if (count > 0) {
       openActionModal({
         text: `${count} item${count === 1 ? "" : "s"} selected`,
         isMenuAction: true,
-        menuActions: menuActions,
+        menuActions: folderMenuActions,
         actions: [
           getRemoveAction(selectedItems),
           getCompleteAction(selectedItems),
@@ -69,19 +70,17 @@ export const useRoutineSelectionLogic = (
     } else closeActionModal();
   };
   const toggleRoutine = (id: string) => {
-    const isAlreadySelected = selectedRoutines.includes(id);
+    const isAlreadySelected = selectedRoutineIds.includes(id);
     const updatedRoutines = isAlreadySelected
-      ? selectedRoutines.filter((itemId) => itemId !== id)
-      : [...selectedRoutines, id];
+      ? selectedRoutineIds.filter((itemId) => itemId !== id)
+      : [...selectedRoutineIds, id];
 
-    setSelectedRoutines(updatedRoutines);
+    setSelectedRoutineIds(updatedRoutines);
     setIsSelecting(updatedRoutines.length > 0);
     updateActionModal(updatedRoutines);
   };
 
   return {
-    selectedRoutines,
-    isSelecting,
     toggleRoutine,
     resetSelection,
     currentMenuAction,

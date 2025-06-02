@@ -30,6 +30,7 @@ type ScrollTabsItem = {
 
 // TODO improve to make using is easy and consice
 type ScrollTabsProps = {
+  selectedTab: string;
   tabs: {
     id: string;
     title: string;
@@ -39,6 +40,7 @@ type ScrollTabsProps = {
     menuItems: PopoverMenuItem[];
   }[];
   isReordering: boolean;
+  onPress: (itemId: string) => void;
   onCloseTab: (index: string) => void;
   onDragEnd: (item: DragEndParams<ScrollTabsItem>) => void;
 };

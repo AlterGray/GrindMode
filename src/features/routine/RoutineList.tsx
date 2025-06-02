@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { useRouter } from "expo-router";
 
+import { useFolderStore } from "@features/folder/folderStore";
+
 import { ROUTES } from "@shared/constants/routes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import CreateButton from "@shared/ui/CreateButton";
@@ -14,19 +16,18 @@ import RoutineListItem from "./RoutineListItem";
 import { useRoutineStore } from "./routineStore";
 import { Routine } from "./routineTypes";
 import useFolderNavModal from "./useFolderNavModal";
-import { useRoutineSelectionLogic } from "./useRoutineSelectionLogic";
+import { useRoutineSelection } from "./useRoutineSelection";
 
-type RoutineListProps = {
-  folderId: string;
-};
-
-const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
+const RoutineList: React.FC = () => {
   // TODO use zustand?
   const [isNavModalOpen, setIsNavModalOpen] = useState(false);
   const closeActionModal = useActionModalStore(
     (state) => state.closeActionModal,
   );
-  const routines = useRoutineStore((state) => state.routines);
+  const isSelectingRoutines = useRoutineStore((state) => state.isSelecting);
+  const selectedRoutineIds = useRoutineStore((state) => state.selectedIds);
+  const allRoutines = useRoutineStore((state) => state.routines);
+  const selectedFolderId = useFolderStore((state) => state.selectedId);
   const router = useRouter();
 
   const closeDialogs = () => {
@@ -36,24 +37,10 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
   };
 
   // TODO
-  const {
-    selectedRoutines,
-    toggleRoutine,
-    isSelecting,
-    resetSelection,
-    currentMenuAction,
-  } = useRoutineSelectionLogic(
-    folderId,
-    () => setIsNavModalOpen(true),
-    closeDialogs,
-  );
+  const { toggleRoutine, resetSelection, currentMenuAction } =
+    useRoutineSelection(() => setIsNavModalOpen(true), closeDialogs);
 
-  const navModalActions = useFolderNavModal(
-    selectedRoutines,
-    folderId,
-    closeDialogs,
-    currentMenuAction,
-  );
+  const navModalActions = useFolderNavModal(closeDialogs, currentMenuAction);
 
   const handleRenderRoutine = (item: ItemData) => (
     <RoutineListItem item={item as Routine} />
@@ -73,16 +60,16 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
     routine: ROUTES.ROUTINES_CREATE,
   };
 
-  const routinesInFolder = routines.filter((r) =>
-    r.folderIds.includes(folderId),
+  const routinesInFolder = allRoutines.filter((r) =>
+    r.folderIds.includes(selectedFolderId),
   );
 
   return (
     <ThemedView className="flex-1 items-center justify-center">
       <StyledList
         data={routinesInFolder}
-        selectedItems={selectedRoutines}
-        isSelecting={isSelecting}
+        selectedItems={selectedRoutineIds}
+        isSelecting={isSelectingRoutines}
         onPress={handlePressRoutine}
         toggleItem={toggleRoutine}
         renderContent={handleRenderRoutine}
@@ -91,7 +78,7 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
       <CreateButton
         options={options}
         routes={createRoutes}
-        disabled={isSelecting}
+        disabled={isSelectingRoutines}
       />
 
       <NavModal

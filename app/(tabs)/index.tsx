@@ -17,6 +17,8 @@ const Index = () => {
   const [renamingFolderId, setRenamingFolderId] = useState("");
   // TODO custom hooks + more zustand store for declarative style, intoduce selectors and status flags
   const folders = useFolderStore((state) => state.folders);
+  const selectedFolderId = useFolderStore((state) => state.selectedId);
+  const setSelectedFolderId = useFolderStore((state) => state.setSelectedId);
   // TODO use status?
   const [isReordering, setIsReordering] = useState(false);
   const [isRenameDialogOpen, setIsRenameDialogOpen] = useState(false);
@@ -85,7 +87,7 @@ const Index = () => {
   const isFoldersExists = folders.length > 1;
   const tabs = foldersToScrollTabs(
     folders,
-    (folderId) => <RoutineList folderId={folderId} />,
+    () => <RoutineList />,
     (folderId) => getFolderMenuItems(folderId),
   );
 
@@ -95,7 +97,9 @@ const Index = () => {
     <>
       {isFoldersExists ? (
         <ScrollTabs
+          selectedTab={selectedFolderId}
           tabs={tabs}
+          onPress={(folderId: string) => setSelectedFolderId(folderId)}
           onCloseTab={handleOpenRemoveDialog}
           isReordering={isReordering}
           onDragEnd={(item) => {
@@ -108,7 +112,7 @@ const Index = () => {
           }}
         />
       ) : (
-        <RoutineList folderId={DEFAULT_FOLDER} />
+        <RoutineList />
       )}
 
       <FolderRenameDialog

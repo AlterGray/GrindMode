@@ -8,6 +8,8 @@ type Folder = {
 // TODO handle or restrict same orders
 type FolderState = {
   folders: Folder[];
+  selectedId: string;
+  setSelectedId: (id: string) => void;
   addFolder: (name: string, color: string) => void;
   removeFolder: (id: string) => void;
   renameFolder: (folderId: string, name: string) => void;

@@ -1,27 +1,28 @@
+import { useRoutineStore } from "@features/routine/routineStore";
+
 import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 
-const getFolderActions = (
-  routineIds: string[],
-  folderId: string,
+import { useFolderStore } from "./folderStore";
+
+const useFolderActions = (
   onClose: () => void,
   onPress: () => void,
   setCurrentMenuAction: (action: any) => void,
-  removeRoutinesFromFolder: (items: string[], folderId: string) => void,
+  removeRoutinesFromFolder: (routineIds: string[], folderId: string) => void,
   addRoutinesToFolder: (routineIds: string[], folderId: string) => void,
 ) => {
-  const handleRemoveRoutinesFromFolder = (
-    selectedItems: string[],
-    folderId: string,
-  ) => {
-    removeRoutinesFromFolder(selectedItems, folderId);
+  const selectedRoutineIds = useRoutineStore((state) => state.selectedIds);
+  const selectedFolderId = useFolderStore((state) => state.selectedId);
+  const handleRemoveRoutinesFromFolder = (folderId: string) => {
+    removeRoutinesFromFolder(selectedRoutineIds, folderId);
     onClose();
   };
 
   // TODO open modal with confirmation
-  const removeFromFolderAction = (ids: string[]) => ({
+  const removeFromFolderAction = {
     label: "Remove from folder",
-    onPress: () => handleRemoveRoutinesFromFolder(ids, folderId),
-  });
+    onPress: () => handleRemoveRoutinesFromFolder(selectedFolderId),
+  };
   const addToFolderAction = {
     label: "Add to folder",
     onPress: () => {
@@ -39,7 +40,7 @@ const getFolderActions = (
 
   // TODO name is too long
   const handleAddRoutinesToFolder = (folderId: string) => {
-    addRoutinesToFolder(routineIds, folderId);
+    addRoutinesToFolder(selectedRoutineIds, folderId);
     onClose();
   };
 
@@ -47,10 +48,10 @@ const getFolderActions = (
   const getMenuActions = () => {
     const actions = [addToFolderAction];
 
-    if (folderId !== DEFAULT_FOLDER) {
+    if (selectedFolderId !== DEFAULT_FOLDER) {
       actions.push(moveToFolderAction);
       // TODO can remove this?
-      actions.push(removeFromFolderAction(routineIds));
+      actions.push(removeFromFolderAction);
     }
 
     return actions;
@@ -63,4 +64,4 @@ const getFolderActions = (
   };
 };
 
-export default getFolderActions;
+export default useFolderActions;

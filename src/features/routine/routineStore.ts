@@ -87,6 +87,8 @@ export const useRoutineStore = create<RoutineState>()(
     // TODO TODO TODO TODO TODO TODO
     selectedIds: [],
     setSelectedIds: (ids) => set(() => ({ selectedIds: ids })),
+    isSelecting: false,
+    setIsSelecting: (isSelecting) => set(() => ({ isSelecting })),
   })),
 );
 

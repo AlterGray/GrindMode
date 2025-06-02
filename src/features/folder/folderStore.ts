@@ -19,6 +19,8 @@ export const useFolderStore = create<FolderState>()(
 
       return storedFolders;
     })(),
+    selectedId: DEFAULT_FOLDER,
+    setSelectedId: (id) => set(() => ({ selectedId: id })),
     addFolder: (name, color) =>
       set((state) => {
         const id = Date.now().toString();

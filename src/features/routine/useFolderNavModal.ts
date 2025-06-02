@@ -2,8 +2,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
 import { useFolderStore } from "@features/folder/folderStore";
-import useFolderActions from "@features/folder/getFolderActions";
 import { FolderColorType } from "@features/folder/types";
+import useFolderActions from "@features/folder/useFolderActions";
 import { useFolderColor } from "@features/folder/useFolderColor";
 
 import { ROUTES } from "@shared/constants/routes";
@@ -11,15 +11,16 @@ import { ROUTES } from "@shared/constants/routes";
 import { useRoutineStore } from "./routineStore";
 
 const useFolderNavModal = (
-  routineIds: string[],
-  folderId: string,
   closeDialogs: () => void,
   currentMenuAction: any,
 ) => {
   const router = useRouter();
+  const selectedRoutineIds = useRoutineStore((state) => state.selectedIds);
+  const selectedFolderId = useFolderStore((state) => state.selectedId);
+  // TODO move to utils?
   const routines = useRoutineStore((state) => state.routines)
-    .filter((r) => routineIds.includes(r.id))
-    .filter((r) => r.folderIds.includes(folderId));
+    .filter((r) => selectedRoutineIds.includes(r.id))
+    .filter((r) => r.folderIds.includes(selectedFolderId));
   const folders = useFolderStore((state) => state.folders);
 
   const removeRoutinesFromFolder = useRoutineStore(
@@ -32,8 +33,6 @@ const useFolderNavModal = (
 
   const { handleAddRoutinesToFolder, handleRemoveRoutinesFromFolder } =
     useFolderActions(
-      routineIds,
-      folderId,
       closeDialogs,
       () => {},
       currentMenuAction,
@@ -44,11 +43,7 @@ const useFolderNavModal = (
     if (currentMenuAction === "add") {
       handleAddRoutinesToFolder(sfolderId);
     } else if (currentMenuAction === "move") {
-      handleRemoveRoutinesFromFolder(
-        // TODO add util method?
-        routineIds,
-        folderId,
-      );
+      handleRemoveRoutinesFromFolder(selectedFolderId);
       handleAddRoutinesToFolder(sfolderId);
     }
     closeDialogs();
@@ -60,6 +55,7 @@ const useFolderNavModal = (
     .map((folder) => ({
       title: folder.name,
       onPress: () => navModalAction(folder.id),
+      // TODO extract to constants?
       iconName: "folder-outline" as keyof typeof Ionicons.glyphMap,
       iconColor: color(folder.color as FolderColorType),
       isMarked: routines.some((r) => r.folderIds.includes(folder.id)),

@@ -26,10 +26,13 @@ export type RoutineFormValues = {
   days: DayType[];
 };
 
+// TODO move it to RoutineList?
 export type RoutineState = {
   routines: Routine[];
   selectedIds: string[];
   setSelectedIds: (id: string[]) => void;
+  isSelecting: boolean;
+  setIsSelecting: (isSelecting: boolean) => void;
   addRoutine: (routine: RoutineInput) => void;
   removeRoutines: (routineIds: string[]) => void;
   updateRoutine: (routine: RoutineUpdate) => void;
