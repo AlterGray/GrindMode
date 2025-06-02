@@ -55,7 +55,7 @@ const Index = () => {
     setRenamingFolderId(folderId);
   };
 
-  // TODO make selectedFolder zustand controlled and introduce hook
+  // TODO move it out
   const getFolderMenuItems = (folderId: string) => {
     let menuItems: PopoverMenuItem[] = [];
 

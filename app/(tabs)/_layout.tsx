@@ -11,13 +11,13 @@ import ThemeButton from "@shared/ui/ThemeButton";
 
 const TabsLayout = () => {
   const { pointerEvents, iconColor } = useTab();
-  // todo remove destrucure
   const isOpen = useActionModalStore((state) => state.isOpen);
 
   const { colorScheme } = useTheme();
   const theme = Colors[colorScheme];
 
   // TODO make global color for all layout headers
+  // TODO refactor later imperative code to declarative style
   return (
     <Tabs
       screenOptions={{
