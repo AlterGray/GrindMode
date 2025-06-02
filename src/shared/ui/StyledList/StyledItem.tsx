@@ -5,14 +5,12 @@ type RoutineStatus = "done" | "undone" | "overdue";
 
 type StyledItemProps = {
   isSelected: boolean;
-  isSelecting: boolean;
   item: {
     id: string;
     status: RoutineStatus;
   };
-  onLongPress?: (id: string) => void;
-  onPress?: (id: string) => void;
-  onSelect: (id: string) => void;
+  onLongPress?: () => void;
+  onPress?: () => void;
   children: ReactNode;
 };
 
@@ -53,15 +51,10 @@ const getStatusBackgroundClass = (
 const StyledItem: React.FC<StyledItemProps> = ({
   item,
   isSelected,
-  isSelecting,
   onLongPress,
   onPress,
-  onSelect,
   children,
 }) => {
-  const handlePress = () =>
-    isSelecting ? onSelect(item.id) : onPress?.(item.id);
-
   const borderClass = `h-0.5 ml-16 ${getStatusBorderClass(item.status)}`;
   const containerClass = `p-4 rounded-xl ${getStatusBackgroundClass(
     item.status,
@@ -72,8 +65,8 @@ const StyledItem: React.FC<StyledItemProps> = ({
     <View className="overflow-hidden">
       <View className={borderClass} />
       <Pressable
-        onLongPress={() => onLongPress?.(item.id)}
-        onPress={handlePress}
+        onLongPress={onLongPress}
+        onPress={onPress}
         className={containerClass}
       >
         {children}

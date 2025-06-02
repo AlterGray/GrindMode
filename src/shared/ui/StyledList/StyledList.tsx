@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { FlatList } from "react-native";
 
+import { useNavigationFocus } from "@shared/hooks/useNavigationFocus";
 import StyledButton from "@shared/ui/StyledButton";
 import ThemedText from "@shared/ui/ThemedText";
 
@@ -28,6 +29,15 @@ const StyledList: React.FC<StyledListProps> = ({
   renderContent = null,
   noItemsText = "No items yet",
 }) => {
+  const isNavigating = useNavigationFocus();
+
+  const handleItemAction = (itemId: string, isLongPress: boolean) => {
+    if (isNavigating) return;
+
+    if (isLongPress || isSelecting) toggleItem(itemId);
+    else onPress?.(itemId);
+  };
+
   if (data.length === 0) {
     return (
       <NoItemsInList
@@ -37,26 +47,29 @@ const StyledList: React.FC<StyledListProps> = ({
     );
   }
 
-  const defaultRenderContent = (item: ItemData) => (
-    <ThemedText>{item.title}</ThemedText>
-  );
+  const renderItemComponent = ({ item }: { item: ItemData }) => {
+    const isSelected = selectedItems.includes(item.id);
+    return (
+      <StyledItem
+        item={item}
+        isSelected={isSelected}
+        onLongPress={() => handleItemAction(item.id, true)}
+        onPress={() => handleItemAction(item.id, false)}
+      >
+        {renderContent ? (
+          renderContent(item)
+        ) : (
+          <ThemedText>{item.title}</ThemedText>
+        )}
+      </StyledItem>
+    );
+  };
 
   return (
     <FlatList
       data={data}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <StyledItem
-          item={item}
-          isSelecting={isSelecting}
-          isSelected={selectedItems.includes(item.id)}
-          onLongPress={toggleItem}
-          onPress={onPress}
-          onSelect={toggleItem}
-        >
-          {renderContent ? renderContent(item) : defaultRenderContent(item)}
-        </StyledItem>
-      )}
+      renderItem={renderItemComponent}
       className="w-full bg-light-background dark:bg-dark-background"
     />
   );
