@@ -23,6 +23,7 @@ export const useFolderStore = create<FolderState>()(
     setSelectedId: (id) =>
       set(({ selectedId }) => {
         if (selectedId === id) return { selectedId };
+        // TODO does it best place to implement this logic?
         return {
           previousSelectedId: selectedId,
           selectedId: id,
@@ -40,7 +41,11 @@ export const useFolderStore = create<FolderState>()(
         };
         const folders = [...state.folders, newFolder];
 
-        return { folders };
+        return {
+          folders,
+          selectedId: id,
+          previousSelectedId: state.selectedId,
+        };
       }),
     removeFolder: (id) =>
       set((state) => {
