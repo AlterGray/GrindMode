@@ -14,9 +14,9 @@ import ScrollTabs from "@shared/ui/ScrollTabs/ScrollTabs";
 
 // TODO performance, too many rerenders(use some tools/techniques to analyz and found it, read articles from like dan abramow and watch it synyak)
 const Index = () => {
+  const [renamingFolderId, setRenamingFolderId] = useState("");
   // TODO custom hooks + more zustand store for declarative style, intoduce selectors and status flags
   const folders = useFolderStore((state) => state.folders);
-  const [folderIdToEdit, setFolderIdToEdit] = useState("");
   // TODO use status?
   const [isReordering, setIsReordering] = useState(false);
   const [isRenameDialogOpen, setIsRenameDialogOpen] = useState(false);
@@ -46,7 +46,7 @@ const Index = () => {
       variant: FloatingModalVariant.Danger,
       onConfirm: () => removeFolder(folderId),
     });
-    setFolderIdToEdit(folderId);
+    setRenamingFolderId(folderId);
   };
 
   // TODO make selectedFolder zustand controlled and introduce hook
@@ -63,7 +63,7 @@ const Index = () => {
           label: "Rename folder",
           onPress: () => {
             setIsRenameDialogOpen(true);
-            setFolderIdToEdit(folderId);
+            setRenamingFolderId(folderId);
           },
         },
       ];
@@ -89,7 +89,7 @@ const Index = () => {
     (folderId) => getFolderMenuItems(folderId),
   );
 
-  const folderToRename = folders.find((f) => f.id === folderIdToEdit);
+  const folderToRename = folders.find((f) => f.id === renamingFolderId);
 
   return (
     <>
@@ -116,7 +116,7 @@ const Index = () => {
         isOpen={isRenameDialogOpen}
         initialValue={folderToRename?.name ?? ""}
         onConfirm={(newName) => {
-          renameFolder(folderIdToEdit, newName);
+          renameFolder(renamingFolderId, newName);
           setIsRenameDialogOpen(false);
         }}
         onCancel={() => setIsRenameDialogOpen(false)}
