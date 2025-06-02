@@ -6,6 +6,9 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
+import { useFolderStoreWithSubscribe } from "@features/folder/folderStore";
+import { useRoutineStoreWithSubscribe } from "@features/routine/routineStore";
+
 import { useTheme } from "@shared/hooks/useTheme";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import ActionModal from "@shared/ui/ActionsModal/ActionModal";
@@ -18,6 +21,11 @@ import "../global.css";
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
+  // TODO why your code base so big, probably something wrong?
+  // TODO even if we pass there store created without "subscribeWithSelector" TS don't show error
+  useRoutineStoreWithSubscribe();
+  useFolderStoreWithSubscribe();
+
   // TODO
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),

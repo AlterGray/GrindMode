@@ -1,57 +1,63 @@
 import { create } from "zustand";
+import { subscribeWithSelector } from "zustand/middleware";
 
 import { DEFAULT_FOLDER } from "@shared/constants/Folders";
+import { useSubscribeStoreWithSelector } from "@shared/hooks/useSubscribeStoreWithSelector";
 
-import { getDefaultFolder, getStoredFolders, saveFolders } from "./storage";
+import { getDefaultFolder, getStoredFolders } from "./storage";
 import { Folder, FolderState } from "./types";
 
-export const useFolderStore = create<FolderState>()((set) => ({
-  folders: (() => {
-    const storedFolders = getStoredFolders();
-    const defaultFolder = getDefaultFolder();
+// TODO make it more readable(probably extract actions to separate functions)
+export const useFolderStore = create<FolderState>()(
+  subscribeWithSelector((set) => ({
+    folders: (() => {
+      const storedFolders = getStoredFolders();
+      const defaultFolder = getDefaultFolder();
 
-    if (!storedFolders.some((folder: Folder) => folder.id === DEFAULT_FOLDER))
-      return [defaultFolder, ...storedFolders];
+      if (!storedFolders.some((folder: Folder) => folder.id === DEFAULT_FOLDER))
+        return [defaultFolder, ...storedFolders];
 
-    return storedFolders;
-  })(),
-  addFolder: (name, color) =>
-    set((state) => {
-      const id = Date.now().toString();
-      const newFolder = {
-        id,
-        name,
-        order: state.folders.length,
-        color,
-      };
-      const folders = [...state.folders, newFolder];
-      // TODO implement autosaving to prevent bugs related to missed sync with mmkv
-      saveFolders(folders);
-      return { folders };
-    }),
-  removeFolder: (id) =>
-    set((state) => {
-      const filteredFolders = state.folders.filter((f) => f.id !== id);
+      return storedFolders;
+    })(),
+    addFolder: (name, color) =>
+      set((state) => {
+        const id = Date.now().toString();
+        const newFolder = {
+          id,
+          name,
+          order: state.folders.length,
+          color,
+        };
+        const folders = [...state.folders, newFolder];
 
-      const updatedFolders = filteredFolders.map((folder, index) => ({
-        ...folder,
-        order: index,
-      }));
+        return { folders };
+      }),
+    removeFolder: (id) =>
+      set((state) => {
+        const filteredFolders = state.folders.filter((f) => f.id !== id);
 
-      saveFolders(updatedFolders);
-      return { folders: updatedFolders };
-    }),
-  renameFolder: (folderId, name) =>
-    set((state) => {
-      const updatedFolders = state.folders.map((folder) =>
-        folder.id === folderId ? { ...folder, name } : folder,
-      );
-      saveFolders(updatedFolders);
-      return { folders: updatedFolders };
-    }),
-  setFolders: (folders) =>
-    set(() => {
-      saveFolders(folders);
-      return { folders };
-    }),
-}));
+        const updatedFolders = filteredFolders.map((folder, index) => ({
+          ...folder,
+          order: index,
+        }));
+
+        return { folders: updatedFolders };
+      }),
+    renameFolder: (folderId, name) =>
+      set((state) => {
+        const updatedFolders = state.folders.map((folder) =>
+          folder.id === folderId ? { ...folder, name } : folder,
+        );
+
+        return { folders: updatedFolders };
+      }),
+    setFolders: (folders) => set(() => ({ folders })),
+  })),
+);
+
+export const useFolderStoreWithSubscribe = () =>
+  useSubscribeStoreWithSelector(
+    useFolderStore,
+    (state) => state.folders,
+    "folders",
+  );
