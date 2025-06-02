@@ -4,7 +4,7 @@ import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 
 import { useFolderStore } from "./folderStore";
 
-const useFolderActions = (
+export const useRoutinePopoverActions = (
   onClose: () => void,
   onPress: () => void,
   setCurrentMenuAction: (action: any) => void,
@@ -63,5 +63,3 @@ const useFolderActions = (
     handleRemoveRoutinesFromFolder,
   };
 };
-
-export default useFolderActions;

@@ -6,7 +6,7 @@ import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/Glob
 import { useRoutineStore } from "./routineStore";
 
 // TODO bad custom hook
-const useRoutineActions = (
+const useRoutineBulkActions = (
   resetSelection: () => void,
   onCancel: () => void,
 ) => {
@@ -53,4 +53,4 @@ const useRoutineActions = (
   return { getRemoveAction, getCompleteAction };
 };
 
-export default useRoutineActions;
+export default useRoutineBulkActions;

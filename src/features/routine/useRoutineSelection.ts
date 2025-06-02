@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import useFolderActions from "@features/folder/useFolderActions";
+import { useRoutinePopoverActions } from "@features/folder/useRoutinePopoverActions";
 
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 
 import { useRoutineStore } from "./routineStore";
-import useRoutineActions from "./useRoutineActions";
+import useRoutineBulkActions from "./useRoutineBulkActions";
 
 // TODO
 export const useRoutineSelection = (
@@ -31,7 +31,7 @@ export const useRoutineSelection = (
     setIsSelecting(false);
   };
 
-  const { getCompleteAction, getRemoveAction } = useRoutineActions(
+  const { getCompleteAction, getRemoveAction } = useRoutineBulkActions(
     resetSelection,
     () => {
       onCloseDialogs();
@@ -46,7 +46,7 @@ export const useRoutineSelection = (
     (state) => state.addRoutinesToFolder,
   );
 
-  const { menuActions: folderMenuActions } = useFolderActions(
+  const { menuActions: routinePopoverMenuActions } = useRoutinePopoverActions(
     onCloseDialogs,
     onOpenNavModal,
     (action: MenuAction) => setCurrentMenuAction(action),
@@ -60,7 +60,7 @@ export const useRoutineSelection = (
       openActionModal({
         text: `${count} item${count === 1 ? "" : "s"} selected`,
         isMenuAction: true,
-        menuActions: folderMenuActions,
+        menuActions: routinePopoverMenuActions,
         actions: [
           getRemoveAction(selectedItems),
           getCompleteAction(selectedItems),

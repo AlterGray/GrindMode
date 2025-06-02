@@ -3,8 +3,8 @@ import { useRouter } from "expo-router";
 
 import { useFolderStore } from "@features/folder/folderStore";
 import { FolderColorType } from "@features/folder/types";
-import useFolderActions from "@features/folder/useFolderActions";
 import { useFolderColor } from "@features/folder/useFolderColor";
+import { useRoutinePopoverActions } from "@features/folder/useRoutinePopoverActions";
 
 import { ROUTES } from "@shared/constants/routes";
 
@@ -32,7 +32,7 @@ const useFolderNavModal = (
   const getFolderColor = useFolderColor();
 
   const { handleAddRoutinesToFolder, handleRemoveRoutinesFromFolder } =
-    useFolderActions(
+    useRoutinePopoverActions(
       closeDialogs,
       () => {},
       currentMenuAction,
