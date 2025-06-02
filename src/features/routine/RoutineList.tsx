@@ -9,7 +9,6 @@ import NavModal from "@shared/ui/NavModal/NavModal";
 import StyledList from "@shared/ui/StyledList/StyledList";
 import { ItemData } from "@shared/ui/StyledList/types";
 import ThemedView from "@shared/ui/ThemedView";
-import TouchBlocker from "@shared/ui/TouchBlocker";
 
 import RoutineListItem from "./RoutineListItem";
 import { useRoutineStore } from "./routineStore";
@@ -80,18 +79,20 @@ const RoutineList: React.FC<RoutineListProps> = ({ folderId }) => {
 
   return (
     <ThemedView className="flex-1 items-center justify-center">
-      <TouchBlocker>
-        <StyledList
-          data={routinesInFolder}
-          selectedItems={selectedRoutines}
-          isSelecting={isSelecting}
-          onPress={handlePressRoutine}
-          toggleItem={toggleRoutine}
-          renderContent={handleRenderRoutine}
-        />
-      </TouchBlocker>
+      <StyledList
+        data={routinesInFolder}
+        selectedItems={selectedRoutines}
+        isSelecting={isSelecting}
+        onPress={handlePressRoutine}
+        toggleItem={toggleRoutine}
+        renderContent={handleRenderRoutine}
+      />
 
-      <CreateButton options={options} routes={createRoutes} />
+      <CreateButton
+        options={options}
+        routes={createRoutes}
+        disabled={isSelecting}
+      />
 
       <NavModal
         isVisible={isNavModalOpen}

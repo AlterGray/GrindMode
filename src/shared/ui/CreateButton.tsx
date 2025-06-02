@@ -15,9 +15,14 @@ import FloatingModal from "./FloatingModal/FloatingModal";
 type CreateButtonProps = {
   options: { label: string; value: string }[];
   routes: Record<string, RouteType>;
+  disabled?: boolean;
 };
 
-const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
+const CreateButton: React.FC<CreateButtonProps> = ({
+  options,
+  routes,
+  disabled = false,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isShow = useKeyboardVisible();
 
@@ -45,7 +50,10 @@ const CreateButton: React.FC<CreateButtonProps> = ({ options, routes }) => {
       {isShow && (
         <Pressable
           onPress={() => setIsModalOpen(true)}
-          className={"absolute bottom-10 right-10 rounded-full"}
+          disabled={disabled}
+          className={`absolute bottom-10 right-10 rounded-full z-10 ${
+            disabled ? "opacity-60" : ""
+          }`}
         >
           {/* TODO add shadow */}
           <Ionicons size={56} name="add-circle-sharp" color={iconColor} />
