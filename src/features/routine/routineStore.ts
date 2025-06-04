@@ -6,6 +6,7 @@ import { Routine, RoutineState } from "@features/routine/routineTypes";
 import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 import { useSubscribeStoreWithSelector } from "@shared/hooks/useSubscribeStoreWithSelector";
 import { storage } from "@shared/lib/storage";
+import { RoutineStatuses } from "@shared/types/commonTypes";
 
 const getStoredRoutines = (): Routine[] => {
   const storedRoutines = storage.getString("routines");
@@ -20,7 +21,7 @@ export const useRoutineStore = create<RoutineState>()(
         const newRoutine: Routine = {
           id: Date.now().toString(),
           folderIds: [DEFAULT_FOLDER],
-          status: "undone",
+          status: RoutineStatuses.Undone,
           actualDuration: 0,
           ...routine,
         };
@@ -44,19 +45,25 @@ export const useRoutineStore = create<RoutineState>()(
     completeRoutines: (routineIds) =>
       set((state) => {
         const newRoutines = state.routines.map((r) => {
-          if (routineIds.includes(r.id) && r.status === "undone") {
+          if (
+            routineIds.includes(r.id) &&
+            r.status === RoutineStatuses.Undone
+          ) {
             const nowTimeMinutes =
               new Date().getHours() * 60 + new Date().getMinutes();
             const routineTimeMinutes =
               new Date(r.startTime).getHours() * 60 +
               new Date(r.startTime).getMinutes();
-            const isGood =
-              nowTimeMinutes - routineTimeMinutes < 10 &&
-              r.actualDuration - r.expectedDuration < 15;
+
+            const overdue = nowTimeMinutes - routineTimeMinutes < 10;
+            const premature = nowTimeMinutes - routineTimeMinutes < -10;
 
             return {
               ...r,
-              status: isGood ? ("done" as const) : ("overdue" as const),
+              status:
+                !overdue && !premature
+                  ? RoutineStatuses.Done
+                  : RoutineStatuses.Overdue,
             };
           }
           return r;

@@ -36,3 +36,11 @@ export type ButtonVariant =
   | "secondary-sharped-20";
 
 export type ButtonProps = { title: string; variant: ButtonVariant };
+
+// TODO align it with statuses which displayed for users
+export enum RoutineStatuses {
+  Undone = "UNDONE",
+  Done = "DONE",
+  Overdue = "OVERDUE",
+  Missed = "MISSED",
+}

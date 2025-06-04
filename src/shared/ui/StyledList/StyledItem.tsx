@@ -1,13 +1,13 @@
 import React, { ReactNode } from "react";
 import { Pressable, View } from "react-native";
 
-type RoutineStatus = "done" | "undone" | "overdue";
+import { RoutineStatuses } from "@shared/types/commonTypes";
 
 type StyledItemProps = {
   isSelected: boolean;
   item: {
     id: string;
-    status: RoutineStatus;
+    status: RoutineStatuses;
   };
   onLongPress?: () => void;
   onPress?: () => void;
@@ -15,13 +15,13 @@ type StyledItemProps = {
 };
 
 // Top border color by status
-const getStatusBorderClass = (status: RoutineStatus): string => {
+const getStatusBorderClass = (status: RoutineStatuses): string => {
   switch (status) {
-    case "done":
+    case RoutineStatuses.Done:
       return "bg-light-statusDone dark:bg-dark-statusDone";
-    case "undone":
+    case RoutineStatuses.Undone:
       return "bg-light-statusUndone dark:bg-dark-statusUndone";
-    case "overdue":
+    case RoutineStatuses.Overdue:
       return "bg-light-statusOverdue dark:bg-dark-statusOverdue";
     default:
       return "";
@@ -30,18 +30,18 @@ const getStatusBorderClass = (status: RoutineStatus): string => {
 
 // Background color by status and selection
 const getStatusBackgroundClass = (
-  status: RoutineStatus,
+  status: RoutineStatuses,
   isSelected: boolean,
 ): string => {
   if (isSelected)
     return "bg-light-selectedListItemBackground dark:bg-dark-selectedListItemBackground";
 
   switch (status) {
-    case "done":
+    case RoutineStatuses.Done:
       return "bg-light-statusDoneBackground dark:bg-dark-statusDoneBackground";
-    case "undone":
+    case RoutineStatuses.Undone:
       return "bg-light-statusUndoneBackground dark:bg-dark-statusUndoneBackground";
-    case "overdue":
+    case RoutineStatuses.Overdue:
       return "bg-light-statusOverdueBackground dark:bg-dark-statusOverdueBackground";
     default:
       return "bg-white dark:bg-black";
