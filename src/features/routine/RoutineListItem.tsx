@@ -1,41 +1,66 @@
+import React from "react";
 import { View } from "react-native";
 
-import { extractDuration } from "@shared/lib/utils/common";
-import DaysPicker from "@shared/ui/DaysPicker/DaysPicker";
+import { RoutineStatuses } from "@shared/types/commonTypes";
 import ThemedText from "@shared/ui/ThemedText";
 
-import { useRoutineStore } from "./routineStore";
-import { Routine } from "./routineTypes";
+import PhaseBadge from "./PhaseBadge";
+import RoutineStatus from "./RoutineStatus";
+import { Routine, RoutinePhase } from "./routineTypes";
 
 type ItemComponentProps = {
   item: Routine;
+  isSelected: boolean;
 };
 
-const RoutineListItem: React.FC<ItemComponentProps> = ({ item }) => {
-  const updateRoutine = useRoutineStore((state) => state.updateRoutine);
+// Background color by status and selection
+const getStatusBackgroundClass = (
+  status: RoutineStatuses,
+  isSelected: boolean,
+): string => {
+  if (isSelected)
+    return "bg-light-selectedListItemBackground dark:bg-dark-selectedListItemBackground";
+
+  switch (status) {
+    case RoutineStatuses.Undone:
+      return "bg-light-statusUndoneBackground dark:bg-dark-statusUndoneBackground";
+    case RoutineStatuses.Done:
+      return "bg-light-statusDoneBackground dark:bg-dark-statusDoneBackground";
+    case RoutineStatuses.Overdue:
+      return "bg-light-statusOverdueBackground dark:bg-dark-statusOverdueBackground";
+    case RoutineStatuses.Missed:
+      return "bg-light-statusFailedBackground dark:bg-dark-statusFailedBackground";
+  }
+};
+
+const RoutineListItem: React.FC<ItemComponentProps> = ({
+  item,
+  isSelected,
+}) => {
   const formatedStartTime = new Date(item.startTime).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });
 
+  // TODO adjust items height to all items have same height indeondent of content length
   return (
-    <View className="gap-2">
-      <View className="flex-row items-center justify-between gap-2">
-        <ThemedText>{item.title}</ThemedText>
-        <ThemedText className="text-light-textAccent">
-          {formatedStartTime}
-        </ThemedText>
-      </View>
+    <View
+      className={`gap-2 p-4 ${getStatusBackgroundClass(item.status, isSelected)}`}
+    >
+      <View className="gap-1">
+        <View className="gap-2">
+          <View className="flex-row w-full justify-between">
+            <RoutineStatus status={item.status} />
 
-      <View className="flex-row justify-between">
-        <DaysPicker
-          size="small"
-          onChange={(days) => updateRoutine({ ...item, days })}
-          initialItems={item.days}
-        />
-        <ThemedText>
-          Duration: {extractDuration(item.expectedDuration)}
-        </ThemedText>
+            <ThemedText className="text-light-textAccent">
+              Start at {formatedStartTime}
+            </ThemedText>
+          </View>
+
+          <ThemedText className="text-lg">{item.title}</ThemedText>
+        </View>
+
+        <PhaseBadge phase={RoutinePhase.Initiation} />
       </View>
     </View>
   );

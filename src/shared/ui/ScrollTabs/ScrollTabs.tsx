@@ -17,6 +17,7 @@ const ScrollTabs: React.FC<ScrollTabsProps> = ({
   onCloseTab,
   onDragEnd,
 }) => {
+  // TODO add fade animation for folder switching
   const draggableItem = (item: DraggableItem, drag: () => void) => (
     <OpacityDecorator activeOpacity={0.8}>
       <ScaleDecorator activeScale={0.85}>

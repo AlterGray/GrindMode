@@ -51,13 +51,29 @@ export const Colors = {
 
     // STATUS COLORS (List Item)
     statusDone: "#22c55e", // green-500
-    statusDoneBackground: "#f0fdf4", // green-50
+    statusDoneBackground: "#dcfce7", // green-50
 
     statusUndone: "#3b82f6", // blue-500
-    statusUndoneBackground: "#eff6ff", // blue-50
+    statusUndoneBackground: "#dbeafe", // blue-50
 
-    statusOverdue: "#ef4444", // red-500
-    statusOverdueBackground: "#fef2f2", // red-50
+    statusOverdue: "#f59e0b", // amber-500
+    statusOverdueBackground: "#fffbeb", // amber-50
+
+    statusFailed: "#ef4444", // red-500
+    statusFailedBackground: "#fef2f2", // red-50
+
+    // COMMON
+    primary: "#3b82f6", // strong blue for icons/text
+    primarySoft: "#eff6ff", // soft/light blue background
+
+    danger: "#ef4444", // strong red for icons/text
+    dangerSoft: "#fef2f2", // soft/light red background
+
+    warning: "#f59e0b", // strong orange for icons/text
+    warningSoft: "#fffbeb", // soft/light orange background
+
+    success: "#22c55e", // strong green for icons/text
+    successSoft: "#f0fdf4", // soft/light green background
   },
 
   dark: {
@@ -112,13 +128,29 @@ export const Colors = {
 
     // STATUS COLORS (List Item)
     statusDone: "#22c55e",
-    statusDoneBackground: "#0c1f15", // soft dark green hint
+    statusDoneBackground: "#123824", // slightly lighter green background
 
     statusUndone: "#3b82f6",
-    statusUndoneBackground: "#0d1b2a", // soft dark blue hint
+    statusUndoneBackground: "#13294b", // slightly lighter blue background
 
-    statusOverdue: "#ef4444",
-    statusOverdueBackground: "#2c0b0e", // soft dark red hint
+    statusOverdue: "#f59e0b", // amber-500
+    statusOverdueBackground: "#4a3b14", // warm dark amber-like background
+
+    statusFailed: "#ef4444", // red-500
+    statusFailedBackground: "#471014", // slightly lighter red background
+
+    // COMMON — opacity removed, замінено на більш суцільні відтінки
+    primary: "#3b82f6",
+    primarySoft: "#1e40af", // темніший синій без opacity
+
+    danger: "#ef4444",
+    dangerSoft: "#b91c1c", // темний червоний без opacity
+
+    warning: "#f59e0b",
+    warningSoft: "#b45309", // темний оранжевий без opacity
+
+    success: "#22c55e",
+    successSoft: "#15803d", // темний зелений без opacity
   },
   folderColors: {
     default: {
@@ -164,4 +196,23 @@ export const Colors = {
     "blue",
     "pink",
   ],
+
+  routinePhaseColors: {
+    INITIATION: {
+      light: "#F87171", // red-400
+      dark: "#EF4444", // red-500
+    },
+    CONSOLIDATION: {
+      light: "#FDBA74", // orange-300
+      dark: "#FB923C", // orange-500
+    },
+    STABILIZATION: {
+      light: "#81C784", // green-300
+      dark: "#519657", // green-600
+    },
+    DEEP_INTEGRATION: {
+      light: "#7DA6FF", // blue-300
+      dark: "#50A6FF", // blue-500
+    },
+  },
 };

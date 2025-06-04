@@ -4,7 +4,6 @@ import { Pressable, View } from "react-native";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
 type StyledItemProps = {
-  isSelected: boolean;
   item: {
     id: string;
     status: RoutineStatuses;
@@ -14,61 +13,25 @@ type StyledItemProps = {
   children: ReactNode;
 };
 
-// Top border color by status
-const getStatusBorderClass = (status: RoutineStatuses): string => {
-  switch (status) {
-    case RoutineStatuses.Done:
-      return "bg-light-statusDone dark:bg-dark-statusDone";
-    case RoutineStatuses.Undone:
-      return "bg-light-statusUndone dark:bg-dark-statusUndone";
-    case RoutineStatuses.Overdue:
-      return "bg-light-statusOverdue dark:bg-dark-statusOverdue";
-    default:
-      return "";
-  }
-};
-
-// Background color by status and selection
-const getStatusBackgroundClass = (
-  status: RoutineStatuses,
-  isSelected: boolean,
-): string => {
-  if (isSelected)
-    return "bg-light-selectedListItemBackground dark:bg-dark-selectedListItemBackground";
-
-  switch (status) {
-    case RoutineStatuses.Done:
-      return "bg-light-statusDoneBackground dark:bg-dark-statusDoneBackground";
-    case RoutineStatuses.Undone:
-      return "bg-light-statusUndoneBackground dark:bg-dark-statusUndoneBackground";
-    case RoutineStatuses.Overdue:
-      return "bg-light-statusOverdueBackground dark:bg-dark-statusOverdueBackground";
-    default:
-      return "bg-white dark:bg-black";
-  }
-};
-
 const StyledItem: React.FC<StyledItemProps> = ({
   item,
-  isSelected,
   onLongPress,
   onPress,
   children,
 }) => {
-  const borderClass = `h-0.5 ml-16 ${getStatusBorderClass(item.status)}`;
-  const containerClass = `p-4 rounded-xl ${getStatusBackgroundClass(
-    item.status,
-    isSelected,
-  )}`;
+  // TODO set border color by parent?
+  const borderBackgrounds: Record<RoutineStatuses, string> = {
+    [RoutineStatuses.Undone]: "bg-light-statusUndone dark:bg-dark-statusUndone",
+    [RoutineStatuses.Done]: "bg-light-success dark:bg-dark-done",
+    [RoutineStatuses.Overdue]: "bg-light-warning dark:bg-dark-warning",
+    [RoutineStatuses.Missed]: "bg-light-danger dark:bg-dark-danger",
+  };
+  const borderClass = `h-0.5 ml-16 ${borderBackgrounds[item.status]}`;
 
   return (
     <View className="overflow-hidden">
       <View className={borderClass} />
-      <Pressable
-        onLongPress={onLongPress}
-        onPress={onPress}
-        className={containerClass}
-      >
+      <Pressable onLongPress={onLongPress} onPress={onPress}>
         {children}
       </Pressable>
     </View>

@@ -10,7 +10,6 @@ import StyledItem from "./StyledItem";
 import { ItemData } from "./types";
 
 type StyledListProps = {
-  selectedItems: string[];
   // change to status?
   isSelecting: boolean;
   onPress: (id: string) => void;
@@ -21,7 +20,6 @@ type StyledListProps = {
 };
 
 const StyledList: React.FC<StyledListProps> = ({
-  selectedItems,
   isSelecting,
   onPress,
   toggleItem,
@@ -48,17 +46,16 @@ const StyledList: React.FC<StyledListProps> = ({
   }
 
   const renderItemComponent = ({ item }: { item: ItemData }) => {
-    const isSelected = selectedItems.includes(item.id);
     return (
       <StyledItem
         item={item}
-        isSelected={isSelected}
         onLongPress={() => handleItemAction(item.id, true)}
         onPress={() => handleItemAction(item.id, false)}
       >
         {renderContent ? (
           renderContent(item)
         ) : (
+          // TODO improve it to show correctly selected items
           <ThemedText>{item.title}</ThemedText>
         )}
       </StyledItem>

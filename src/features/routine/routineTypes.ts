@@ -1,11 +1,13 @@
-import { DayType } from "@shared/types/commonTypes";
+import { Ionicons } from "@expo/vector-icons";
+
+import { DayType, RoutineStatuses } from "@shared/types/commonTypes";
 
 export type Routine = {
   id: string;
   folderIds: string[];
   title: string;
   description: string;
-  status: "undone" | "done" | "overdue";
+  status: RoutineStatuses;
   startTime: number;
   expectedDuration: number;
   actualDuration: number;
@@ -41,4 +43,19 @@ export type RoutineState = {
   removeRoutinesFromFolder: (routineIds: string[], folderId: string) => void;
 };
 
-export type RoutineStatus = "done" | "undone" | "overdue";
+// TODO make same for folder colors?
+// TODO make a type?
+export enum RoutinePhase {
+  Initiation = "INITIATION",
+  Consolidation = "CONSOLIDATION",
+  Stabilization = "STABILIZATION",
+  DeepIntegration = "DEEP_INTEGRATION",
+}
+
+// TODO align order of status values in all records, switches
+export type StatusVariantsType = {
+  iconName: keyof typeof Ionicons.glyphMap;
+  iconColor: string;
+  bgColor: string;
+  text: string;
+};

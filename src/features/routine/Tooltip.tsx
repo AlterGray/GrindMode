@@ -1,0 +1,108 @@
+import { useRef, useState } from "react";
+import React from "react";
+import { Modal, Pressable, View } from "react-native";
+
+import { Ionicons } from "@expo/vector-icons";
+
+import { useComponentPosition } from "@shared/hooks/useComponentPosition";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
+import Backdrop from "@shared/ui/FloatingModal/components/Backdrop";
+import ThemedText from "@shared/ui/ThemedText";
+import ThemedView from "@shared/ui/ThemedView";
+
+type TooltipProps = {
+  text: string;
+  iconColor?: string;
+  // TODO remove hardcodes
+  variant?: "info" | "warning" | "danger" | "success";
+};
+
+export const Tooltip: React.FC<TooltipProps> = ({
+  text,
+  iconColor,
+  variant = "info",
+}) => {
+  const [visible, setVisible] = useState(false);
+  const buttonRef = useRef(null);
+  const colors = useThemeColors();
+  const [buttonPosition, setButtonPosition] = useState({
+    x: 0,
+    y: 0,
+  });
+  const getPosition = useComponentPosition(buttonRef, 0);
+
+  // TODO infer type from props in all records?
+  const tooltipVariants: Record<
+    NonNullable<TooltipProps["variant"]>,
+    {
+      bgColor: string;
+      iconColor: string;
+      iconName: keyof typeof Ionicons.glyphMap;
+    }
+  > = {
+    info: {
+      bgColor: "bg-light-primary dark:bg-dark-primary",
+      iconColor: colors.primary,
+      iconName: "information-circle-sharp",
+    },
+    success: {
+      bgColor: "bg-light-success dark:bg-dark-success",
+      iconColor: colors.success,
+      iconName: "checkmark-circle-sharp",
+    },
+    warning: {
+      bgColor: "bg-light-warning dark:bg-dark-warning",
+      iconColor: colors.warning,
+      iconName: "warning-sharp",
+    },
+    danger: {
+      bgColor: "bg-light-danger dark:bg-dark-danger",
+      iconColor: colors.danger,
+      iconName: "warning-sharp",
+    },
+  };
+
+  const classes = tooltipVariants[variant];
+
+  // TODO add just danger color?
+  // const iconColor = useThemeColors("buttonDangerText");
+
+  return (
+    <>
+      {/* TODO set for all buttons that property which increase touch area? */}
+      {/* add buttons to all places where onPress and so on exist */}
+      {/* use that lib which increase accesability */}
+      <Pressable
+        ref={buttonRef}
+        onPress={() => {
+          setVisible(!visible);
+          getPosition(setButtonPosition);
+        }}
+        hitSlop={5}
+      >
+        <Ionicons
+          name={classes.iconName}
+          size={20}
+          color={iconColor ?? classes.iconColor}
+        />
+      </Pressable>
+      <Modal visible={visible} transparent animationType="fade">
+        <Backdrop onCancel={() => setVisible(false)} />
+        <View
+          className="absolute items-center"
+          style={{ top: buttonPosition.y, left: buttonPosition.x }}
+        >
+          {visible && (
+            <ThemedView
+              className={`absolute top-6 w-48 rounded-xl px-3 py-2 ${classes.bgColor}`}
+            >
+              <ThemedText className="text-sm text-center text-white">
+                {text}
+              </ThemedText>
+            </ThemedView>
+          )}
+        </View>
+      </Modal>
+    </>
+  );
+};

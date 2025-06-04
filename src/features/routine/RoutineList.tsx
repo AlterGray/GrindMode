@@ -43,7 +43,10 @@ const RoutineList: React.FC = () => {
   const navModalActions = useFolderNavModal(closeDialogs, currentMenuAction);
 
   const handleRenderRoutine = (item: ItemData) => (
-    <RoutineListItem item={item as Routine} />
+    <RoutineListItem
+      item={item as Routine}
+      isSelected={selectedRoutineIds.includes(item.id)}
+    />
   );
 
   const handlePressRoutine = (id: string) => {
@@ -68,7 +71,6 @@ const RoutineList: React.FC = () => {
     <ThemedView className="flex-1 items-center justify-center">
       <StyledList
         data={routinesInFolder}
-        selectedItems={selectedRoutineIds}
         isSelecting={isSelectingRoutines}
         onPress={handlePressRoutine}
         toggleItem={toggleRoutine}
