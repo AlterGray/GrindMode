@@ -55,15 +55,12 @@ export const useRoutineStore = create<RoutineState>()(
               new Date(r.startTime).getHours() * 60 +
               new Date(r.startTime).getMinutes();
 
-            const overdue = nowTimeMinutes - routineTimeMinutes < 10;
-            const premature = nowTimeMinutes - routineTimeMinutes < -10;
+            const overdue = nowTimeMinutes - routineTimeMinutes > 10;
+            // const missed = nowTimeMinutes - routineTimeMinutes > 89
 
             return {
               ...r,
-              status:
-                !overdue && !premature
-                  ? RoutineStatuses.Done
-                  : RoutineStatuses.Overdue,
+              status: overdue ? RoutineStatuses.Overdue : RoutineStatuses.Done,
             };
           }
           return r;
