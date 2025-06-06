@@ -13,7 +13,8 @@ export const calculateRoutinePhase = (routineId: string) => {
   // TODO
   if (routineStat == undefined) return RoutinePhase.Initiation;
 
-  const completionsCount = routineStat?.completitions.length ?? 0;
+  // TODO bad
+  const completionsCount = routineStat?.completitions?.length ?? 0;
 
   if (completionsCount <= RoutinePhaseMap[RoutinePhase.Initiation].to)
     return RoutinePhase.Initiation;
@@ -34,7 +35,8 @@ export const getRoutinePhaseDays = (routineId: string) => {
   );
   const routinePhase = calculateRoutinePhase(routineId);
   const routinePhaseFrom = RoutinePhaseMap[routinePhase].from;
-  const completionsCount = routineStatistic?.completitions.length ?? 0;
+  // TODO bad
+  const completionsCount = routineStatistic?.completitions?.length ?? 0;
 
   // TODO improve it
   const isInitiationPhase =

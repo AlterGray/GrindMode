@@ -96,6 +96,7 @@ export const getRoutineStatusFromStatistic = (
   routineId: string,
 ): RoutineStatuses => {
   const today = new Date();
+  // TODO WHAT faster? this or
   const stats = useStatisticStore.getState().routineStatistics;
 
   const routineStat = stats.find((s) => s.id === routineId);
