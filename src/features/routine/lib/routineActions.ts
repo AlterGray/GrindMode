@@ -9,6 +9,8 @@ import { calculateRoutineStatus } from "./utils";
 
 // TODO no handle errors anywhere, add it later
 // TODO hook????
+// allow use select routine even long touching popup
+// use some protected time rather than mobile time
 export const completeRoutine = (routine: Routine) => {
   const addRoutineStatisticEntry =
     useStatisticStore.getState().addRoutineStatisticEntry;

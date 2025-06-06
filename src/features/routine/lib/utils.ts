@@ -53,9 +53,11 @@ export const calculateRoutineStatus = (routine: Routine) => {
   if (!routine.startTime) return RoutineStatuses.Done;
 
   const startTime = new Date(routine.startTime);
+  const startTimeMinutes = startTime.getHours() * 60 + startTime.getMinutes();
   const nowTime = new Date(Date.now());
+  const nowTimeMinutes = nowTime.getHours() * 60 + nowTime.getMinutes();
 
-  const delta = nowTime.getMinutes() - startTime.getMinutes();
+  const delta = nowTimeMinutes - startTimeMinutes;
 
   if (delta > 90) return RoutineStatuses.Missed;
   else if (delta > 10) return RoutineStatuses.Overdue;

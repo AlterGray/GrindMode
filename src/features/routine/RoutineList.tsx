@@ -13,6 +13,7 @@ import { ItemData } from "@shared/ui/StyledList/types";
 import ThemedView from "@shared/ui/ThemedView";
 
 import RoutineListItem from "./RoutineListItem";
+import { useRoutinesWithStatus } from "./hooks/useRoutinesWithStatus";
 import { useRoutineStore } from "./routineStore";
 import { Routine } from "./routineTypes";
 import useFolderNavModal from "./useFolderNavModal";
@@ -26,7 +27,7 @@ const RoutineList: React.FC = () => {
   );
   const isSelectingRoutines = useRoutineStore((state) => state.isSelecting);
   const selectedRoutineIds = useRoutineStore((state) => state.selectedIds);
-  const allRoutines = useRoutineStore((state) => state.routines);
+  const routinesWithStatus = useRoutinesWithStatus();
   const selectedFolderId = useFolderStore((state) => state.selectedId);
   const router = useRouter();
 
@@ -63,7 +64,7 @@ const RoutineList: React.FC = () => {
     routine: ROUTES.ROUTINES_CREATE,
   };
 
-  const routinesInFolder = allRoutines.filter((r) =>
+  const routinesInFolder = routinesWithStatus.filter((r) =>
     r.folderIds.includes(selectedFolderId),
   );
 
