@@ -7,8 +7,8 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import { useFolderStoreWithSubscribe } from "@features/folder/folderStore";
+import { useRoutineDayWatcher } from "@features/routine/hooks/useRoutineDayWatcher";
 import { useRoutineStoreWithSubscribe } from "@features/routine/routineStore";
-import { useRoutineDayWatcher } from "@features/routine/useRoutineDayWatcher";
 import { useStatisticStoreWithSubscribe } from "@features/statistic/statisticStore";
 
 import { useTheme } from "@shared/hooks/useTheme";

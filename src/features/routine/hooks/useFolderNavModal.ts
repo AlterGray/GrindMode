@@ -8,7 +8,7 @@ import { useRoutinePopoverActions } from "@features/folder/useRoutinePopoverActi
 
 import { ROUTES } from "@shared/constants/routes";
 
-import { useRoutineStore } from "./routineStore";
+import { useRoutineStore } from "../routineStore";
 
 const useFolderNavModal = (
   closeDialogs: () => void,

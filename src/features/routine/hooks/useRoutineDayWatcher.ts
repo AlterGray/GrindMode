@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
-import { useRoutinesWithStatus } from "./hooks/useRoutinesWithStatus";
-import { useRoutineStore } from "./routineStore";
+import { useRoutineStore } from "../routineStore";
+import { useRoutinesWithStatus } from "./useRoutinesWithStatus";
 
 export const useRoutineDayWatcher = () => {
   const setRoutineStatus = useRoutineStore((state) => state.setRoutineStatus);

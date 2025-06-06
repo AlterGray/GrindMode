@@ -4,7 +4,7 @@ import { useRoutinePopoverActions } from "@features/folder/useRoutinePopoverActi
 
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 
-import { useRoutineStore } from "./routineStore";
+import { useRoutineStore } from "../routineStore";
 import useRoutineBulkActions from "./useRoutineBulkActions";
 
 // TODO

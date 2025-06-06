@@ -13,11 +13,11 @@ import { ItemData } from "@shared/ui/StyledList/types";
 import ThemedView from "@shared/ui/ThemedView";
 
 import RoutineListItem from "./RoutineListItem";
+import useFolderNavModal from "./hooks/useFolderNavModal";
+import { useRoutineSelection } from "./hooks/useRoutineSelection";
 import { useRoutinesWithStatus } from "./hooks/useRoutinesWithStatus";
 import { useRoutineStore } from "./routineStore";
 import { Routine } from "./routineTypes";
-import useFolderNavModal from "./useFolderNavModal";
-import { useRoutineSelection } from "./useRoutineSelection";
 
 const RoutineList: React.FC = () => {
   // TODO use zustand?
