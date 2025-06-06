@@ -35,10 +35,10 @@ export type RoutineState = {
   setSelectedIds: (id: string[]) => void;
   isSelecting: boolean;
   setIsSelecting: (isSelecting: boolean) => void;
-  addRoutine: (routine: RoutineInput) => void;
-  removeRoutines: (routineIds: string[]) => void;
+  addRoutine: (routine: RoutineInput) => string;
+  removeRoutine: (routineId: string) => void;
   updateRoutine: (routine: RoutineUpdate) => void;
-  completeRoutines: (routineIds: string[]) => void;
+  setRoutineStatus: (routineId: string, status: RoutineStatuses) => void;
   addRoutinesToFolder: (routineIds: string[], folderId: string) => void;
   removeRoutinesFromFolder: (routineIds: string[], folderId: string) => void;
 };

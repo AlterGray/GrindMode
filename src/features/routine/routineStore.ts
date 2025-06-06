@@ -9,30 +9,35 @@ import { storage } from "@shared/lib/storage";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
 const getStoredRoutines = (): Routine[] => {
-  const storedRoutines = storage.getString("routines");
-  return storedRoutines ? JSON.parse(storedRoutines) : [];
+  const storedRoutinesJSON = storage.getString("routines");
+  const storedRoutines = storedRoutinesJSON
+    ? JSON.parse(storedRoutinesJSON)
+    : [];
+
+  return storedRoutines;
 };
 
 export const useRoutineStore = create<RoutineState>()(
   subscribeWithSelector((set) => ({
     routines: getStoredRoutines(),
-    addRoutine: (routine) =>
-      set((state) => {
-        const newRoutine: Routine = {
-          id: Date.now().toString(),
-          folderIds: [DEFAULT_FOLDER],
-          status: RoutineStatuses.Undone,
-          actualDuration: 0,
-          ...routine,
-        };
+    addRoutine: (routine) => {
+      const newRoutine: Routine = {
+        id: Date.now().toString(),
+        folderIds: [DEFAULT_FOLDER],
+        status: RoutineStatuses.Undone,
+        actualDuration: 0,
+        ...routine,
+      };
 
-        return { routines: [...state.routines, newRoutine] };
-      }),
-    removeRoutines: (routineIds) =>
+      set((state) => ({
+        routines: [...state.routines, newRoutine],
+      }));
+
+      return newRoutine.id;
+    },
+    removeRoutine: (routineId) =>
       set((state) => {
-        const newRoutines = state.routines.filter(
-          (r) => !routineIds.includes(r.id),
-        );
+        const newRoutines = state.routines.filter((r) => routineId !== r.id);
         return { routines: newRoutines };
       }),
     updateRoutine: (routine) =>
@@ -42,25 +47,13 @@ export const useRoutineStore = create<RoutineState>()(
         );
         return { routines: newRoutines };
       }),
-    completeRoutines: (routineIds) =>
+    setRoutineStatus: (routineId, status) =>
       set((state) => {
         const newRoutines = state.routines.map((r) => {
-          if (
-            routineIds.includes(r.id) &&
-            r.status === RoutineStatuses.Undone
-          ) {
-            const nowTimeMinutes =
-              new Date().getHours() * 60 + new Date().getMinutes();
-            const routineTimeMinutes =
-              new Date(r.startTime).getHours() * 60 +
-              new Date(r.startTime).getMinutes();
-
-            const overdue = nowTimeMinutes - routineTimeMinutes > 10;
-            // const missed = nowTimeMinutes - routineTimeMinutes > 89
-
+          if (routineId === r.id) {
             return {
               ...r,
-              status: overdue ? RoutineStatuses.Overdue : RoutineStatuses.Done,
+              status,
             };
           }
           return r;

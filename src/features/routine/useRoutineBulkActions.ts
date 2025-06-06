@@ -3,6 +3,7 @@ import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
 
+import { completeRoutine, removeRoutine } from "./lib/routineActions";
 import { useRoutineStore } from "./routineStore";
 
 // TODO bad custom hook
@@ -10,8 +11,6 @@ const useRoutineBulkActions = (
   resetSelection: () => void,
   onCancel: () => void,
 ) => {
-  const removeRoutines = useRoutineStore((state) => state.removeRoutines);
-  const completeRoutines = useRoutineStore((state) => state.completeRoutines);
   const closeActionModal = useActionModalStore(
     (state) => state.closeActionModal,
   );
@@ -23,7 +22,8 @@ const useRoutineBulkActions = (
   );
 
   const handleRemoveConfirm = (routineIds: string[]) => {
-    removeRoutines(routineIds);
+    routineIds.forEach(removeRoutine);
+
     closeActionModal();
     closeConfirmModal();
     resetSelection();
@@ -43,7 +43,12 @@ const useRoutineBulkActions = (
 
   const getCompleteAction = (routineIds: string[]): ActionType => ({
     onPress: () => {
-      completeRoutines(routineIds);
+      const rotuines = useRoutineStore
+        .getState()
+        .routines.filter((r) => routineIds.includes(r.id));
+
+      rotuines.forEach(completeRoutine);
+
       resetSelection();
       closeActionModal();
     },

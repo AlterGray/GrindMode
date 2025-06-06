@@ -18,3 +18,14 @@ export const formatDurationLabel = (duration: number): string =>
 export const capitalize = (val: string) => {
   return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 };
+
+export const isToday = (dateString: string): boolean => {
+  const inputDate = new Date(dateString);
+  const today = new Date();
+
+  return (
+    inputDate.getFullYear() === today.getFullYear() &&
+    inputDate.getMonth() === today.getMonth() &&
+    inputDate.getDate() === today.getDate()
+  );
+};

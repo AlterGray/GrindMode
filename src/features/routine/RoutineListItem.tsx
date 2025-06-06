@@ -6,7 +6,7 @@ import ThemedText from "@shared/ui/ThemedText";
 
 import PhaseBadge from "./PhaseBadge";
 import RoutineStatus from "./RoutineStatus";
-import { Routine, RoutinePhase } from "./routineTypes";
+import { Routine } from "./routineTypes";
 
 type ItemComponentProps = {
   item: Routine;
@@ -59,8 +59,8 @@ const RoutineListItem: React.FC<ItemComponentProps> = ({
 
           <ThemedText className="text-lg">{item.title}</ThemedText>
         </View>
-
-        <PhaseBadge phase={RoutinePhase.Initiation} />
+        // TODO rename component
+        <PhaseBadge routineId={item.id} />
       </View>
     </View>
   );

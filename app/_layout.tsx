@@ -8,6 +8,8 @@ import * as SplashScreen from "expo-splash-screen";
 
 import { useFolderStoreWithSubscribe } from "@features/folder/folderStore";
 import { useRoutineStoreWithSubscribe } from "@features/routine/routineStore";
+import { useRoutineDayWatcher } from "@features/routine/useRoutineDayWatcher";
+import { useStatisticStoreWithSubscribe } from "@features/statistic/statisticStore";
 
 import { useTheme } from "@shared/hooks/useTheme";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
@@ -25,6 +27,8 @@ const RootLayout = () => {
   // TODO even if we pass there store created without "subscribeWithSelector" TS don't show error
   useRoutineStoreWithSubscribe();
   useFolderStoreWithSubscribe();
+  useStatisticStoreWithSubscribe();
+  useRoutineDayWatcher();
 
   // TODO
   const [loaded] = useFonts({

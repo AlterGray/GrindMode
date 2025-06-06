@@ -7,25 +7,25 @@ import ThemedText from "@shared/ui/ThemedText";
 
 import { Tooltip } from "./Tooltip";
 import { RoutinePhaseMap } from "./constants";
+import { calculateRoutinePhase, getRoutinePhaseDays } from "./lib/utils";
 import { RoutinePhase } from "./routineTypes";
 import { getNextRoutinePhase } from "./utils";
 
 type PhaseBadgeProps = {
-  phase: RoutinePhase;
+  routineId: string;
 };
 
-const PhaseBadge: React.FC<PhaseBadgeProps> = ({ phase }) => {
+const PhaseBadge: React.FC<PhaseBadgeProps> = ({ routineId }) => {
+  const phase = calculateRoutinePhase(routineId);
+  const days = getRoutinePhaseDays(routineId);
+
   const phaseItem = RoutinePhaseMap[phase];
   const { colorScheme } = useTheme();
   const phaseColor = Colors.routinePhaseColors[phase][colorScheme];
 
   const nextPhase = getNextRoutinePhase(phase)!;
-  const nextPhaseColor = Colors.routinePhaseColors[nextPhase][colorScheme];
-
-  // const color = Colors.routinePhaseColors[phase].light;
-  // TODO hardcode
-  const currentDays = 4;
-  const daysLeft = phaseItem.to - currentDays;
+  const daysLeft = phaseItem.to - days;
+  const currentProgress = days / (phaseItem.to - phaseItem.from);
 
   return (
     // TODO rewrite all View to ThemedView?
@@ -40,7 +40,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ phase }) => {
           <Tooltip text="One miss left - stay consistent" variant="danger" />
           <Tooltip
             text={`${daysLeft} days left until ${RoutinePhaseMap[nextPhase].label} phase`}
-            iconColor={nextPhaseColor}
+            iconColor={phaseColor}
           />
         </View>
       </View>
@@ -49,10 +49,11 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ phase }) => {
       <SeparatedProgressBar
         segments={phaseItem.to - phaseItem.from}
         separatorWidth={phase === RoutinePhase.DeepIntegration ? 0 : 1}
-        progress={(phaseItem.from + currentDays) / phaseItem.to}
+        progress={currentProgress}
         width={380} // TODO make it responsive
         fillColor={phaseColor}
         backgroundColor={Colors.light.background}
+        // TODO remove hardcode
         separatorColor={"#e5e7eb"}
         backgroundOpacity={colorScheme === "light" ? 1 : 0.3}
       />
