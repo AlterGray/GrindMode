@@ -48,7 +48,7 @@ export const handleMissedFirstDay = (stat: StatisticEntry) => {
 };
 
 export const handleMissedDayTwice = (statId: string) => {
-  const clearCompletions = useStatisticStore((state) => state.clearCompletions);
+  const clearCompletions = useStatisticStore.getState().clearCompletions;
   const refreshedStat = useStatisticStore
     .getState()
     .routineStatistics.find((s) => s.id === statId);
