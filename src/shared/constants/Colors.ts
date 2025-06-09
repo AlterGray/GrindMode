@@ -199,20 +199,20 @@ export const Colors = {
 
   routinePhaseColors: {
     INITIATION: {
-      light: "#F87171", // red-400
-      dark: "#EF4444", // red-500
+      light: "#f97316", // orange-500
+      dark: "#D9480F", // orange-600
     },
     CONSOLIDATION: {
       light: "#FDBA74", // orange-300
-      dark: "#FB923C", // orange-500
+      dark: "#F97316", // orange-500
     },
     STABILIZATION: {
       light: "#81C784", // green-300
-      dark: "#519657", // green-600
+      dark: "#2E7D32", // green-600
     },
     DEEP_INTEGRATION: {
-      light: "#7DA6FF", // blue-300
-      dark: "#50A6FF", // blue-500
+      light: "#34D399", // emerald-400
+      dark: "#10B981", // emerald-500
     },
   },
 };
