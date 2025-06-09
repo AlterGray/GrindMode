@@ -33,6 +33,7 @@ const getStatusBackgroundClass = (
   }
 };
 
+// TODO add better name for "item"
 const RoutineListItem: React.FC<ItemComponentProps> = ({
   item,
   isSelected,
@@ -42,11 +43,11 @@ const RoutineListItem: React.FC<ItemComponentProps> = ({
     minute: "2-digit",
   });
 
+  const bgColor = getStatusBackgroundClass(item.status, isSelected);
+
   // TODO adjust items height to all items have same height indeondent of content length
   return (
-    <View
-      className={`gap-2 p-4 ${getStatusBackgroundClass(item.status, isSelected)}`}
-    >
+    <View className={`gap-2 p-4 ${bgColor}`}>
       <View className="gap-1">
         <View className="gap-2">
           <View className="flex-row w-full justify-between">
