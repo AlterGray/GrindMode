@@ -9,8 +9,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFolderStoreWithSubscribe } from "@features/folder/folderStore";
 import { useRecalculateMissedRoutines } from "@features/routine/hooks/useRecalculateMissedRoutines";
 import { useRoutineDayWatcher } from "@features/routine/hooks/useRoutineDayWatcher";
+import { useStatisticStoreWithSubscribe } from "@features/routine/routineStatisticStore";
 import { useRoutineStoreWithSubscribe } from "@features/routine/routineStore";
-import { useStatisticStoreWithSubscribe } from "@features/statistic/statisticStore";
 
 import { useTheme } from "@shared/hooks/useTheme";
 import { useThemeColors } from "@shared/hooks/useThemeColors";

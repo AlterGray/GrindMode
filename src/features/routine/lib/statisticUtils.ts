@@ -4,11 +4,14 @@ import { Routine } from "@features/routine/routineTypes";
 import { getDaysDiff, getNextDay, isToday } from "@shared/lib/utils/common";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
-import { StatisticEntry, useStatisticStore } from "./statisticStore";
+import {
+  StatisticEntry,
+  useRoutineStatisticStore,
+} from "../routineStatisticStore";
 
 export const handleNewMissedDays = (stat: StatisticEntry, routine: Routine) => {
   const addStatisticEntry =
-    useStatisticStore.getState().addRoutineStatisticEntry;
+    useRoutineStatisticStore.getState().addStatisticEntry;
 
   const firstCompletion = stat?.completitions[0];
   if (!firstCompletion) return;
@@ -35,7 +38,7 @@ export const handleNewMissedDays = (stat: StatisticEntry, routine: Routine) => {
 
 export const handleMissedFirstDay = (stat: StatisticEntry) => {
   // TODO BAD?
-  const clearCompletions = useStatisticStore.getState().clearCompletions;
+  const clearCompletions = useRoutineStatisticStore.getState().clearCompletions;
 
   const firstCompletion = stat?.completitions[0];
   if (firstCompletion) {
@@ -48,10 +51,10 @@ export const handleMissedFirstDay = (stat: StatisticEntry) => {
 };
 
 export const handleMissedDayTwice = (statId: string) => {
-  const clearCompletions = useStatisticStore.getState().clearCompletions;
-  const refreshedStat = useStatisticStore
+  const clearCompletions = useRoutineStatisticStore.getState().clearCompletions;
+  const refreshedStat = useRoutineStatisticStore
     .getState()
-    .routineStatistics.find((s) => s.id === statId);
+    .statistics.find((s) => s.id === statId);
 
   if (!refreshedStat) {
     throw new Error(
@@ -80,7 +83,7 @@ export const handleMissedDayTwice = (statId: string) => {
 
 export const getActualRoutineStatus = (routineId: string): RoutineStatuses => {
   // TODO WHAT faster? this or
-  const stats = useStatisticStore.getState().routineStatistics;
+  const stats = useRoutineStatisticStore.getState().statistics;
 
   const routineStat = stats.find((s) => s.id === routineId);
   if (!routineStat) return RoutineStatuses.Undone;

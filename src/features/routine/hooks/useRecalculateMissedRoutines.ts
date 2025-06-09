@@ -2,14 +2,14 @@ import { useEffect } from "react";
 
 import {
   StatisticEntry,
-  useStatisticStore,
-} from "@features/statistic/statisticStore";
+  useRoutineStatisticStore,
+} from "@features/routine/routineStatisticStore";
+
 import {
   handleMissedDayTwice,
   handleMissedFirstDay,
   handleNewMissedDays,
-} from "@features/statistic/utils";
-
+} from "../lib/statisticUtils";
 import { useRoutineStore } from "../routineStore";
 
 const FIVE_SECONDS = 1000 * 5;
@@ -33,9 +33,9 @@ const processRoutineStatistic = (stat: StatisticEntry) => {
 export const useRecalculateMissedRoutines = () => {
   useEffect(() => {
     const intervalID = setInterval(() => {
-      const allStatistic = useStatisticStore.getState().routineStatistics;
+      const statistics = useRoutineStatisticStore.getState().statistics;
 
-      allStatistic.forEach((stat) => {
+      statistics.forEach((stat) => {
         processRoutineStatistic(stat);
       });
     }, FIVE_SECONDS);

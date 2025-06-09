@@ -1,4 +1,4 @@
-import { useStatisticStore } from "@features/statistic/statisticStore";
+import { useRoutineStatisticStore } from "@features/routine/routineStatisticStore";
 
 import { isToday } from "@shared/lib/utils/common";
 import { RoutineStatuses } from "@shared/types/commonTypes";
@@ -8,10 +8,10 @@ import { useRoutineStore } from "../routineStore";
 // TODO!! ON NEXT DAY IT STILL HAS STATUS NOT UNDONE!!!!
 export const useRoutinesWithStatus = () => {
   const routines = useRoutineStore((state) => state.routines);
-  const allStatistics = useStatisticStore((state) => state.routineStatistics);
+  const statistics = useRoutineStatisticStore((state) => state.statistics);
 
   const routinesWithStatus = routines.map((routine) => {
-    const statistic = allStatistics.find(
+    const statistic = statistics.find(
       (statistic) => statistic.id === routine.id,
     );
 

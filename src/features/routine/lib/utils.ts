@@ -1,4 +1,4 @@
-import { useStatisticStore } from "@features/statistic/statisticStore";
+import { useRoutineStatisticStore } from "@features/routine/routineStatisticStore";
 
 import { isToday } from "@shared/lib/utils/common";
 import { RoutineStatuses } from "@shared/types/commonTypes";
@@ -8,7 +8,7 @@ import { Routine, RoutinePhase } from "../routineTypes";
 
 export const calculateRoutinePhase = (routineId: string) => {
   // TODO rename as even u was confused what it is
-  const routineStatistics = useStatisticStore.getState().routineStatistics;
+  const routineStatistics = useRoutineStatisticStore.getState().statistics;
   const routineStat = routineStatistics.find((stat) => stat.id === routineId);
 
   // TODO
@@ -30,16 +30,14 @@ export const calculateRoutinePhase = (routineId: string) => {
 };
 
 export const getAllRoutineDays = (routineId: string) => {
-  const allroutineStatistics = useStatisticStore.getState().routineStatistics;
-  const routineStatistic = allroutineStatistics.find(
-    (stat) => stat.id === routineId,
-  );
+  const statistics = useRoutineStatisticStore.getState().statistics;
+  const statistic = statistics.find((stat) => stat.id === routineId);
 
   let days: { status: RoutineStatuses; index: number }[] = [];
 
-  if (!routineStatistic) return days;
+  if (!statistic) return days;
 
-  const completions = routineStatistic.completitions;
+  const completions = statistic.completitions;
 
   if (completions.length) {
     days = completions.map((c, i) => ({ status: c.status, index: i }));
@@ -52,12 +50,12 @@ export const getRoutinePhaseMissedDays = (
   routineId: string,
   phase: RoutinePhase,
 ): number[] => {
-  const stat = useStatisticStore
+  const statistic = useRoutineStatisticStore
     .getState()
-    .routineStatistics.find((s) => s.id === routineId);
-  if (!stat) return [];
+    .statistics.find((s) => s.id === routineId);
+  if (!statistic) return [];
 
-  const completions = stat.completitions;
+  const completions = statistic.completitions;
   const { from } = RoutinePhaseMap[phase];
   const isInitiationPhase = phase === RoutinePhase.Initiation;
 

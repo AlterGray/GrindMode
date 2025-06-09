@@ -18,20 +18,20 @@ export type StatisticEntry = {
   completitions: CompletionEntry[];
 };
 
-type StatisticState = {
-  routineStatistics: StatisticEntry[];
-  addRoutineStatisticEntry: (
+type RoutineStatisticState = {
+  statistics: StatisticEntry[];
+  addStatisticEntry: (
     routineId: string,
     status: RoutineStatuses,
     date: string,
   ) => void;
-  setRoutineStatisticEntryStatus: (
+  setStatisticEntryStatus: (
     routineId: string,
     status: RoutineStatuses,
     date: string,
   ) => void;
   // TODO DOUBLE if all methods/properties used(check all stores)
-  removeRoutineStatistic: (routineId: string) => void;
+  removeStatistic: (routineId: string) => void;
   clearCompletions: (routineId: string) => void;
 };
 
@@ -42,17 +42,17 @@ const getStatisticFromStorage = (): StatisticEntry[] => {
 };
 
 // TODO rename all stuff without "routine" prefix
-export const useStatisticStore = create<StatisticState>()(
+export const useRoutineStatisticStore = create<RoutineStatisticState>()(
   subscribeWithSelector(
     immer((set) => ({
-      routineStatistics: getStatisticFromStorage(),
-      setRoutineStatisticEntryStatus: (
+      statistics: getStatisticFromStorage(),
+      setStatisticEntryStatus: (
         routineId: string,
         status: RoutineStatuses,
         date: string,
       ) =>
         set((state) => {
-          const stat = state.routineStatistics.find((s) => s.id === routineId);
+          const stat = state.statistics.find((s) => s.id === routineId);
           const completion = stat?.completitions.find((c) =>
             isSameDay(c.date, date),
           );
@@ -62,13 +62,11 @@ export const useStatisticStore = create<StatisticState>()(
           }
         }),
       // TODO silient type errors
-      addRoutineStatisticEntry: (routineId, status, date) =>
+      addStatisticEntry: (routineId, status, date) =>
         set((state) => {
-          const statistics = state.routineStatistics;
+          const statistics = state.statistics;
 
-          const index = state.routineStatistics.findIndex(
-            (s) => s.id === routineId,
-          );
+          const index = state.statistics.findIndex((s) => s.id === routineId);
 
           if (index !== -1) {
             statistics[index].completitions.push({ date, status });
@@ -80,15 +78,15 @@ export const useStatisticStore = create<StatisticState>()(
             });
           }
         }),
-      removeRoutineStatistic: (routineId) =>
+      removeStatistic: (routineId) =>
         set((state) => {
-          state.routineStatistics = state.routineStatistics.filter(
+          state.statistics = state.statistics.filter(
             (stat) => stat.id !== routineId,
           );
         }),
       clearCompletions: (routineId) =>
         set((state) => {
-          const stat = state.routineStatistics.find((s) => s.id === routineId);
+          const stat = state.statistics.find((s) => s.id === routineId);
           if (!stat) {
             if (__DEV__)
               throw new Error(
@@ -104,8 +102,8 @@ export const useStatisticStore = create<StatisticState>()(
 
 export const useStatisticStoreWithSubscribe = () =>
   useSubscribeStoreWithSelector(
-    useStatisticStore,
-    (state) => state.routineStatistics,
+    useRoutineStatisticStore,
+    (state) => state.statistics,
     // TODO hardcode
     "statistics",
   );
