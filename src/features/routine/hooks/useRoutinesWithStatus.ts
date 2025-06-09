@@ -10,15 +10,13 @@ export const useRoutinesWithStatus = () => {
   const routines = useRoutineStore((state) => state.routines);
   const allStatistics = useStatisticStore((state) => state.routineStatistics);
 
-  if (!routines.length) return [];
-
   const routinesWithStatus = routines.map((routine) => {
-    const routineStatistic = allStatistics.find(
+    const statistic = allStatistics.find(
       (statistic) => statistic.id === routine.id,
     );
-    const completion = routineStatistic?.completitions.find((c) =>
-      isToday(c.date),
-    );
+
+    const completitions = statistic?.completitions!;
+    const completion = completitions?.find((c) => isToday(c.date));
 
     // TODO
     return {

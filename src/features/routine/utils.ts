@@ -8,7 +8,7 @@ export const getNextRoutinePhase = (
 ): RoutinePhase | null => {
   const index = OrderedRoutinePhases.indexOf(phase);
   if (index === -1 || index === OrderedRoutinePhases.length - 1) {
-    return null;
+    return RoutinePhase.DeepIntegration;
   }
   return OrderedRoutinePhases[index + 1];
 };

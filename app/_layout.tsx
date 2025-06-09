@@ -7,6 +7,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import { useFolderStoreWithSubscribe } from "@features/folder/folderStore";
+import { useRecalculateMissedRoutines } from "@features/routine/hooks/useRecalculateMissedRoutines";
 import { useRoutineDayWatcher } from "@features/routine/hooks/useRoutineDayWatcher";
 import { useRoutineStoreWithSubscribe } from "@features/routine/routineStore";
 import { useStatisticStoreWithSubscribe } from "@features/statistic/statisticStore";
@@ -29,6 +30,7 @@ const RootLayout = () => {
   useFolderStoreWithSubscribe();
   useStatisticStoreWithSubscribe();
   useRoutineDayWatcher();
+  useRecalculateMissedRoutines();
 
   // TODO
   const [loaded] = useFonts({

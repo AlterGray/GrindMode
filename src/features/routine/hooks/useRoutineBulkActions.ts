@@ -3,7 +3,7 @@ import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
 
-import { completeRoutine } from "../lib/routineActions";
+import { completeRoutine, removeRoutine } from "../lib/routineActions";
 import { useRoutineStore } from "../routineStore";
 
 // TODO bad custom hook
@@ -11,7 +11,6 @@ const useRoutineBulkActions = (
   resetSelection: () => void,
   onCancel: () => void,
 ) => {
-  const removeRoutine = useRoutineStore((state) => state.removeRoutine);
   const closeActionModal = useActionModalStore(
     (state) => state.closeActionModal,
   );

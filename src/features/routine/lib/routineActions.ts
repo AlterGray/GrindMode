@@ -1,7 +1,7 @@
-import {
-  getRoutineStatusFromStatistic,
-  useStatisticStore,
-} from "@features/statistic/statisticStore";
+import { useStatisticStore } from "@features/statistic/statisticStore";
+import { getActualRoutineStatus } from "@features/statistic/utils";
+
+import { isToday } from "@shared/lib/utils/common";
 
 import { useRoutineStore } from "../routineStore";
 import { Routine, RoutineInput } from "../routineTypes";
@@ -15,12 +15,29 @@ export const completeRoutine = (routine: Routine) => {
   const addRoutineStatisticEntry =
     useStatisticStore.getState().addRoutineStatisticEntry;
   const setRoutineStatus = useRoutineStore.getState().setRoutineStatus;
+  const setStatisticEntryStatus =
+    useStatisticStore.getState().setRoutineStatisticEntryStatus;
+  const allStatistic = useStatisticStore.getState().routineStatistics;
+  const statistic = allStatistic.find((s) => s.id === routine.id);
+
+  if (statistic?.completitions.some((c) => isToday(c.date))) return;
 
   const computedStatus = calculateRoutineStatus(routine);
+  if (!statistic || !statistic.completitions.find((c) => isToday(c.date))) {
+    addRoutineStatisticEntry(
+      routine.id,
+      computedStatus,
+      new Date().toISOString(),
+    );
+  } else {
+    setStatisticEntryStatus(
+      routine.id,
+      computedStatus,
+      new Date().toISOString(),
+    );
+  }
 
-  addRoutineStatisticEntry(routine.id, computedStatus);
-
-  const syncedStatus = getRoutineStatusFromStatistic(routine.id);
+  const syncedStatus = getActualRoutineStatus(routine.id);
   setRoutineStatus(routine.id, syncedStatus);
 };
 
@@ -39,9 +56,10 @@ export const createRoutine = (routine: RoutineInput) => {
 // TODO vs destruction?
 export const removeRoutine = (routineId: string) => {
   const removeRoutine = useRoutineStore.getState().removeRoutine;
-  const removeEntryFromStatistic =
+  const removeRoutineStatistic =
     useStatisticStore.getState().removeRoutineStatistic;
 
   removeRoutine(routineId);
-  removeEntryFromStatistic(routineId);
+  // TODO make it optional?
+  removeRoutineStatistic(routineId);
 };

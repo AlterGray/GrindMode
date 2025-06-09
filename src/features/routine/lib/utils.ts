@@ -1,5 +1,6 @@
 import { useStatisticStore } from "@features/statistic/statisticStore";
 
+import { isToday } from "@shared/lib/utils/common";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
 import { RoutinePhaseMap } from "../constants";
@@ -28,38 +29,62 @@ export const calculateRoutinePhase = (routineId: string) => {
   return RoutinePhase.DeepIntegration;
 };
 
-export const getRoutinePhaseDays = (routineId: string) => {
+export const getAllRoutineDays = (routineId: string) => {
   const allroutineStatistics = useStatisticStore.getState().routineStatistics;
   const routineStatistic = allroutineStatistics.find(
     (stat) => stat.id === routineId,
   );
-  const routinePhase = calculateRoutinePhase(routineId);
-  const routinePhaseFrom = RoutinePhaseMap[routinePhase].from;
-  // TODO bad
-  const completionsCount = routineStatistic?.completitions?.length ?? 0;
 
-  // TODO improve it
-  const isInitiationPhase =
-    calculateRoutinePhase(routineId) === RoutinePhase.Initiation;
-  const adjustedPhaseFrom = isInitiationPhase
-    ? routinePhaseFrom
-    : routinePhaseFrom - 1;
+  let days: { status: RoutineStatuses; index: number }[] = [];
 
-  if (routineStatistic === undefined || completionsCount === 0) return 0;
-  else return completionsCount - adjustedPhaseFrom;
+  if (!routineStatistic) return days;
+
+  const completions = routineStatistic.completitions;
+
+  if (completions.length) {
+    days = completions.map((c, i) => ({ status: c.status, index: i }));
+  }
+
+  return days;
 };
 
+export const getRoutinePhaseMissedDays = (
+  routineId: string,
+  phase: RoutinePhase,
+): number[] => {
+  const stat = useStatisticStore
+    .getState()
+    .routineStatistics.find((s) => s.id === routineId);
+  if (!stat) return [];
+
+  const completions = stat.completitions;
+  const { from } = RoutinePhaseMap[phase];
+  const isInitiationPhase = phase === RoutinePhase.Initiation;
+
+  return completions
+    .map((c, i) => ({ status: c.status, i }))
+    .filter(({ status, i }) => status === RoutineStatuses.Missed && i >= from)
+    .map(({ i }) => i - (isInitiationPhase ? 0 : from - 1));
+};
+
+// TODO duplicated utils file
 export const calculateRoutineStatus = (routine: Routine) => {
   if (!routine.startTime) return RoutineStatuses.Done;
 
   const startTime = new Date(routine.startTime);
   const startTimeMinutes = startTime.getHours() * 60 + startTime.getMinutes();
-  const nowTime = new Date(Date.now());
+  const nowTime = new Date();
   const nowTimeMinutes = nowTime.getHours() * 60 + nowTime.getMinutes();
 
   const delta = nowTimeMinutes - startTimeMinutes;
 
+  if (!routine.expectedDuration && isToday(nowTime.toISOString())) {
+    return RoutineStatuses.Done;
+  }
+
   if (delta > 90) return RoutineStatuses.Missed;
+  // TODO remove if user doesn't set duration
+  // TODO its should use expected duration not start time!!!!
   else if (delta > 10) return RoutineStatuses.Overdue;
   else return RoutineStatuses.Done;
 };
