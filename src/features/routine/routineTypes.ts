@@ -35,7 +35,7 @@ export type RoutineState = {
   setSelectedIds: (id: string[]) => void;
   isSelecting: boolean;
   setIsSelecting: (isSelecting: boolean) => void;
-  addRoutine: (routine: RoutineInput) => string;
+  addRoutine: (routine: RoutineInput) => void;
   removeRoutine: (routineId: string) => void;
   updateRoutine: (routine: RoutineUpdate) => void;
   setRoutineStatus: (routineId: string, status: RoutineStatuses) => void;

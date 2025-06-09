@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
 
 import { Routine, RoutineState } from "@features/routine/routineTypes";
 
@@ -18,75 +19,65 @@ const getStoredRoutines = (): Routine[] => {
 };
 
 export const useRoutineStore = create<RoutineState>()(
-  subscribeWithSelector((set) => ({
-    routines: getStoredRoutines(),
-    addRoutine: (routine) => {
-      const newRoutine: Routine = {
-        id: Date.now().toString(),
-        folderIds: [DEFAULT_FOLDER],
-        status: RoutineStatuses.Undone,
-        actualDuration: 0,
-        ...routine,
-      };
+  subscribeWithSelector(
+    immer((set) => ({
+      routines: getStoredRoutines(),
+      addRoutine: (routine) => {
+        set((state) => {
+          const newRoutine: Routine = {
+            id: Date.now().toString(),
+            folderIds: [DEFAULT_FOLDER],
+            status: RoutineStatuses.Undone,
+            actualDuration: 0,
+            ...routine,
+          };
 
-      set((state) => ({
-        routines: [...state.routines, newRoutine],
-      }));
-
-      return newRoutine.id;
-    },
-    removeRoutine: (routineId) =>
-      set((state) => {
-        const newRoutines = state.routines.filter((r) => routineId !== r.id);
-        return { routines: newRoutines };
-      }),
-    updateRoutine: (routine) =>
-      set((state) => {
-        const newRoutines = state.routines.map((r) =>
-          r.id === routine.id ? { ...routine, status: r.status } : r,
-        );
-        return { routines: newRoutines };
-      }),
-    setRoutineStatus: (routineId, status) =>
-      set((state) => {
-        const newRoutines = state.routines.map((r) => {
-          if (routineId === r.id) {
-            return {
-              ...r,
-              status,
-            };
-          }
-          return r;
+          state.routines.push(newRoutine);
         });
-
-        return { routines: newRoutines };
-      }),
-    addRoutinesToFolder: (routineIds, folderId) =>
-      set((state) => {
-        const newRoutines = state.routines.map((r) =>
-          routineIds.includes(r.id)
-            ? { ...r, folderIds: [...r.folderIds, folderId] }
-            : r,
-        );
-
-        return { routines: newRoutines };
-      }),
-    removeRoutinesFromFolder: (routineIds, folderId) =>
-      set((state) => {
-        const newRoutines = state.routines.map((r) =>
-          routineIds.includes(r.id)
-            ? { ...r, folderIds: r.folderIds.filter((id) => id !== folderId) }
-            : r,
-        );
-
-        return { routines: newRoutines };
-      }),
-    // TODO TODO TODO TODO TODO TODO
-    selectedIds: [],
-    setSelectedIds: (ids) => set(() => ({ selectedIds: ids })),
-    isSelecting: false,
-    setIsSelecting: (isSelecting) => set(() => ({ isSelecting })),
-  })),
+      },
+      removeRoutine: (routineId) => {
+        set((state) => {
+          state.routines = state.routines.filter((r) => r.id !== routineId);
+        });
+      },
+      updateRoutine: (routine) => {
+        set((state) => {
+          state.routines = state.routines.map((r) =>
+            r.id === routine.id ? { ...routine, status: r.status } : r,
+          );
+        });
+      },
+      setRoutineStatus: (routineId, status) => {
+        set((state) => {
+          state.routines = state.routines.map((r) =>
+            routineId === r.id ? { ...r, status } : r,
+          );
+        });
+      },
+      addRoutinesToFolder: (routineIds, folderId) =>
+        set((state) => {
+          state.routines = state.routines.map((r) =>
+            routineIds.includes(r.id)
+              ? { ...r, folderIds: [...r.folderIds, folderId] }
+              : r,
+          );
+        }),
+      removeRoutinesFromFolder: (routineIds, folderId) => {
+        set((state) => {
+          state.routines = state.routines.map((r) =>
+            routineIds.includes(r.id)
+              ? { ...r, folderIds: r.folderIds.filter((id) => id !== folderId) }
+              : r,
+          );
+        });
+      },
+      // TODO TODO TODO TODO TODO TODO
+      selectedIds: [],
+      setSelectedIds: (ids) => set(() => ({ selectedIds: ids })),
+      isSelecting: false,
+      setIsSelecting: (isSelecting) => set(() => ({ isSelecting })),
+    })),
+  ),
 );
 
 export const useRoutineStoreWithSubscribe = () =>

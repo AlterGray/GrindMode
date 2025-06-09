@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { immer } from "zustand/middleware/immer";
 
 import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
 import { PopoverMenuItem } from "@shared/ui/PopoverMenu/types";
@@ -18,32 +19,32 @@ type ActionModalStore = {
   openActionModal: (options: ActionModalOptions) => void;
 };
 
-// TODO keep only open/update/close?
-export const useActionModalStore = create<ActionModalStore>()((set, get) => ({
-  isOpen: false,
-  text: "",
-  actions: [],
-  isMenuAction: false,
-  menuActions: [],
-  onCloseDialog: () => {},
-  closeActionModal: () => {
-    // TODO check if all similar stores has this method
-    // TODO better set just default state?
-    const { onCloseDialog } = get();
-    onCloseDialog?.(); // Call the callback before closing
-    set(() => ({
-      isOpen: false,
-      text: "",
-      actions: [],
-      isMenuAction: false,
-      menuActions: [],
-      onCloseDialog: () => {},
-    }));
-  },
-  openActionModal: (options) =>
-    set((state) => ({
-      ...state,
-      ...options,
-      isOpen: true,
-    })),
-}));
+export const useActionModalStore = create<ActionModalStore>()(
+  immer((set, get) => ({
+    isOpen: false,
+    text: "",
+    actions: [],
+    isMenuAction: false,
+    menuActions: [],
+    onCloseDialog: () => {},
+    closeActionModal: () => {
+      const { onCloseDialog } = get();
+      onCloseDialog?.(); // Call the callback before closing
+
+      set((state) => {
+        state.isOpen = false;
+        state.text = "";
+        state.actions = [];
+        state.isMenuAction = false;
+        state.menuActions = [];
+        state.onCloseDialog = () => {};
+      });
+    },
+    openActionModal: (options) => {
+      set((state) => {
+        Object.assign(state, options);
+        state.isOpen = true;
+      });
+    },
+  })),
+);
