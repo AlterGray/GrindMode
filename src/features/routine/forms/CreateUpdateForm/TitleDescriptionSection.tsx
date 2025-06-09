@@ -18,6 +18,7 @@ const TitleDescriptionSection = ({
       placeholder="Routine Title"
       value={title}
       onChangeText={setTitle}
+      autoFocus
     />
     <StyledInput
       placeholder="Description (optional)"

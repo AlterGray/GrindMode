@@ -17,6 +17,8 @@ type TooltipProps = {
   variant?: "info" | "warning" | "danger" | "success";
 };
 
+// TODO when user press on tooltip - whole screen rerendes
+// TODO make it shared ui
 export const Tooltip: React.FC<TooltipProps> = ({
   text,
   iconColor,

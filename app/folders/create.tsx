@@ -44,6 +44,7 @@ const create = () => {
           placeholder="Folder name"
           value={name}
           onChangeText={setName}
+          autoFocus
         />
 
         <ThemedView className="flex-row items-center gap-8">
