@@ -30,6 +30,7 @@ const processRoutineStatistic = (stat: StatisticEntry) => {
   handleMissedDayTwice(stat.id);
 };
 
+// TODO don't use setInterval in useEffect - create custom hook for this
 export const useRecalculateMissedRoutines = () => {
   useEffect(() => {
     const intervalID = setInterval(() => {

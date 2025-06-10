@@ -7,6 +7,8 @@ import { Routine, RoutineInput } from "../routineTypes";
 import { getActualRoutineStatus } from "./statisticUtils";
 import { calculateRoutineStatus } from "./utils";
 
+// TODO MAKE WHOLE FILE AS A HOOK
+
 // TODO no handle errors anywhere, add it later
 // TODO hook????
 // allow use select routine even long touching popup
