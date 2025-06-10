@@ -12,25 +12,24 @@ import { calculateRoutineStatus } from "./utils";
 // allow use select routine even long touching popup
 // use some protected time rather than mobile time
 export const completeRoutine = (routine: Routine) => {
-  const addStatisticEntry =
-    useRoutineStatisticStore.getState().addStatisticEntry;
-  const setRoutineStatus = useRoutineStore.getState().setRoutineStatus;
-  const setStatisticEntryStatus =
-    useRoutineStatisticStore.getState().setStatisticEntryStatus;
-  const allStatistic = useRoutineStatisticStore.getState().statistics;
-  const statistic = allStatistic.find((s) => s.id === routine.id);
+  const {
+    addStatisticEntry,
+    setStatisticEntryStatus,
+    statistics: allStatistic,
+  } = useRoutineStatisticStore.getState();
+  const { setRoutineStatus } = useRoutineStore.getState();
 
+  const statistic = allStatistic.find((s) => s.id === routine.id);
   if (statistic?.completitions.some((c) => isToday(c.date))) return;
 
   const computedStatus = calculateRoutineStatus(routine);
-  if (!statistic || !statistic.completitions.find((c) => isToday(c.date))) {
-    addStatisticEntry(routine.id, computedStatus, new Date().toISOString());
+  const now = new Date().toISOString();
+
+  // TODO always true?
+  if (!statistic) {
+    addStatisticEntry(routine.id, computedStatus, now);
   } else {
-    setStatisticEntryStatus(
-      routine.id,
-      computedStatus,
-      new Date().toISOString(),
-    );
+    setStatisticEntryStatus(routine.id, computedStatus, now);
   }
 
   const syncedStatus = getActualRoutineStatus(routine.id);
