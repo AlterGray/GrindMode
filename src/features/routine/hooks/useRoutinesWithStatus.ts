@@ -1,6 +1,6 @@
 import { useRoutineStatisticStore } from "@features/routine/routineStatisticStore";
 
-import { isToday } from "@shared/lib/utils/common";
+import { isTodayUTC } from "@shared/lib/utils/common";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
 import { useRoutineStore } from "../routineStore";
@@ -16,7 +16,7 @@ export const useRoutinesWithStatus = () => {
     );
 
     const completitions = statistic?.completitions!;
-    const completion = completitions?.find((c) => isToday(c.date));
+    const completion = completitions?.find((c) => isTodayUTC(c.date));
 
     // TODO
     return {

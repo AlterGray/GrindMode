@@ -1,7 +1,7 @@
 import { calculateRoutineStatus } from "@features/routine/lib/utils";
 import { Routine } from "@features/routine/routineTypes";
 
-import { getDaysDiff, getNextDay, isToday } from "@shared/lib/utils/common";
+import { getDaysDiff, getNextDay, isTodayUTC } from "@shared/lib/utils/common";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
 import {
@@ -25,9 +25,9 @@ export const handleNewMissedDays = (stat: StatisticEntry, routine: Routine) => {
     const currentCompletion = stat.completitions[i];
     const currentDate = getNextDay(firstCompletion.date, i);
 
-    const missedInPast = !currentCompletion && !isToday(currentDate);
+    const missedInPast = !currentCompletion && !isTodayUTC(currentDate);
     const isMissedToday =
-      isToday(currentDate) &&
+      isTodayUTC(currentDate) &&
       calculateRoutineStatus(routine) === RoutineStatuses.Missed;
 
     if (missedInPast || isMissedToday) {
@@ -43,7 +43,8 @@ export const handleMissedFirstDay = (stat: StatisticEntry) => {
   const firstCompletion = stat?.completitions[0];
   if (firstCompletion) {
     const isUndoneStatus = firstCompletion.status === RoutineStatuses.Undone;
-    const isFirstDayMissed = !isToday(firstCompletion.date) && isUndoneStatus;
+    const isFirstDayMissed =
+      !isTodayUTC(firstCompletion.date) && isUndoneStatus;
     if (isFirstDayMissed) return clearCompletions(stat.id);
   }
 
@@ -88,7 +89,7 @@ export const getActualRoutineStatus = (routineId: string): RoutineStatuses => {
   const routineStat = stats.find((s) => s.id === routineId);
   if (!routineStat) return RoutineStatuses.Undone;
 
-  const todayEntry = routineStat.completitions.find((c) => isToday(c.date));
+  const todayEntry = routineStat.completitions.find((c) => isTodayUTC(c.date));
 
   return todayEntry?.status ?? RoutineStatuses.Undone;
 };

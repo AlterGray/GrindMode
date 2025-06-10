@@ -1,6 +1,6 @@
 import { useRoutineStatisticStore } from "@features/routine/routineStatisticStore";
 
-import { isToday } from "@shared/lib/utils/common";
+import { isTodayUTC } from "@shared/lib/utils/common";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
 import { RoutinePhaseMap } from "../constants";
@@ -76,7 +76,7 @@ export const calculateRoutineStatus = (routine: Routine) => {
 
   const delta = nowTimeMinutes - startTimeMinutes;
 
-  if (!routine.expectedDuration && isToday(nowTime.toISOString())) {
+  if (!routine.expectedDuration && isTodayUTC(nowTime.toISOString())) {
     return RoutineStatuses.Done;
   }
 
