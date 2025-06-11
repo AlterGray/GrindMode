@@ -11,6 +11,7 @@ export type Routine = {
   startTime: number;
   expectedDuration: number;
   actualDuration: number;
+  // TODO bad name
   days: DayType[];
 };
 
