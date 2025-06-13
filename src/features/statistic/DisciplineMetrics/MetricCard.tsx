@@ -9,7 +9,7 @@ type MetricCardProps = {
 
 const MetricCard: React.FC<MetricCardProps> = ({ header, value }) => {
   return (
-    <View className="bg-light-backgroundSecondary dark:bg-dark-backgroundSecondary p-4 rounded-lg flex-auto">
+    <View className="bg-light-backgroundSecondary dark:bg-dark-backgroundSecondary p-4 rounded-md w-[48%]">
       <ThemedText className="text-light-textSecondary dark:text-dark-textSecondary">
         {header}
       </ThemedText>

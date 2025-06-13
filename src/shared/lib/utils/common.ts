@@ -16,7 +16,10 @@ export const formatDurationLabel = (duration: number): string =>
   duration > 0 ? `${Math.floor(duration / 60)}h ${duration % 60}m` : "No limit";
 
 export const capitalize = (val: string) => {
-  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+  return (
+    // TODO toLowerCase vs toLowerCaseLocal
+    String(val).charAt(0).toUpperCase() + String(val.toLowerCase()).slice(1)
+  );
 };
 
 export const isTodayUTC = (dateString: string): boolean => {

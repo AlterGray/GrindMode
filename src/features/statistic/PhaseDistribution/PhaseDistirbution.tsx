@@ -1,7 +1,11 @@
 import { View } from "react-native";
 
+import { RoutinePhaseMap } from "@features/routine/constants";
+import { RoutinePhase } from "@features/routine/routineTypes";
+
 import { useTheme } from "@shared/hooks/useTheme";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { capitalize } from "@shared/lib/utils/common";
 import ThemedText from "@shared/ui/ThemedText";
 
 import LabeledProgressBar from "./LabeledProgressBar";
@@ -21,24 +25,15 @@ const PhaseDistirbution: React.FC<PhaseDistirbutionProps> = () => {
       </ThemedText>
 
       <View className="gap-2">
-        <LabeledProgressBar
-          progress={0.1}
-          label="Phase 1"
-          progressColor={progressColor}
-          backgroundColor={backgroundColor}
-        />
-        <LabeledProgressBar
-          progress={0.8}
-          label="Phase 2"
-          progressColor={progressColor}
-          backgroundColor={backgroundColor}
-        />
-        <LabeledProgressBar
-          progress={0.4}
-          label="Phase 3"
-          progressColor={progressColor}
-          backgroundColor={backgroundColor}
-        />
+        {Object.values(RoutinePhaseMap).map((phase) => (
+          <LabeledProgressBar
+            key={phase.label}
+            progress={0.1}
+            label={capitalize(phase.label)}
+            progressColor={progressColor}
+            backgroundColor={backgroundColor}
+          />
+        ))}
       </View>
     </View>
   );

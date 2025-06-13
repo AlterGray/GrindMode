@@ -15,19 +15,21 @@ type Props = {
   label: string;
   progressColor?: string;
   backgroundColor?: string;
+  scale?: number;
 };
 
-const ProgressCircle: React.FC<Props> = ({
+// TODO ADD ABILITY to tap and see description
+const CircleProgressBar: React.FC<Props> = ({
   progress,
-  iconName,
   label,
   progressColor,
   backgroundColor,
+  scale = 1,
 }) => {
   const { width: screenW } = useWindowDimensions();
 
   const svgSize = screenW / 3;
-  const radius = svgSize / 2.5;
+  const radius = (svgSize / 2.5) * scale;
   const strokeWidth = radius * 0.2;
 
   const cx = svgSize / 2;
@@ -64,11 +66,16 @@ const ProgressCircle: React.FC<Props> = ({
           />
         </Svg>
 
-        {/* Label (positioned in the center) */}
+        {/* use style to make it reusable across diff projects */}
         <View style={[StyleSheet.absoluteFillObject, styles.center]}>
-          <Ionicons name={iconName} size={20} color={Colors.light.warning} />
-          <ThemedText style={{ fontWeight: "bold", marginLeft: 4 }}>
-            {label}
+          <ThemedText
+            style={{
+              fontWeight: "bold",
+              marginLeft: 4,
+              fontSize: 16 * scale,
+            }}
+          >
+            +{Math.floor(progress * 100)}%
           </ThemedText>
         </View>
       </View>
@@ -78,7 +85,7 @@ const ProgressCircle: React.FC<Props> = ({
   );
 };
 
-export default ProgressCircle;
+export default CircleProgressBar;
 
 const styles = StyleSheet.create({
   center: {

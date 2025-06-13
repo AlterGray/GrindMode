@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, View } from "react-native";
 
 import AchivementList from "@features/statistic/Achivement/AchivementList";
-import ProgressCircle from "@features/statistic/CirlceProgressBar/ProgressCircle";
+import CircleProgressBar from "@features/statistic/CirlceProgressBar/ProgressCircle";
 import DisciplineMetrics from "@features/statistic/DisciplineMetrics/DisciplineMetrics";
 import Header from "@features/statistic/Header";
 import PhaseDistirbution from "@features/statistic/PhaseDistribution/PhaseDistirbution";
@@ -16,31 +16,34 @@ const proofs = () => {
   const backgroundColor = theme.colorScheme === "light" ? "#ccc" : "#444";
 
   return (
-    <ScrollView className="bg-white dark:bg-black px-8 gap-6">
+    <ScrollView className="bg-white dark:bg-black px-8">
       <Header />
 
       <View className="gap-10">
         <View className="flex-row justify-center">
-          <ProgressCircle
-            progress={0.3}
-            iconName="home"
-            label="Home"
-            progressColor={progressColor}
-            backgroundColor={backgroundColor}
-          />
-          <ProgressCircle
+          <CircleProgressBar
             progress={0.5}
             iconName="home"
-            label="Home"
+            label="Discipline rate"
             progressColor={progressColor}
             backgroundColor={backgroundColor}
+            scale={0.95}
           />
-          <ProgressCircle
+          <CircleProgressBar
             progress={0.8}
             iconName="home"
-            label="Home"
+            label="Completion rate"
             progressColor={progressColor}
             backgroundColor={backgroundColor}
+            scale={1.2}
+          />
+          <CircleProgressBar
+            progress={0.3}
+            iconName="home"
+            label="Grind Days Ratio"
+            progressColor={progressColor}
+            backgroundColor={backgroundColor}
+            scale={0.95}
           />
         </View>
 

@@ -1,4 +1,9 @@
 import { View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+
+import { Ionicons } from "@expo/vector-icons";
+
+import ThemedText from "@shared/ui/ThemedText";
 
 import AchivemetItem from "./AchivemetItem";
 
@@ -48,16 +53,29 @@ const AchivementList: React.FC<AchivementListProps> = () => {
     },
   ];
 
+  const renderItem = (
+    achivement: { title: string; iconName: keyof typeof Ionicons.glyphMap },
+    index: number,
+  ) => (
+    <AchivemetItem
+      key={index}
+      label={achivement.title}
+      iconName={achivement.iconName}
+      unlocked
+    />
+  );
+
   return (
-    <View className="flex-row flex-wrap">
-      {achievements.map((achievement, index) => (
-        <AchivemetItem
-          key={index}
-          label={achievement.title}
-          iconName={achievement.iconName}
-          unlocked
-        />
-      ))}
+    <View className="gap-4">
+      <ThemedText className="text-2xl font-medium">Achievements</ThemedText>
+
+      <FlatList
+        data={achievements}
+        keyExtractor={(item) => item.title}
+        renderItem={({ item, index }) => renderItem(item, index)}
+        numColumns={4}
+        scrollEnabled={false}
+      />
     </View>
   );
 };
