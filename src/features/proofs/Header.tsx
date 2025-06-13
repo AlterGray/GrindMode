@@ -6,7 +6,7 @@ type HeaderProps = {};
 
 const Header: React.FC<HeaderProps> = () => {
   return (
-    <View className="justify-center items-center pt-6 pb-4">
+    <View className="justify-center items-center">
       <ThemedText className="text-3xl font-medium">Proof of Work</ThemedText>
       <ThemedText className="text-lg font-medium text-light-textSecondary">
         "Discipline equals freedom."

@@ -16,6 +16,10 @@ const proofs = () => {
   const progressColor = theme.colorScheme === "light" ? "#666" : "#fff";
   const backgroundColor = theme.colorScheme === "light" ? "#ccc" : "#444";
 
+  const getDisciplineRate = () => {};
+  const getCompletionRate = () => {};
+  const getGrindDaysRatio = () => {};
+
   // TODO zustand vs useState
   const [activeTab, setActiveTab] = React.useState(0);
 
@@ -28,44 +32,46 @@ const proofs = () => {
 
   return (
     <ScrollView className="bg-white dark:bg-black px-8">
-      <Header />
-      <HorizontalTabBar
-        tabs={tabs}
-        activeTab={activeTab}
-        onChange={setActiveTab}
-      />
+      <View className="gap-4 pt-6">
+        <Header />
+        <HorizontalTabBar
+          tabs={tabs}
+          activeTab={activeTab}
+          onChange={setActiveTab}
+        />
 
-      <View className="gap-10">
-        <View className="flex-row justify-center">
-          <CircleProgressBar
-            progress={0.5}
-            iconName="home"
-            label="Discipline rate"
-            progressColor={progressColor}
-            backgroundColor={backgroundColor}
-            scale={0.95}
-          />
-          <CircleProgressBar
-            progress={0.8}
-            iconName="home"
-            label="Completion rate"
-            progressColor={progressColor}
-            backgroundColor={backgroundColor}
-            scale={1.2}
-          />
-          <CircleProgressBar
-            progress={0.3}
-            iconName="home"
-            label="Grind Days Ratio"
-            progressColor={progressColor}
-            backgroundColor={backgroundColor}
-            scale={0.95}
-          />
+        <View className="gap-10">
+          <View className="flex-row justify-center">
+            <CircleProgressBar
+              progress={0.5}
+              iconName="home"
+              label="Discipline rate"
+              progressColor={progressColor}
+              backgroundColor={backgroundColor}
+              scale={0.95}
+            />
+            <CircleProgressBar
+              progress={0.8}
+              iconName="home"
+              label="Completion rate"
+              progressColor={progressColor}
+              backgroundColor={backgroundColor}
+              scale={1.2}
+            />
+            <CircleProgressBar
+              progress={0.3}
+              iconName="home"
+              label="Grind Days Ratio"
+              progressColor={progressColor}
+              backgroundColor={backgroundColor}
+              scale={0.95}
+            />
+          </View>
+
+          <PhaseDistirbution />
+          <DisciplineMetrics />
+          <AchivementList />
         </View>
-
-        <PhaseDistirbution />
-        <DisciplineMetrics />
-        <AchivementList />
       </View>
     </ScrollView>
   );
