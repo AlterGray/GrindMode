@@ -40,10 +40,24 @@ const TabsLayout = () => {
           title: "Daily routine",
           tabBarItemStyle: { pointerEvents },
           tabBarIcon: ({ color }) => (
+            // TODO use outlined everywhere
             <Ionicons name="flame-sharp" size={26} color={color} />
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="proofs"
+        options={{
+          title: "Proofs",
+          tabBarItemStyle: { pointerEvents },
+          tabBarIcon: ({ color }) => (
+            // TODO move size to constants?
+            <Ionicons name="stats-chart-sharp" size={26} color={color} />
+          ),
+        }}
+      />
+
       <Tabs.Screen
         name="settings"
         options={{

@@ -60,7 +60,7 @@ const RoutineListItem: React.FC<ItemComponentProps> = ({
 
           <ThemedText className="text-lg">{item.title}</ThemedText>
         </View>
-        // TODO rename component
+        {/* // TODO rename component */}
         <PhaseBadge routineId={item.id} />
       </View>
     </View>
