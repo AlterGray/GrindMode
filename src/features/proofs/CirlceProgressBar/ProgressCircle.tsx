@@ -20,6 +20,7 @@ type Props = {
   progressColor?: string;
   backgroundColor?: string;
   scale?: number;
+  // TODO DECLARATIVE VS IMPERATIVE
   isLocked?: boolean;
   onPress?: () => void;
 };

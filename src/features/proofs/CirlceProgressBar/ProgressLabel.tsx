@@ -4,13 +4,16 @@ import ThemedText from "@shared/ui/ThemedText";
 
 type ProgressLabelProps = {
   text: string;
+  isLocked?: boolean;
 };
 
-const ProgressLabel: React.FC<ProgressLabelProps> = ({ text }) => {
+const ProgressLabel: React.FC<ProgressLabelProps> = ({ text, isLocked }) => {
   return (
     <View className="flex-row items-center gap-2">
-      <View className="w-2 h-2 bg-black rounded-md dark:bg-white"></View>
-      <ThemedText>{text}</ThemedText>
+      <View
+        className={`w-2 h-2 rounded-md ${isLocked ? "bg-light-textMuted dark:bg-dark-textMuted" : "bg-black dark:bg-white"}`}
+      ></View>
+      <ThemedText color={isLocked ? "muted" : "primary"}>{text}</ThemedText>
     </View>
   );
 };
