@@ -7,25 +7,32 @@ import {
 } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 
+import { Ionicons } from "@expo/vector-icons";
+
 import ThemedText from "@shared/ui/ThemedText";
 
 import ProgressLabel from "./ProgressLabel";
 
 type Props = {
   progress: number;
+  progressTitle: string;
   label: string;
   progressColor?: string;
   backgroundColor?: string;
   scale?: number;
+  isLocked?: boolean;
   onPress?: () => void;
 };
 
+// TODO remove hardcodes
 const ProgressCircle: React.FC<Props> = ({
   progress,
+  progressTitle,
   label,
   progressColor = "#888",
   backgroundColor = "#ccc",
   scale = 1,
+  isLocked,
   onPress,
 }) => {
   const { width: screenWidth } = useWindowDimensions();
@@ -59,7 +66,7 @@ const ProgressCircle: React.FC<Props> = ({
             cx={cx}
             cy={cy}
             r={adjustedRadius}
-            stroke={progressColor}
+            stroke={isLocked ? backgroundColor : progressColor}
             strokeWidth={strokeWidth}
             fill="none"
             strokeDasharray={`${circumference} ${circumference}`}
@@ -70,13 +77,25 @@ const ProgressCircle: React.FC<Props> = ({
         </Svg>
 
         <View style={[StyleSheet.absoluteFillObject, styles.center]}>
-          <ThemedText style={{ fontWeight: "bold", fontSize: 16 * scale }}>
-            {Math.floor(progress * 100)}%
-          </ThemedText>
+          {isLocked ? (
+            <>
+              <Ionicons name="lock-closed" size={20 * scale} color="gray" />
+              <ThemedText
+                color="muted"
+                style={{ fontWeight: "bold", fontSize: 12 * scale }}
+              >
+                Locked
+              </ThemedText>
+            </>
+          ) : (
+            <ThemedText style={{ fontWeight: "bold", fontSize: 16 * scale }}>
+              {progressTitle}
+            </ThemedText>
+          )}
         </View>
       </View>
 
-      <ProgressLabel text={label} />
+      <ProgressLabel isLocked={isLocked} text={label} />
     </TouchableOpacity>
   );
 };
