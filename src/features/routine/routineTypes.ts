@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { DayType, RoutineStatuses } from "@shared/types/commonTypes";
 
+// TODO status both in routine and statistic??????
 export type Routine = {
   id: string;
   folderIds: string[];
@@ -36,7 +37,7 @@ export type RoutineState = {
   setSelectedIds: (id: string[]) => void;
   isSelecting: boolean;
   setIsSelecting: (isSelecting: boolean) => void;
-  addRoutine: (routine: RoutineInput) => void;
+  addRoutine: (routine: RoutineInput) => string;
   removeRoutine: (routineId: string) => void;
   updateRoutine: (routine: RoutineUpdate) => void;
   setRoutineStatus: (routineId: string, status: RoutineStatuses) => void;
