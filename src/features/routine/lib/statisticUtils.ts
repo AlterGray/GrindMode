@@ -11,7 +11,7 @@ import {
 
 export const handleNewMissedDays = (stat: StatisticEntry, routine: Routine) => {
   const addStatisticEntry =
-    useRoutineStatisticStore.getState().addStatisticEntry;
+    useRoutineStatisticStore.getState().addCompletionEntry;
 
   const firstCompletion = stat?.completitions[0];
   if (!firstCompletion) return;
@@ -30,6 +30,7 @@ export const handleNewMissedDays = (stat: StatisticEntry, routine: Routine) => {
       isTodayUTC(currentDate) &&
       calculateRoutineStatus(routine) === RoutineStatuses.Missed;
 
+    // TODO wring status
     if (missedInPast || isMissedToday) {
       addStatisticEntry(stat.id, RoutineStatuses.Done, currentDate);
     }
@@ -53,6 +54,8 @@ export const handleMissedFirstDay = (stat: StatisticEntry) => {
 
 export const handleMissedDayTwice = (statId: string) => {
   const clearCompletions = useRoutineStatisticStore.getState().clearCompletions;
+  const increaseBrokenCount =
+    useRoutineStatisticStore.getState().increaseBrokenCount;
   const refreshedStat = useRoutineStatisticStore
     .getState()
     .statistics.find((s) => s.id === statId);
@@ -79,6 +82,7 @@ export const handleMissedDayTwice = (statId: string) => {
 
   if (missedWithin14Days.length > 1) {
     clearCompletions(statId);
+    increaseBrokenCount(statId);
   }
 };
 
