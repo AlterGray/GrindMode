@@ -15,8 +15,8 @@ import { calculateRoutineStatus } from "./utils";
 // use some protected time rather than mobile time
 export const completeRoutine = (routine: Routine) => {
   const {
-    addStatisticEntry,
-    setStatisticEntryStatus,
+    addCompletionEntry,
+    setCompletionEntryStatus,
     statistics: allStatistic,
   } = useRoutineStatisticStore.getState();
   const { setRoutineStatus } = useRoutineStore.getState();
@@ -28,26 +28,30 @@ export const completeRoutine = (routine: Routine) => {
   const now = new Date().toISOString();
 
   // TODO always true?
-  if (!statistic) {
-    addStatisticEntry(routine.id, computedStatus, now);
+  if (!statistic?.completitions.some((c) => isTodayUTC(c.date))) {
+    addCompletionEntry(routine.id, computedStatus, now);
   } else {
-    setStatisticEntryStatus(routine.id, computedStatus, now);
+    setCompletionEntryStatus(routine.id, computedStatus, now);
   }
 
   const syncedStatus = getActualRoutineStatus(routine.id);
   setRoutineStatus(routine.id, syncedStatus);
 };
 
+// TODO USE HOOK(like useRoutineActions())
 export const createRoutine = (routine: RoutineInput) => {
   const addRoutine = useRoutineStore.getState().addRoutine;
+  const addStatisticEntry =
+    useRoutineStatisticStore.getState().addStatisticEntry;
 
-  addRoutine({
+  const id = addRoutine({
     title: routine.title.trim(),
     description: routine.description.trim(),
     startTime: routine.startTime,
     expectedDuration: routine.expectedDuration,
     days: routine.days,
   });
+  addStatisticEntry(id, new Date().toISOString());
 };
 
 // TODO vs destruction?
