@@ -23,9 +23,11 @@ export const useRoutineStore = create<RoutineState>()(
     immer((set) => ({
       routines: getStoredRoutines(),
       addRoutine: (routine) => {
+        const id = Date.now().toString();
+
         set((state) => {
           const newRoutine: Routine = {
-            id: Date.now().toString(),
+            id,
             folderIds: [DEFAULT_FOLDER],
             status: RoutineStatuses.Undone,
             actualDuration: 0,
@@ -34,6 +36,8 @@ export const useRoutineStore = create<RoutineState>()(
 
           state.routines.push(newRoutine);
         });
+
+        return id;
       },
       removeRoutine: (routineId) => {
         set((state) => {
