@@ -9,6 +9,7 @@ import { useSubscribeStoreWithSelector } from "@shared/hooks/useSubscribeStoreWi
 import { storage } from "@shared/lib/storage";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
+// ZERO DIVIDE ERORRS
 const getStoredRoutines = (): Routine[] => {
   const storedRoutinesJSON = storage.getString("routines");
   const storedRoutines = storedRoutinesJSON
@@ -18,12 +19,15 @@ const getStoredRoutines = (): Routine[] => {
   return storedRoutines;
 };
 
+const generateId = () =>
+  `${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;
+
 export const useRoutineStore = create<RoutineState>()(
   subscribeWithSelector(
     immer((set) => ({
       routines: getStoredRoutines(),
       addRoutine: (routine) => {
-        const id = Date.now().toString();
+        const id = generateId();
 
         set((state) => {
           const newRoutine: Routine = {
