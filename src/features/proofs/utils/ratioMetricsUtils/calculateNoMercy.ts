@@ -1,4 +1,4 @@
-import { StatisticEntry } from "@features/routine/routineStatisticStore";
+import { StatisticEntry } from "@features/rituals/statisticStore";
 
 import { calculateNoMercyDays } from "../numberMetricsUtils/calculateNoMercyDays";
 

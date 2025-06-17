@@ -1,5 +1,5 @@
 export const ROUTES = {
   FOLDERS_CREATE: "/folders/create",
-  ROUTINES_CREATE: "/routines/create",
-  ROUTINES_UPDATE: "/routines/update/[id]",
+  RITUALS_CREATE: "/rituals/create",
+  RITUALS_UPDATE: "/rituals/update/[id]",
 } as const;

@@ -1,22 +1,22 @@
-import { RoutinePhaseMap } from "@features/routine/constants";
-import { calculateRoutinePhase } from "@features/routine/lib/utils";
-import { StatisticEntry } from "@features/routine/routineStatisticStore";
-import { Routine } from "@features/routine/routineTypes";
+import { RitualPhaseMap } from "@features/rituals/constants";
+import { calculateRitualPhase } from "@features/rituals/lib/utils";
+import { Ritual } from "@features/rituals/ritualTypes";
+import { StatisticEntry } from "@features/rituals/statisticStore";
 
 import { isDateInLastNDays } from "@shared/lib/utils/date";
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
 export const calculateConsistency = (
-  routines: Routine[],
+  rituals: Ritual[],
   statistics: StatisticEntry[],
   days: number,
 ) => {
-  // TODO implement in UI "waiting" routines
-  const maxPossiblePoints = routines.reduce((prev, r) => {
+  // TODO implement in UI "waiting" rituals
+  const maxPossiblePoints = rituals.reduce((prev, r) => {
     const statistic = statistics.find((s) => s.id === r.id);
     if (!statistic || !statistic.completitions.length) return prev;
-    const phase = calculateRoutinePhase(r.id);
-    const phaseScale = RoutinePhaseMap[phase].value;
+    const phase = calculateRitualPhase(r.id);
+    const phaseScale = RitualPhaseMap[phase].value;
     const filteredCompletions = statistic.completitions.filter((c) =>
       isDateInLastNDays(c.date, days),
     );
@@ -24,8 +24,8 @@ export const calculateConsistency = (
     return prev + filteredCompletions.length * phaseScale * 10;
   }, 0);
 
-  const earnedPoints = routines.reduce((prev, r) => {
-    const phase = calculateRoutinePhase(r.id);
+  const earnedPoints = rituals.reduce((prev, r) => {
+    const phase = calculateRitualPhase(r.id);
     const statistic = statistics.find((s) => s.id === r.id);
     if (!statistic || !statistic.completitions.length) return prev;
 
@@ -35,19 +35,19 @@ export const calculateConsistency = (
 
     if (!filteredCompletions || !filteredCompletions.length) return prev;
 
-    const phaseScale = RoutinePhaseMap[phase].value;
+    const phaseScale = RitualPhaseMap[phase].value;
     const donePoints =
-      filteredCompletions.filter((c) => c.status === RoutineStatuses.Done)
+      filteredCompletions.filter((c) => c.status === RitualStatuses.Done)
         .length *
       phaseScale *
       10;
     const overduePoints =
-      filteredCompletions.filter((c) => c.status === RoutineStatuses.Overdue)
+      filteredCompletions.filter((c) => c.status === RitualStatuses.Overdue)
         .length *
       8 *
       phaseScale;
     const missedPoints =
-      filteredCompletions.filter((c) => c.status === RoutineStatuses.Missed)
+      filteredCompletions.filter((c) => c.status === RitualStatuses.Missed)
         .length *
       1.25 *
       phaseScale;

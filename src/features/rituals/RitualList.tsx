@@ -12,22 +12,22 @@ import StyledList from "@shared/ui/StyledList/StyledList";
 import { ItemData } from "@shared/ui/StyledList/types";
 import ThemedView from "@shared/ui/ThemedView";
 
-import RoutineListItem from "./RoutineListItem";
+import RitualListItem from "./RitualListItem";
 import useFolderNavModal from "./hooks/useFolderNavModal";
-import { useRoutineSelection } from "./hooks/useRoutineSelection";
-import { useRoutinesWithStatus } from "./hooks/useRoutinesWithStatus";
-import { useRoutineStore } from "./routineStore";
-import { Routine } from "./routineTypes";
+import { useRitualSelection } from "./hooks/useRitualSelection";
+import { useRitualsWithStatus } from "./hooks/useRitualsWithStatus";
+import { useRitualStore } from "./ritualStore";
+import { Ritual } from "./ritualTypes";
 
-const RoutineList: React.FC = () => {
+const RitualList: React.FC = () => {
   // TODO use zustand?
   const [isNavModalOpen, setIsNavModalOpen] = useState(false);
   const closeActionModal = useActionModalStore(
     (state) => state.closeActionModal,
   );
-  const isSelectingRoutines = useRoutineStore((state) => state.isSelecting);
-  const selectedRoutineIds = useRoutineStore((state) => state.selectedIds);
-  const routinesWithStatus = useRoutinesWithStatus();
+  const isSelectingRituals = useRitualStore((state) => state.isSelecting);
+  const selectedRitualIds = useRitualStore((state) => state.selectedIds);
+  const ritualsWithStatus = useRitualsWithStatus();
   const selectedFolderId = useFolderStore((state) => state.selectedId);
   const router = useRouter();
 
@@ -38,50 +38,50 @@ const RoutineList: React.FC = () => {
   };
 
   // TODO
-  const { toggleRoutine, resetSelection, currentMenuAction } =
-    useRoutineSelection(() => setIsNavModalOpen(true), closeDialogs);
+  const { toggleRitual, resetSelection, currentMenuAction } =
+    useRitualSelection(() => setIsNavModalOpen(true), closeDialogs);
 
   const navModalActions = useFolderNavModal(closeDialogs, currentMenuAction);
 
-  const handleRenderRoutine = (item: ItemData) => (
-    <RoutineListItem
-      item={item as Routine}
-      isSelected={selectedRoutineIds.includes(item.id)}
+  const handleRenderRitual = (item: ItemData) => (
+    <RitualListItem
+      item={item as Ritual}
+      isSelected={selectedRitualIds.includes(item.id)}
     />
   );
 
-  const handlePressRoutine = (id: string) => {
-    router.push({ pathname: ROUTES.ROUTINES_UPDATE, params: { id } });
+  const handlePressRitual = (id: string) => {
+    router.push({ pathname: ROUTES.RITUALS_UPDATE, params: { id } });
   };
 
   const options = [
     { label: "Folder", value: "folder" },
-    { label: "Routine", value: "routine" },
+    { label: "Ritual", value: "ritual" },
   ];
 
   const createRoutes = {
     folder: ROUTES.FOLDERS_CREATE,
-    routine: ROUTES.ROUTINES_CREATE,
+    ritual: ROUTES.RITUALS_CREATE,
   };
 
-  const routinesInFolder = routinesWithStatus.filter((r) =>
+  const ritualsInFolder = ritualsWithStatus.filter((r) =>
     r.folderIds.includes(selectedFolderId),
   );
 
   return (
     <ThemedView className="flex-1 items-center justify-center">
       <StyledList
-        data={routinesInFolder}
-        isSelecting={isSelectingRoutines}
-        onPress={handlePressRoutine}
-        toggleItem={toggleRoutine}
-        renderContent={handleRenderRoutine}
+        data={ritualsInFolder}
+        isSelecting={isSelectingRituals}
+        onPress={handlePressRitual}
+        toggleItem={toggleRitual}
+        renderContent={handleRenderRitual}
       />
 
       <CreateButton
         options={options}
         routes={createRoutes}
-        disabled={isSelectingRoutines}
+        disabled={isSelectingRituals}
       />
 
       <NavModal
@@ -94,4 +94,4 @@ const RoutineList: React.FC = () => {
   );
 };
 
-export default RoutineList;
+export default RitualList;

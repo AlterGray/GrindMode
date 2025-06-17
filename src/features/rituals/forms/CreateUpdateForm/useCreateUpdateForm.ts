@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 
-import { RoutineFormValues } from "@features/routine/routineTypes";
+import { RitualFormValues } from "@features/rituals/ritualTypes";
 
 import { DayType } from "@shared/types/commonTypes";
 
@@ -13,10 +13,7 @@ import {
 } from "./actions";
 import { Action, ActionTypes } from "./types";
 
-const reducer = (
-  state: RoutineFormValues,
-  action: Action,
-): RoutineFormValues => {
+const reducer = (state: RitualFormValues, action: Action): RitualFormValues => {
   switch (action.type) {
     case ActionTypes.SET_TITLE:
       return { ...state, title: action.payload };
@@ -33,7 +30,7 @@ const reducer = (
   }
 };
 
-export const useCreateUpdateForm = (initialValues: RoutineFormValues) => {
+export const useCreateUpdateForm = (initialValues: RitualFormValues) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
 
   const handleSetTitle = (title: string) => dispatch(setTitle(title));

@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 
-const RoutineLayout = () => {
+const RitualLayout = () => {
   const theme = useThemeColors();
   const backgroundColor = theme.backgroundSurface;
   const textColor = theme.textPrimary;
@@ -23,14 +23,14 @@ const RoutineLayout = () => {
     {
       name: "create",
       options: {
-        title: "Create Routine",
+        title: "Create Ritual",
         headerShown: true,
       },
     },
     {
       name: "update",
       options: {
-        title: "Edit Routine",
+        title: "Edit Ritual",
         headerShown: true,
       },
     },
@@ -49,4 +49,4 @@ const RoutineLayout = () => {
   );
 };
 
-export default RoutineLayout;
+export default RitualLayout;

@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 
-import { useRoutineStatisticStore } from "@features/routine/routineStatisticStore";
+import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
 import { useTheme } from "@shared/hooks/useTheme";
 import ThemedText from "@shared/ui/ThemedText";
@@ -19,7 +19,7 @@ type Props = {
 
 const ProgressRow: React.FC<Props> = ({ metrics }) => {
   const theme = useTheme();
-  const statistics = useRoutineStatisticStore((state) => state.statistics);
+  const statistics = useRitualStatisticStore((state) => state.statistics);
 
   // TODO use tailwind colors
   const backgroundColor = theme.colorScheme === "light" ? "#ccc" : "#444";

@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 
-import { useRoutineStore } from "../routineStore";
-import { useRoutinesWithStatus } from "./useRoutinesWithStatus";
+import { useRitualStore } from "../ritualStore";
+import { useRitualsWithStatus } from "./useRitualsWithStatus";
 
-export const useRoutineDayWatcher = () => {
-  const setRoutineStatus = useRoutineStore((state) => state.setRoutineStatus);
+export const useRitualDayWatcher = () => {
+  const setRitualStatus = useRitualStore((state) => state.setRitualStatus);
   const prevDateRef = useRef(new Date());
-  const routinesWithStatus = useRoutinesWithStatus();
+  const ritualsWithStatus = useRitualsWithStatus();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,8 +20,8 @@ export const useRoutineDayWatcher = () => {
 
       if (isNewDay) {
         prevDateRef.current = now;
-        routinesWithStatus.forEach((routine) =>
-          setRoutineStatus(routine.id, routine.status),
+        ritualsWithStatus.forEach((ritual) =>
+          setRitualStatus(ritual.id, ritual.status),
         );
       }
     }, 60 * 1000);

@@ -37,7 +37,7 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Daily routine",
+          title: "Daily ritual",
           tabBarItemStyle: { pointerEvents },
           tabBarIcon: ({ color }) => (
             // TODO use outlined everywhere

@@ -2,26 +2,26 @@ import React from "react";
 
 import { useRouter } from "expo-router";
 
-import CreateUpdateForm from "@features/routine/forms/CreateUpdateForm/CreateUpdateForm";
-import { createRoutine } from "@features/routine/lib/routineActions";
-import { RoutineInput } from "@features/routine/routineTypes";
+import CreateUpdateForm from "@features/rituals/forms/CreateUpdateForm/CreateUpdateForm";
+import { createRitual } from "@features/rituals/lib/ritualActions";
+import { RitualInput } from "@features/rituals/ritualTypes";
 
 import { DayType } from "@shared/types/commonTypes";
 
-const CreateRoutine: React.FC = () => {
+const CreateRitual: React.FC = () => {
   const router = useRouter();
 
   // TODO react hook form?
   // TODO need better VALIDATION
-  const handleSubmit = (routine: RoutineInput) => {
-    if (!routine.title.trim()) return;
+  const handleSubmit = (ritual: RitualInput) => {
+    if (!ritual.title.trim()) return;
 
-    createRoutine(routine);
+    createRitual(ritual);
 
     router.back();
   };
 
-  const initialValues: RoutineInput = {
+  const initialValues: RitualInput = {
     title: "",
     description: "",
     startTime: Date.now(),
@@ -40,10 +40,10 @@ const CreateRoutine: React.FC = () => {
   return (
     <CreateUpdateForm
       initialValues={initialValues}
-      submitText="Create routine"
+      submitText="Create ritual"
       onSubmit={handleSubmit}
     />
   );
 };
 
-export default CreateRoutine;
+export default CreateRitual;

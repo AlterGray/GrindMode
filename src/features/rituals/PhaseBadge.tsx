@@ -3,41 +3,41 @@ import { View } from "react-native";
 
 import { Colors } from "@shared/constants/Colors";
 import { useTheme } from "@shared/hooks/useTheme";
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 import { SeparatedProgressBar } from "@shared/ui/ProgressBar";
 import ThemedText from "@shared/ui/ThemedText";
 
 import { Tooltip } from "./Tooltip";
-import { RoutinePhaseMap } from "./constants";
+import { RitualPhaseMap } from "./constants";
 import {
-  calculateRoutinePhase,
-  getAllRoutineDays,
-  getRoutinePhaseMissedDays,
+  calculateRitualPhase,
+  getAllRitualDays,
+  getRitualPhaseMissedDays,
 } from "./lib/utils";
-import { RoutinePhase } from "./routineTypes";
-import { getNextRoutinePhase } from "./utils";
+import { RitualPhase } from "./ritualTypes";
+import { getNextRitualPhase } from "./utils";
 
 type PhaseBadgeProps = {
-  routineId: string;
+  ritualId: string;
 };
 
-const PhaseBadge: React.FC<PhaseBadgeProps> = ({ routineId }) => {
+const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
   const { colorScheme } = useTheme();
 
-  const phase = calculateRoutinePhase(routineId);
-  const phaseItem = RoutinePhaseMap[phase];
-  const isInitiantion = phase === RoutinePhase.Initiation;
-  const isDeepIntegration = phase === RoutinePhase.DeepIntegration;
+  const phase = calculateRitualPhase(ritualId);
+  const phaseItem = RitualPhaseMap[phase];
+  const isInitiantion = phase === RitualPhase.Initiation;
+  const isDeepIntegration = phase === RitualPhase.DeepIntegration;
 
   const adjustedPhaseFrom = isInitiantion ? phaseItem.from : phaseItem.from - 1;
-  const allDays = getAllRoutineDays(routineId);
-  const missedDaysIndexes = getRoutinePhaseMissedDays(routineId, phase);
+  const allDays = getAllRitualDays(ritualId);
+  const missedDaysIndexes = getRitualPhaseMissedDays(ritualId, phase);
 
   const doneDaysCount = allDays.length - adjustedPhaseFrom;
   const totalSteps = isDeepIntegration ? 2 : phaseItem.to - phaseItem.from;
-  const phaseColor = Colors.routinePhaseColors[phase][colorScheme];
+  const phaseColor = Colors.ritualPhaseColors[phase][colorScheme];
 
-  const nextPhase = getNextRoutinePhase(phase)!;
+  const nextPhase = getNextRitualPhase(phase)!;
   const daysLeft = phaseItem.to - (adjustedPhaseFrom + doneDaysCount);
 
   return (
@@ -54,13 +54,13 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ routineId }) => {
         <View className="flex-row gap-2">
           {/* // TODO add backround for all icons as there usually halls and user can see backround of under component */}
           {/* TODO remove slice and check by dates */}
-          {allDays.slice(-14).filter((d) => d.status === RoutineStatuses.Missed)
+          {allDays.slice(-14).filter((d) => d.status === RitualStatuses.Missed)
             .length > 0 && (
             <Tooltip text="One miss left - stay consistent" variant="danger" />
           )}
           {!isDeepIntegration && (
             <Tooltip
-              text={`${daysLeft} days left until ${RoutinePhaseMap[nextPhase].label} phase`}
+              text={`${daysLeft} days left until ${RitualPhaseMap[nextPhase].label} phase`}
             />
           )}
         </View>

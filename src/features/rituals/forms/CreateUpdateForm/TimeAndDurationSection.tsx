@@ -18,12 +18,12 @@ const TimeAndDurationSection = ({
 }) => (
   <>
     <ThemedView className="flex-row items-center">
-      <ThemedText>Start routine at:</ThemedText>
+      <ThemedText>Start ritual at:</ThemedText>
       <TimePickerButton time={startTime} onChange={setStartTime} />
     </ThemedView>
 
     <ThemedView className="flex-row items-center">
-      <ThemedText>Routine duration:</ThemedText>
+      <ThemedText>Ritual duration:</ThemedText>
       <DurationPickerButton
         duration={expectedDuration}
         onChange={setExpectedDuration}

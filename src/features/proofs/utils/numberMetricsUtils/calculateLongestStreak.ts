@@ -1,7 +1,7 @@
 import {
   CompletionEntry,
   StatisticEntry,
-} from "@features/routine/routineStatisticStore";
+} from "@features/rituals/statisticStore";
 
 import {
   getDateNDaysAgo,
@@ -10,7 +10,7 @@ import {
   isSameDay,
   isTodayUTC,
 } from "@shared/lib/utils/date";
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
 // calculate longest streak for all rituals
 // found longest streak and return it
@@ -48,13 +48,13 @@ export const calculateLongestStreak = (
 
   // TODO all pages updates when u go through tabs
   // add only if no misses until today for each ritual and no undone rituals
-  // TODO add check for waiting routines
+  // TODO add check for waiting rituals
   completionMap.forEach((completions, date) => {
     const isToday = isTodayUTC(date)
       ? completions.length === statistics.filter((s) => !s.isDeleted).length
       : true;
     const isNotMissed = completions.every(
-      (c) => c.status !== RoutineStatuses.Missed,
+      (c) => c.status !== RitualStatuses.Missed,
     );
 
     if (isToday && isNotMissed) {

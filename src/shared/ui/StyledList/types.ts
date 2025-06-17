@@ -1,8 +1,8 @@
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
-// TODO ROUTINE_STATUS DOESN'T SHARED ITS ONLY FOR ROUTINE
+// TODO RITUAL_STATUS DOESN'T SHARED ITS ONLY FOR RITUAL
 export type ItemData = {
   id: string;
   title: string;
-  status: RoutineStatuses;
+  status: RitualStatuses;
 };

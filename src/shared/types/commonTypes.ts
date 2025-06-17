@@ -38,9 +38,9 @@ export type ButtonVariant =
 export type ButtonProps = { title: string; variant: ButtonVariant };
 
 // TODO align it with statuses which displayed for users
-// TODO add waiting status and turn routine into waiting when it is not started or broken
-// todo make waiting rouitnes like arhiced chats in tg?
-export enum RoutineStatuses {
+// TODO add waiting status and turn ritual into waiting when it is not started or broken
+// todo make waiting rituals like arhiced chats in tg?
+export enum RitualStatuses {
   Undone = "UNDONE",
   Done = "DONE",
   Overdue = "OVERDUE",

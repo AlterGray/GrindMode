@@ -5,15 +5,15 @@ import { immer } from "zustand/middleware/immer";
 import { useSubscribeStoreWithSelector } from "@shared/hooks/useSubscribeStoreWithSelector";
 import { storage } from "@shared/lib/storage";
 import { isSameDay } from "@shared/lib/utils/date";
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
 export type CompletionEntry = {
   date: string;
-  status: RoutineStatuses;
+  status: RitualStatuses;
   isDeleted: boolean;
 };
 
-// TODO create statistic entry in subscribed way? like when routine creating?
+// TODO create statistic entry in subscribed way? like when ritual creating?
 export type StatisticEntry = {
   id: string;
   createdAt: string;
@@ -22,25 +22,25 @@ export type StatisticEntry = {
   isDeleted: boolean;
 };
 
-type RoutineStatisticState = {
+type StatisticState = {
   statistics: StatisticEntry[];
   addCompletionEntry: (
-    routineId: string,
-    status: RoutineStatuses,
+    ritualId: string,
+    status: RitualStatuses,
     date: string,
   ) => void;
-  addStatisticEntry: (routineId: string, createdAt: string) => void;
+  addStatisticEntry: (ritualId: string, createdAt: string) => void;
   setCompletionEntryStatus: (
-    routineId: string,
-    status: RoutineStatuses,
+    ritualId: string,
+    status: RitualStatuses,
     date: string,
   ) => void;
   // TODO DOUBLE if all methods/properties used(check all stores)
-  removeStatistic: (routineId: string) => void;
-  markStatisticDeleted: (routineId: string) => void;
-  markCompletionsDeleted: (routineId: string) => void;
+  removeStatistic: (ritualId: string) => void;
+  markStatisticDeleted: (ritualId: string) => void;
+  markCompletionsDeleted: (ritualId: string) => void;
   // TODO rename?
-  addBrokenDate: (routineId: string, date: string) => void;
+  addBrokenDate: (ritualId: string, date: string) => void;
 };
 
 const getStatisticFromStorage = (): StatisticEntry[] => {
@@ -49,18 +49,18 @@ const getStatisticFromStorage = (): StatisticEntry[] => {
   return statistic ? JSON.parse(statistic) : [];
 };
 
-// TODO rename all stuff without "routine" prefix
-export const useRoutineStatisticStore = create<RoutineStatisticState>()(
+// TODO rename all stuff without "ritual" prefix
+export const useRitualStatisticStore = create<StatisticState>()(
   subscribeWithSelector(
     immer((set) => ({
       statistics: getStatisticFromStorage(),
       setCompletionEntryStatus: (
-        routineId: string,
-        status: RoutineStatuses,
+        ritualId: string,
+        status: RitualStatuses,
         date: string,
       ) =>
         set((state) => {
-          const stat = state.statistics.find((s) => s.id === routineId);
+          const stat = state.statistics.find((s) => s.id === ritualId);
           const completion = stat?.completitions.find((c) =>
             isSameDay(c.date, date),
           );
@@ -69,10 +69,10 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
             completion.status = status;
           }
         }),
-      addStatisticEntry: (routineId, createdAt) => {
+      addStatisticEntry: (ritualId, createdAt) => {
         set((state) => {
           state.statistics.push({
-            id: routineId,
+            id: ritualId,
             createdAt,
             brokenDates: [],
             completitions: [],
@@ -81,12 +81,12 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
         });
       },
       // TODO silient type errors
-      addCompletionEntry: (routineId, status, date) =>
+      addCompletionEntry: (ritualId, status, date) =>
         set((state) => {
           const statistics = state.statistics;
 
           // TODO always exist
-          const index = state.statistics.findIndex((s) => s.id === routineId);
+          const index = state.statistics.findIndex((s) => s.id === ritualId);
 
           if (index !== -1) {
             statistics[index].completitions.push({
@@ -96,7 +96,7 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
             });
           } else {
             statistics.push({
-              id: routineId,
+              id: ritualId,
               createdAt: new Date().toISOString(),
               brokenDates: [],
               completitions: [{ date, status, isDeleted: false }],
@@ -104,26 +104,26 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
             });
           }
         }),
-      removeStatistic: (routineId) =>
+      removeStatistic: (ritualId) =>
         set((state) => {
           state.statistics = state.statistics.filter(
-            (stat) => stat.id !== routineId,
+            (stat) => stat.id !== ritualId,
           );
         }),
-      markStatisticDeleted: (routineId) => {
+      markStatisticDeleted: (ritualId) => {
         set((state) => {
           state.statistics = state.statistics.filter(
-            (stat) => stat.id !== routineId,
+            (stat) => stat.id !== ritualId,
           );
         });
       },
-      markCompletionsDeleted: (routineId) => {
+      markCompletionsDeleted: (ritualId) => {
         set((state) => {
-          const stat = state.statistics.find((s) => s.id === routineId);
+          const stat = state.statistics.find((s) => s.id === ritualId);
           if (!stat) {
             if (__DEV__)
               throw new Error(
-                `[clearCompletions] Missing stat for routineId: ${routineId}`,
+                `[clearCompletions] Missing stat for ritualId: ${ritualId}`,
               );
             return;
           }
@@ -136,13 +136,13 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
           });
         });
       },
-      addBrokenDate: (routineId, date) =>
+      addBrokenDate: (ritualId, date) =>
         set((state) => {
-          const stat = state.statistics.find((s) => s.id === routineId);
+          const stat = state.statistics.find((s) => s.id === ritualId);
           if (!stat) {
             if (__DEV__)
               throw new Error(
-                `[increaseBrokenCount] Missing stat for routineId: ${routineId}`,
+                `[addBrokenDate] Missing stat for ritualId: ${ritualId}`,
               );
             return;
           }
@@ -155,7 +155,7 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
 // TODO rename???
 export const useStatisticStoreWithSubscribe = () =>
   useSubscribeStoreWithSelector(
-    useRoutineStatisticStore,
+    useRitualStatisticStore,
     (state) => state.statistics,
     // TODO hardcode
     "statistics",

@@ -3,11 +3,11 @@ import { View } from "react-native";
 import {
   CompletionEntry,
   StatisticEntry,
-  useRoutineStatisticStore,
-} from "@features/routine/routineStatisticStore";
+  useRitualStatisticStore,
+} from "@features/rituals/statisticStore";
 
 import { isDateInLastNDays } from "@shared/lib/utils/date";
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
 import ProgressRow from "../ProgressRow";
 import { useMetrics } from "../utils/useMetrics";
@@ -26,7 +26,7 @@ const calculateLongestStreak = (statistic: StatisticEntry[], days: number) => {
       currentStreak = 0;
     }
     s.completitions.forEach((completion) => {
-      if (completion.status === RoutineStatuses.Done) {
+      if (completion.status === RitualStatuses.Done) {
         currentStreak++;
         longestStreak = Math.max(longestStreak, currentStreak);
       } else {
@@ -42,7 +42,7 @@ const calculateCurrentStreak = (completions: CompletionEntry[]) => {
   let currentStreak = 0;
 
   completions.forEach((completion) => {
-    if (completion.status === RoutineStatuses.Done) {
+    if (completion.status === RitualStatuses.Done) {
       currentStreak++;
     } else {
       currentStreak = 0;

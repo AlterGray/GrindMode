@@ -1,7 +1,7 @@
-import { StatisticEntry } from "@features/routine/routineStatisticStore";
+import { StatisticEntry } from "@features/rituals/statisticStore";
 
 import { getDateNDaysAgo, isSameDay } from "@shared/lib/utils/date";
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
 export const calculateNoMercyDays = (
   statistics: StatisticEntry[],
@@ -18,8 +18,8 @@ export const calculateNoMercyDays = (
       );
       return (
         completion &&
-        (completion.status === RoutineStatuses.Done ||
-          completion.status === RoutineStatuses.Overdue)
+        (completion.status === RitualStatuses.Done ||
+          completion.status === RitualStatuses.Overdue)
       );
     });
 

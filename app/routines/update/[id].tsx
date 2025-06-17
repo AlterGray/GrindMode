@@ -2,37 +2,37 @@ import React from "react";
 
 import { useLocalSearchParams, useRouter } from "expo-router";
 
-import CreateUpdateForm from "@features/routine/forms/CreateUpdateForm/CreateUpdateForm";
-import { useRoutineStore } from "@features/routine/routineStore";
-import { RoutineFormValues } from "@features/routine/routineTypes";
+import CreateUpdateForm from "@features/rituals/forms/CreateUpdateForm/CreateUpdateForm";
+import { useRitualStore } from "@features/rituals/ritualStore";
+import { RitualFormValues } from "@features/rituals/ritualTypes";
 
-const EditRoutine: React.FC = () => {
+const EditRitual: React.FC = () => {
   const router = useRouter();
-  const updateRoutine = useRoutineStore((state) => state.updateRoutine);
+  const updateRitual = useRitualStore((state) => state.updateRitual);
   const { id } = useLocalSearchParams();
-  const routineToEdit = useRoutineStore((state) =>
-    state.routines.find((routine) => routine.id === id),
+  const ritualToEdit = useRitualStore((state) =>
+    state.rituals.find((ritual) => ritual.id === id),
   );
 
   // TODO does it okay?
-  if (!routineToEdit) {
+  if (!ritualToEdit) {
     return null; // or show an error, loading, or fallback
   }
 
   // TODO react hook form?
   // TODO need better VALIDATION
-  const handleSubmit = (routine: RoutineFormValues) => {
-    if (!routine.title.trim()) return;
+  const handleSubmit = (ritual: RitualFormValues) => {
+    if (!ritual.title.trim()) return;
 
-    updateRoutine({
+    updateRitual({
       id: id as string, // TODO does it okay?
-      title: routine.title.trim(),
-      description: routine.description.trim(),
-      startTime: routine.startTime,
-      expectedDuration: routine.expectedDuration,
-      days: routine.days,
+      title: ritual.title.trim(),
+      description: ritual.description.trim(),
+      startTime: ritual.startTime,
+      expectedDuration: ritual.expectedDuration,
+      days: ritual.days,
       actualDuration: 0,
-      folderIds: routineToEdit.folderIds,
+      folderIds: ritualToEdit.folderIds,
     });
 
     router.back();
@@ -40,11 +40,11 @@ const EditRoutine: React.FC = () => {
 
   return (
     <CreateUpdateForm
-      initialValues={routineToEdit}
-      submitText="Edit routine"
+      initialValues={ritualToEdit}
+      submitText="Edit ritual"
       onSubmit={handleSubmit}
     />
   );
 };
 
-export default EditRoutine;
+export default EditRitual;

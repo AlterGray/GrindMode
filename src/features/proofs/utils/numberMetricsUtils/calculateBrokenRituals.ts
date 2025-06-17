@@ -1,4 +1,4 @@
-import { StatisticEntry } from "@features/routine/routineStatisticStore";
+import { StatisticEntry } from "@features/rituals/statisticStore";
 
 // TODO CALC BROKEN DATES?
 export const calculateBrokenRituals = (statistics: StatisticEntry[]) => {

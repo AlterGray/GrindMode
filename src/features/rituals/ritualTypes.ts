@@ -1,14 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
 
-import { DayType, RoutineStatuses } from "@shared/types/commonTypes";
+import { DayType, RitualStatuses } from "@shared/types/commonTypes";
 
-// TODO status both in routine and statistic??????
-export type Routine = {
+// TODO status both in ritual and statistic??????
+export type Ritual = {
   id: string;
   folderIds: string[];
   title: string;
   description: string;
-  status: RoutineStatuses;
+  status: RitualStatuses;
   startTime: number;
   expectedDuration: number;
   actualDuration: number;
@@ -16,12 +16,12 @@ export type Routine = {
   days: DayType[];
 };
 
-export type RoutineInput = Omit<
-  Routine,
+export type RitualInput = Omit<
+  Ritual,
   "id" | "folderIds" | "status" | "actualDuration"
 >;
-export type RoutineUpdate = Omit<Routine, "status">;
-export type RoutineFormValues = {
+export type RitualUpdate = Omit<Ritual, "status">;
+export type RitualFormValues = {
   id?: string; // only used in edit
   title: string;
   description: string;
@@ -30,24 +30,24 @@ export type RoutineFormValues = {
   days: DayType[];
 };
 
-// TODO move it to RoutineList?
-export type RoutineState = {
-  routines: Routine[];
+// TODO move it to RitualList?
+export type RitualState = {
+  rituals: Ritual[];
   selectedIds: string[];
   setSelectedIds: (id: string[]) => void;
   isSelecting: boolean;
   setIsSelecting: (isSelecting: boolean) => void;
-  addRoutine: (routine: RoutineInput) => string;
-  removeRoutine: (routineId: string) => void;
-  updateRoutine: (routine: RoutineUpdate) => void;
-  setRoutineStatus: (routineId: string, status: RoutineStatuses) => void;
-  addRoutinesToFolder: (routineIds: string[], folderId: string) => void;
-  removeRoutinesFromFolder: (routineIds: string[], folderId: string) => void;
+  addRitual: (ritual: RitualInput) => string;
+  removeRitual: (ritualId: string) => void;
+  updateRitual: (ritual: RitualUpdate) => void;
+  setRitualStatus: (ritualId: string, status: RitualStatuses) => void;
+  addRitualsToFolder: (ritualIds: string[], folderId: string) => void;
+  removeRitualsFromFolder: (ritualIds: string[], folderId: string) => void;
 };
 
 // TODO make same for folder colors?
 // TODO make a type?
-export enum RoutinePhase {
+export enum RitualPhase {
   Initiation = "INITIATION",
   Consolidation = "CONSOLIDATION",
   Stabilization = "STABILIZATION",

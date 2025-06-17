@@ -1,5 +1,5 @@
-import { useRoutineStatisticStore } from "@features/routine/routineStatisticStore";
-import { useRoutineStore } from "@features/routine/routineStore";
+import { useRitualStore } from "@features/rituals/ritualStore";
+import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
 import { isDateInLastNDays } from "@shared/lib/utils/date";
 
@@ -12,8 +12,8 @@ import { calculateConsistency } from "./ratioMetricsUtils/calculateConsistency";
 import { calculateNoMercy } from "./ratioMetricsUtils/calculateNoMercy";
 
 export const useMetrics = (days: number) => {
-  const rituals = useRoutineStore((state) => state.routines);
-  const statistics = useRoutineStatisticStore((state) => state.statistics);
+  const rituals = useRitualStore((state) => state.rituals);
+  const statistics = useRitualStatisticStore((state) => state.statistics);
 
   if (statistics.length === 0) {
     return {

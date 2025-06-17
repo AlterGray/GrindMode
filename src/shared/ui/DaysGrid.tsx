@@ -12,7 +12,8 @@ type DaysGridProps = {
 const DaysGrid: React.FC<DaysGridProps> = ({ items, onChange }) => {
   return (
     <ThemedView className="gap-2">
-      <ThemedText className="">Routine days:</ThemedText>
+      {/* TODO in order to avoid renaming problems like in this commit, keep it as constant */}
+      <ThemedText className="">Ritual days:</ThemedText>
       <DaysPicker
         onChange={onChange}
         initialItems={items.length ? items : []}

@@ -1,13 +1,13 @@
 # Grind Mode 🧠🔥
 
-**Grind Mode** is a minimalistic and blazing-fast mobile app designed to help users build, track, and maintain daily routines and plans with discipline. The core idea is to make planning and habit consistency frictionless — like having a smart, adaptable notebook in your pocket.
+**Grind Mode** is a minimalistic and blazing-fast mobile app designed to help users build, track, and maintain daily rituals and plans with discipline. The core idea is to make planning and habit consistency frictionless — like having a smart, adaptable notebook in your pocket.
 
 ## 🚀 Features
 
-- 📅 **Create and customize routines**
-- 📌 **Group routines by folders**
+- 📅 **Create and customize rituals**
+- 📌 **Group rituals by folders**
 - ⚡ **Lightning-fast UX with focus on simplicity**
-- 🌙 **Dark mode** 
+- 🌙 **Dark mode**
 
 ## 🛠 Tech Stack
 
@@ -35,11 +35,12 @@ expo start
 ```
 
 ## ✅ Future Plans
+
 🧠 Smart reminders and nudges
 
 🔔 Notifications integration
 
-🧩 Templates for common routines
+🧩 Templates for common rituals
 
 ☁️ Cloud sync and backup
 

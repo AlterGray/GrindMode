@@ -4,47 +4,47 @@ import { useRouter } from "expo-router";
 import { useFolderStore } from "@features/folder/folderStore";
 import { FolderColorType } from "@features/folder/types";
 import { useFolderColor } from "@features/folder/useFolderColor";
-import { useRoutinePopoverActions } from "@features/folder/useRoutinePopoverActions";
+import { useRitualPopoverActions } from "@features/folder/useRitualPopoverActions";
 
 import { ROUTES } from "@shared/constants/routes";
 
-import { useRoutineStore } from "../routineStore";
+import { useRitualStore } from "../ritualStore";
 
 const useFolderNavModal = (
   closeDialogs: () => void,
   currentMenuAction: any,
 ) => {
   const router = useRouter();
-  const selectedRoutineIds = useRoutineStore((state) => state.selectedIds);
+  const selectedRitualIds = useRitualStore((state) => state.selectedIds);
   const selectedFolderId = useFolderStore((state) => state.selectedId);
   // TODO move to utils?
-  const routines = useRoutineStore((state) => state.routines)
-    .filter((r) => selectedRoutineIds.includes(r.id))
+  const rituals = useRitualStore((state) => state.rituals)
+    .filter((r) => selectedRitualIds.includes(r.id))
     .filter((r) => r.folderIds.includes(selectedFolderId));
   const folders = useFolderStore((state) => state.folders);
 
-  const removeRoutinesFromFolder = useRoutineStore(
-    (state) => state.removeRoutinesFromFolder,
+  const removeRitualsFromFolder = useRitualStore(
+    (state) => state.removeRitualsFromFolder,
   );
-  const addRoutinesToFolder = useRoutineStore(
-    (state) => state.addRoutinesToFolder,
+  const addRitualsToFolder = useRitualStore(
+    (state) => state.addRitualsToFolder,
   );
   const getFolderColor = useFolderColor();
 
-  const { handleAddRoutinesToFolder, handleRemoveRoutinesFromFolder } =
-    useRoutinePopoverActions(
+  const { handleAddRitualsToFolder, handleRemoveRitualsFromFolder } =
+    useRitualPopoverActions(
       closeDialogs,
       () => {},
       currentMenuAction,
-      removeRoutinesFromFolder,
-      addRoutinesToFolder,
+      removeRitualsFromFolder,
+      addRitualsToFolder,
     );
   const navModalAction = (sfolderId: string) => {
     if (currentMenuAction === "add") {
-      handleAddRoutinesToFolder(sfolderId);
+      handleAddRitualsToFolder(sfolderId);
     } else if (currentMenuAction === "move") {
-      handleRemoveRoutinesFromFolder(selectedFolderId);
-      handleAddRoutinesToFolder(sfolderId);
+      handleRemoveRitualsFromFolder(selectedFolderId);
+      handleAddRitualsToFolder(sfolderId);
     }
     closeDialogs();
   };
@@ -58,9 +58,9 @@ const useFolderNavModal = (
       // TODO extract to constants?
       iconName: "folder-outline" as keyof typeof Ionicons.glyphMap,
       iconColor: color(folder.color as FolderColorType),
-      isMarked: routines.some((r) => r.folderIds.includes(folder.id)),
+      isMarked: rituals.some((r) => r.folderIds.includes(folder.id)),
     }))
-    .filter((f) => f.title !== "All routines");
+    .filter((f) => f.title !== "All rituals");
 
   // TODO move it to nav modal?
   navModalActions.push({

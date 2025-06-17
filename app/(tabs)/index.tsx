@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
+import { Redirect } from "expo-router";
+
 import FolderRenameDialog from "@features/folder/components/FolderRenameDialog";
 import { useFolderStore } from "@features/folder/folderStore";
 import { foldersToScrollTabs } from "@features/folder/utils";
-import RoutineList from "@features/routine/RoutineList";
+import RitualList from "@features/rituals/RitualList";
 
 import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
@@ -91,11 +93,13 @@ const Index = () => {
   const isFoldersExists = folders.length > 1;
   const tabs = foldersToScrollTabs(
     folders,
-    () => <RoutineList />,
+    () => <RitualList />,
     (folderId) => getFolderMenuItems(folderId),
   );
 
   const folderToRename = folders.find((f) => f.id === renamingFolderId);
+
+  // return <Redirect href={"/(tabs)/proofs"} />;
 
   return (
     <>
@@ -116,7 +120,7 @@ const Index = () => {
           }}
         />
       ) : (
-        <RoutineList />
+        <RitualList />
       )}
 
       <FolderRenameDialog

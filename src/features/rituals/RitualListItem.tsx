@@ -1,43 +1,40 @@
 import React from "react";
 import { View } from "react-native";
 
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 import ThemedText from "@shared/ui/ThemedText";
 
 import PhaseBadge from "./PhaseBadge";
-import RoutineStatus from "./RoutineStatus";
-import { Routine } from "./routineTypes";
+import RitualStatus from "./RitualStatus";
+import { Ritual } from "./ritualTypes";
 
 type ItemComponentProps = {
-  item: Routine;
+  item: Ritual;
   isSelected: boolean;
 };
 
 // Background color by status and selection
 const getStatusBackgroundClass = (
-  status: RoutineStatuses,
+  status: RitualStatuses,
   isSelected: boolean,
 ): string => {
   if (isSelected)
     return "bg-light-selectedListItemBackground dark:bg-dark-selectedListItemBackground";
 
   switch (status) {
-    case RoutineStatuses.Undone:
+    case RitualStatuses.Undone:
       return "bg-light-statusUndoneBackground dark:bg-dark-statusUndoneBackground";
-    case RoutineStatuses.Done:
+    case RitualStatuses.Done:
       return "bg-light-statusDoneBackground dark:bg-dark-statusDoneBackground";
-    case RoutineStatuses.Overdue:
+    case RitualStatuses.Overdue:
       return "bg-light-statusOverdueBackground dark:bg-dark-statusOverdueBackground";
-    case RoutineStatuses.Missed:
+    case RitualStatuses.Missed:
       return "bg-light-statusFailedBackground dark:bg-dark-statusFailedBackground";
   }
 };
 
 // TODO add better name for "item"
-const RoutineListItem: React.FC<ItemComponentProps> = ({
-  item,
-  isSelected,
-}) => {
+const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
   const formatedStartTime = new Date(item.startTime).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -51,7 +48,7 @@ const RoutineListItem: React.FC<ItemComponentProps> = ({
       <View className="gap-1">
         <View className="gap-2">
           <View className="flex-row w-full justify-between">
-            <RoutineStatus status={item.status} />
+            <RitualStatus status={item.status} />
 
             <ThemedText className="text-light-textAccent">
               Start at {formatedStartTime}
@@ -61,10 +58,10 @@ const RoutineListItem: React.FC<ItemComponentProps> = ({
           <ThemedText className="text-lg">{item.title}</ThemedText>
         </View>
         {/* // TODO rename component */}
-        <PhaseBadge routineId={item.id} />
+        <PhaseBadge ritualId={item.id} />
       </View>
     </View>
   );
 };
 
-export default RoutineListItem;
+export default RitualListItem;

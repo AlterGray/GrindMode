@@ -1,38 +1,35 @@
-import { calculateRoutineStatus } from "@features/routine/lib/utils";
-import { Routine } from "@features/routine/routineTypes";
+import { calculateRitualStatus } from "@features/rituals/lib/utils";
+import { Ritual } from "@features/rituals/ritualTypes";
 
 import { getDaysDiff, getNextDay, isTodayUTC } from "@shared/lib/utils/date";
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
-import {
-  StatisticEntry,
-  useRoutineStatisticStore,
-} from "../routineStatisticStore";
+import { StatisticEntry, useRitualStatisticStore } from "../statisticStore";
 
-export const handleNewMissedDays = (stat: StatisticEntry, routine: Routine) => {
+export const handleNewMissedDays = (stat: StatisticEntry, ritual: Ritual) => {
   const addStatisticEntry =
-    useRoutineStatisticStore.getState().addCompletionEntry;
+    useRitualStatisticStore.getState().addCompletionEntry;
 
   const firstCompletion = stat?.completitions[0];
   if (!firstCompletion) return;
 
-  const routinesCountToCheck = getDaysDiff(
+  const ritualsCountToCheck = getDaysDiff(
     new Date(firstCompletion.date),
     new Date(),
   );
 
-  for (let i = 1; i <= routinesCountToCheck; i++) {
+  for (let i = 1; i <= ritualsCountToCheck; i++) {
     const currentCompletion = stat.completitions[i];
     const currentDate = getNextDay(firstCompletion.date, i);
 
     const missedInPast = !currentCompletion && !isTodayUTC(currentDate);
     const isMissedToday =
       isTodayUTC(currentDate) &&
-      calculateRoutineStatus(routine) === RoutineStatuses.Missed;
+      calculateRitualStatus(ritual) === RitualStatuses.Missed;
 
     // TODO wring status
     if (missedInPast || isMissedToday) {
-      addStatisticEntry(stat.id, RoutineStatuses.Missed, currentDate);
+      addStatisticEntry(stat.id, RitualStatuses.Missed, currentDate);
     }
   }
 };
@@ -40,11 +37,11 @@ export const handleNewMissedDays = (stat: StatisticEntry, routine: Routine) => {
 export const handleMissedFirstDay = (stat: StatisticEntry) => {
   // TODO BAD?
   const markCompletionDeleted =
-    useRoutineStatisticStore.getState().markCompletionsDeleted;
+    useRitualStatisticStore.getState().markCompletionsDeleted;
 
   const firstCompletion = stat?.completitions[0];
   if (firstCompletion) {
-    const isUndoneStatus = firstCompletion.status === RoutineStatuses.Undone;
+    const isUndoneStatus = firstCompletion.status === RitualStatuses.Undone;
     const isFirstDayMissed =
       !isTodayUTC(firstCompletion.date) && isUndoneStatus;
     if (isFirstDayMissed) return markCompletionDeleted(stat.id);
@@ -55,9 +52,9 @@ export const handleMissedFirstDay = (stat: StatisticEntry) => {
 
 export const handleMissedDayTwice = (statId: string) => {
   const markCompletionDeleted =
-    useRoutineStatisticStore.getState().markCompletionsDeleted;
-  const addBrokenDate = useRoutineStatisticStore.getState().addBrokenDate;
-  const refreshedStat = useRoutineStatisticStore
+    useRitualStatisticStore.getState().markCompletionsDeleted;
+  const addBrokenDate = useRitualStatisticStore.getState().addBrokenDate;
+  const refreshedStat = useRitualStatisticStore
     .getState()
     .statistics.find((s) => s.id === statId);
 
@@ -71,7 +68,7 @@ export const handleMissedDayTwice = (statId: string) => {
     (c) => !c.isDeleted,
   );
   const missedDates = last14Completions
-    .filter((c) => c.status === RoutineStatuses.Missed)
+    .filter((c) => c.status === RitualStatuses.Missed)
     .map((c) => c.date);
 
   const today = new Date();
@@ -89,14 +86,14 @@ export const handleMissedDayTwice = (statId: string) => {
   }
 };
 
-export const getActualRoutineStatus = (routineId: string): RoutineStatuses => {
+export const getActualRitualStatus = (ritualId: string): RitualStatuses => {
   // TODO WHAT faster? this or
-  const stats = useRoutineStatisticStore.getState().statistics;
+  const stats = useRitualStatisticStore.getState().statistics;
 
-  const routineStat = stats.find((s) => s.id === routineId);
-  if (!routineStat) return RoutineStatuses.Undone;
+  const ritualStat = stats.find((s) => s.id === ritualId);
+  if (!ritualStat) return RitualStatuses.Undone;
 
-  const todayEntry = routineStat.completitions.find((c) => isTodayUTC(c.date));
+  const todayEntry = ritualStat.completitions.find((c) => isTodayUTC(c.date));
 
-  return todayEntry?.status ?? RoutineStatuses.Undone;
+  return todayEntry?.status ?? RitualStatuses.Undone;
 };

@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { ScrollView } from "react-native";
 
-import { RoutineFormValues } from "@features/routine/routineTypes";
+import { RitualFormValues } from "@features/rituals/ritualTypes";
 
 import DaysGrid from "@shared/ui/DaysGrid";
 import StyledButton from "@shared/ui/StyledButton";
@@ -11,13 +11,13 @@ import TimeAndDurationSection from "./TimeAndDurationSection";
 import TitleDescriptionSection from "./TitleDescriptionSection";
 import { useCreateUpdateForm } from "./useCreateUpdateForm";
 
-type RoutineFormProps = {
-  initialValues: RoutineFormValues;
+type RitualFormProps = {
+  initialValues: RitualFormValues;
   submitText: string;
-  onSubmit: (newRoutine: RoutineFormValues) => void;
+  onSubmit: (newRitual: RitualFormValues) => void;
 };
 
-const CreateUpdateForm: React.FC<RoutineFormProps> = ({
+const CreateUpdateForm: React.FC<RitualFormProps> = ({
   submitText,
   initialValues,
   onSubmit,

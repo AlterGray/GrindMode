@@ -3,11 +3,11 @@ import { ActionType } from "@shared/ui/ActionsModal/actionModalTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
 
-import { completeRoutine, removeRoutine } from "../lib/routineActions";
-import { useRoutineStore } from "../routineStore";
+import { completeRitual, removeRitual } from "../lib/ritualActions";
+import { useRitualStore } from "../ritualStore";
 
 // TODO bad custom hook
-const useRoutineBulkActions = (
+const useRitualBulkActions = (
   resetSelection: () => void,
   onCancel: () => void,
 ) => {
@@ -21,33 +21,33 @@ const useRoutineBulkActions = (
     (state) => state.openModal,
   );
 
-  const handleRemoveConfirm = (routineIds: string[]) => {
-    routineIds.forEach(removeRoutine);
+  const handleRemoveConfirm = (ritualIds: string[]) => {
+    ritualIds.forEach(removeRitual);
 
     closeActionModal();
     closeConfirmModal();
     resetSelection();
   };
 
-  const getRemoveAction = (routineIds: string[]): ActionType => ({
+  const getRemoveAction = (ritualIds: string[]): ActionType => ({
     onPress: () =>
       openRemoveDialog({
-        title: "Remove routine",
-        text: "Are you sure you want to remove this routine?",
+        title: "Remove rituals",
+        text: "Are you sure you want to remove this rituals?",
         variant: FloatingModalVariant.Danger,
-        onConfirm: () => handleRemoveConfirm(routineIds),
+        onConfirm: () => handleRemoveConfirm(ritualIds),
         onCancel: onCancel,
       }),
     iconName: "trash-outline",
   });
 
-  const getCompleteAction = (routineIds: string[]): ActionType => ({
+  const getCompleteAction = (ritualIds: string[]): ActionType => ({
     onPress: () => {
-      const rotuines = useRoutineStore
+      const rituals = useRitualStore
         .getState()
-        .routines.filter((r) => routineIds.includes(r.id));
+        .rituals.filter((r) => ritualIds.includes(r.id));
 
-      rotuines.forEach(completeRoutine);
+      rituals.forEach(completeRitual);
 
       resetSelection();
       closeActionModal();
@@ -58,4 +58,4 @@ const useRoutineBulkActions = (
   return { getRemoveAction, getCompleteAction };
 };
 
-export default useRoutineBulkActions;
+export default useRitualBulkActions;

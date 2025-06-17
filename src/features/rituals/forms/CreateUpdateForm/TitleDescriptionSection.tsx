@@ -15,7 +15,7 @@ const TitleDescriptionSection = ({
 }) => (
   <>
     <StyledInput
-      placeholder="Routine Title"
+      placeholder="Ritual Title"
       value={title}
       onChangeText={setTitle}
       autoFocus

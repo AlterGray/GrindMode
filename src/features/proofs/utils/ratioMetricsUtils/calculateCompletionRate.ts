@@ -1,14 +1,14 @@
-import { CompletionEntry } from "@features/routine/routineStatisticStore";
+import { CompletionEntry } from "@features/rituals/statisticStore";
 
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
 export const calculateCompletionRate = (completions: CompletionEntry[]) => {
   const doneCompletionsCount = completions.reduce(
-    (acc, c) => (c.status === RoutineStatuses.Done ? acc + 1 : acc),
+    (acc, c) => (c.status === RitualStatuses.Done ? acc + 1 : acc),
     0,
   );
   const overdueCompletionsCount = completions.reduce(
-    (acc, c) => (c.status === RoutineStatuses.Overdue ? acc + 1 : acc),
+    (acc, c) => (c.status === RitualStatuses.Overdue ? acc + 1 : acc),
     0,
   );
 

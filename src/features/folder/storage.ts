@@ -10,7 +10,7 @@ export const getStoredFolders = () => {
 
 export const getDefaultFolder = () => {
   return {
-    name: "All routines",
+    name: "All rituals",
     id: DEFAULT_FOLDER,
     order: -1,
     color: "default",

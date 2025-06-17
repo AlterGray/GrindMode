@@ -1,8 +1,8 @@
-import { RoutinePhase } from "./routineTypes";
+import { RitualPhase } from "./ritualTypes";
 
 // TODO rename to RitualPhaseMap
-export const RoutinePhaseMap: Record<
-  RoutinePhase,
+export const RitualPhaseMap: Record<
+  RitualPhase,
   {
     label: string;
     from: number;
@@ -10,25 +10,25 @@ export const RoutinePhaseMap: Record<
     value: number;
   }
 > = {
-  [RoutinePhase.Initiation]: {
+  [RitualPhase.Initiation]: {
     label: "Initiation",
     from: 0,
     to: 14,
     value: 1,
   },
-  [RoutinePhase.Consolidation]: {
+  [RitualPhase.Consolidation]: {
     label: "Consolidation",
     from: 15,
     to: 60,
     value: 2,
   },
-  [RoutinePhase.Stabilization]: {
+  [RitualPhase.Stabilization]: {
     label: "Stabilization",
     from: 61,
     to: 90,
     value: 3,
   },
-  [RoutinePhase.DeepIntegration]: {
+  [RitualPhase.DeepIntegration]: {
     label: "Deep integration",
     from: 91,
     to: -1,
@@ -36,9 +36,9 @@ export const RoutinePhaseMap: Record<
   },
 };
 
-export const OrderedRoutinePhases = [
-  RoutinePhase.Initiation,
-  RoutinePhase.Consolidation,
-  RoutinePhase.Stabilization,
-  RoutinePhase.DeepIntegration,
+export const OrderedRitualPhases = [
+  RitualPhase.Initiation,
+  RitualPhase.Consolidation,
+  RitualPhase.Stabilization,
+  RitualPhase.DeepIntegration,
 ];

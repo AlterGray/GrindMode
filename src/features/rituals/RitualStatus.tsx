@@ -4,18 +4,18 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 // TODO rename
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 import ThemedText from "@shared/ui/ThemedText";
 
 import { getStatusVariant } from "./utils";
 
 type StatusProps = {
-  status: RoutineStatuses;
+  status: RitualStatuses;
 };
 
 // TODO align namings, here with feature prefix, but in UI for example backdrop(for modal) without prefix
 // TODO make backdrop shared?
-const RoutineStatus: React.FC<StatusProps> = ({ status }) => {
+const RitualStatus: React.FC<StatusProps> = ({ status }) => {
   const colors = useThemeColors();
   const variant = getStatusVariant(status, colors);
 
@@ -29,4 +29,4 @@ const RoutineStatus: React.FC<StatusProps> = ({ status }) => {
   );
 };
 
-export default RoutineStatus;
+export default RitualStatus;

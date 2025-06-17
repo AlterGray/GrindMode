@@ -4,7 +4,7 @@ import { ScrollView, View } from "react-native";
 import DisciplineMetrics from "@features/proofs/DisciplineMetrics/DisciplineMetrics";
 import Header from "@features/proofs/Header";
 import PhaseDistirbution from "@features/proofs/PhaseDistribution/PhaseDistirbution";
-import { useRoutineStore } from "@features/routine/routineStore";
+import { useRitualStore } from "@features/rituals/ritualStore";
 
 import HorizontalTabBar from "@shared/ui/HorizontalTabBar";
 
@@ -29,7 +29,7 @@ const proofs = () => {
     isDisabled: true,
   }));
 
-  const rituals = useRoutineStore((state) => state.routines);
+  const rituals = useRitualStore((state) => state.rituals);
 
   return (
     <ScrollView className="bg-white dark:bg-black px-4">

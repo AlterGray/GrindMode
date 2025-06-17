@@ -1,27 +1,27 @@
-import { useRoutineStore } from "@features/routine/routineStore";
+import { useRitualStore } from "@features/rituals/ritualStore";
 
 import { DEFAULT_FOLDER } from "@shared/constants/Folders";
 
 import { useFolderStore } from "./folderStore";
 
-export const useRoutinePopoverActions = (
+export const useRitualPopoverActions = (
   onClose: () => void,
   onPress: () => void,
   setCurrentMenuAction: (action: any) => void,
-  removeRoutinesFromFolder: (routineIds: string[], folderId: string) => void,
-  addRoutinesToFolder: (routineIds: string[], folderId: string) => void,
+  removeRitualsFromFolder: (ritualIds: string[], folderId: string) => void,
+  addRitualsToFolder: (ritualIds: string[], folderId: string) => void,
 ) => {
-  const selectedRoutineIds = useRoutineStore((state) => state.selectedIds);
+  const selectedRitualIds = useRitualStore((state) => state.selectedIds);
   const selectedFolderId = useFolderStore((state) => state.selectedId);
-  const handleRemoveRoutinesFromFolder = (folderId: string) => {
-    removeRoutinesFromFolder(selectedRoutineIds, folderId);
+  const handleRemoveRitualsFromFolder = (folderId: string) => {
+    removeRitualsFromFolder(selectedRitualIds, folderId);
     onClose();
   };
 
   // TODO open modal with confirmation
   const removeFromFolderAction = {
     label: "Remove from folder",
-    onPress: () => handleRemoveRoutinesFromFolder(selectedFolderId),
+    onPress: () => handleRemoveRitualsFromFolder(selectedFolderId),
   };
   const addToFolderAction = {
     label: "Add to folder",
@@ -39,8 +39,8 @@ export const useRoutinePopoverActions = (
   };
 
   // TODO name is too long
-  const handleAddRoutinesToFolder = (folderId: string) => {
-    addRoutinesToFolder(selectedRoutineIds, folderId);
+  const handleAddRitualsToFolder = (folderId: string) => {
+    addRitualsToFolder(selectedRitualIds, folderId);
     onClose();
   };
 
@@ -59,7 +59,7 @@ export const useRoutinePopoverActions = (
 
   return {
     menuActions: getMenuActions(),
-    handleAddRoutinesToFolder,
-    handleRemoveRoutinesFromFolder,
+    handleAddRitualsToFolder,
+    handleRemoveRitualsFromFolder,
   };
 };

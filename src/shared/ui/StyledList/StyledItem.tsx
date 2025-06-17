@@ -1,12 +1,12 @@
 import React, { ReactNode } from "react";
 import { Pressable, View } from "react-native";
 
-import { RoutineStatuses } from "@shared/types/commonTypes";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
 type StyledItemProps = {
   item: {
     id: string;
-    status: RoutineStatuses;
+    status: RitualStatuses;
   };
   onLongPress?: () => void;
   onPress?: () => void;
@@ -20,11 +20,11 @@ const StyledItem: React.FC<StyledItemProps> = ({
   children,
 }) => {
   // TODO set border color by parent?
-  const borderBackgrounds: Record<RoutineStatuses, string> = {
-    [RoutineStatuses.Undone]: "bg-light-statusUndone dark:bg-dark-statusUndone",
-    [RoutineStatuses.Done]: "bg-light-success dark:bg-dark-done",
-    [RoutineStatuses.Overdue]: "bg-light-warning dark:bg-dark-warning",
-    [RoutineStatuses.Missed]: "bg-light-danger dark:bg-dark-danger",
+  const borderBackgrounds: Record<RitualStatuses, string> = {
+    [RitualStatuses.Undone]: "bg-light-statusUndone dark:bg-dark-statusUndone",
+    [RitualStatuses.Done]: "bg-light-success dark:bg-dark-done",
+    [RitualStatuses.Overdue]: "bg-light-warning dark:bg-dark-warning",
+    [RitualStatuses.Missed]: "bg-light-danger dark:bg-dark-danger",
   };
   const borderClass = `h-0.5 ml-16 ${borderBackgrounds[item.status]}`;
 

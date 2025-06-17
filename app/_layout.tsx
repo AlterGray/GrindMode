@@ -7,10 +7,10 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import { useFolderStoreWithSubscribe } from "@features/folder/folderStore";
-import { useRecalculateMissedRoutines } from "@features/routine/hooks/useRecalculateMissedRoutines";
-import { useRoutineDayWatcher } from "@features/routine/hooks/useRoutineDayWatcher";
-import { useStatisticStoreWithSubscribe } from "@features/routine/routineStatisticStore";
-import { useRoutineStoreWithSubscribe } from "@features/routine/routineStore";
+import { useRecalculateMissedRituals } from "@features/rituals/hooks/useRecalculateMissedRituals";
+import { useRitualDayWatcher } from "@features/rituals/hooks/useRitualDayWatcher";
+import { useRitualStoreWithSubscribe } from "@features/rituals/ritualStore";
+import { useStatisticStoreWithSubscribe } from "@features/rituals/statisticStore";
 
 import { useTheme } from "@shared/hooks/useTheme";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
@@ -26,11 +26,11 @@ SplashScreen.preventAutoHideAsync();
 const RootLayout = () => {
   // TODO why your code base so big, probably something wrong?
   // TODO even if we pass there store created without "subscribeWithSelector" TS don't show error
-  useRoutineStoreWithSubscribe();
+  useRitualStoreWithSubscribe();
   useFolderStoreWithSubscribe();
   useStatisticStoreWithSubscribe();
-  useRoutineDayWatcher();
-  useRecalculateMissedRoutines();
+  useRitualDayWatcher();
+  useRecalculateMissedRituals();
 
   // TODO
   const [loaded] = useFonts({
@@ -55,7 +55,7 @@ const RootLayout = () => {
   // react-test-renderer: deprecated?
   // recheck whole package json and npm package versions
   // when and how use: --legacy-peer-deps
-  // TODO when user switch screen like when it creates routine then white background apearing
+  // TODO when user switch screen like when it creates ritual then white background apearing
   return (
     <GestureHandlerRootView>
       <Stack

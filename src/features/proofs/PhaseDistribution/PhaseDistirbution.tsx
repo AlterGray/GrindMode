@@ -1,8 +1,8 @@
 import { View } from "react-native";
 
-import { RoutinePhaseMap } from "@features/routine/constants";
-import { calculateRoutinePhase } from "@features/routine/lib/utils";
-import { Routine, RoutinePhase } from "@features/routine/routineTypes";
+import { RitualPhaseMap } from "@features/rituals/constants";
+import { calculateRitualPhase } from "@features/rituals/lib/utils";
+import { Ritual, RitualPhase } from "@features/rituals/ritualTypes";
 
 import { useTheme } from "@shared/hooks/useTheme";
 import { capitalize } from "@shared/lib/utils/common";
@@ -11,7 +11,7 @@ import ThemedText from "@shared/ui/ThemedText";
 import LabeledProgressBar from "./LabeledProgressBar";
 
 type PhaseDistirbutionProps = {
-  rituals: Routine[];
+  rituals: Ritual[];
 };
 
 const PhaseDistirbution: React.FC<PhaseDistirbutionProps> = ({ rituals }) => {
@@ -19,17 +19,17 @@ const PhaseDistirbution: React.FC<PhaseDistirbutionProps> = ({ rituals }) => {
   const progressColor = theme.colorScheme === "light" ? "#333" : "#fff";
   const backgroundColor = theme.colorScheme === "light" ? "#ccc" : "#444";
 
-  const getPhaseDistribution = (phase: RoutinePhase) => {
+  const getPhaseDistribution = (phase: RitualPhase) => {
     const phaseByName = rituals.filter(
-      (s) => calculateRoutinePhase(s.id) === phase,
+      (s) => calculateRitualPhase(s.id) === phase,
     );
 
-    const totalPhases = rituals.map((s) => calculateRoutinePhase(s.id));
+    const totalPhases = rituals.map((s) => calculateRitualPhase(s.id));
 
     return phaseByName.length / totalPhases.length;
   };
 
-  Object.values(RoutinePhase).forEach((phase) => {
+  Object.values(RitualPhase).forEach((phase) => {
     getPhaseDistribution(phase);
   });
 
@@ -42,12 +42,12 @@ const PhaseDistirbution: React.FC<PhaseDistirbutionProps> = ({ rituals }) => {
       </ThemedText>
 
       <View className="gap-2">
-        {Object.values(RoutinePhase).map((phase) => (
+        {Object.values(RitualPhase).map((phase) => (
           // TODO ADD LOCKED STATE
           <LabeledProgressBar
             key={phase}
             progress={isLocked ? 0 : getPhaseDistribution(phase)}
-            label={capitalize(RoutinePhaseMap[phase].label)}
+            label={capitalize(RitualPhaseMap[phase].label)}
             progressColor={progressColor}
             backgroundColor={isLocked ? "#ccc" : backgroundColor}
           />
