@@ -8,6 +8,7 @@ import {
   getDaysDiff,
   getNextDay,
   isSameDay,
+  isTodayUTC,
 } from "@shared/lib/utils/date";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
@@ -46,11 +47,17 @@ export const calculateLongestStreak = (
   let streak = 0;
 
   // TODO all pages updates when u go through tabs
-  completionMap.forEach((completions) => {
-    if (
-      completions.some((c) => c.status !== RoutineStatuses.Missed) &&
-      completions.some((c) => c.status !== RoutineStatuses.Undone)
-    ) {
+  // add only if no misses until today for each ritual and no undone rituals
+  // TODO add check for waiting routines
+  completionMap.forEach((completions, date) => {
+    const isToday = isTodayUTC(date)
+      ? completions.length === statistics.filter((s) => !s.isDeleted).length
+      : true;
+    const isNotMissed = completions.every(
+      (c) => c.status !== RoutineStatuses.Missed,
+    );
+
+    if (isToday && isNotMissed) {
       streak++;
     } else {
       streak = 0;

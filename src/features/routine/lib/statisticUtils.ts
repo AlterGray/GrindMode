@@ -39,21 +39,23 @@ export const handleNewMissedDays = (stat: StatisticEntry, routine: Routine) => {
 
 export const handleMissedFirstDay = (stat: StatisticEntry) => {
   // TODO BAD?
-  const clearCompletions = useRoutineStatisticStore.getState().clearCompletions;
+  const markCompletionDeleted =
+    useRoutineStatisticStore.getState().markCompletionsDeleted;
 
   const firstCompletion = stat?.completitions[0];
   if (firstCompletion) {
     const isUndoneStatus = firstCompletion.status === RoutineStatuses.Undone;
     const isFirstDayMissed =
       !isTodayUTC(firstCompletion.date) && isUndoneStatus;
-    if (isFirstDayMissed) return clearCompletions(stat.id);
+    if (isFirstDayMissed) return markCompletionDeleted(stat.id);
   }
 
   return false;
 };
 
 export const handleMissedDayTwice = (statId: string) => {
-  const clearCompletions = useRoutineStatisticStore.getState().clearCompletions;
+  const markCompletionDeleted =
+    useRoutineStatisticStore.getState().markCompletionsDeleted;
   const addBrokenDate = useRoutineStatisticStore.getState().addBrokenDate;
   const refreshedStat = useRoutineStatisticStore
     .getState()
@@ -65,7 +67,9 @@ export const handleMissedDayTwice = (statId: string) => {
     );
   }
 
-  const last14Completions = refreshedStat.completitions;
+  const last14Completions = refreshedStat.completitions.filter(
+    (c) => !c.isDeleted,
+  );
   const missedDates = last14Completions
     .filter((c) => c.status === RoutineStatuses.Missed)
     .map((c) => c.date);
@@ -80,7 +84,7 @@ export const handleMissedDayTwice = (statId: string) => {
   });
 
   if (missedWithin14Days.length > 1) {
-    clearCompletions(statId);
+    markCompletionDeleted(statId);
     addBrokenDate(statId, missedWithin14Days[missedWithin14Days.length - 1]);
   }
 };

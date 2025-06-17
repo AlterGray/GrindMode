@@ -10,6 +10,7 @@ import { RoutineStatuses } from "@shared/types/commonTypes";
 export type CompletionEntry = {
   date: string;
   status: RoutineStatuses;
+  isDeleted: boolean;
 };
 
 // TODO create statistic entry in subscribed way? like when routine creating?
@@ -18,6 +19,7 @@ export type StatisticEntry = {
   createdAt: string;
   brokenDates: string[];
   completitions: CompletionEntry[];
+  isDeleted: boolean;
 };
 
 type RoutineStatisticState = {
@@ -35,7 +37,8 @@ type RoutineStatisticState = {
   ) => void;
   // TODO DOUBLE if all methods/properties used(check all stores)
   removeStatistic: (routineId: string) => void;
-  clearCompletions: (routineId: string) => void;
+  markStatisticDeleted: (routineId: string) => void;
+  markCompletionsDeleted: (routineId: string) => void;
   // TODO rename?
   addBrokenDate: (routineId: string, date: string) => void;
 };
@@ -73,6 +76,7 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
             createdAt,
             brokenDates: [],
             completitions: [],
+            isDeleted: false,
           });
         });
       },
@@ -85,13 +89,18 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
           const index = state.statistics.findIndex((s) => s.id === routineId);
 
           if (index !== -1) {
-            statistics[index].completitions.push({ date, status });
+            statistics[index].completitions.push({
+              date,
+              status,
+              isDeleted: false,
+            });
           } else {
             statistics.push({
               id: routineId,
               createdAt: new Date().toISOString(),
               brokenDates: [],
-              completitions: [{ date, status }],
+              completitions: [{ date, status, isDeleted: false }],
+              isDeleted: false,
             });
           }
         }),
@@ -101,7 +110,14 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
             (stat) => stat.id !== routineId,
           );
         }),
-      clearCompletions: (routineId) => {
+      markStatisticDeleted: (routineId) => {
+        set((state) => {
+          state.statistics = state.statistics.filter(
+            (stat) => stat.id !== routineId,
+          );
+        });
+      },
+      markCompletionsDeleted: (routineId) => {
         set((state) => {
           const stat = state.statistics.find((s) => s.id === routineId);
           if (!stat) {
@@ -111,7 +127,13 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
               );
             return;
           }
-          stat.completitions = [];
+          // TODO here silient error, like if we pass nonexisting property instead of isDeleted
+          stat.completitions = stat.completitions.map((c) => {
+            return {
+              ...c,
+              isDeleted: true,
+            };
+          });
         });
       },
       addBrokenDate: (routineId, date) =>

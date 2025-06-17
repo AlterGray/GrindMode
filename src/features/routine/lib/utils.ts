@@ -12,10 +12,12 @@ export const calculateRoutinePhase = (routineId: string) => {
   const routineStat = routineStatistics.find((stat) => stat.id === routineId);
 
   // TODO
-  if (routineStat == undefined) return RoutinePhase.Initiation;
+  if (routineStat === undefined) return RoutinePhase.Initiation;
 
   // TODO bad
-  const completionsCount = routineStat?.completitions?.length ?? 0;
+  const completionsCount = routineStat.completitions.filter(
+    (c) => !c.isDeleted,
+  ).length;
 
   if (completionsCount <= RoutinePhaseMap[RoutinePhase.Initiation].to)
     return RoutinePhase.Initiation;
@@ -40,7 +42,9 @@ export const getAllRoutineDays = (routineId: string) => {
   const completions = statistic.completitions;
 
   if (completions.length) {
-    days = completions.map((c, i) => ({ status: c.status, index: i }));
+    days = completions
+      .filter((c) => !c.isDeleted)
+      .map((c, i) => ({ status: c.status, index: i }));
   }
 
   return days;
@@ -60,6 +64,7 @@ export const getRoutinePhaseMissedDays = (
   const isInitiationPhase = phase === RoutinePhase.Initiation;
 
   return completions
+    .filter((c) => !c.isDeleted)
     .map((c, i) => ({ status: c.status, i }))
     .filter(({ status, i }) => status === RoutineStatuses.Missed && i >= from)
     .map(({ i }) => i - (isInitiationPhase ? 0 : from - 1));

@@ -12,7 +12,8 @@ export const useRoutinesWithStatus = () => {
 
   const routinesWithStatus = routines.map((routine) => {
     const statistic = statistics.find(
-      (statistic) => statistic.id === routine.id,
+      // TODO
+      (statistic) => statistic.id === routine.id && !statistic.isDeleted,
     );
 
     const completitions = statistic?.completitions!;
