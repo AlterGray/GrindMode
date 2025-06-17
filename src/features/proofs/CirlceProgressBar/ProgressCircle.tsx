@@ -13,6 +13,7 @@ import ThemedText from "@shared/ui/ThemedText";
 
 import ProgressLabel from "./ProgressLabel";
 
+// TODO move to another folder??
 type Props = {
   progress: number;
   progressTitle: string;
@@ -42,7 +43,7 @@ const ProgressCircle: React.FC<Props> = ({
   const radius = size / 2.5;
   const strokeWidth = radius * 0.2;
   const cx = size / 2;
-  const cy = size / 2;
+  const cy = size / 2.5;
   const adjustedRadius = radius - strokeWidth / 2;
   const circumference = 2 * Math.PI * adjustedRadius;
   const strokeDashOffset = circumference * (1 - progress);
@@ -51,9 +52,9 @@ const ProgressCircle: React.FC<Props> = ({
     <TouchableOpacity
       activeOpacity={0.9}
       onPress={onPress}
-      style={[styles.container, { width: size + 8, alignItems: "center" }]}
+      style={[{ width: size + 8, alignItems: "center" }]}
     >
-      <View style={{ width: size, height: size }}>
+      <View style={{ width: size, height: size - cy / 2 }}>
         <Svg width={size} height={size}>
           <Circle
             cx={cx}
@@ -77,7 +78,12 @@ const ProgressCircle: React.FC<Props> = ({
           />
         </Svg>
 
-        <View style={[StyleSheet.absoluteFillObject, styles.center]}>
+        <View
+          style={[
+            StyleSheet.absoluteFillObject,
+            { justifyContent: "center", alignItems: "center" },
+          ]}
+        >
           {isLocked ? (
             <>
               <Ionicons name="lock-closed" size={20 * scale} color="gray" />
@@ -89,7 +95,7 @@ const ProgressCircle: React.FC<Props> = ({
               </ThemedText>
             </>
           ) : (
-            <ThemedText style={{ fontWeight: "bold", fontSize: 16 * scale }}>
+            <ThemedText style={{ fontWeight: "bold", fontSize: 14 * scale }}>
               {progressTitle}
             </ThemedText>
           )}
@@ -102,13 +108,3 @@ const ProgressCircle: React.FC<Props> = ({
 };
 
 export default ProgressCircle;
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 16,
-  },
-  center: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
