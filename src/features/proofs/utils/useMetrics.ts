@@ -39,7 +39,7 @@ export const useMetrics = (days: number) => {
     ratioMetrics: {
       completionRate: calculateCompletionRate(filteredCompletions),
       consistency: calculateConsistency(rituals, statistics, days),
-      noMercy: calculateNoMercy(rituals, statistics, days),
+      noMercy: calculateNoMercy(statistics, days),
     },
     numberMetrics: {
       longestStreak: calculateLongestStreak(statistics, days),
