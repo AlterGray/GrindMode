@@ -3,6 +3,7 @@ export const extractDuration = (minutes: number) => {
   return `${Math.floor(minutes / 60)}h ${minutes - Math.floor(minutes / 60) * 60}m`;
 };
 
+// TODO move to feature utils?
 export const formatTimeLabel = (time: number): string => {
   const date = new Date(time);
   const hour = date.getHours();
@@ -20,45 +21,4 @@ export const capitalize = (val: string) => {
     // TODO toLowerCase vs toLowerCaseLocal
     String(val).charAt(0).toUpperCase() + String(val.toLowerCase()).slice(1)
   );
-};
-
-export const isTodayUTC = (dateString: string): boolean => {
-  const inputDate = new Date(dateString);
-  const now = new Date();
-
-  return (
-    inputDate.getUTCFullYear() === now.getUTCFullYear() &&
-    inputDate.getUTCMonth() === now.getUTCMonth() &&
-    inputDate.getUTCDate() === now.getUTCDate()
-  );
-};
-
-export const isSameDay = (
-  dateString1: string,
-  dateString2: string,
-): boolean => {
-  const date1 = new Date(dateString1);
-  const date2 = new Date(dateString2);
-
-  return (
-    date1.getFullYear() === date2.getFullYear() &&
-    date1.getMonth() === date2.getMonth() &&
-    date1.getDate() === date2.getDate()
-  );
-};
-
-export const getNextDay = (dateString: string, count: number): string => {
-  const inputDate = new Date(dateString);
-
-  inputDate.setDate(inputDate.getDate() + count);
-
-  return inputDate.toISOString();
-};
-
-export const getDaysDiff = (date1: Date, date2: Date) => {
-  const d1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
-  const d2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
-
-  const timeDiff = Math.abs(d2.getTime() - d1.getTime());
-  return Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 };

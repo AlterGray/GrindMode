@@ -4,7 +4,7 @@ import { immer } from "zustand/middleware/immer";
 
 import { useSubscribeStoreWithSelector } from "@shared/hooks/useSubscribeStoreWithSelector";
 import { storage } from "@shared/lib/storage";
-import { isSameDay } from "@shared/lib/utils/common";
+import { isSameDay } from "@shared/lib/utils/date";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
 export type CompletionEntry = {
@@ -16,7 +16,7 @@ export type CompletionEntry = {
 export type StatisticEntry = {
   id: string;
   createdAt: string;
-  brokenCount: number;
+  brokenDates: string[];
   completitions: CompletionEntry[];
 };
 
@@ -37,7 +37,7 @@ type RoutineStatisticState = {
   removeStatistic: (routineId: string) => void;
   clearCompletions: (routineId: string) => void;
   // TODO rename?
-  increaseBrokenCount: (routineId: string) => void;
+  addBrokenDate: (routineId: string, date: string) => void;
 };
 
 const getStatisticFromStorage = (): StatisticEntry[] => {
@@ -71,7 +71,7 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
           state.statistics.push({
             id: routineId,
             createdAt,
-            brokenCount: 0,
+            brokenDates: [],
             completitions: [],
           });
         });
@@ -90,7 +90,7 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
             statistics.push({
               id: routineId,
               createdAt: new Date().toISOString(),
-              brokenCount: 0,
+              brokenDates: [],
               completitions: [{ date, status }],
             });
           }
@@ -114,7 +114,7 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
           stat.completitions = [];
         });
       },
-      increaseBrokenCount: (routineId) =>
+      addBrokenDate: (routineId, date) =>
         set((state) => {
           const stat = state.statistics.find((s) => s.id === routineId);
           if (!stat) {
@@ -124,12 +124,13 @@ export const useRoutineStatisticStore = create<RoutineStatisticState>()(
               );
             return;
           }
-          stat.brokenCount += 1;
+          stat.brokenDates.push(date);
         }),
     })),
   ),
 );
 
+// TODO rename???
 export const useStatisticStoreWithSubscribe = () =>
   useSubscribeStoreWithSelector(
     useRoutineStatisticStore,

@@ -1,48 +1,80 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
+
+import { useRoutineStatisticStore } from "@features/routine/routineStatisticStore";
 
 import { useTheme } from "@shared/hooks/useTheme";
+import ThemedText from "@shared/ui/ThemedText";
 
 import ProgressCircle from "./CirlceProgressBar/ProgressCircle";
 
-const ProgressRow = () => {
+// TODO add type?
+type Props = {
+  metrics: {
+    completionRate: number;
+    consistency: number;
+    noMercy: number;
+  };
+};
+
+const ProgressRow: React.FC<Props> = ({ metrics }) => {
   const theme = useTheme();
+  const statistics = useRoutineStatisticStore((state) => state.statistics);
+
+  // TODO use tailwind colors
   const backgroundColor = theme.colorScheme === "light" ? "#ccc" : "#444";
   const progressColor = theme.colorScheme === "light" ? "#555" : "#eee";
 
+  // TODO implement statistic clear
+  const isLocked =
+    statistics.length === 0 ||
+    statistics.every((s) => s.completitions.length === 0);
+
   return (
-    <View style={styles.container}>
-      <ProgressCircle
-        progress={0.5}
-        label="Completion Rate"
-        scale={1}
-        backgroundColor={backgroundColor}
-        progressColor={progressColor}
-      />
-      <ProgressCircle
-        progress={0.8}
-        label="Improvement Ratio"
-        scale={1.3}
-        backgroundColor={backgroundColor}
-        progressColor={progressColor}
-      />
-      <ProgressCircle
-        progress={0.3}
-        label="Habbit Power Score"
-        scale={1}
-        backgroundColor={backgroundColor}
-        progressColor={progressColor}
-      />
+    <View>
+      {/* TODO CREATE HEADER VARIANT */}
+      <ThemedText className="text-2xl font-medium mb-1">
+        Discipline metrics
+      </ThemedText>
+
+      <View className="flex-row justify-around items-center mb-2">
+        {/* TODO add sub label to show growth in % */}
+        <ProgressCircle
+          progress={metrics.consistency}
+          label="Consistency"
+          progressTitle={`${(metrics.consistency * 100).toFixed(metrics.consistency === 1 ? 0 : 2)}%`}
+          scale={1.3}
+          onPress={() => alert("There is no statistic yet")}
+          isLocked={isLocked}
+          backgroundColor={backgroundColor}
+          progressColor={progressColor}
+        />
+
+        {/* // TODO in order to have actual date we shouldn't clear completions but mark them as failed */}
+        <ProgressCircle
+          progress={metrics.completionRate}
+          label="Completion"
+          progressTitle={`${(metrics.completionRate * 100).toFixed(metrics.completionRate === 1 ? 0 : 2)}%`}
+          scale={1.15}
+          onPress={() => alert("There is no statistic yet")}
+          isLocked={isLocked}
+          backgroundColor={backgroundColor}
+          progressColor={progressColor}
+        />
+
+        <ProgressCircle
+          progress={metrics.noMercy}
+          label={'"No mercy"'}
+          progressTitle={`${(metrics.noMercy * 100).toFixed(metrics.noMercy === 1 ? 0 : 2)}%`}
+          scale={1}
+          onPress={() => alert("There is no statistic yet")}
+          isLocked={isLocked}
+          backgroundColor={backgroundColor}
+          progressColor={progressColor}
+        />
+      </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between", // Or 'center' if you prefer
-    paddingHorizontal: 0,
-  },
-});
 
 export default ProgressRow;

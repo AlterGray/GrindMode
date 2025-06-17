@@ -1,20 +1,34 @@
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 import ThemedText from "@shared/ui/ThemedText";
 
 type MetricCardProps = {
   header: string;
+  description?: string;
   value: number;
+  fullWidth?: boolean;
 };
 
-const MetricCard: React.FC<MetricCardProps> = ({ header, value }) => {
+const MetricCard: React.FC<MetricCardProps> = ({
+  header,
+  value,
+  fullWidth = false,
+}) => {
   return (
-    <View className="bg-light-backgroundSecondary dark:bg-dark-backgroundSecondary p-4 rounded-md w-[48%]">
+    // TODO show tooltip until user get out finger
+    <TouchableOpacity
+      className={`bg-light-backgroundSecondary dark:bg-dark-backgroundSecondary p-3 rounded-md ${
+        fullWidth
+          ? "w-full justify-center items-center flex-row gap-4"
+          : "w-[48%]"
+      }`}
+      activeOpacity={0.5}
+    >
       <ThemedText className="text-light-textSecondary dark:text-dark-textSecondary">
         {header}
       </ThemedText>
       <ThemedText className="text-2xl font-medium">{value}</ThemedText>
-    </View>
+    </TouchableOpacity>
   );
 };
 

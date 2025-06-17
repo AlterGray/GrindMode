@@ -1,6 +1,6 @@
 import { useRoutineStatisticStore } from "@features/routine/routineStatisticStore";
 
-import { isTodayUTC } from "@shared/lib/utils/common";
+import { isTodayUTC } from "@shared/lib/utils/date";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
 import { useRoutineStore } from "../routineStore";

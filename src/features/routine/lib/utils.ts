@@ -1,6 +1,6 @@
 import { useRoutineStatisticStore } from "@features/routine/routineStatisticStore";
 
-import { isTodayUTC } from "@shared/lib/utils/common";
+import { isTodayUTC } from "@shared/lib/utils/date";
 import { RoutineStatuses } from "@shared/types/commonTypes";
 
 import { RoutinePhaseMap } from "../constants";
@@ -80,6 +80,7 @@ export const calculateRoutineStatus = (routine: Routine) => {
     return RoutineStatuses.Done;
   }
 
+  // TODO TODO TODO add checkbox to disable it for some routines
   if (delta > 90) return RoutineStatuses.Missed;
   // TODO remove if user doesn't set duration
   // TODO its should use expected duration not start time!!!!

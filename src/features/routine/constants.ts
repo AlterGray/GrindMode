@@ -1,5 +1,6 @@
 import { RoutinePhase } from "./routineTypes";
 
+// TODO rename to RitualPhaseMap
 export const RoutinePhaseMap: Record<
   RoutinePhase,
   {
