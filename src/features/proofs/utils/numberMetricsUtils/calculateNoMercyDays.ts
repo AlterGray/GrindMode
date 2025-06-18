@@ -1,32 +1,62 @@
-import { StatisticEntry } from "@features/rituals/statisticStore";
+import {
+  CompletionEntry,
+  StatisticEntry,
+} from "@features/rituals/statisticStore";
 
-import { getDateNDaysAgo, isSameDay } from "@shared/lib/utils/date";
+import {
+  getDateNDaysAgo,
+  getDaysDiff,
+  getNextDay,
+  isSameDay,
+  isTodayUTC,
+} from "@shared/lib/utils/date";
 import { RitualStatuses } from "@shared/types/commonTypes";
 
 export const calculateNoMercyDays = (
   statistics: StatisticEntry[],
   days: number,
-): number => {
-  let flawlessDays = 0;
+) => {
+  let noMercyDays = 0;
 
-  for (let i = 0; i < days; i++) {
-    const dayToCheck = getDateNDaysAgo(new Date().toISOString(), i);
+  let completionMap = new Map<string, CompletionEntry[]>();
+  const date = getDateNDaysAgo(new Date().toISOString(), days);
+  const daysDiff = getDaysDiff(new Date(date), new Date());
 
-    const allDone = statistics.every((stat) => {
-      const completion = stat.completitions.find((c) =>
-        isSameDay(c.date, dayToCheck),
-      );
-      return (
-        completion &&
-        (completion.status === RitualStatuses.Done ||
-          completion.status === RitualStatuses.Overdue)
-      );
+  const dates = Array.from({ length: daysDiff }, (_, i) =>
+    getNextDay(date, i + 1),
+  );
+
+  dates.forEach((d) => {
+    const completions = statistics.map((s) =>
+      s.completitions.find((c) => isSameDay(d, c.date)),
+    );
+    const prevValue = completionMap.get(d) || [];
+
+    completions.forEach((c) => {
+      if (c) {
+        prevValue.push(c);
+      }
     });
 
-    if (allDone && statistics.length > 0) {
-      flawlessDays++;
-    }
-  }
+    completionMap.set(d, prevValue);
+  });
 
-  return flawlessDays;
+  // TODO add check for waiting rituals
+  completionMap.forEach((completions, date) => {
+    // TODO hard to read
+    const isToday = isTodayUTC(date)
+      ? completions.length === statistics.filter((s) => !s.isDeleted).length
+      : true;
+    const isNotMissed = completions.every(
+      (c) =>
+        c.status !== RitualStatuses.Missed &&
+        c.status !== RitualStatuses.Overdue,
+    );
+
+    if (isToday && isNotMissed && completions.length > 0) {
+      noMercyDays++;
+    }
+  });
+
+  return noMercyDays;
 };

@@ -1,4 +1,3 @@
-import { calculateRitualStatus } from "@features/rituals/lib/utils";
 import {
   CompletionEntry,
   StatisticEntry,
@@ -18,40 +17,54 @@ import { RitualStatuses } from "@shared/types/commonTypes";
 export const calculateLongestStreak = (
   statistics: StatisticEntry[],
   days: number,
-): number => {
-  // TODO check same filtration in other places
-  const activeStats = statistics.filter((s) => !s.isDeleted);
-  if (activeStats.length === 0) return 0;
-
+) => {
   let longestStreak = 0;
-  let currentStreak = 0;
 
-  const startDate = getDateNDaysAgo(new Date().toISOString(), days);
-  const totalDays = getDaysDiff(new Date(startDate), new Date());
+  let completionMap = new Map<string, CompletionEntry[]>();
+  const date = getDateNDaysAgo(new Date().toISOString(), days);
+  const daysDiff = getDaysDiff(new Date(date), new Date());
 
-  for (let i = 0; i <= totalDays; i++) {
-    const currentDate = getNextDay(startDate, i);
+  const dates = Array.from({ length: daysDiff }, (_, i) =>
+    getNextDay(date, i + 1),
+  );
 
-    const allCompleted = activeStats.every((stat) => {
-      const entry = stat.completitions.find((c) =>
-        isSameDay(c.date, currentDate),
-      );
+  dates.forEach((d) => {
+    const completions = statistics.map((s) =>
+      s.completitions.find((c) => isSameDay(d, c.date)),
+    );
+    const prevValue = completionMap.get(d) || [];
 
-      // Treat no completion as UNdone
-      const status = entry?.status ?? RitualStatuses.Undone;
-
-      return (
-        status !== RitualStatuses.Missed && status !== RitualStatuses.Undone
-      );
+    completions.forEach((c) => {
+      if (c) {
+        prevValue.push(c);
+      }
     });
 
-    if (allCompleted) {
-      currentStreak++;
-      longestStreak = Math.max(longestStreak, currentStreak);
+    completionMap.set(d, prevValue);
+  });
+
+  // TODO Should it be "global" var?
+  let streak = 0;
+
+  // TODO all pages updates when u go through tabs
+  // add only if no misses until today for each ritual and no undone rituals
+  // TODO add check for waiting rituals
+  completionMap.forEach((completions, date) => {
+    // TODO hard to read
+    const isToday = isTodayUTC(date)
+      ? completions.length === statistics.filter((s) => !s.isDeleted).length
+      : true;
+    const isNotMissed = completions.every(
+      (c) => c.status !== RitualStatuses.Missed,
+    );
+
+    if (isToday && isNotMissed && completions.length > 0) {
+      streak++;
     } else {
-      currentStreak = 0;
+      streak = 0;
     }
-  }
+    longestStreak = Math.max(longestStreak, streak);
+  });
 
   return longestStreak;
 };

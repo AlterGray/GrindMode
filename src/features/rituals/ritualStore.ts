@@ -21,6 +21,7 @@ const getStoredRituals = (): Ritual[] => {
 const generateId = () =>
   `${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;
 
+// TODO extract methods
 export const useRitualStore = create<RitualState>()(
   subscribeWithSelector(
     immer((set) => ({
