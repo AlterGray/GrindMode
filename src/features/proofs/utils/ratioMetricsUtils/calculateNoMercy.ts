@@ -1,5 +1,6 @@
 import { StatisticEntry } from "@features/rituals/statisticStore";
 
+import { getActiveDaysCount } from "../common";
 import { calculateNoMercyDays } from "../numberMetricsUtils/calculateNoMercyDays";
 
 export const calculateNoMercy = (
@@ -8,5 +9,8 @@ export const calculateNoMercy = (
 ): number => {
   const flawlessDays = calculateNoMercyDays(statistics, days);
 
-  return flawlessDays / days;
+  const activeDays = getActiveDaysCount(statistics, days);
+  if (activeDays === 0) return 0;
+
+  return flawlessDays / activeDays;
 };
