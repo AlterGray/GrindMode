@@ -14,7 +14,7 @@ import ThemedText from "@shared/ui/ThemedText";
 import ProgressLabel from "./ProgressLabel";
 
 // TODO move to another folder??
-type Props = {
+type ProgressCircleProps = {
   progress: number;
   progressTitle: string;
   label: string;
@@ -27,7 +27,7 @@ type Props = {
 };
 
 // TODO remove hardcodes
-const ProgressCircle: React.FC<Props> = ({
+const ProgressCircle: React.FC<ProgressCircleProps> = ({
   progress,
   progressTitle,
   label,
