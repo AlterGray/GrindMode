@@ -1,55 +1,11 @@
 import { View } from "react-native";
 
-import {
-  CompletionEntry,
-  StatisticEntry,
-  useRitualStatisticStore,
-} from "@features/rituals/statisticStore";
-
-import { isDateInLastNDays } from "@shared/lib/utils/date";
-import { RitualStatuses } from "@shared/types/commonTypes";
-
 import ProgressRow from "../ProgressRow";
 import { useMetrics } from "../utils/useMetrics";
 import MetricCard from "./MetricCard";
 
 type DisciplineMetricsProps = {
   days: number;
-};
-
-const calculateLongestStreak = (statistic: StatisticEntry[], days: number) => {
-  let longestStreak = 0;
-  let currentStreak = 0;
-
-  statistic.forEach((s) => {
-    if (s.completitions.length === 0) {
-      currentStreak = 0;
-    }
-    s.completitions.forEach((completion) => {
-      if (completion.status === RitualStatuses.Done) {
-        currentStreak++;
-        longestStreak = Math.max(longestStreak, currentStreak);
-      } else {
-        currentStreak = 0;
-      }
-    });
-  });
-
-  return longestStreak;
-};
-
-const calculateCurrentStreak = (completions: CompletionEntry[]) => {
-  let currentStreak = 0;
-
-  completions.forEach((completion) => {
-    if (completion.status === RitualStatuses.Done) {
-      currentStreak++;
-    } else {
-      currentStreak = 0;
-    }
-  });
-
-  return currentStreak;
 };
 
 const DisciplineMetrics: React.FC<DisciplineMetricsProps> = ({ days }) => {

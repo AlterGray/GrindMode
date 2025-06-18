@@ -22,7 +22,7 @@ export const useComponentPosition = (
 
       if (calculatedX + COMPONENT_WIDHT > SCREEN_WIDTH)
         calculatedX = SCREEN_WIDTH - COMPONENT_WIDHT - 8;
-      if (calculatedX < 8) calculatedX = 8;
+      if (calculatedX < COMPONENT_WIDHT * 4) calculatedX = COMPONENT_WIDHT * 5;
 
       if (calculatedY + COMPONENT_HEIGHT > SCREEN_HEIGHT)
         calculatedY = SCREEN_HEIGHT - COMPONENT_HEIGHT - 8;

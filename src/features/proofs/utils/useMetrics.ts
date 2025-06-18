@@ -14,6 +14,7 @@ import { calculateNoMercy } from "./ratioMetricsUtils/calculateNoMercy";
 export const useMetrics = (days: number) => {
   const rituals = useRitualStore((state) => state.rituals);
   const statistics = useRitualStatisticStore((state) => state.statistics);
+  const adjustedDays = days >= 0 ? days : 99999;
 
   if (statistics.length === 0) {
     return {
@@ -33,18 +34,18 @@ export const useMetrics = (days: number) => {
 
   const filteredCompletions = statistics
     .flatMap((s) => s.completitions)
-    .filter((c) => isDateInLastNDays(c.date, 7));
+    .filter((c) => isDateInLastNDays(c.date, adjustedDays));
 
   return {
     ratioMetrics: {
       completionRate: calculateCompletionRate(filteredCompletions),
-      consistency: calculateConsistency(rituals, statistics, days),
-      noMercy: calculateNoMercy(statistics, days),
+      consistency: calculateConsistency(rituals, statistics, adjustedDays),
+      noMercy: calculateNoMercy(statistics, adjustedDays),
     },
     numberMetrics: {
-      longestStreak: calculateLongestStreak(statistics, days),
-      currentStreak: calculateCurrentStreak(statistics, days),
-      noMercyDays: calculateNoMercyDays(statistics, days),
+      longestStreak: calculateLongestStreak(statistics, adjustedDays),
+      currentStreak: calculateCurrentStreak(statistics, adjustedDays),
+      noMercyDays: calculateNoMercyDays(statistics, adjustedDays),
       brokenRituals: calculateBrokenRituals(statistics),
     },
   };

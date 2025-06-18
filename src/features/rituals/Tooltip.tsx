@@ -13,8 +13,10 @@ import ThemedView from "@shared/ui/ThemedView";
 type TooltipProps = {
   text: string;
   iconColor?: string;
+  iconName?: keyof typeof Ionicons.glyphMap;
   // TODO remove hardcodes
   variant?: "info" | "warning" | "danger" | "success";
+  containerClassName?: string;
 };
 
 // TODO when user press on tooltip - whole screen rerendes
@@ -22,7 +24,9 @@ type TooltipProps = {
 export const Tooltip: React.FC<TooltipProps> = ({
   text,
   iconColor,
+  iconName,
   variant = "info",
+  containerClassName,
 }) => {
   const [visible, setVisible] = useState(false);
   const buttonRef = useRef(null);
@@ -81,9 +85,10 @@ export const Tooltip: React.FC<TooltipProps> = ({
           getPosition(setButtonPosition);
         }}
         hitSlop={5}
+        className={containerClassName}
       >
         <Ionicons
-          name={classes.iconName}
+          name={iconName ?? classes.iconName}
           size={20}
           color={iconColor ?? classes.iconColor}
         />
@@ -98,9 +103,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
             <ThemedView
               className={`absolute top-6 w-48 rounded-xl px-3 py-2 ${classes.bgColor}`}
             >
-              <ThemedText className="text-sm text-center text-white">
-                {text}
-              </ThemedText>
+              <ThemedText className="text-sm text-white">{text}</ThemedText>
             </ThemedView>
           )}
         </View>
