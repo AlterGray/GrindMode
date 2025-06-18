@@ -14,6 +14,10 @@ import { useStatisticStoreWithSubscribe } from "@features/rituals/statisticStore
 
 import { useTheme } from "@shared/hooks/useTheme";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import {
+  useThemeStore,
+  useThemeStoreWithSubscribe,
+} from "@shared/stores/themeStore";
 import ActionModal from "@shared/ui/ActionsModal/ActionModal";
 import GlobalFloatingModal from "@shared/ui/GlobalFloatingModal/GlobalFloatingModal";
 import PopoverMenu from "@shared/ui/PopoverMenu/PopoverMenu";
@@ -31,13 +35,15 @@ const RootLayout = () => {
   useStatisticStoreWithSubscribe();
   useRitualDayWatcher();
   useRecalculateMissedRituals();
+  useThemeStoreWithSubscribe();
 
   // TODO
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  const { colorScheme } = useTheme();
+  const { colorScheme, setScheme: setTheme } = useTheme();
+  const theme = useThemeStore((state) => state.theme);
   const backgroundColor = useThemeColors("backgroundSurface");
 
   useEffect(() => {
@@ -45,6 +51,11 @@ const RootLayout = () => {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  // TODO subscribe? TODO
+  useEffect(() => {
+    setTheme(theme);
+  }, [theme]);
 
   if (!loaded) {
     return null;

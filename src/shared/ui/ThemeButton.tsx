@@ -2,14 +2,15 @@ import { Pressable } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import { useTheme } from "@shared/hooks/useTheme";
+import { useThemeStore } from "@shared/stores/themeStore";
 
 type ThemeButtonProps = {
   iconColor?: string;
 };
 
 const ThemeButton: React.FC<ThemeButtonProps> = ({ iconColor }) => {
-  const { colorScheme, toggleTheme } = useTheme();
+  const colorScheme = useThemeStore((state) => state.theme);
+  const toggleTheme = useThemeStore((state) => state.toggleTheme);
 
   const themeIcons: Record<string, keyof typeof Ionicons.glyphMap> = {
     light: "sunny-sharp",
