@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 import { Feather } from "@expo/vector-icons";
+
+import { useThemeColors } from "@shared/hooks/useThemeColors";
+import ThemedText from "@shared/ui/ThemedText";
 
 type CheckboxProps = {
   label: string;
@@ -10,27 +12,36 @@ type CheckboxProps = {
   onChange: (checked: boolean) => void;
 };
 
+// TODO move to shared
 export const Checkbox: React.FC<CheckboxProps> = ({
   label,
   size = "md",
   checked = false,
   onChange,
 }) => {
+  const colors = useThemeColors();
+
   return (
-    <Pressable
+    <TouchableOpacity
       onPress={() => onChange(!checked)}
-      className="flex-row items-center py-2 active:opacity-80"
+      className="flex-row items-center py-2 gap-2"
+      activeOpacity={0.6}
     >
-      <View
-        className={`h-5 w-5 border-[1.5px] mr-3 items-center justify-center ${
-          size === "sm" ? "h-4 w-4" : "h-5 w-5"
-        } ${checked ? "bg-primary border-primary" : "border-gray-500"}`}
-      >
-        {checked && (
-          <Feather name="check" size={size === "sm" ? 12 : 14} color="#000" />
-        )}
-      </View>
-      <Text>{label}</Text>
-    </Pressable>
+      {checked ? (
+        <Feather
+          name="check-square"
+          size={size === "sm" ? 16 : 18}
+          color={colors.icon}
+        />
+      ) : (
+        <Feather
+          name="square"
+          size={size === "sm" ? 16 : 18}
+          color={colors.icon}
+        />
+      )}
+
+      <ThemedText>{label}</ThemedText>
+    </TouchableOpacity>
   );
 };
