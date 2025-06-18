@@ -70,8 +70,8 @@ const RitualList: React.FC = () => {
     ritual: ROUTES.RITUALS_CREATE,
   };
 
-  const ritualsInFolder = ritualsWithStatus.filter((r) =>
-    r.folderIds.includes(selectedFolderId),
+  const ritualsInFolder = ritualsWithStatus.filter(
+    (r) => r.folderIds.includes(selectedFolderId) && !r.isDeleted,
   );
 
   return (

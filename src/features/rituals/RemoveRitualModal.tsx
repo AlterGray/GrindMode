@@ -26,20 +26,38 @@ export const RemoveRitualModal: React.FC<RemoveRitualModalProps> = ({
   const removeStatistic = useRitualStatisticStore(
     (state) => state.removeStatistic,
   );
+  const markRitualDeleted = useRitualStore((state) => state.markRitualDeleted);
+  const markStatisticDeleted = useRitualStatisticStore(
+    (state) => state.markStatisticDeleted,
+  );
+
   const removeRituals = () => {
     ritualIds.forEach(removeRitual);
   };
   const removeStatistics = () => {
     ritualIds.forEach(removeStatistic);
   };
+  const markRitualsDeleted = () => {
+    ritualIds.forEach(markRitualDeleted);
+  };
+  const markStatisticsDeleted = () => {
+    ritualIds.forEach(markStatisticDeleted);
+  };
 
   const [isRemoveStatistics, setIsRemoveStatistics] = useState(false);
 
+  // TODO mark statistic as deleted?
+  // TODO clear only deleted items on settings page?
+  // TODO remove settings page from tabs and add to header?
   const handleRemove = () => {
     if (isRemoveStatistics) {
       removeStatistics();
+      removeRituals();
+    } else {
+      markRitualsDeleted();
+      markStatisticsDeleted();
     }
-    removeRituals();
+
     onConfirm();
     onClose();
   };

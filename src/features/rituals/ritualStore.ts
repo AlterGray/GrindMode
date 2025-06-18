@@ -35,6 +35,7 @@ export const useRitualStore = create<RitualState>()(
             folderIds: [DEFAULT_FOLDER],
             status: RitualStatuses.Undone,
             actualDuration: 0,
+            isDeleted: false,
             ...ritual,
           };
 
@@ -48,10 +49,19 @@ export const useRitualStore = create<RitualState>()(
           state.rituals = state.rituals.filter((r) => r.id !== ritualId);
         });
       },
+      markRitualDeleted: (ritualId) => {
+        set((state) => {
+          state.rituals = state.rituals.map((r) =>
+            r.id === ritualId ? { ...r, isDeleted: true } : r,
+          );
+        });
+      },
       updateRitual: (ritual) => {
         set((state) => {
           state.rituals = state.rituals.map((r) =>
-            r.id === ritual.id ? { ...ritual, status: r.status } : r,
+            r.id === ritual.id
+              ? { ...ritual, status: r.status, isDeleted: r.isDeleted }
+              : r,
           );
         });
       },

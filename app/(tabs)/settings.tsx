@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useRitualStore } from "@features/rituals/ritualStore";
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
 import { useThemeStore } from "@shared/stores/themeStore";
@@ -17,9 +18,11 @@ const settings = () => {
   const removeStatistic = useRitualStatisticStore(
     (state) => state.removeStatistic,
   );
+  const removeRitual = useRitualStore((state) => state.removeRitual);
 
   const handleResetStatistic = () => {
     statistics.forEach((s) => removeStatistic(s.id));
+    statistics.forEach((s) => removeRitual(s.id));
   };
 
   const handleOpenResetDialog = () => {

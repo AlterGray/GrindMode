@@ -14,13 +14,14 @@ export type Ritual = {
   actualDuration: number;
   // TODO bad name
   days: DayType[];
+  isDeleted: boolean;
 };
 
 export type RitualInput = Omit<
   Ritual,
-  "id" | "folderIds" | "status" | "actualDuration"
+  "id" | "folderIds" | "status" | "actualDuration" | "isDeleted"
 >;
-export type RitualUpdate = Omit<Ritual, "status">;
+export type RitualUpdate = Omit<Ritual, "status" | "isDeleted">;
 export type RitualFormValues = {
   id?: string; // only used in edit
   title: string;
@@ -39,6 +40,7 @@ export type RitualState = {
   setIsSelecting: (isSelecting: boolean) => void;
   addRitual: (ritual: RitualInput) => string;
   removeRitual: (ritualId: string) => void;
+  markRitualDeleted: (ritualId: string) => void;
   updateRitual: (ritual: RitualUpdate) => void;
   setRitualStatus: (ritualId: string, status: RitualStatuses) => void;
   addRitualsToFolder: (ritualIds: string[], folderId: string) => void;

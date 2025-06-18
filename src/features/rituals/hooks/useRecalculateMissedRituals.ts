@@ -37,9 +37,11 @@ export const useRecalculateMissedRituals = () => {
     const intervalID = setInterval(() => {
       const statistics = useRitualStatisticStore.getState().statistics;
 
-      statistics.forEach((stat) => {
-        processRitualStatistic(stat);
-      });
+      statistics
+        .filter((stat) => !stat.isDeleted)
+        .forEach((stat) => {
+          processRitualStatistic(stat);
+        });
     }, FIVE_SECONDS);
 
     return () => clearInterval(intervalID);

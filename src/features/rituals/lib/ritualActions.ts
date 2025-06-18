@@ -53,13 +53,3 @@ export const createRitual = (ritual: RitualInput) => {
   });
   addStatisticEntry(id, new Date().toISOString());
 };
-
-// TODO vs destruction?
-export const removeRitual = (ritualId: string) => {
-  const removeRitual = useRitualStore.getState().removeRitual;
-  const removeStatistic = useRitualStatisticStore.getState().removeStatistic;
-
-  removeRitual(ritualId);
-  // TODO make it optional?
-  removeStatistic(ritualId);
-};
