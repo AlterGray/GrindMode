@@ -49,6 +49,7 @@ const getStatisticFromStorage = (): StatisticEntry[] => {
   return statistic ? JSON.parse(statistic) : [];
 };
 
+// TODO two statistic stores
 // TODO rename all stuff without "ritual" prefix
 export const useRitualStatisticStore = create<StatisticState>()(
   subscribeWithSelector(

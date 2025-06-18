@@ -12,6 +12,7 @@ import StyledList from "@shared/ui/StyledList/StyledList";
 import { ItemData } from "@shared/ui/StyledList/types";
 import ThemedView from "@shared/ui/ThemedView";
 
+import { RemoveRitualModal } from "./RemoveRitualModal";
 import RitualListItem from "./RitualListItem";
 import useFolderNavModal from "./hooks/useFolderNavModal";
 import { useRitualSelection } from "./hooks/useRitualSelection";
@@ -22,6 +23,7 @@ import { Ritual } from "./ritualTypes";
 const RitualList: React.FC = () => {
   // TODO use zustand?
   const [isNavModalOpen, setIsNavModalOpen] = useState(false);
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const closeActionModal = useActionModalStore(
     (state) => state.closeActionModal,
   );
@@ -39,7 +41,11 @@ const RitualList: React.FC = () => {
 
   // TODO
   const { toggleRitual, resetSelection, currentMenuAction } =
-    useRitualSelection(() => setIsNavModalOpen(true), closeDialogs);
+    useRitualSelection(
+      () => setIsNavModalOpen(true),
+      () => setIsRemoveModalOpen(true),
+      closeDialogs,
+    );
 
   const navModalActions = useFolderNavModal(closeDialogs, currentMenuAction);
 
@@ -89,6 +95,15 @@ const RitualList: React.FC = () => {
         onClose={() => setIsNavModalOpen(false)}
         title="Select folder"
         actions={navModalActions}
+      />
+
+      {/* TODO should close all modals on: onConfirm */}
+      <RemoveRitualModal
+        key={isRemoveModalOpen.toString()}
+        isOpen={isRemoveModalOpen}
+        ritualIds={selectedRitualIds}
+        onClose={() => setIsRemoveModalOpen(false)}
+        onConfirm={closeDialogs}
       />
     </ThemedView>
   );

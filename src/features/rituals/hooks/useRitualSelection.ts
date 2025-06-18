@@ -10,6 +10,7 @@ import useRitualBulkActions from "./useRitualBulkActions";
 // TODO
 export const useRitualSelection = (
   onOpenNavModal: () => void,
+  onOpenRemoveModal: () => void,
   onCloseDialogs: () => void,
 ) => {
   const openActionModal = useActionModalStore((state) => state.openActionModal);
@@ -30,11 +31,8 @@ export const useRitualSelection = (
   };
 
   const { getCompleteAction, getRemoveAction } = useRitualBulkActions(
+    onOpenRemoveModal,
     resetSelection,
-    () => {
-      onCloseDialogs();
-      resetSelection();
-    },
   );
 
   const removeRitualsFromFolder = useRitualStore(
@@ -59,10 +57,7 @@ export const useRitualSelection = (
         text: `${count} item${count === 1 ? "" : "s"} selected`,
         isMenuAction: true,
         menuActions: ritualPopoverMenuActions,
-        actions: [
-          getRemoveAction(selectedItems),
-          getCompleteAction(selectedItems),
-        ],
+        actions: [getRemoveAction(), getCompleteAction(selectedItems)],
         onCloseDialog: resetSelection,
       });
     } else closeActionModal();
