@@ -17,6 +17,7 @@ const getStoredRituals = (): Ritual[] => {
   return storedRituals;
 };
 
+// TODO
 const generateId = () =>
   `${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;
 
