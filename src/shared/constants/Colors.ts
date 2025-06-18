@@ -7,8 +7,8 @@ export const Colors = {
     textAccent: "#64748b",
 
     // BACKGROUND
-    background: "#f8fafc",
-    backgroundSecondary: "#e5e7eb",
+    background: "#f9fbfd",
+    backgroundSecondary: "#e8ebf0",
     backgroundSurface: "#ffffff",
 
     // LISTS
@@ -18,21 +18,21 @@ export const Colors = {
     selectedListItemBorder: "#cbd5e1",
 
     // BUTTON VARIANTS
-    buttonPrimaryBackground: "#3b82f6",
+    buttonPrimaryBackground: "#2563eb",
     buttonPrimaryText: "#ffffff",
-    buttonPrimaryBorder: "#3b82f6",
+    buttonPrimaryBorder: "#2563eb",
 
-    buttonSecondaryBackground: "#e5e7eb",
+    buttonSecondaryBackground: "#f3f4f6",
     buttonSecondaryText: "#1a1a1d",
-    buttonSecondaryBorder: "#cbd5e1",
+    buttonSecondaryBorder: "#d1d5db",
 
     buttonTextBackground: "transparent",
-    buttonTextText: "#3b82f6",
+    buttonTextText: "#2563eb",
     buttonTextBorder: "transparent",
 
-    buttonDangerBackground: "#fca5a5",
-    buttonDangerText: "#b91c1c",
-    buttonDangerBorder: "#f87171",
+    buttonDangerBackground: "#f87171",
+    buttonDangerText: "#fff",
+    buttonDangerBorder: "#dc2626",
 
     inputBackground: "#ffffff",
     inputText: "#1a1a1d",
@@ -50,30 +50,30 @@ export const Colors = {
     disabledTab: "#e5e7eb",
 
     // STATUS COLORS (List Item)
-    statusDone: "#22c55e", // green-500
-    statusDoneBackground: "#dcfce7", // green-50
+    statusDone: "#22c55e",
+    statusDoneBackground: "#dcfce7",
 
-    statusUndone: "#3b82f6", // blue-500
-    statusUndoneBackground: "#dbeafe", // blue-50
+    statusUndone: "#3b82f6",
+    statusUndoneBackground: "#dbeafe",
 
-    statusOverdue: "#f59e0b", // amber-500
-    statusOverdueBackground: "#fffbeb", // amber-50
+    statusOverdue: "#f59e0b",
+    statusOverdueBackground: "#fffbeb",
 
-    statusFailed: "#ef4444", // red-500
-    statusFailedBackground: "#fef2f2", // red-50
+    statusFailed: "#ef4444",
+    statusFailedBackground: "#fef2f2",
 
     // COMMON
-    primary: "#3b82f6", // strong blue for icons/text
-    primarySoft: "#eff6ff", // soft/light blue background
+    primary: "#2563eb",
+    primarySoft: "#eff6ff",
 
-    danger: "#ef4444", // strong red for icons/text
-    dangerSoft: "#fef2f2", // soft/light red background
+    danger: "#dc2626",
+    dangerSoft: "#fef2f2",
 
-    warning: "#f59e0b", // strong orange for icons/text
-    warningSoft: "#fffbeb", // soft/light orange background
+    warning: "#f59e0b",
+    warningSoft: "#fffbeb",
 
-    success: "#22c55e", // strong green for icons/text
-    successSoft: "#f0fdf4", // soft/light green background
+    success: "#22c55e",
+    successSoft: "#f0fdf4",
   },
 
   dark: {
@@ -84,8 +84,8 @@ export const Colors = {
     textAccent: "#64748b",
 
     // BACKGROUND
-    background: "#101317",
-    backgroundSecondary: "#1c1f24",
+    background: "#0f1115",
+    backgroundSecondary: "#1a1c20",
     backgroundSurface: "#24282d",
 
     // LISTS
@@ -95,20 +95,20 @@ export const Colors = {
     selectedListItemBorder: "#64748b",
 
     // BUTTON VARIANTS
-    buttonPrimaryBackground: "#2563eb",
+    buttonPrimaryBackground: "#1d4ed8",
     buttonPrimaryText: "#ffffff",
-    buttonPrimaryBorder: "#2563eb",
+    buttonPrimaryBorder: "#1d4ed8",
 
     buttonSecondaryBackground: "#374151",
     buttonSecondaryText: "#e5e7eb",
     buttonSecondaryBorder: "#4b5563",
 
     buttonTextBackground: "transparent",
-    buttonTextText: "#2563eb",
+    buttonTextText: "#3b82f6",
     buttonTextBorder: "transparent",
 
     buttonDangerBackground: "#7f1d1d",
-    buttonDangerText: "#fecaca",
+    buttonDangerText: "#fff",
     buttonDangerBorder: "#ef4444",
 
     inputBackground: "#23272f",
@@ -128,30 +128,31 @@ export const Colors = {
 
     // STATUS COLORS (List Item)
     statusDone: "#22c55e",
-    statusDoneBackground: "#123824", // slightly lighter green background
+    statusDoneBackground: "#123824",
 
     statusUndone: "#3b82f6",
-    statusUndoneBackground: "#13294b", // slightly lighter blue background
+    statusUndoneBackground: "#13294b",
 
-    statusOverdue: "#f59e0b", // amber-500
-    statusOverdueBackground: "#4a3b14", // warm dark amber-like background
+    statusOverdue: "#f59e0b",
+    statusOverdueBackground: "#4a3b14",
 
-    statusFailed: "#ef4444", // red-500
-    statusFailedBackground: "#471014", // slightly lighter red background
+    statusFailed: "#ef4444",
+    statusFailedBackground: "#471014",
 
-    // COMMON — opacity removed, замінено на більш суцільні відтінки
+    // COMMON
     primary: "#3b82f6",
-    primarySoft: "#1e40af", // темніший синій без opacity
+    primarySoft: "#1e40af",
 
     danger: "#ef4444",
-    dangerSoft: "#b91c1c", // темний червоний без opacity
+    dangerSoft: "#b91c1c",
 
     warning: "#f59e0b",
-    warningSoft: "#b45309", // темний оранжевий без opacity
+    warningSoft: "#b45309",
 
     success: "#22c55e",
-    successSoft: "#15803d", // темний зелений без opacity
+    successSoft: "#15803d",
   },
+
   folderColors: {
     default: {
       light: "#000",
@@ -186,6 +187,7 @@ export const Colors = {
       dark: "#FF33A6",
     },
   },
+
   folderColorsNames: [
     "default",
     "red",
@@ -197,22 +199,22 @@ export const Colors = {
     "pink",
   ],
 
-  routinePhaseColors: {
+  ritualPhaseColors: {
     INITIATION: {
-      light: "#f97316", // orange-500
-      dark: "#D9480F", // orange-600
+      light: "#f97316",
+      dark: "#D9480F",
     },
     CONSOLIDATION: {
-      light: "#FDBA74", // orange-300
-      dark: "#F97316", // orange-500
+      light: "#FDBA74",
+      dark: "#F97316",
     },
     STABILIZATION: {
-      light: "#81C784", // green-300
-      dark: "#2E7D32", // green-600
+      light: "#81C784",
+      dark: "#2E7D32",
     },
     DEEP_INTEGRATION: {
-      light: "#34D399", // emerald-400
-      dark: "#10B981", // emerald-500
+      light: "#34D399",
+      dark: "#10B981",
     },
   },
 };
