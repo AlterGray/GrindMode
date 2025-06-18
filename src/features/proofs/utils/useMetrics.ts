@@ -1,8 +1,9 @@
 import { useRitualStore } from "@features/rituals/ritualStore";
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
-import { isDateInLastNDays } from "@shared/lib/utils/date";
+import { getDaysDiff, isDateInLastNDays } from "@shared/lib/utils/date";
 
+import { findFirstDay } from "./common";
 import { calculateBrokenRituals } from "./numberMetricsUtils/calculateBrokenRituals";
 import { calculateCurrentStreak } from "./numberMetricsUtils/calculateCurrentStreak";
 import { calculateLongestStreak } from "./numberMetricsUtils/calculateLongestStreak";
@@ -14,7 +15,8 @@ import { calculateNoMercy } from "./ratioMetricsUtils/calculateNoMercy";
 export const useMetrics = (days: number) => {
   const rituals = useRitualStore((state) => state.rituals);
   const statistics = useRitualStatisticStore((state) => state.statistics);
-  const adjustedDays = days >= 0 ? days : 99999;
+  const daysDiff = getDaysDiff(new Date(), new Date(findFirstDay(statistics)));
+  const adjustedDays = days >= 0 ? days : daysDiff + 1;
 
   if (statistics.length === 0) {
     return {

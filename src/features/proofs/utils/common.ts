@@ -2,6 +2,16 @@ import { StatisticEntry } from "@features/rituals/statisticStore";
 
 import { getDaysDiff } from "@shared/lib/utils/date";
 
+// TODO move it to another file?
+export const findFirstDay = (statistics: StatisticEntry[]) => {
+  const firstDay = statistics
+    .flatMap((s) => s.completitions)
+    .sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    )[0].date;
+  return firstDay;
+};
+
 export const getActiveDaysCount = (
   statistics: StatisticEntry[],
   limitDays: number,
