@@ -7,13 +7,11 @@ import {
 } from "react-native-reanimated";
 
 import { Colors } from "@shared/constants/Colors";
+import { ColorName } from "@shared/types/themeTypes";
 
 import { useTheme } from "./useTheme";
 
-export const useAnimatedColor = (
-  color: keyof typeof Colors.light & keyof typeof Colors.dark,
-  isText?: boolean,
-) => {
+export const useAnimatedColor = (color: ColorName, isText?: boolean) => {
   const { colorScheme } = useTheme();
   const lightColor = Colors.light[color];
   const darkColor = Colors.dark[color];

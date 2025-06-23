@@ -9,6 +9,7 @@ import {
 
 import { Colors } from "@shared/constants/Colors";
 import { useTheme } from "@shared/hooks/useTheme";
+import { RitualPhaseColorName } from "@shared/types/themeTypes";
 
 export const useProgressBarColors = (light: string, dark: string) => {
   const { colorScheme } = useTheme();
@@ -28,7 +29,7 @@ export const useProgressBarColors = (light: string, dark: string) => {
 };
 
 export const usePhaseAnimatedColors = (
-  colorName: string,
+  colorName: RitualPhaseColorName,
   isSeparator?: boolean,
 ) => {
   const { colorScheme } = useTheme();
@@ -45,8 +46,8 @@ export const usePhaseAnimatedColors = (
       colorValue.value,
       [0, 1],
       [
-        Colors.ritualPhaseColors["light"][colorName],
-        Colors.ritualPhaseColors["dark"][colorName],
+        Colors.ritualPhaseColors.light[colorName],
+        Colors.ritualPhaseColors.dark[colorName],
       ],
     ),
   }));

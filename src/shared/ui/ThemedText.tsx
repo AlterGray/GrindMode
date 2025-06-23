@@ -1,8 +1,8 @@
 import { TextProps } from "react-native";
 import Animated from "react-native-reanimated";
 
-import { Colors } from "@shared/constants/Colors";
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { ColorName } from "@shared/types/themeTypes";
 
 type TextVariant = "h4" | "regular";
 
@@ -34,10 +34,7 @@ const ThemedText: React.FC<ThemedTextProps> = ({
     h4: "text-2xl",
   };
 
-  const colorClasses: Record<
-    TextColor,
-    keyof typeof Colors.light & keyof typeof Colors.dark
-  > = {
+  const colorClasses: Record<TextColor, ColorName> = {
     primary: "textPrimary",
     secondary: "textSecondary",
     muted: "textMuted",
