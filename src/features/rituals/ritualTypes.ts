@@ -1,5 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
-
+import { IoniconsName } from "@shared/types/commonTypes";
 import { DayType, RitualStatuses } from "@shared/types/commonTypes";
 
 // TODO status both in ritual and statistic??????
@@ -58,8 +57,8 @@ export enum RitualPhase {
 
 // TODO align order of status values in all records, switches
 export type StatusVariantsType = {
-  iconName: keyof typeof Ionicons.glyphMap;
-  iconColor: string;
+  iconName: IoniconsName;
+  iconColor: Partial<{ color: string }>;
   bgColor: string;
   text: string;
 };

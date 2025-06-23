@@ -1,13 +1,24 @@
-import { Text, TextProps } from "react-native";
+import { TextProps } from "react-native";
+import Animated from "react-native-reanimated";
+
+import { Colors } from "@shared/constants/Colors";
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 
 type TextVariant = "h4" | "regular";
 
-type ButtonColor = "primary" | "secondary" | "muted" | "danger";
+type TextColor =
+  | "primary"
+  | "secondary"
+  | "muted"
+  | "danger"
+  | "white"
+  | "inverted"
+  | "accent";
 
 type ThemedTextProps = TextProps & {
   variant?: TextVariant;
   className?: string;
-  color?: ButtonColor;
+  color?: TextColor;
   children: React.ReactNode;
 };
 
@@ -23,22 +34,29 @@ const ThemedText: React.FC<ThemedTextProps> = ({
     h4: "text-2xl",
   };
 
-  const colorClasses: Record<ButtonColor, string> = {
-    primary: "dark:text-dark-textPrimary text-light-textPrimary",
-    secondary: "dark:text-dark-textSecondary text-light-textSecondary",
-    muted: "dark:text-dark-textMuted text-light-textMuted",
-    danger: "dark:text-dark-buttonDangerText text-light-buttonDangerText",
+  const colorClasses: Record<
+    TextColor,
+    keyof typeof Colors.light & keyof typeof Colors.dark
+  > = {
+    primary: "textPrimary",
+    secondary: "textSecondary",
+    muted: "textMuted",
+    danger: "buttonDangerText",
+    white: "textWhite",
+    inverted: "textInverted",
+    accent: "textAccent",
   };
 
-  const selectedColorClasses = colorClasses[color];
+  const animatedStyles = useAnimatedColor(colorClasses[color], true);
 
   return (
-    <Text
-      className={`${selectedColorClasses} ${variantStyles[variant]} ${className}`}
+    <Animated.Text
+      style={animatedStyles}
+      className={`${variantStyles[variant]} ${className}`}
       {...props}
     >
       {children}
-    </Text>
+    </Animated.Text>
   );
 };
 

@@ -24,9 +24,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
       }`}
       activeOpacity={0.5}
     >
-      <ThemedText className="text-light-textSecondary dark:text-dark-textSecondary">
-        {header}
-      </ThemedText>
+      <ThemedText color="secondary">{header}</ThemedText>
       <ThemedText className="text-2xl font-medium">{value}</ThemedText>
     </TouchableOpacity>
   );

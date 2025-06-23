@@ -1,6 +1,9 @@
 import React from "react";
 import { View } from "react-native";
-import Svg, { Line, Path } from "react-native-svg";
+import Svg from "react-native-svg";
+
+import { AnimatedLine, AnimatedPath } from "../AnimatedComponents/AnimatedSvgs";
+import { usePhaseAnimatedColors } from "./useProgressBarColors";
 
 interface SeparatedProgressBarProps {
   width: number;
@@ -8,32 +11,31 @@ interface SeparatedProgressBarProps {
   total: number;
   doneCount: number;
   highlightedIndexes?: number[];
-  highlightColor?: string;
   colors?: {
     done?: string;
     future?: string;
   };
-  separatorColor?: string;
   separatorWidth?: number;
-  backgroundColor?: string;
-  backgroundColorOpacity?: number;
   showSeparators?: boolean;
+  phase: string;
 }
 
+// TODO make it more flexible
 export const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
   width,
   height = 10,
   total,
   doneCount,
   highlightedIndexes = [],
-  highlightColor = "#f87171",
-  colors = {},
-  separatorColor = "#ffffff88",
   separatorWidth = 1,
-  backgroundColor = "#e5e7eb",
-  backgroundColorOpacity = 1,
   showSeparators = true,
+  phase,
 }) => {
+  const phaseColorFillProps = usePhaseAnimatedColors(phase);
+  const backgroundColorFillProps = usePhaseAnimatedColors("BACKGROUND");
+  const separatorColorFillProps = usePhaseAnimatedColors("SEPARATOR", true);
+  const highlightColorFillProps = usePhaseAnimatedColors("HIGHTLIGHT");
+
   const segmentWidth = width / total;
   const radius = height / 2;
 
@@ -42,10 +44,10 @@ export const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
     [highlightedIndexes],
   );
 
-  const getColor = (i: number): string => {
-    if (highlightedSet.has(i)) return highlightColor;
-    if (i < doneCount) return colors.done ?? "#4ade80";
-    return colors.future ?? backgroundColor;
+  const getColorProps = (i: number) => {
+    if (highlightedSet.has(i)) return highlightColorFillProps;
+    if (i < doneCount) return phaseColorFillProps;
+    return backgroundColorFillProps;
   };
 
   // Генеруємо path з заокругленням лівого або правого краю
@@ -107,13 +109,13 @@ export const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
           `;
 
           return (
-            <Path
+            <AnimatedPath
               key={`seg-${i}`}
               d={createSegmentPath(i)}
-              fill={getColor(i)}
-              opacity={
-                !isHighlighted && i >= doneCount ? backgroundColorOpacity : 1
-              }
+              animatedProps={getColorProps(i)}
+              // opacity={
+              //   !isHighlighted && i >= doneCount ? backgroundColorOpacity : 1
+              // }
               transform={transform}
             />
           );
@@ -123,14 +125,14 @@ export const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
           Array.from({ length: total - 1 }).map((_, i) => {
             const x = segmentWidth * (i + 1);
             return (
-              <Line
+              <AnimatedLine
                 key={`sep-${i}`}
                 x1={x}
                 y1={0}
                 x2={x}
                 y2={height}
-                stroke={separatorColor}
                 strokeWidth={separatorWidth}
+                animatedProps={separatorColorFillProps}
               />
             );
           })}

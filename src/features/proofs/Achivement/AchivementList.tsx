@@ -1,8 +1,7 @@
 import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
-import { Ionicons } from "@expo/vector-icons";
-
+import { IoniconsName } from "@shared/types/commonTypes";
 import ThemedText from "@shared/ui/ThemedText";
 
 import AchivemetItem from "./AchivemetItem";
@@ -54,7 +53,7 @@ const AchivementList: React.FC<AchivementListProps> = () => {
   ];
 
   const renderItem = (
-    achivement: { title: string; iconName: keyof typeof Ionicons.glyphMap },
+    achivement: { title: string; iconName: IoniconsName },
     index: number,
   ) => (
     <AchivemetItem

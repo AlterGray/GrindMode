@@ -3,10 +3,11 @@ import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { IoniconsName } from "@shared/types/commonTypes";
 import ThemedText from "@shared/ui/ThemedText";
 
 type Props = {
-  iconName: keyof typeof Ionicons.glyphMap;
+  iconName: IoniconsName;
   label: string;
   unlocked: boolean;
 };

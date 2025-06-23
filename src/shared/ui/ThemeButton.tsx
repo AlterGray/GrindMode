@@ -1,18 +1,15 @@
 import { Pressable } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
-
 import { useThemeStore } from "@shared/stores/themeStore";
+import { IoniconsName } from "@shared/types/commonTypes";
 
-type ThemeButtonProps = {
-  iconColor?: string;
-};
+import { AnimatedIonicons } from "./AnimatedComponents/AnimatedIonicons";
 
-const ThemeButton: React.FC<ThemeButtonProps> = ({ iconColor }) => {
+const ThemeButton: React.FC = () => {
   const colorScheme = useThemeStore((state) => state.theme);
   const toggleTheme = useThemeStore((state) => state.toggleTheme);
 
-  const themeIcons: Record<string, keyof typeof Ionicons.glyphMap> = {
+  const themeIcons: Record<string, IoniconsName> = {
     light: "sunny-sharp",
     dark: "moon-sharp",
   };
@@ -21,12 +18,11 @@ const ThemeButton: React.FC<ThemeButtonProps> = ({ iconColor }) => {
 
   return (
     <Pressable onPress={toggleTheme} className="active:opacity-70">
-      <Ionicons
+      <AnimatedIonicons
         name={currentIconName}
         // TODO create constants for icon sizes
         size={28}
-        color={iconColor}
-        accessibilityLabel={`Switch theme, current: ${colorScheme}`}
+        // TODO
         className="px-4"
       />
     </Pressable>

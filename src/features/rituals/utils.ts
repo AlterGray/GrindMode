@@ -1,4 +1,5 @@
-import { RitualStatuses, Theme } from "@shared/types/commonTypes";
+import { useThemedAnimatedProps } from "@shared/hooks/useThemedAnimatedProps";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
 import { OrderedRitualPhases } from "./constants";
 import { RitualPhase, StatusVariantsType } from "./ritualTypes";
@@ -12,36 +13,40 @@ export const getNextRitualPhase = (phase: RitualPhase): RitualPhase | null => {
 };
 
 // TODO rename all "colors" to theme
-export const getStatusVariant = (
+export const useStatusVariant = (
   status: RitualStatuses,
-  theme: Theme,
 ): StatusVariantsType => {
+  const iconPrimarySoft = useThemedAnimatedProps("primarySoft");
+  const iconSuccessSoft = useThemedAnimatedProps("successSoft");
+  const iconWarningSoft = useThemedAnimatedProps("warningSoft");
+  const iconDangerSoft = useThemedAnimatedProps("dangerSoft");
+
   switch (status) {
     case RitualStatuses.Undone:
       return {
         iconName: "ellipse-sharp",
-        iconColor: theme.primarySoft,
+        iconColor: iconPrimarySoft,
         bgColor: "bg-light-primary dark:bg-dark-primary",
         text: "Incomplete",
       };
     case RitualStatuses.Done:
       return {
         iconName: "checkmark-circle-sharp",
-        iconColor: theme.successSoft,
+        iconColor: iconSuccessSoft,
         bgColor: "bg-light-success dark:bg-dark-success",
         text: "Completed",
       };
     case RitualStatuses.Overdue:
       return {
         iconName: "time-sharp",
-        iconColor: theme.warningSoft,
+        iconColor: iconWarningSoft,
         bgColor: "bg-light-warning dark:bg-dark-warning",
         text: "Overdue",
       };
     case RitualStatuses.Missed:
       return {
         iconName: "close-sharp",
-        iconColor: theme.dangerSoft,
+        iconColor: iconDangerSoft,
         bgColor: "bg-light-danger dark:bg-dark-danger",
         text: "Missed",
       };

@@ -50,9 +50,7 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
           <View className="flex-row w-full justify-between">
             <RitualStatus status={item.status} />
 
-            <ThemedText className="text-light-textAccent">
-              Start at {formatedStartTime}
-            </ThemedText>
+            <ThemedText color="accent">Start at {formatedStartTime}</ThemedText>
           </View>
 
           <ThemedText className="text-lg">{item.title}</ThemedText>

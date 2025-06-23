@@ -2,11 +2,12 @@ import { Pressable, View } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 
+import { IoniconsName } from "@shared/types/commonTypes";
 import ThemedText from "@shared/ui/ThemedText";
 
 type NavModalListItemProps = {
   onPress: () => void;
-  iconName?: keyof typeof Ionicons.glyphMap;
+  iconName?: IoniconsName;
   iconColor?: string;
   title: string;
   isMarked?: boolean;

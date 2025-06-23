@@ -1,6 +1,6 @@
-import { Ionicons } from "@expo/vector-icons";
+import { IoniconsName } from "@shared/types/commonTypes";
 
 export type ActionType = {
   onPress: () => void;
-  iconName: keyof typeof Ionicons.glyphMap;
+  iconName: IoniconsName;
 };

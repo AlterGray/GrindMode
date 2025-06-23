@@ -1,3 +1,5 @@
+import { Ionicons } from "@expo/vector-icons";
+
 import { Colors } from "@shared/constants/Colors";
 import { ROUTES } from "@shared/constants/routes";
 
@@ -46,3 +48,5 @@ export enum RitualStatuses {
   Overdue = "OVERDUE",
   Missed = "MISSED",
 }
+
+export type IoniconsName = keyof typeof Ionicons.glyphMap;

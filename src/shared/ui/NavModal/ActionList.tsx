@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Ionicons } from "@expo/vector-icons";
+import { IoniconsName } from "@shared/types/commonTypes";
 
 import NavModalListItem from "./NavModalListItem";
 
@@ -8,7 +8,7 @@ import NavModalListItem from "./NavModalListItem";
 export type Action = {
   title: string;
   onPress: () => void;
-  iconName?: keyof typeof Ionicons.glyphMap;
+  iconName?: IoniconsName;
   iconColor?: string;
   isMarked?: boolean;
 };
@@ -16,7 +16,7 @@ export type Action = {
 type ListItemProps = {
   title: string;
   onPress: () => void;
-  iconName?: keyof typeof Ionicons.glyphMap;
+  iconName?: IoniconsName;
   iconColor?: string;
   isMarked?: boolean;
 };

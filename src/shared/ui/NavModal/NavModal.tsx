@@ -1,8 +1,7 @@
 import React from "react";
 import { Modal, Pressable } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
-
+import { IoniconsName } from "@shared/types/commonTypes";
 import ThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
 
@@ -12,7 +11,7 @@ import ActionList, { Action } from "./ActionList";
 type ModalListItemProps = {
   title: string;
   onPress: () => void;
-  iconName?: keyof typeof Ionicons.glyphMap;
+  iconName?: IoniconsName;
 };
 
 type NavModalProps = {
