@@ -23,7 +23,7 @@ const RitualStatus: React.FC<StatusProps> = ({ status }) => {
       <ThemedText color="white">{variant.text}</ThemedText>
       <AnimatedIonicons
         name={variant.iconName}
-        customColorProps={variant.iconColor as Partial<any>}
+        customColorProps={variant.iconColor}
         size={18}
       />
     </View>

@@ -12,7 +12,7 @@ const TabBarIcon: React.FC<TabBarIconProps> = ({ iconName, animatedColor }) => {
     <AnimatedIonicons
       name={iconName}
       size={26}
-      customColorStyle={animatedColor}
+      customColorProps={animatedColor}
     />
   );
 };

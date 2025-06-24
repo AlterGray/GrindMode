@@ -5,8 +5,6 @@ import { Pressable } from "react-native";
 import { useRouter } from "expo-router";
 
 import { useKeyboardVisible } from "@shared/hooks/useKeyboardVisible";
-import { useThemeColors } from "@shared/hooks/useThemeColors";
-import { useThemedAnimatedProps } from "@shared/hooks/useThemedAnimatedProps";
 import { FloatingModalVariant, RouteType } from "@shared/types/commonTypes";
 import ToggleList from "@shared/ui/ToggleList/ToggleList";
 
@@ -38,9 +36,6 @@ const CreateButton: React.FC<CreateButtonProps> = ({
     <ToggleList options={options} onPress={onPress} />
   );
 
-  // TODO move it to the file with animated component?
-  const iconColorProps = useThemedAnimatedProps("icon");
-
   return (
     <>
       <FloatingModal
@@ -59,11 +54,7 @@ const CreateButton: React.FC<CreateButtonProps> = ({
           }`}
         >
           {/* TODO add shadow */}
-          <AnimatedIonicons
-            size={56}
-            name="add-circle-sharp"
-            customColorProps={iconColorProps}
-          />
+          <AnimatedIonicons size={56} name="add-circle-sharp" />
         </Pressable>
       )}
     </>
