@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import { Redirect } from "expo-router";
-
 import FolderRenameDialog from "@features/folder/components/FolderRenameDialog";
 import { useFolderStore } from "@features/folder/folderStore";
 import { foldersToScrollTabs } from "@features/folder/utils";

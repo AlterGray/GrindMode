@@ -7,13 +7,12 @@ import {
 } from "react-native-reanimated";
 
 import { Colors } from "@shared/constants/Colors";
+import { ColorName } from "@shared/types/themeTypes";
 
 import { useTheme } from "./useTheme";
 
 // TODO
-export const useThemedAnimatedProps = (
-  colorName: keyof (typeof Colors)["light"] & keyof (typeof Colors)["dark"],
-) => {
+export const useThemedAnimatedProps = (colorName: ColorName) => {
   const { colorScheme } = useTheme();
   const colorValue = useSharedValue(colorScheme === "light" ? 0 : 1);
 
