@@ -50,6 +50,7 @@ const TabsLayout = () => {
             tabBarItemStyle: pointerEvents,
             tabBarIcon: ({ focused }) => (
               <TabBarIcon
+                key={screen.icon + colorScheme}
                 iconName={screen.icon}
                 animatedColor={resolveTextColor(focused)}
               />
