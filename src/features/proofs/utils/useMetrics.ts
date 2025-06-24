@@ -16,7 +16,10 @@ export const useMetrics = (days: number) => {
   const rituals = useRitualStore((state) => state.rituals);
   const statistics = useRitualStatisticStore((state) => state.statistics);
 
-  if (statistics.length === 0) {
+  if (
+    statistics.length === 0 ||
+    statistics.flatMap((s) => s.completitions).length === 0
+  ) {
     return {
       ratioMetrics: {
         completionRate: 0,
