@@ -17,7 +17,7 @@ const ThemeButton: React.FC = () => {
   const currentIconName = themeIcons[colorScheme];
 
   return (
-    <Pressable onPress={toggleTheme} className="active:opacity-70">
+    <Pressable onPress={toggleTheme} hitSlop={8} className="active:opacity-70">
       <AnimatedIonicons
         name={currentIconName}
         // TODO create constants for icon sizes
