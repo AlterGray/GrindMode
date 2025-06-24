@@ -53,6 +53,7 @@ const TabsLayout = () => {
               <TabBarIcon
                 iconName={screen.icon}
                 animatedColor={resolveTextColor(focused)}
+                // TODO it will be fixed when u will use one value for transition throughout whole app?
                 color={
                   colorScheme === "light"
                     ? focused
