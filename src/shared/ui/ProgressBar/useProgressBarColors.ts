@@ -46,8 +46,8 @@ export const usePhaseAnimatedColors = (
       colorValue.value,
       [0, 1],
       [
-        Colors.ritualPhaseColors.light[colorName],
-        Colors.ritualPhaseColors.dark[colorName],
+        Colors.ritualPhaseColors[colorName].light,
+        Colors.ritualPhaseColors[colorName].dark,
       ],
     ),
   }));
