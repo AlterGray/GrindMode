@@ -30,6 +30,8 @@ const StyledList: React.FC<StyledListProps> = ({
 }) => {
   const isNavigating = useNavigationFocus();
 
+  const backgroundColorStyles = useAnimatedColor("background");
+
   const handleItemAction = (itemId: string, isLongPress: boolean) => {
     if (isNavigating) return;
 
@@ -62,8 +64,6 @@ const StyledList: React.FC<StyledListProps> = ({
       </StyledItem>
     );
   };
-
-  const backgroundColorStyles = useAnimatedColor("background");
 
   return (
     <Animated.FlatList
