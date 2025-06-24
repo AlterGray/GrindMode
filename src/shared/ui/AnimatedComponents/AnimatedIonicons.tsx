@@ -3,26 +3,26 @@ import Animated from "react-native-reanimated";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import { useThemedAnimatedProps } from "@shared/hooks/useThemedAnimatedProps";
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
 
 type AnimatedIoniconsProps = ComponentProps<typeof Ionicons> & {
-  customColorProps?: Partial<{ color: string }>;
+  customColorStyle?: Partial<{ color: string }>;
 };
 
 export const AnimatedIonicons: React.FC<AnimatedIoniconsProps> = ({
   name,
   size,
-  customColorProps,
+  customColorStyle,
 }) => {
-  const colorProps = useThemedAnimatedProps("icon");
+  const colorProps = useAnimatedColor("icon", true);
 
   return (
     <AnimatedIcon
       name={name}
       size={size}
-      animatedProps={customColorProps ?? colorProps}
+      style={customColorStyle ?? colorProps}
     />
   );
 };

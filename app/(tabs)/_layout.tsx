@@ -13,7 +13,7 @@ import TabBarLabel from "@shared/ui/Layout/TabBarLabel";
 import ThemeButton from "@shared/ui/ThemeButton";
 
 const TabsLayout = () => {
-  const { resolveTextColor, resolveFillColor, pointerEvents } = useTabColor();
+  const { resolveTextColor, pointerEvents } = useTabColor();
   const animatedColor = useAnimatedColor("backgroundSurface");
   const { colorScheme } = useTheme();
 
@@ -51,7 +51,7 @@ const TabsLayout = () => {
             tabBarIcon: ({ focused }) => (
               <TabBarIcon
                 iconName={screen.icon}
-                animatedColor={resolveFillColor(focused)}
+                animatedColor={resolveTextColor(focused)}
               />
             ),
             tabBarIconStyle: {},
