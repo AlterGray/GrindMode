@@ -3,6 +3,7 @@ import Animated from "react-native-reanimated";
 
 import { Tabs } from "expo-router";
 
+import { Colors } from "@shared/constants/Colors";
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { useTabColor } from "@shared/hooks/useTabColor";
 import { useTheme } from "@shared/hooks/useTheme";
@@ -50,9 +51,17 @@ const TabsLayout = () => {
             tabBarItemStyle: pointerEvents,
             tabBarIcon: ({ focused }) => (
               <TabBarIcon
-                key={screen.icon + colorScheme}
                 iconName={screen.icon}
                 animatedColor={resolveTextColor(focused)}
+                color={
+                  colorScheme === "light"
+                    ? focused
+                      ? Colors.light.tabActive
+                      : Colors.light.tabInactive
+                    : focused
+                      ? Colors.dark.tabActive
+                      : Colors.dark.tabInactive
+                }
               />
             ),
             tabBarIconStyle: {},
