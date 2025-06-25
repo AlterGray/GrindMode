@@ -35,8 +35,8 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
   const totalSteps = isDeepIntegration ? 2 : phaseItem.to - phaseItem.from;
 
   const animatedTextStyles = useProgressBarColors(
-    Colors.ritualPhaseColors["light"][phase],
-    Colors.ritualPhaseColors["dark"][phase],
+    Colors.ritualPhaseColors[phase].light,
+    Colors.ritualPhaseColors[phase].dark,
   );
 
   const nextPhase = getNextRitualPhase(phase)!;
