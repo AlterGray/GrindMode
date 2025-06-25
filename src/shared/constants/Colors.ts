@@ -5,6 +5,8 @@ export const Colors = {
     textSecondary: "#4b5563",
     textMuted: "#9ca3af",
     textAccent: "#64748b",
+    textWhite: "#fff",
+    textInverted: "#000",
 
     // BACKGROUND
     background: "#f9fbfd",
@@ -47,7 +49,7 @@ export const Colors = {
     disabledIcon: "#cbd5e1",
     tabInactive: "#d1d5db",
     tabActive: "#4b5563",
-    disabledTab: "#e5e7eb",
+    tabDisabled: "#e5e7eb",
 
     // STATUS COLORS (List Item)
     statusDone: "#22c55e",
@@ -82,6 +84,8 @@ export const Colors = {
     textSecondary: "#9ca3af",
     textMuted: "#6b7280",
     textAccent: "#64748b",
+    textWhite: "#fff",
+    textInverted: "#fff",
 
     // BACKGROUND
     background: "#0f1115",
@@ -124,7 +128,7 @@ export const Colors = {
     disabledIcon: "#4b5563",
     tabInactive: "#4b5563",
     tabActive: "#d1d5db",
-    disabledTab: "rgba(209, 213, 219, 0.3)",
+    tabDisabled: "rgba(209, 213, 219, 0.3)",
 
     // STATUS COLORS (List Item)
     statusDone: "#22c55e",
