@@ -24,7 +24,7 @@ interface SeparatedProgressBarProps {
 }
 
 // TODO make it more flexible
-export const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
+const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
   width,
   height = 10,
   total,
@@ -143,3 +143,5 @@ export const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
     </View>
   );
 };
+
+export default SeparatedProgressBar;

@@ -203,22 +203,25 @@ export const Colors = {
     "pink",
   ],
 
+  // TODO replace with light: { highlight: "#34D399", text: "#10B981", background: "#10B981" } etc
   ritualPhaseColors: {
-    INITIATION: {
-      light: "#f97316",
-      dark: "#D9480F",
+    light: {
+      INITIATION: "#f97316",
+      CONSOLIDATION: "#FDBA74",
+      STABILIZATION: "#81C784",
+      DEEP_INTEGRATION: "#34D399",
+      HIGHTLIGHT: "#BE4E74",
+      SEPARATOR: "#000",
+      BACKGROUND: "#FFF",
     },
-    CONSOLIDATION: {
-      light: "#FDBA74",
-      dark: "#F97316",
-    },
-    STABILIZATION: {
-      light: "#81C784",
-      dark: "#2E7D32",
-    },
-    DEEP_INTEGRATION: {
-      light: "#34D399",
-      dark: "#10B981",
+    dark: {
+      INITIATION: "#D9480F",
+      CONSOLIDATION: "#F97316",
+      STABILIZATION: "#2E7D32",
+      DEEP_INTEGRATION: "#10B981",
+      HIGHTLIGHT: "#BE708B",
+      SEPARATOR: "#fff",
+      BACKGROUND: "#000",
     },
   },
 };

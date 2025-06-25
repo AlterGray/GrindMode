@@ -1,32 +1,16 @@
-import { useEffect } from "react";
-import {
-  interpolateColor,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import { interpolateColor, useAnimatedStyle } from "react-native-reanimated";
 
 import { Colors } from "@shared/constants/Colors";
+import { themeTransitionProgress } from "@shared/stores/themeStore";
 import { ColorName } from "@shared/types/themeTypes";
 
-import { useTheme } from "./useTheme";
-
 export const useAnimatedColor = (color: ColorName, isText?: boolean) => {
-  const { colorScheme } = useTheme();
   const lightColor = Colors.light[color];
   const darkColor = Colors.dark[color];
 
-  const colorValue = useSharedValue<number>(colorScheme === "light" ? 0 : 1);
-
-  useEffect(() => {
-    colorValue.value = withTiming(colorScheme === "light" ? 0 : 1, {
-      duration: 250,
-    });
-  }, [colorScheme, color]);
-
   const animatedStyles = useAnimatedStyle(() => ({
     [isText ? "color" : "backgroundColor"]: interpolateColor(
-      colorValue.value,
+      themeTransitionProgress.value,
       [0, 1],
       [lightColor, darkColor],
     ),

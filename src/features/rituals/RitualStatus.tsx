@@ -21,6 +21,7 @@ const RitualStatus: React.FC<StatusProps> = ({ status }) => {
     <View className={`flex-row gap-2 rounded-sm px-2 py-1 ${variant.bgColor}`}>
       {/* TODO introduce color white */}
       <ThemedText color="white">{variant.text}</ThemedText>
+      {/* TODO fix animating */}
       <AnimatedIonicons
         name={variant.iconName}
         customColorProps={variant.iconColor}

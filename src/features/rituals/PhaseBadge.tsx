@@ -4,7 +4,7 @@ import Animated from "react-native-reanimated";
 
 import { Colors } from "@shared/constants/Colors";
 import { RitualStatuses } from "@shared/types/commonTypes";
-import { SeparatedProgressBar } from "@shared/ui/ProgressBar/ProgressBar";
+import SeparatedProgressBar from "@shared/ui/ProgressBar/ProgressBar";
 import { useProgressBarColors } from "@shared/ui/ProgressBar/useProgressBarColors";
 
 import { Tooltip } from "./Tooltip";
@@ -35,8 +35,8 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
   const totalSteps = isDeepIntegration ? 2 : phaseItem.to - phaseItem.from;
 
   const animatedTextStyles = useProgressBarColors(
-    Colors.ritualPhaseColors[phase].light,
-    Colors.ritualPhaseColors[phase].dark,
+    Colors.ritualPhaseColors.light[phase],
+    Colors.ritualPhaseColors.dark[phase],
   );
 
   const nextPhase = getNextRitualPhase(phase)!;

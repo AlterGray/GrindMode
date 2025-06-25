@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
+import { runOnUI, useDerivedValue, withTiming } from "react-native-reanimated";
 
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -14,7 +15,9 @@ import { useStatisticStoreWithSubscribe } from "@features/rituals/statisticStore
 
 import { useTheme } from "@shared/hooks/useTheme";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { useThemeTransitionSync } from "@shared/hooks/useThemeTransitionSync";
 import {
+  themeTransitionProgress,
   useThemeStore,
   useThemeStoreWithSubscribe,
 } from "@shared/stores/themeStore";
@@ -37,12 +40,14 @@ const RootLayout = () => {
   useRecalculateMissedRituals();
   useThemeStoreWithSubscribe();
 
+  useThemeTransitionSync();
+
   // TODO
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  const { colorScheme, setScheme: setTheme } = useTheme();
+  const { colorScheme, setScheme } = useTheme();
   const theme = useThemeStore((state) => state.theme);
   const backgroundColor = useThemeColors("backgroundSurface");
 
@@ -54,7 +59,11 @@ const RootLayout = () => {
 
   // TODO subscribe? TODO
   useEffect(() => {
-    setTheme(theme);
+    const timeout = setTimeout(() => {
+      setScheme(theme); // or maybe setState if you're syncing to system theme
+    }, 300);
+
+    return () => clearTimeout(timeout);
   }, [theme]);
 
   if (!loaded) {
