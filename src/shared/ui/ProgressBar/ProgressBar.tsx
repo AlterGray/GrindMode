@@ -2,6 +2,9 @@ import React from "react";
 import { View } from "react-native";
 import Svg from "react-native-svg";
 
+import { usePropsAnimatedColor } from "@shared/hooks/usePropsAnimatedColor";
+import { RitualPhaseColorName } from "@shared/types/themeTypes";
+
 import { AnimatedLine, AnimatedPath } from "../AnimatedComponents/AnimatedSvgs";
 import { usePhaseAnimatedColors } from "./useProgressBarColors";
 
@@ -17,7 +20,7 @@ interface SeparatedProgressBarProps {
   };
   separatorWidth?: number;
   showSeparators?: boolean;
-  phase: string;
+  phase: RitualPhaseColorName;
 }
 
 // TODO make it more flexible
@@ -32,9 +35,9 @@ export const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
   phase,
 }) => {
   const phaseColorFillProps = usePhaseAnimatedColors(phase);
-  const backgroundColorFillProps = usePhaseAnimatedColors("BACKGROUND");
-  const separatorColorFillProps = usePhaseAnimatedColors("SEPARATOR", true);
-  const highlightColorFillProps = usePhaseAnimatedColors("HIGHTLIGHT");
+  const backgroundColorFillProps = usePropsAnimatedColor("background");
+  const separatorColorFillProps = usePropsAnimatedColor("tabInactive", true);
+  const highlightColorFillProps = usePropsAnimatedColor("tabActive");
 
   const segmentWidth = width / total;
   const radius = height / 2;
