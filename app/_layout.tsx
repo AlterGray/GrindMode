@@ -61,7 +61,7 @@ const RootLayout = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setScheme(theme); // or maybe setState if you're syncing to system theme
-    }, 300);
+    }, 250);
 
     return () => clearTimeout(timeout);
   }, [theme]);

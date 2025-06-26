@@ -6,19 +6,13 @@ import { AnimatedIonicons } from "../AnimatedComponents/AnimatedIonicons";
 type TabBarIconProps = {
   iconName: IoniconsName;
   animatedColor: ReturnType<typeof useAnimatedColor>;
-  color?: string;
 };
-const TabBarIcon: React.FC<TabBarIconProps> = ({
-  iconName,
-  animatedColor,
-  color,
-}) => {
+const TabBarIcon: React.FC<TabBarIconProps> = ({ iconName, animatedColor }) => {
   return (
     <AnimatedIonicons
       name={iconName}
       size={26}
       customColorProps={animatedColor}
-      color={color}
     />
   );
 };
