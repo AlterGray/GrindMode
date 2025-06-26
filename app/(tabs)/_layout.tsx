@@ -4,18 +4,18 @@ import Animated from "react-native-reanimated";
 import { Tabs } from "expo-router";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
-import { useTabColor } from "@shared/hooks/useTabColor";
-import { useTheme } from "@shared/hooks/useTheme";
 import { IoniconsName } from "@shared/types/commonTypes";
+import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import AnimatedHeader from "@shared/ui/AnimatedComponents/AnimatedHeader";
 import TabBarIcon from "@shared/ui/Layout/TabBarIcon";
 import TabBarLabel from "@shared/ui/Layout/TabBarLabel";
 import ThemeButton from "@shared/ui/ThemeButton";
 
 const TabsLayout = () => {
-  const { resolveTextColor, pointerEvents } = useTabColor();
   const animatedColor = useAnimatedColor("backgroundSurface");
-  const { colorScheme } = useTheme();
+  const isModalOpen = useActionModalStore((s) => s.isOpen);
+
+  const pointerEvents = isModalOpen ? "box-none" : "box-none";
 
   const screens: { title: string; name: string; icon: IoniconsName }[] = [
     { title: "Daily rituals", name: "index", icon: "flame-sharp" },
@@ -47,12 +47,9 @@ const TabsLayout = () => {
           name={screen.name}
           options={{
             title: screen.title,
-            tabBarItemStyle: pointerEvents,
+            tabBarItemStyle: { pointerEvents },
             tabBarIcon: ({ focused }) => (
-              <TabBarIcon
-                iconName={screen.icon}
-                animatedColor={resolveTextColor(focused)}
-              />
+              <TabBarIcon iconName={screen.icon} focused={focused} />
             ),
           }}
         />
