@@ -12,6 +12,7 @@ export const Colors = {
     background: "#f9fbfd",
     backgroundSecondary: "#e8ebf0",
     backgroundSurface: "#ffffff",
+    bgTransparent: "transparent",
 
     // LISTS
     listItemBackground: "#ffffff",
@@ -91,6 +92,7 @@ export const Colors = {
     background: "#0f1115",
     backgroundSecondary: "#1a1c20",
     backgroundSurface: "#24282d",
+    bgTransparent: "transparent",
 
     // LISTS
     listItemBackground: "#1a1d22",
