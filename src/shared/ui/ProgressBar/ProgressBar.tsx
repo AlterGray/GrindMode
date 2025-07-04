@@ -1,12 +1,11 @@
 import React from "react";
 import { View } from "react-native";
-import Svg from "react-native-svg";
+import Svg, { Line, Path } from "react-native-svg";
 
-import { usePropsAnimatedColor } from "@shared/hooks/usePropsAnimatedColor";
+import { Colors } from "@shared/constants/Colors";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { useThemeStore } from "@shared/stores/themeStore";
 import { RitualPhaseColorName } from "@shared/types/themeTypes";
-
-import { AnimatedLine, AnimatedPath } from "../AnimatedComponents/AnimatedSvgs";
-import { usePhaseAnimatedColors } from "./useProgressBarColors";
 
 interface SeparatedProgressBarProps {
   width: number;
@@ -21,6 +20,7 @@ interface SeparatedProgressBarProps {
   separatorWidth?: number;
   showSeparators?: boolean;
   phase: RitualPhaseColorName;
+  backgroundColorOpacity?: number;
 }
 
 // TODO make it more flexible
@@ -33,11 +33,14 @@ const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
   separatorWidth = 1,
   showSeparators = true,
   phase,
+  backgroundColorOpacity = 0.7,
 }) => {
-  const phaseColorFillProps = usePhaseAnimatedColors(phase);
-  const backgroundColorFillProps = usePropsAnimatedColor("background");
-  const separatorColorFillProps = usePropsAnimatedColor("tabInactive", true);
-  const highlightColorFillProps = usePropsAnimatedColor("tabActive");
+  const theme = useThemeStore((state) => state.theme);
+  const phaseColorFillProps =
+    Colors.ritualPhaseColors[theme === "dark" ? "dark" : "light"][phase];
+  const backgroundColorFillProps = useThemeColors("background");
+  const separatorColorFillProps = useThemeColors("tabInactive");
+  const highlightColorFillProps = useThemeColors("tabActive");
 
   const segmentWidth = width / total;
   const radius = height / 2;
@@ -112,13 +115,13 @@ const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
           `;
 
           return (
-            <AnimatedPath
+            <Path
               key={`seg-${i}`}
               d={createSegmentPath(i)}
-              animatedProps={getColorProps(i)}
-              // opacity={
-              //   !isHighlighted && i >= doneCount ? backgroundColorOpacity : 1
-              // }
+              fill={getColorProps(i)}
+              opacity={
+                !isHighlighted && i >= doneCount ? backgroundColorOpacity : 1
+              }
               transform={transform}
             />
           );
@@ -128,14 +131,14 @@ const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
           Array.from({ length: total - 1 }).map((_, i) => {
             const x = segmentWidth * (i + 1);
             return (
-              <AnimatedLine
+              <Line
                 key={`sep-${i}`}
                 x1={x}
                 y1={0}
                 x2={x}
                 y2={height}
                 strokeWidth={separatorWidth}
-                animatedProps={separatorColorFillProps}
+                stroke={separatorColorFillProps}
               />
             );
           })}

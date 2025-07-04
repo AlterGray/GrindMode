@@ -5,7 +5,11 @@ import { IoniconsName } from "@shared/types/commonTypes";
 
 import { AnimatedIonicons } from "./AnimatedComponents/AnimatedIonicons";
 
-const ThemeButton: React.FC = () => {
+type ThemeButtonProps = {
+  className?: string;
+};
+
+const ThemeButton: React.FC<ThemeButtonProps> = ({ className }) => {
   const colorScheme = useThemeStore((state) => state.theme);
   const toggleTheme = useThemeStore((state) => state.toggleTheme);
 
@@ -17,13 +21,16 @@ const ThemeButton: React.FC = () => {
   const currentIconName = themeIcons[colorScheme];
 
   return (
-    <Pressable onPress={toggleTheme} hitSlop={8} className="active:opacity-70">
+    <Pressable
+      onPress={toggleTheme}
+      hitSlop={8}
+      className={`active:opacity-70 ${className}`}
+    >
       <AnimatedIonicons
         name={currentIconName}
         // TODO create constants for icon sizes
         size={28}
         // TODO
-        className="px-4"
       />
     </Pressable>
   );

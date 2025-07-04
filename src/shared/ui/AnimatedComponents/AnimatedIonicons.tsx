@@ -1,23 +1,22 @@
 import { ComponentProps } from "react";
-import Animated from "react-native-reanimated";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 
 type AnimatedIoniconsProps = ComponentProps<typeof Ionicons> & {
-  animatedStyle?: Partial<{ color: string }>;
+  iconColor?: string;
 };
 
 export const AnimatedIonicons: React.FC<AnimatedIoniconsProps> = ({
   name,
   size,
-  animatedStyle,
+  iconColor,
 }) => {
-  const colorProps = useAnimatedColor("icon", true);
+  const defaultIconColor = useThemeColors("icon");
 
   return (
-    <Animated.Text style={animatedStyle ?? colorProps}>
-      <Ionicons name={name} size={size} />
-    </Animated.Text>
+    // <Text>
+    <Ionicons name={name} size={size} color={iconColor || defaultIconColor} />
+    // </Text>
   );
 };

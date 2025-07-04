@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-import Animated from "react-native-reanimated";
+import { ScrollView } from "react-native-gesture-handler";
 
 import DisciplineMetrics from "@features/proofs/DisciplineMetrics/DisciplineMetrics";
 import Header from "@features/proofs/Header";
@@ -9,7 +9,7 @@ import { getActiveDaysCount } from "@features/proofs/utils/common";
 import { useRitualStore } from "@features/rituals/ritualStore";
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
-import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 import HorizontalTabBar from "@shared/ui/HorizontalTabBar";
 
 // TODO add exhoustive checks?
@@ -41,10 +41,10 @@ const proofs = () => {
 
   const rituals = useRitualStore((state) => state.rituals);
 
-  const animatedStyles = useAnimatedColor("backgroundSurface");
+  const bgColor = useThemeColors("backgroundSurface");
 
   return (
-    <Animated.ScrollView style={animatedStyles} className={"px-4"}>
+    <ScrollView className={`px-4 ${bgColor}`}>
       <View className="gap-4 pt-6">
         <Header />
         <HorizontalTabBar
@@ -60,7 +60,7 @@ const proofs = () => {
           {/* <AchivementList /> */}
         </View>
       </View>
-    </Animated.ScrollView>
+    </ScrollView>
   );
 };
 

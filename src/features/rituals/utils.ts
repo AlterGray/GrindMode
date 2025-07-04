@@ -1,4 +1,4 @@
-import { useThemedAnimatedProps } from "@shared/hooks/useThemedAnimatedProps";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { RitualStatuses } from "@shared/types/commonTypes";
 
 import { OrderedRitualPhases } from "./constants";
@@ -16,10 +16,10 @@ export const getNextRitualPhase = (phase: RitualPhase): RitualPhase | null => {
 export const useStatusVariant = (
   status: RitualStatuses,
 ): StatusVariantsType => {
-  const iconPrimarySoft = useThemedAnimatedProps("primarySoft");
-  const iconSuccessSoft = useThemedAnimatedProps("successSoft");
-  const iconWarningSoft = useThemedAnimatedProps("warningSoft");
-  const iconDangerSoft = useThemedAnimatedProps("dangerSoft");
+  const iconPrimarySoft = useThemeColors("primarySoft");
+  const iconSuccessSoft = useThemeColors("successSoft");
+  const iconWarningSoft = useThemeColors("warningSoft");
+  const iconDangerSoft = useThemeColors("dangerSoft");
 
   switch (status) {
     case RitualStatuses.Undone:

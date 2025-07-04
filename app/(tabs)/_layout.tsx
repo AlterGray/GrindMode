@@ -1,19 +1,16 @@
 import React from "react";
-import Animated from "react-native-reanimated";
 
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
-import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { IoniconsName } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
-import AnimatedHeader from "@shared/ui/AnimatedComponents/AnimatedHeader";
-import TabBarIcon from "@shared/ui/Layout/TabBarIcon";
-import TabBarLabel from "@shared/ui/Layout/TabBarLabel";
 import ThemeButton from "@shared/ui/ThemeButton";
 
 const TabsLayout = () => {
-  const animatedColor = useAnimatedColor("backgroundSurface");
   const isModalOpen = useActionModalStore((s) => s.isOpen);
+  const theme = useThemeColors();
 
   const pointerEvents = isModalOpen ? "box-none" : "box-none";
 
@@ -28,16 +25,16 @@ const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        header: ({ options: { title } }) => (
-          <AnimatedHeader headerRight={<ThemeButton />} title={title} />
-        ),
-        tabBarLabel: ({ focused, children }) => (
-          <TabBarLabel label={children} focused={focused} />
-        ),
+        tabBarStyle: {
+          backgroundColor: theme.backgroundSurface,
+          borderTopColor: theme.border,
+        },
+        tabBarActiveTintColor: isModalOpen ? theme.icon : theme.tabActive,
+        tabBarInactiveTintColor: isModalOpen ? theme.icon : theme.tabInactive,
+        headerStyle: { backgroundColor: theme.backgroundSurface },
+        headerTintColor: theme.textPrimary,
+        headerRight: () => <ThemeButton className="px-4" />,
         tabBarHideOnKeyboard: true,
-        tabBarBackground: () => (
-          <Animated.View style={[animatedColor, { flex: 1 }]} />
-        ),
       }}
     >
       {/* TODO add bage? */}
@@ -48,8 +45,8 @@ const TabsLayout = () => {
           options={{
             title: screen.title,
             tabBarItemStyle: { pointerEvents },
-            tabBarIcon: ({ focused }) => (
-              <TabBarIcon iconName={screen.icon} focused={focused} />
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name={screen.icon} size={size} color={color} />
             ),
           }}
         />

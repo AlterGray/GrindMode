@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
-import Animated from "react-native-reanimated";
+import { FlatList } from "react-native";
 
-import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { useNavigationFocus } from "@shared/hooks/useNavigationFocus";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 import StyledButton from "@shared/ui/StyledButton";
 import ThemedText from "@shared/ui/ThemedText";
 
@@ -30,7 +30,7 @@ const StyledList: React.FC<StyledListProps> = ({
 }) => {
   const isNavigating = useNavigationFocus();
 
-  const backgroundColorStyles = useAnimatedColor("background");
+  const backgroundColor = useThemeColors("background");
 
   const handleItemAction = (itemId: string, isLongPress: boolean) => {
     if (isNavigating) return;
@@ -66,12 +66,11 @@ const StyledList: React.FC<StyledListProps> = ({
   };
 
   return (
-    <Animated.FlatList
+    <FlatList
       data={data}
       keyExtractor={(item) => item.id}
       renderItem={renderItemComponent}
-      className="w-full"
-      style={backgroundColorStyles}
+      className={`w-full ${backgroundColor}`}
     />
   );
 };
