@@ -16,10 +16,10 @@ export const getNextRitualPhase = (phase: RitualPhase): RitualPhase | null => {
 export const useStatusVariant = (
   status: RitualStatuses,
 ): StatusVariantsType => {
-  const iconPrimarySoft = useAnimatedColor("primarySoft");
-  const iconSuccessSoft = useAnimatedColor("successSoft");
-  const iconWarningSoft = useAnimatedColor("warningSoft");
-  const iconDangerSoft = useAnimatedColor("dangerSoft");
+  const iconPrimarySoft = useAnimatedColor("primarySoft", true);
+  const iconSuccessSoft = useAnimatedColor("successSoft", true);
+  const iconWarningSoft = useAnimatedColor("warningSoft", true);
+  const iconDangerSoft = useAnimatedColor("dangerSoft", true);
 
   switch (status) {
     case RitualStatuses.Undone:
