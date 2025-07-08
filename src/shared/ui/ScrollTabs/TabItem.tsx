@@ -9,7 +9,7 @@ import { useFolderColor } from "@features/folder/useFolderColor";
 import { usePopoverMenu } from "@shared/hooks/usePopoverMenu";
 
 import ActiveIndicator from "../ActiveIndicator";
-import ThemedText from "../ThemedText";
+import AnimatedThemedText from "../ThemedText";
 import { TabItemProps } from "./types";
 
 // TODO replace this things with "item"
@@ -39,7 +39,9 @@ const TabItem: React.FC<TabItemProps> = ({
         onLongPress={isReordering ? onLongPress : () => openMenu(menuItems)}
         className="gap-1 rounded-md px-4 py-4 active:bg-light-highlight active:opacity-80 active:dark:bg-dark-highlight"
       >
-        <ThemedText style={{ color: computedColor }}>{title}</ThemedText>
+        <AnimatedThemedText style={{ color: computedColor }}>
+          {title}
+        </AnimatedThemedText>
         {/* // TODO does it make sense to rewrite with "status"? */}
         {isReordering && (
           <View className="absolute right-0">

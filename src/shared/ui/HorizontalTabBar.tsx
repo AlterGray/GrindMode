@@ -2,7 +2,7 @@ import { Pressable, View } from "react-native";
 
 import { Tooltip } from "@features/rituals/Tooltip";
 
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type HorizontalTabBarProps = {
   tabs: { label: string; isWarning: boolean; id: string }[];
@@ -26,9 +26,9 @@ const HorizontalTabBar: React.FC<HorizontalTabBarProps> = ({
           }}
           className={`flex-row justify-around p-2 flex-auto ${activeTab === tab.id ? "bg-light-listItemBorder dark:bg-dark-selectedListItemBackground" : ""}`}
         >
-          <ThemedText className="text-center font-medium">
+          <AnimatedThemedText className="text-center font-medium">
             {tab.label}
-          </ThemedText>
+          </AnimatedThemedText>
           {/* TODO change colors as it hard to see */}
           {tab.isWarning && tab.id === activeTab && (
             <Tooltip

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, View } from "react-native";
 
 import StyledButton from "@shared/ui/StyledButton";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
 
 import HoursPicker from "./HoursPicker";
@@ -37,9 +37,9 @@ const DurationPicker: React.FC<DurationPickerProps> = ({
     <Modal transparent visible={isVisible} animationType="fade">
       <View className="flex-1 items-center justify-center bg-black/50">
         <ThemedView className="bg-backgroundSurface w-10/12 rounded-xl p-4">
-          <ThemedText className="mb-2 text-base font-medium">
+          <AnimatedThemedText className="mb-2 text-base font-medium">
             Select Duration
-          </ThemedText>
+          </AnimatedThemedText>
 
           <ThemedView className="mb-4 flex-row justify-center gap-6">
             <HoursPicker

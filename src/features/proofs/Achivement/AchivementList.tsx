@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import { IoniconsName } from "@shared/types/commonTypes";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import AchivemetItem from "./AchivemetItem";
 
@@ -66,7 +66,9 @@ const AchivementList: React.FC<AchivementListProps> = () => {
 
   return (
     <View className="gap-4">
-      <ThemedText className="text-2xl font-medium">Achievements</ThemedText>
+      <AnimatedThemedText className="text-2xl font-medium">
+        Achievements
+      </AnimatedThemedText>
 
       <FlatList
         data={achievements}

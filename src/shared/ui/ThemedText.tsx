@@ -1,4 +1,8 @@
-import { Text, TextProps } from "react-native";
+import { TextProps } from "react-native";
+import Animated from "react-native-reanimated";
+
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { ColorName } from "@shared/types/themeTypes";
 
 type TextVariant = "h4" | "regular";
 
@@ -11,14 +15,14 @@ type TextColor =
   | "inverted"
   | "accent";
 
-type ThemedTextProps = TextProps & {
+type AnimatedThemedTextProps = TextProps & {
   variant?: TextVariant;
   className?: string;
   color?: TextColor;
   children: React.ReactNode;
 };
 
-const ThemedText: React.FC<ThemedTextProps> = ({
+const AnimatedThemedText: React.FC<AnimatedThemedTextProps> = ({
   variant = "regular",
   className = "",
   color = "primary",
@@ -30,24 +34,28 @@ const ThemedText: React.FC<ThemedTextProps> = ({
     h4: "text-2xl",
   };
 
-  const colorClasses: Record<TextColor, string> = {
-    primary: "text-light-textPrimary dark:text-dark-textPrimary",
-    secondary: "text-light-textSecondary dark:text-dark-textSecondary",
-    muted: "text-light-textMuted dark:text-dark-textMuted",
-    danger: "text-light-buttonDangerText dark:text-dark-buttonDangerText",
-    white: "text-light-textWhite dark:text-dark-textWhite",
-    inverted: "text-light-textInverted dark:text-dark-textInverted",
-    accent: "text-light-textAccent dark:text-dark-textAccent",
+  // TODO remove this wrapper, it's redundant
+  const colorClasses: Record<TextColor, ColorName> = {
+    primary: "textPrimary",
+    secondary: "textSecondary",
+    muted: "textMuted",
+    danger: "buttonDangerText",
+    white: "textWhite",
+    inverted: "textInverted",
+    accent: "textAccent",
   };
 
+  const animatedBgColor = useAnimatedColor(colorClasses[color], true);
+
   return (
-    <Text
+    <Animated.Text
+      style={animatedBgColor}
       className={`${colorClasses[color]} ${variantStyles[variant]} ${className}`}
       {...props}
     >
       {children}
-    </Text>
+    </Animated.Text>
   );
 };
 
-export default ThemedText;
+export default AnimatedThemedText;

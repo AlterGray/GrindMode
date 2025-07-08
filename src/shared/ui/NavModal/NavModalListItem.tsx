@@ -3,7 +3,7 @@ import { Pressable, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { IoniconsName } from "@shared/types/commonTypes";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type NavModalListItemProps = {
   onPress: () => void;
@@ -29,12 +29,12 @@ const NavModalListItem: React.FC<NavModalListItemProps> = ({
     >
       <View className="flex-row items-center gap-8">
         {iconName && <Ionicons name={iconName} size={24} color={iconColor} />}
-        <ThemedText
+        <AnimatedThemedText
           className={`${!iconName && "ml-16"}`}
           style={{ color: iconColor }}
         >
           {title}
-        </ThemedText>
+        </AnimatedThemedText>
       </View>
       {isMarked && <Ionicons name="checkmark" size={24} color={iconColor} />}
     </Pressable>

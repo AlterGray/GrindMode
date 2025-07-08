@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 
 import { RitualStatuses } from "@shared/types/commonTypes";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import PhaseBadge from "./PhaseBadge";
 import RitualStatus from "./RitualStatus";
@@ -50,10 +50,14 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
           <View className="flex-row w-full justify-between">
             <RitualStatus status={item.status} />
 
-            <ThemedText color="accent">Start at {formatedStartTime}</ThemedText>
+            <AnimatedThemedText color="accent">
+              Start at {formatedStartTime}
+            </AnimatedThemedText>
           </View>
 
-          <ThemedText className="text-lg">{item.title}</ThemedText>
+          <AnimatedThemedText className="text-lg">
+            {item.title}
+          </AnimatedThemedText>
         </View>
         {/* // TODO rename component */}
         <PhaseBadge ritualId={item.id} />

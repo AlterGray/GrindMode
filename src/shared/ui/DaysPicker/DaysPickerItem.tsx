@@ -2,7 +2,7 @@ import React from "react";
 import { Pressable } from "react-native";
 
 import { DayItemType, DayType } from "@shared/types/commonTypes";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import { getStyle } from "./DaysPickerStyles";
 
@@ -32,7 +32,7 @@ const DaysPickerItem: React.FC<DaysPickerItemProps> = ({
       onPress={() => toggleDay(day)}
       className={styles + " dark:bg-dark-background"}
     >
-      <ThemedText color={textColor}>{day.display}</ThemedText>
+      <AnimatedThemedText color={textColor}>{day.display}</AnimatedThemedText>
     </Pressable>
   );
 };

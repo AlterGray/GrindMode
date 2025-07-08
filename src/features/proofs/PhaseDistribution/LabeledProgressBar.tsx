@@ -2,7 +2,7 @@ import React from "react";
 import { View, useWindowDimensions } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type LabeledProgressBarProps = {
   progress: number; // expected range: 0 to 1
@@ -45,7 +45,7 @@ const LabeledProgressBar: React.FC<LabeledProgressBarProps> = React.memo(
         }}
       >
         {/* Left Label */}
-        <ThemedText
+        <AnimatedThemedText
           style={{
             position: "absolute",
             left: 0,
@@ -57,10 +57,10 @@ const LabeledProgressBar: React.FC<LabeledProgressBarProps> = React.memo(
           ellipsizeMode="tail"
         >
           {label}
-        </ThemedText>
+        </AnimatedThemedText>
 
         {/* Right Percentage */}
-        <ThemedText
+        <AnimatedThemedText
           style={{
             position: "absolute",
             right: 0,
@@ -70,7 +70,7 @@ const LabeledProgressBar: React.FC<LabeledProgressBarProps> = React.memo(
           }}
         >
           {`${Math.round(clampedProgress * 100)}%`}
-        </ThemedText>
+        </AnimatedThemedText>
 
         <Svg width={barWidth} height={barHeight}>
           {/* Background bar */}

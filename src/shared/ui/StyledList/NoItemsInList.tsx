@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
 
 type NoItemsInListProps = {
@@ -14,7 +14,7 @@ const NoItemsInList: React.FC<NoItemsInListProps> = ({
 }) => {
   return (
     <ThemedView className="items-center justify-center gap-2">
-      <ThemedText variant="h4">{text}</ThemedText>
+      <AnimatedThemedText variant="h4">{text}</AnimatedThemedText>
       {button}
     </ThemedView>
   );

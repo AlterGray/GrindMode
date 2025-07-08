@@ -6,7 +6,7 @@ import { Ritual, RitualPhase } from "@features/rituals/ritualTypes";
 
 import { useTheme } from "@shared/hooks/useTheme";
 import { capitalize } from "@shared/lib/utils/common";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import LabeledProgressBar from "./LabeledProgressBar";
 
@@ -37,9 +37,9 @@ const PhaseDistirbution: React.FC<PhaseDistirbutionProps> = ({ rituals }) => {
 
   return (
     <View className="gap-4">
-      <ThemedText className="text-2xl font-medium">
+      <AnimatedThemedText className="text-2xl font-medium">
         Phase distribution
-      </ThemedText>
+      </AnimatedThemedText>
 
       <View className="gap-2">
         {Object.values(RitualPhase).map((phase) => (

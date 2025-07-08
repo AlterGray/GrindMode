@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
 import { useTheme } from "@shared/hooks/useTheme";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import ProgressCircle from "./CirlceProgressBar/ProgressCircle";
 
@@ -33,9 +33,9 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
   return (
     <View>
       {/* TODO CREATE HEADER VARIANT */}
-      <ThemedText className="text-2xl font-medium mb-1">
+      <AnimatedThemedText className="text-2xl font-medium mb-1">
         Discipline metrics
-      </ThemedText>
+      </AnimatedThemedText>
 
       <View className="flex-row justify-around items-center mb-2">
         {/* TODO add sub label to show growth in % */}

@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { IoniconsName } from "@shared/types/commonTypes";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type Props = {
   iconName: IoniconsName;
@@ -20,7 +20,7 @@ const AchievementItem: React.FC<Props> = ({ iconName, label, unlocked }) => {
       <View className="size-20 rounded-full border items-center justify-center mb-1 bg-light-backgroundSecondary border-light-listItemBorder dark:bg-dark-backgroundSecondary">
         <Ionicons name={iconName} size={18} color={colors.icon} />
       </View>
-      <ThemedText className="text-sm">{label}</ThemedText>
+      <AnimatedThemedText className="text-sm">{label}</AnimatedThemedText>
     </View>
   );
 };

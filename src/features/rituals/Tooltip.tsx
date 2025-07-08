@@ -8,7 +8,7 @@ import { useComponentPosition } from "@shared/hooks/useComponentPosition";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { IoniconsName } from "@shared/types/commonTypes";
 import Backdrop from "@shared/ui/FloatingModal/components/Backdrop";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
 
 type TooltipProps = {
@@ -104,9 +104,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
             <ThemedView
               className={`absolute top-6 w-48 rounded-xl px-3 py-2 ${classes.bgColor}`}
             >
-              <ThemedText className="text-sm" color={"white"}>
+              <AnimatedThemedText className="text-sm" color={"white"}>
                 {text}
-              </ThemedText>
+              </AnimatedThemedText>
             </ThemedView>
           )}
         </View>

@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type ProgressLabelProps = {
   text: string;
@@ -13,7 +13,9 @@ const ProgressLabel: React.FC<ProgressLabelProps> = ({ text, isLocked }) => {
       <View
         className={`w-2 h-2 rounded-md ${isLocked ? "bg-light-textMuted dark:bg-dark-textMuted" : "bg-black dark:bg-white"}`}
       ></View>
-      <ThemedText color={isLocked ? "muted" : "primary"}>{text}</ThemedText>
+      <AnimatedThemedText color={isLocked ? "muted" : "primary"}>
+        {text}
+      </AnimatedThemedText>
     </View>
   );
 };

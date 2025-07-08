@@ -1,13 +1,13 @@
 import React from "react";
 
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type DurationPickerItemProps = {
   text: string;
 };
 
 const DurationPickerItem: React.FC<DurationPickerItemProps> = ({ text }) => {
-  return <ThemedText>{text}</ThemedText>;
+  return <AnimatedThemedText>{text}</AnimatedThemedText>;
 };
 
 export default DurationPickerItem;

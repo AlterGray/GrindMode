@@ -9,7 +9,7 @@ import Svg, { Circle } from "react-native-svg";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import ProgressLabel from "./ProgressLabel";
 
@@ -87,17 +87,19 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
           {isLocked ? (
             <>
               <Ionicons name="lock-closed" size={20 * scale} color="gray" />
-              <ThemedText
+              <AnimatedThemedText
                 color="muted"
                 style={{ fontWeight: "bold", fontSize: 12 * scale }}
               >
                 Locked
-              </ThemedText>
+              </AnimatedThemedText>
             </>
           ) : (
-            <ThemedText style={{ fontWeight: "bold", fontSize: 14 * scale }}>
+            <AnimatedThemedText
+              style={{ fontWeight: "bold", fontSize: 14 * scale }}
+            >
               {progressTitle}
-            </ThemedText>
+            </AnimatedThemedText>
           )}
         </View>
       </View>

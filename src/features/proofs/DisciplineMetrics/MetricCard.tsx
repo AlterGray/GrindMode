@@ -1,6 +1,6 @@
 import { TouchableOpacity } from "react-native";
 
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type MetricCardProps = {
   header: string;
@@ -24,8 +24,10 @@ const MetricCard: React.FC<MetricCardProps> = ({
       }`}
       activeOpacity={0.5}
     >
-      <ThemedText color="secondary">{header}</ThemedText>
-      <ThemedText className="text-2xl font-medium">{value}</ThemedText>
+      <AnimatedThemedText color="secondary">{header}</AnimatedThemedText>
+      <AnimatedThemedText className="text-2xl font-medium">
+        {value}
+      </AnimatedThemedText>
     </TouchableOpacity>
   );
 };
