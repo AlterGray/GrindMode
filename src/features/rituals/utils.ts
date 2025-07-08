@@ -21,33 +21,38 @@ export const useStatusVariant = (
   const iconWarningSoft = useAnimatedColor("warningSoft", true);
   const iconDangerSoft = useAnimatedColor("dangerSoft", true);
 
+  const primary = useAnimatedColor("primary");
+  const success = useAnimatedColor("success");
+  const warning = useAnimatedColor("warning");
+  const danger = useAnimatedColor("danger");
+
   switch (status) {
     case RitualStatuses.Undone:
       return {
         iconName: "ellipse-sharp",
         animatedIconColor: iconPrimarySoft,
-        bgColor: "bg-light-primary dark:bg-dark-primary",
+        animatedBgColor: primary,
         text: "Incomplete",
       };
     case RitualStatuses.Done:
       return {
         iconName: "checkmark-circle-sharp",
         animatedIconColor: iconSuccessSoft,
-        bgColor: "bg-light-success dark:bg-dark-success",
+        animatedBgColor: success,
         text: "Completed",
       };
     case RitualStatuses.Overdue:
       return {
         iconName: "time-sharp",
         animatedIconColor: iconWarningSoft,
-        bgColor: "bg-light-warning dark:bg-dark-warning",
+        animatedBgColor: warning,
         text: "Overdue",
       };
     case RitualStatuses.Missed:
       return {
         iconName: "close-sharp",
         animatedIconColor: iconDangerSoft,
-        bgColor: "bg-light-danger dark:bg-dark-danger",
+        animatedBgColor: danger,
         text: "Missed",
       };
   }

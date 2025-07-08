@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import Animated from "react-native-reanimated";
 
 // TODO rename
 import { RitualStatuses } from "@shared/types/commonTypes";
@@ -18,7 +19,10 @@ const RitualStatus: React.FC<StatusProps> = ({ status }) => {
 
   return (
     // TODO how to don't repeat "light" or "dark" in class names each time?
-    <View className={`flex-row gap-2 rounded-sm px-2 py-1 ${variant.bgColor}`}>
+    <Animated.View
+      style={variant.animatedBgColor}
+      className={"flex-row gap-2 rounded-sm px-2 py-1"}
+    >
       {/* TODO introduce color white */}
       <AnimatedThemedText color="white">{variant.text}</AnimatedThemedText>
       {/* TODO fix animating */}
@@ -27,7 +31,7 @@ const RitualStatus: React.FC<StatusProps> = ({ status }) => {
         animatedIconColor={variant.animatedIconColor}
         size={18}
       />
-    </View>
+    </Animated.View>
   );
 };
 

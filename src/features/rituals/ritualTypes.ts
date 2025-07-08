@@ -1,5 +1,9 @@
+import { StyleProp, ViewStyle } from "react-native";
+import { AnimatedStyle } from "react-native-reanimated";
+
 import { IoniconsName } from "@shared/types/commonTypes";
 import { DayType, RitualStatuses } from "@shared/types/commonTypes";
+import { ColorName } from "@shared/types/themeTypes";
 
 // TODO status both in ritual and statistic??????
 export type Ritual = {
@@ -55,10 +59,12 @@ export enum RitualPhase {
   DeepIntegration = "DEEP_INTEGRATION",
 }
 
+export type AnimatedBg = StyleProp<AnimatedStyle<StyleProp<ViewStyle>>>;
+
 // TODO align order of status values in all records, switches
 export type StatusVariantsType = {
   iconName: IoniconsName;
   animatedIconColor: Partial<{ color: string }>;
-  bgColor: string;
+  animatedBgColor: AnimatedBg;
   text: string;
 };
