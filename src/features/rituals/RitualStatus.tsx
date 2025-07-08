@@ -24,7 +24,7 @@ const RitualStatus: React.FC<StatusProps> = ({ status }) => {
       {/* TODO fix animating */}
       <AnimatedIonicons
         name={variant.iconName}
-        iconColor={variant.iconColor}
+        animatedIconColor={variant.animatedIconColor}
         size={18}
       />
     </View>

@@ -58,7 +58,7 @@ export enum RitualPhase {
 // TODO align order of status values in all records, switches
 export type StatusVariantsType = {
   iconName: IoniconsName;
-  iconColor: string;
+  animatedIconColor: Partial<{ color: string }>;
   bgColor: string;
   text: string;
 };

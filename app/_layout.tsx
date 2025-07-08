@@ -17,7 +17,6 @@ import { useTheme } from "@shared/hooks/useTheme";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { useThemeTransitionSync } from "@shared/hooks/useThemeTransitionSync";
 import {
-  themeTransitionProgress,
   useThemeStore,
   useThemeStoreWithSubscribe,
 } from "@shared/stores/themeStore";
