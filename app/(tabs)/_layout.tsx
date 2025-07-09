@@ -1,8 +1,11 @@
 import React from "react";
+import { Text } from "react-native";
+import Animated from "react-native-reanimated";
 
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { IoniconsName } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
@@ -20,6 +23,9 @@ const TabsLayout = () => {
     { title: "Settings", name: "settings", icon: "settings-sharp" },
   ];
 
+  const animatedBg = useAnimatedColor("backgroundSurface");
+  const animatedText = useAnimatedColor("textPrimary", true);
+
   // TODO make global color for all layout headers
   // TODO refactor later imperative code to declarative style
   return (
@@ -34,7 +40,20 @@ const TabsLayout = () => {
         headerStyle: { backgroundColor: theme.backgroundSurface },
         headerTintColor: theme.textPrimary,
         headerRight: () => <ThemeButton className="px-4" />,
+        headerTitle: ({ children }) => (
+          <Animated.Text style={animatedText} className="text-2xl font-medium">
+            {children}
+          </Animated.Text>
+        ),
         tabBarHideOnKeyboard: true,
+        headerBackground: () => (
+          <Animated.View
+            style={[
+              animatedBg,
+              { position: "absolute", top: 0, left: 0, right: 0, bottom: 0 },
+            ]}
+          />
+        ),
       }}
     >
       {/* TODO add bage? */}

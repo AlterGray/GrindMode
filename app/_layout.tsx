@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
-import { runOnUI, useDerivedValue, withTiming } from "react-native-reanimated";
 
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
