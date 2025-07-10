@@ -49,9 +49,9 @@ const AnimatedThemedText: React.FC<AnimatedThemedTextProps> = ({
 
   return (
     <Animated.Text
-      style={animatedBgColor}
       className={`${colorClasses[color]} ${variantStyles[variant]} ${className}`}
       {...props}
+      style={[props.style, animatedBgColor]}
     >
       {children}
     </Animated.Text>
