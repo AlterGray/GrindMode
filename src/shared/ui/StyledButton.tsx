@@ -1,10 +1,11 @@
 import React from "react";
-import { Pressable, Text } from "react-native";
-import Animated from "react-native-reanimated";
+import { Text } from "react-native";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { ButtonVariant } from "@shared/types/commonTypes";
 import { ColorName } from "@shared/types/themeTypes";
+
+import { AnimatedPressable } from "./AnimatedComponents/AnimatedReactComponents";
 
 type StyledButtonProps = {
   title: string;
@@ -15,8 +16,6 @@ type StyledButtonProps = {
   children?: React.ReactNode;
   onPress?: () => void;
 };
-
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const variantClassMap: Record<
   ButtonVariant,

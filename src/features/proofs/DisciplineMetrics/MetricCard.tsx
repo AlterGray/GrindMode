@@ -1,5 +1,5 @@
-import { TouchableOpacity } from "react-native";
-
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { AnimatedTouchableOpacity } from "@shared/ui/AnimatedComponents/AnimatedReactComponents";
 import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type MetricCardProps = {
@@ -14,9 +14,12 @@ const MetricCard: React.FC<MetricCardProps> = ({
   value,
   fullWidth = false,
 }) => {
+  const animatedBgColor = useAnimatedColor("backgroundSecondary");
+
   return (
     // TODO show tooltip until user get out finger
-    <TouchableOpacity
+    <AnimatedTouchableOpacity
+      style={animatedBgColor}
       className={`bg-light-backgroundSecondary dark:bg-dark-backgroundSecondary p-3 rounded-md ${
         fullWidth
           ? "w-full justify-center items-center flex-row gap-4"
@@ -28,7 +31,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
       <AnimatedThemedText className="text-2xl font-medium">
         {value}
       </AnimatedThemedText>
-    </TouchableOpacity>
+    </AnimatedTouchableOpacity>
   );
 };
 

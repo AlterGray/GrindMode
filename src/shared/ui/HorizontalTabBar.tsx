@@ -1,8 +1,10 @@
-import { Pressable, View } from "react-native";
-
 import { Tooltip } from "@features/rituals/Tooltip";
 
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import AnimatedThemedText from "@shared/ui/ThemedText";
+
+import { AnimatedPressable } from "./AnimatedComponents/AnimatedReactComponents";
+import ThemedView from "./ThemedView";
 
 type HorizontalTabBarProps = {
   tabs: { label: string; isWarning: boolean; id: string }[];
@@ -15,16 +17,20 @@ const HorizontalTabBar: React.FC<HorizontalTabBarProps> = ({
   activeTab,
   onChange,
 }) => {
+  const getAnimatedActiveBgColor = (active: boolean) =>
+    useAnimatedColor(active ? "horizontalTabBackground" : "backgroundSurface");
+
   // ALLOW TO CHANGE TIME WITH SWIPE, ADD SWIPE-ANIMATION FOR ALL SWITCHES EVEN WITH TOUCH
   return (
-    <View className="p-1 gap-2 flex-row justify-around bg-light-backgroundSecondary dark:bg-dark-backgroundSurface">
+    <ThemedView className="p-1 gap-2 flex-row justify-around">
       {tabs.map((tab) => (
-        <Pressable
-          key={tab.label}
+        <AnimatedPressable
+          key={tab.id}
+          style={getAnimatedActiveBgColor(activeTab === tab.id)}
           onPress={() => {
             onChange(tab.id);
           }}
-          className={`flex-row justify-around p-2 flex-auto ${activeTab === tab.id ? "bg-light-listItemBorder dark:bg-dark-selectedListItemBackground" : ""}`}
+          className={"flex-row justify-around p-2 flex-auto"}
         >
           <AnimatedThemedText className="text-center font-medium">
             {tab.label}
@@ -38,9 +44,9 @@ const HorizontalTabBar: React.FC<HorizontalTabBarProps> = ({
               variant="warning"
             />
           )}
-        </Pressable>
+        </AnimatedPressable>
       ))}
-    </View>
+    </ThemedView>
   );
 };
 

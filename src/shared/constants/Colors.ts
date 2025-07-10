@@ -77,6 +77,9 @@ export const Colors = {
 
     success: "#22c55e",
     successSoft: "#f0fdf4",
+
+    // HORIZONTAL TAB BAR
+    horizontalTabBackground: "#d1d5db",
   },
 
   dark: {
@@ -157,6 +160,9 @@ export const Colors = {
 
     success: "#22c55e",
     successSoft: "#15803d",
+
+    // HORIZONTAL TAB BAR
+    horizontalTabBackground: "#3b4048",
   },
 
   folderColors: {
