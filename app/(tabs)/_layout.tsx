@@ -1,14 +1,14 @@
 import React from "react";
-import { Text } from "react-native";
 import Animated from "react-native-reanimated";
 
-import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { IoniconsName } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+import AnimatedTabBarIcon from "@shared/ui/AnimatedComponents/AnimatedTabBarIcon";
+import AnimatedTabBarLabel from "@shared/ui/AnimatedComponents/AnimatedTabBarLabel";
 import ThemeButton from "@shared/ui/ThemeButton";
 
 const TabsLayout = () => {
@@ -31,12 +31,11 @@ const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarStyle: {
-          backgroundColor: theme.backgroundSurface,
-          borderTopColor: theme.border,
-        },
-        tabBarActiveTintColor: isModalOpen ? theme.icon : theme.tabActive,
-        tabBarInactiveTintColor: isModalOpen ? theme.icon : theme.tabInactive,
+        tabBarBackground: () => (
+          <Animated.View
+            style={[animatedBg, { position: "absolute", inset: 0 }]}
+          />
+        ),
         headerStyle: { backgroundColor: theme.backgroundSurface },
         headerTintColor: theme.textPrimary,
         headerRight: () => <ThemeButton className="px-4" />,
@@ -48,10 +47,7 @@ const TabsLayout = () => {
         tabBarHideOnKeyboard: true,
         headerBackground: () => (
           <Animated.View
-            style={[
-              animatedBg,
-              { position: "absolute", top: 0, left: 0, right: 0, bottom: 0 },
-            ]}
+            style={[animatedBg, { position: "absolute", inset: 0 }]}
           />
         ),
       }}
@@ -64,8 +60,15 @@ const TabsLayout = () => {
           options={{
             title: screen.title,
             tabBarItemStyle: { pointerEvents },
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name={screen.icon} size={size} color={color} />
+            tabBarIcon: ({ focused, size }) => (
+              <AnimatedTabBarIcon
+                icon={screen.icon}
+                size={size}
+                focused={focused}
+              />
+            ),
+            tabBarLabel: ({ children, focused }) => (
+              <AnimatedTabBarLabel children={children} focused={focused} />
             ),
           }}
         />
