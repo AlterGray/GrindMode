@@ -3,6 +3,7 @@ import { View } from "react-native";
 
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
+import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
 import { useTheme } from "@shared/hooks/useTheme";
 import AnimatedThemedText from "@shared/ui/ThemedText";
 
@@ -30,6 +31,16 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
     statistics.length === 0 ||
     statistics.every((s) => s.completitions.length === 0);
 
+  const animatedProgressBarBg = useAnimatedSvgColor(
+    "progressBarBackground",
+    "stroke",
+  );
+  const animatedProgressBarColor = useAnimatedSvgColor(
+    "progressBarProgress",
+    "stroke",
+  );
+
+  // TODO DO SAME REFACTORING AS WITH SCREENS
   return (
     <View>
       {/* TODO CREATE HEADER VARIANT */}
@@ -46,8 +57,8 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
           scale={1.3}
           onPress={() => alert("There is no statistic yet")}
           isLocked={isLocked}
-          backgroundColor={backgroundColor}
-          progressColor={progressColor}
+          animatedBgColor={animatedProgressBarBg}
+          animatedProgressColor={animatedProgressBarColor}
         />
 
         {/* // TODO in order to have actual date we shouldn't clear completions but mark them as failed */}
@@ -58,8 +69,8 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
           scale={1.15}
           onPress={() => alert("There is no statistic yet")}
           isLocked={isLocked}
-          backgroundColor={backgroundColor}
-          progressColor={progressColor}
+          animatedBgColor={animatedProgressBarBg}
+          animatedProgressColor={animatedProgressBarColor}
         />
 
         <ProgressCircle
@@ -69,8 +80,8 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
           scale={1}
           onPress={() => alert("There is no statistic yet")}
           isLocked={isLocked}
-          backgroundColor={backgroundColor}
-          progressColor={progressColor}
+          animatedBgColor={animatedProgressBarBg}
+          animatedProgressColor={animatedProgressBarColor}
         />
       </View>
     </View>

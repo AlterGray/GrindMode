@@ -1,14 +1,10 @@
-import { useEffect } from "react";
 import {
   interpolateColor,
   useAnimatedProps,
   useAnimatedStyle,
-  useSharedValue,
-  withTiming,
 } from "react-native-reanimated";
 
 import { Colors } from "@shared/constants/Colors";
-import { useTheme } from "@shared/hooks/useTheme";
 import { themeTransitionProgress } from "@shared/stores/themeStore";
 import { RitualPhaseColorName } from "@shared/types/themeTypes";
 

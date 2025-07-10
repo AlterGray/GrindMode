@@ -5,10 +5,12 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import Svg, { Circle } from "react-native-svg";
+import { AnimatedProps } from "react-native-reanimated";
+import Svg, { PathProps } from "react-native-svg";
 
 import { Ionicons } from "@expo/vector-icons";
 
+import { AnimatedCircle } from "@shared/ui/AnimatedComponents/AnimatedSvgs";
 import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import ProgressLabel from "./ProgressLabel";
@@ -18,8 +20,8 @@ type ProgressCircleProps = {
   progress: number;
   progressTitle: string;
   label: string;
-  progressColor?: string;
-  backgroundColor?: string;
+  animatedBgColor: AnimatedProps<PathProps>;
+  animatedProgressColor: AnimatedProps<PathProps>;
   scale?: number;
   // TODO DECLARATIVE VS IMPERATIVE
   isLocked?: boolean;
@@ -31,8 +33,8 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
   progress,
   progressTitle,
   label,
-  progressColor = "#888",
-  backgroundColor = "#ccc",
+  animatedBgColor,
+  animatedProgressColor,
   scale = 1,
   isLocked,
   onPress,
@@ -56,19 +58,19 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
     >
       <View style={{ width: size, height: size - cy / 2 }}>
         <Svg width={size} height={size}>
-          <Circle
+          <AnimatedCircle
+            animatedProps={animatedBgColor}
             cx={cx}
             cy={cy}
             r={adjustedRadius}
-            stroke={backgroundColor}
             strokeWidth={strokeWidth}
             fill="none"
           />
-          <Circle
+          <AnimatedCircle
+            animatedProps={animatedProgressColor}
             cx={cx}
             cy={cy}
             r={adjustedRadius}
-            stroke={isLocked ? backgroundColor : progressColor}
             strokeWidth={strokeWidth}
             fill="none"
             strokeDasharray={`${circumference} ${circumference}`}
@@ -88,7 +90,6 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
             <>
               <Ionicons name="lock-closed" size={20 * scale} color="gray" />
               <AnimatedThemedText
-                color="muted"
                 style={{ fontWeight: "bold", fontSize: 12 * scale }}
               >
                 Locked

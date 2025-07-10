@@ -5,7 +5,7 @@ export const Colors = {
     textSecondary: "#4b5563",
     textMuted: "#9ca3af",
     textAccent: "#64748b",
-    textWhite: "#fff",
+    textWhite: "#ffffff",
     textInverted: "#000",
 
     // BACKGROUND
@@ -78,8 +78,15 @@ export const Colors = {
     success: "#22c55e",
     successSoft: "#f0fdf4",
 
+    white: "#fff",
+    black: "#1a1c20",
+
     // HORIZONTAL TAB BAR
     horizontalTabBackground: "#d1d5db",
+
+    // PROGRESS BAR DEFAULT COLORS
+    progressBarBackground: "#d1d5db",
+    progressBarProgress: "#3b4048",
   },
 
   dark: {
@@ -161,8 +168,15 @@ export const Colors = {
     success: "#22c55e",
     successSoft: "#15803d",
 
+    white: "#ffffff",
+    black: "#1a1c20",
+
     // HORIZONTAL TAB BAR
     horizontalTabBackground: "#3b4048",
+
+    // PROGRESS BAR DEFAULT COLORS
+    progressBarBackground: "#3b3f46",
+    progressBarProgress: "#e2e8f0",
   },
 
   folderColors: {
