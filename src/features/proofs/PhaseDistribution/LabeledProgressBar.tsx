@@ -35,7 +35,8 @@ const LabeledProgressBar: React.FC<LabeledProgressBarProps> = React.memo(
     const backgroundPath = `M${startX} ${halfHeight} L${barWidth - padding} ${halfHeight}`;
 
     const endX = startX + (barWidth - 2 * padding) * clampedProgress;
-    const progressPath = `M${startX} ${halfHeight} L${endX} ${halfHeight}`;
+    const progressPath =
+      progress > 0 ? `M${startX} ${halfHeight} L${endX} ${halfHeight}` : "";
 
     return (
       <View

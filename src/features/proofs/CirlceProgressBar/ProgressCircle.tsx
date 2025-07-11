@@ -28,6 +28,11 @@ type ProgressCircleProps = {
   onPress?: () => void;
 };
 
+function roundToPrecision(num: number, precision = 3) {
+  const factor = 10 ** precision;
+  return Math.round(num * factor) / factor;
+}
+
 // TODO remove hardcodes
 const ProgressCircle: React.FC<ProgressCircleProps> = ({
   progress,
@@ -41,15 +46,17 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
 }) => {
   const { width: screenWidth } = useWindowDimensions();
 
+  const EPSILON = 0.0001;
+  const clampedProgress = progress < EPSILON ? 0 : Math.min(progress, 1);
   const size = screenWidth * 0.25 * scale;
   const radius = size / 2.5;
   const strokeWidth = radius * 0.2;
   const cx = size / 2;
   const cy = size / 2.5;
   const adjustedRadius = radius - strokeWidth / 2;
-  const circumference = 2 * Math.PI * adjustedRadius;
-  const strokeDashOffset = circumference * (1 - progress);
-
+  const rawCircumference = 2 * Math.PI * adjustedRadius;
+  const circumference = roundToPrecision(rawCircumference, 2);
+  const strokeDashOffset = circumference * (1 - clampedProgress);
   return (
     <TouchableOpacity
       activeOpacity={0.9}

@@ -4,7 +4,6 @@ import { View } from "react-native";
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
 import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
-import { useTheme } from "@shared/hooks/useTheme";
 import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import ProgressCircle from "./CirlceProgressBar/ProgressCircle";
@@ -19,12 +18,7 @@ type Props = {
 };
 
 const ProgressRow: React.FC<Props> = ({ metrics }) => {
-  const theme = useTheme();
   const statistics = useRitualStatisticStore((state) => state.statistics);
-
-  // TODO use tailwind colors
-  const backgroundColor = theme.colorScheme === "light" ? "#ccc" : "#444";
-  const progressColor = theme.colorScheme === "light" ? "#555" : "#eee";
 
   // TODO implement statistic clear
   const isLocked =
