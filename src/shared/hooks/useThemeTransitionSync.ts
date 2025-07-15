@@ -12,7 +12,7 @@ export const useThemeTransitionSync = () => {
   useEffect(() => {
     runOnUI(() => {
       themeTransitionProgress.value = withTiming(theme === "dark" ? 1 : 0, {
-        duration: 250,
+        duration: 300,
       });
     })();
   }, [theme]);
