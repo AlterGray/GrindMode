@@ -5,6 +5,7 @@ import "react-native-reanimated";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
 
 import { useFolderStoreWithSubscribe } from "@features/folder/folderStore";
 import { useRecalculateMissedRituals } from "@features/rituals/hooks/useRecalculateMissedRituals";
@@ -57,11 +58,7 @@ const RootLayout = () => {
 
   // TODO subscribe? TODO
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setScheme(theme); // or maybe setState if you're syncing to system theme
-    }, 250);
-
-    return () => clearTimeout(timeout);
+    setScheme(theme); // or maybe setState if you're syncing to system theme
   }, [theme]);
 
   if (!loaded) {
@@ -76,11 +73,10 @@ const RootLayout = () => {
   // TODO when user switch screen like when it creates ritual then white background apearing
   return (
     <GestureHandlerRootView>
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
       <Stack
         screenOptions={{
           navigationBarColor: backgroundColor,
-          statusBarBackgroundColor: backgroundColor,
-          statusBarStyle: colorScheme === "dark" ? "light" : "dark",
           headerShown: false,
         }}
       >
