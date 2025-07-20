@@ -2,7 +2,7 @@ import { View } from "react-native";
 
 import ProgressRow from "../ProgressRow";
 import { useMetrics } from "../utils/useMetrics";
-import MetricCard from "./MetricCard";
+import MetricCard from "./MetricCard/MetricCard";
 
 type DisciplineMetricsProps = {
   days: number;
@@ -51,6 +51,7 @@ const DisciplineMetrics: React.FC<DisciplineMetricsProps> = ({ days }) => {
             key={card.header}
             header={card.header}
             value={card.value}
+            description={card.description}
           />
         ))}
       </View>
