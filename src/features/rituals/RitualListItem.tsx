@@ -51,7 +51,7 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
       <View className="gap-1">
         <View className="gap-2">
           <View className="flex-row w-full justify-between">
-            <RitualStatus status={item.status} />
+            <RitualStatus key={item.status} status={item.status} />
 
             <AnimatedThemedText color="accent">
               Start at {formatedStartTime}
