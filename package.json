@@ -54,7 +54,8 @@
     "tailwindcss": "^3.4.17",
     "zustand": "^5.0.4",
     "expo-modules-core": "~2.5.0",
-    "expo-linear-gradient": "~14.1.5"
+    "expo-linear-gradient": "~14.1.5",
+    "expo-navigation-bar": "~4.2.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
