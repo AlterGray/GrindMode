@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
 
 import { useFolderStoreWithSubscribe } from "@features/folder/folderStore";
 import { useRecalculateMissedRituals } from "@features/rituals/hooks/useRecalculateMissedRituals";
@@ -14,13 +14,14 @@ import { useRitualStoreWithSubscribe } from "@features/rituals/ritualStore";
 import { useStatisticStoreWithSubscribe } from "@features/rituals/statisticStore";
 
 import { useTheme } from "@shared/hooks/useTheme";
-import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { useThemeTransitionSync } from "@shared/hooks/useThemeTransitionSync";
 import {
   useThemeStore,
   useThemeStoreWithSubscribe,
 } from "@shared/stores/themeStore";
 import ActionModal from "@shared/ui/ActionsModal/ActionModal";
+import AnimatedNavigationBar from "@shared/ui/AnimatedComponents/AnimatedNavigationBar";
+import AnimatedStatusBar from "@shared/ui/AnimatedComponents/AnimatedStatusBar";
 import GlobalFloatingModal from "@shared/ui/GlobalFloatingModal/GlobalFloatingModal";
 import PopoverMenu from "@shared/ui/PopoverMenu/PopoverMenu";
 
@@ -46,9 +47,8 @@ const RootLayout = () => {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  const { colorScheme, setScheme } = useTheme();
+  const { setScheme } = useTheme();
   const theme = useThemeStore((state) => state.theme);
-  const backgroundColor = useThemeColors("backgroundSurface");
 
   useEffect(() => {
     if (loaded) {
@@ -72,21 +72,23 @@ const RootLayout = () => {
   // when and how use: --legacy-peer-deps
   // TODO when user switch screen like when it creates ritual then white background apearing
   return (
-    <GestureHandlerRootView>
-      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-      <Stack
-        screenOptions={{
-          navigationBarColor: backgroundColor,
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-      {/* // TODO extract to modals */}
-      <GlobalFloatingModal />
-      <PopoverMenu />
-      <ActionModal />
-    </GestureHandlerRootView>
+    <SafeAreaView style={{ flex: 1 }} edges={["left", "right"]}>
+      <AnimatedStatusBar />
+      <GestureHandlerRootView>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+        {/* // TODO extract to modals */}
+        <GlobalFloatingModal />
+        <PopoverMenu />
+        <ActionModal />
+      </GestureHandlerRootView>
+      <AnimatedNavigationBar isLoaded={loaded} />
+    </SafeAreaView>
   );
 };
 
