@@ -1,4 +1,5 @@
 import React from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import ThemedView from "@shared/ui/ThemedView";
@@ -10,6 +11,7 @@ import { useActionModalStore } from "./actionsModalStore";
 const ActionModal = () => {
   const { isOpen } = useActionModalStore();
   const iconColor = useThemeColors("icon");
+  const insets = useSafeAreaInsets();
 
   if (!isOpen) return null;
 
@@ -21,7 +23,7 @@ const ActionModal = () => {
   // TODO rewrite with <Modal />
   // TODO use router stack?
   return (
-    <ThemedView className={containerClasses}>
+    <ThemedView className={containerClasses} style={{ top: insets.top }}>
       <CloseButtonAndText iconColor={iconColor} />
       <ActionModalButtons iconColor={iconColor} />
     </ThemedView>
