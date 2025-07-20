@@ -42,6 +42,10 @@ const TabsLayout = () => {
         ),
         tabBarHideOnKeyboard: true,
         headerBackground: () => <ThemedView className="absolute inset-0" />,
+        animation: "shift",
+        sceneStyle: {
+          backgroundColor: theme.backgroundSurface,
+        },
       }}
     >
       {/* TODO add bage? */}
