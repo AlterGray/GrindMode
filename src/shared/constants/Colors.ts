@@ -76,7 +76,7 @@ export const Colors = {
     warningSoft: "#fffbeb",
 
     success: "#22c55e",
-    successSoft: "#f0fdf4",
+    successSoft: "#15803d",
 
     white: "#fff",
     black: "#1a1c20",
@@ -166,7 +166,7 @@ export const Colors = {
     warningSoft: "#b45309",
 
     success: "#22c55e",
-    successSoft: "#15803d",
+    successSoft: "#f0fdf4",
 
     white: "#ffffff",
     black: "#1a1c20",
