@@ -8,11 +8,11 @@ import { FolderColorType } from "@features/folder/types";
 import { useFolderColor } from "@features/folder/useFolderColor";
 
 import { Colors } from "@shared/constants/Colors";
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import ColorPicker from "@shared/ui/ColorPicker";
 import StyledButton from "@shared/ui/StyledButton";
 import StyledInput from "@shared/ui/StyledInput";
 import AnimatedThemedText from "@shared/ui/ThemedText";
-import ThemedView from "@shared/ui/ThemedView";
 
 // TODO rename file?
 const create = () => {
@@ -36,7 +36,7 @@ const create = () => {
   };
 
   return (
-    <ThemedView className="flex-1">
+    <AnimatedThemedView className="flex-1">
       <ScrollView className="mx-2 p-4" contentContainerStyle={{ gap: 8 }}>
         {/* // Validate name("All" not allowed) */}
         {/* use keyboard avoid? */}
@@ -47,13 +47,13 @@ const create = () => {
           autoFocus
         />
 
-        <ThemedView className="flex-row items-center gap-8">
+        <AnimatedThemedView className="flex-row items-center gap-8">
           <AnimatedThemedText>Folder color:</AnimatedThemedText>
           <ColorPicker
             items={items}
             onChange={(color) => setFolderColor(color as FolderColorType)}
           />
-        </ThemedView>
+        </AnimatedThemedView>
 
         <StyledButton
           title="Create"
@@ -61,7 +61,7 @@ const create = () => {
           className="ml-auto mr-2"
         />
       </ScrollView>
-    </ThemedView>
+    </AnimatedThemedView>
   );
 };
 

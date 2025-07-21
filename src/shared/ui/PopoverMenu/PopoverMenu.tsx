@@ -1,7 +1,7 @@
 import { Modal, Pressable } from "react-native";
 
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import StyledButton from "@shared/ui/StyledButton";
-import ThemedView from "@shared/ui/ThemedView";
 
 import { usePopoverMenuStore } from "./popoverMenuStore";
 import { PopoverMenuItem } from "./types";
@@ -34,7 +34,7 @@ const PopoverMenu: React.FC = () => {
   return (
     <Modal transparent visible={visible} animationType="fade">
       <Pressable onPress={hide} className="absolute inset-0"></Pressable>
-      <ThemedView
+      <AnimatedThemedView
         onLayout={handleLayoutChange}
         style={{ top: position.y, left: position.x }}
         className={
@@ -42,7 +42,7 @@ const PopoverMenu: React.FC = () => {
         }
       >
         {actions}
-      </ThemedView>
+      </AnimatedThemedView>
     </Modal>
   );
 };

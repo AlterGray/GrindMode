@@ -5,9 +5,9 @@ import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
 import { useThemeStore } from "@shared/stores/themeStore";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
 import StyledButton from "@shared/ui/StyledButton";
-import ThemedView from "@shared/ui/ThemedView";
 
 const settings = () => {
   const { toggleTheme } = useThemeStore();
@@ -34,14 +34,14 @@ const settings = () => {
   };
 
   return (
-    <ThemedView className="flex-1 items-center justify-center gap-2">
+    <AnimatedThemedView className="flex-1 items-center justify-center gap-2">
       <StyledButton title="Switch theme" onPress={toggleTheme} />
       <StyledButton
         title="Reset Statistics"
         variant="remove-contained-20"
         onPress={handleOpenResetDialog}
       />
-    </ThemedView>
+    </AnimatedThemedView>
   );
 };
 

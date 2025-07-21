@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Modal, View } from "react-native";
 
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import StyledButton from "@shared/ui/StyledButton";
 import AnimatedThemedText from "@shared/ui/ThemedText";
-import ThemedView from "@shared/ui/ThemedView";
 
 import HoursPicker from "./HoursPicker";
 import MinutesPicker from "./MinutesPicker";
@@ -36,12 +36,12 @@ const DurationPicker: React.FC<DurationPickerProps> = ({
   return (
     <Modal transparent visible={isVisible} animationType="fade">
       <View className="flex-1 items-center justify-center bg-black/50">
-        <ThemedView className="bg-backgroundSurface w-10/12 rounded-xl p-4">
+        <AnimatedThemedView className="bg-backgroundSurface w-10/12 rounded-xl p-4">
           <AnimatedThemedText className="mb-2 text-base font-medium">
             Select Duration
           </AnimatedThemedText>
 
-          <ThemedView className="mb-4 flex-row justify-center gap-6">
+          <AnimatedThemedView className="mb-4 flex-row justify-center gap-6">
             <HoursPicker
               initialIndex={hourIndex}
               onChange={setSelectedHour}
@@ -52,7 +52,7 @@ const DurationPicker: React.FC<DurationPickerProps> = ({
               onChange={setSelectedMinute}
               maxMinutes={selectedHour === maxHours ? maxMinutes : 59}
             />
-          </ThemedView>
+          </AnimatedThemedView>
 
           {/* Actions */}
           <View className="flex-row justify-end gap-2">
@@ -67,7 +67,7 @@ const DurationPicker: React.FC<DurationPickerProps> = ({
               title="Confirm"
             />
           </View>
-        </ThemedView>
+        </AnimatedThemedView>
       </View>
     </Modal>
   );

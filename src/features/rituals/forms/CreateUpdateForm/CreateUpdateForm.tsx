@@ -3,9 +3,9 @@ import { ScrollView } from "react-native";
 
 import { RitualFormValues } from "@features/rituals/ritualTypes";
 
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import DaysGrid from "@shared/ui/DaysGrid";
 import StyledButton from "@shared/ui/StyledButton";
-import ThemedView from "@shared/ui/ThemedView";
 
 import TimeAndDurationSection from "./TimeAndDurationSection";
 import TitleDescriptionSection from "./TitleDescriptionSection";
@@ -44,7 +44,7 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
   }, [title, description, startTime, expectedDuration, days, onSubmit]);
 
   return (
-    <ThemedView className="flex-1">
+    <AnimatedThemedView className="flex-1">
       <ScrollView
         className="mx-2 flex-1 p-4"
         contentContainerStyle={{ gap: 8 }}
@@ -70,7 +70,7 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
           className="ml-auto mr-4 mt-2"
         />
       </ScrollView>
-    </ThemedView>
+    </AnimatedThemedView>
   );
 };
 

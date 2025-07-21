@@ -1,8 +1,8 @@
 import { View } from "react-native";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import AnimatedThemedText from "@shared/ui/ThemedText";
-import ThemedView from "@shared/ui/ThemedView";
 
 type ProgressLabelProps = {
   text: string;
@@ -14,7 +14,10 @@ const ProgressLabel: React.FC<ProgressLabelProps> = ({ text, isLocked }) => {
   const animatedBgColor = useAnimatedColor(isLocked ? "textMuted" : "white");
   return (
     <View className="flex-row items-center gap-2 max-w-[95%]">
-      <ThemedView style={animatedBgColor} className={`w-2 h-2 rounded-md`} />
+      <AnimatedThemedView
+        style={animatedBgColor}
+        className={`w-2 h-2 rounded-md`}
+      />
       <AnimatedThemedText color={isLocked ? "muted" : "primary"}>
         {text}
       </AnimatedThemedText>

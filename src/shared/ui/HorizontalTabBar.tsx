@@ -4,7 +4,7 @@ import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import { AnimatedPressable } from "./AnimatedComponents/AnimatedReactComponents";
-import ThemedView from "./ThemedView";
+import AnimatedThemedView from "./AnimatedThemedView";
 
 type HorizontalTabBarProps = {
   tabs: { label: string; isWarning: boolean; id: string }[];
@@ -22,7 +22,7 @@ const HorizontalTabBar: React.FC<HorizontalTabBarProps> = ({
 
   // ALLOW TO CHANGE TIME WITH SWIPE, ADD SWIPE-ANIMATION FOR ALL SWITCHES EVEN WITH TOUCH
   return (
-    <ThemedView className="p-1 gap-2 flex-row justify-around">
+    <AnimatedThemedView className="p-1 gap-2 flex-row justify-around">
       {tabs.map((tab) => (
         <AnimatedPressable
           key={tab.id}
@@ -46,7 +46,7 @@ const HorizontalTabBar: React.FC<HorizontalTabBarProps> = ({
           )}
         </AnimatedPressable>
       ))}
-    </ThemedView>
+    </AnimatedThemedView>
   );
 };
 

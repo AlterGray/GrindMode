@@ -3,7 +3,7 @@ import { ItemType } from "react-native-wheel-picker-expo/lib/typescript/types";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 
-import ThemedView from "./ThemedView";
+import AnimatedThemedView from "./AnimatedThemedView";
 
 type ColorPickerProps = {
   items: ItemType[];
@@ -15,14 +15,14 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ items, onChange }) => {
   const getColorByLabel = (label: string) =>
     items.find((item) => item.label == label)?.value;
   return (
-    <ThemedView className="max-h-16 flex-1 justify-center overflow-hidden">
+    <AnimatedThemedView className="max-h-16 flex-1 justify-center overflow-hidden">
       <WheelPickerExpo
         items={items}
         onChange={({ index }) => onChange(items[index].label)}
         initialSelectedIndex={0}
         height={120}
         renderItem={({ label }) => (
-          <ThemedView
+          <AnimatedThemedView
             style={{
               backgroundColor: getColorByLabel(label),
               width: 15,
@@ -37,7 +37,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ items, onChange }) => {
         }}
         backgroundColor={theme.background}
       />
-    </ThemedView>
+    </AnimatedThemedView>
   );
 };
 
