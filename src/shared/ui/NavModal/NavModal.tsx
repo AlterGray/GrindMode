@@ -1,9 +1,8 @@
 import React from "react";
 import { Modal, Pressable } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
-
-import ThemedText from "@shared/ui/ThemedText";
+import { IoniconsName } from "@shared/types/commonTypes";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
 
 import ActionList, { Action } from "./ActionList";
@@ -12,7 +11,7 @@ import ActionList, { Action } from "./ActionList";
 type ModalListItemProps = {
   title: string;
   onPress: () => void;
-  iconName?: keyof typeof Ionicons.glyphMap;
+  iconName?: IoniconsName;
 };
 
 type NavModalProps = {
@@ -34,9 +33,9 @@ const NavModal: React.FC<NavModalProps> = ({
       <Pressable onPress={onClose} className="absolute inset-0" />
 
       <ThemedView className="absolute bottom-0 w-full gap-4 bg-light-backgroundSurface px-4 py-4 dark:bg-dark-backgroundSurface">
-        <ThemedText className="ml-8" variant="h4">
+        <AnimatedThemedText className="ml-8" variant="h4">
           {title}
-        </ThemedText>
+        </AnimatedThemedText>
 
         <ActionList actions={actions} />
       </ThemedView>

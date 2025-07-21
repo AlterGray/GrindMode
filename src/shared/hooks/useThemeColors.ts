@@ -1,5 +1,5 @@
 import { Colors } from "@shared/constants/Colors";
-import { ColorName, Theme } from "@shared/types/commonTypes";
+import { ColorName, Theme } from "@shared/types/themeTypes";
 
 import { useTheme } from "./useTheme";
 

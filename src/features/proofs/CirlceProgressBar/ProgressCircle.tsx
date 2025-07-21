@@ -5,11 +5,13 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import Svg, { Circle } from "react-native-svg";
+import { AnimatedProps } from "react-native-reanimated";
+import Svg, { PathProps } from "react-native-svg";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import ThemedText from "@shared/ui/ThemedText";
+import { AnimatedCircle } from "@shared/ui/AnimatedComponents/AnimatedSvgs";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import ProgressLabel from "./ProgressLabel";
 
@@ -18,36 +20,43 @@ type ProgressCircleProps = {
   progress: number;
   progressTitle: string;
   label: string;
-  progressColor?: string;
-  backgroundColor?: string;
+  animatedBgColor: AnimatedProps<PathProps>;
+  animatedProgressColor: AnimatedProps<PathProps>;
   scale?: number;
   // TODO DECLARATIVE VS IMPERATIVE
   isLocked?: boolean;
   onPress?: () => void;
 };
 
+function roundToPrecision(num: number, precision = 3) {
+  const factor = 10 ** precision;
+  return Math.round(num * factor) / factor;
+}
+
 // TODO remove hardcodes
 const ProgressCircle: React.FC<ProgressCircleProps> = ({
   progress,
   progressTitle,
   label,
-  progressColor = "#888",
-  backgroundColor = "#ccc",
+  animatedBgColor,
+  animatedProgressColor,
   scale = 1,
   isLocked,
   onPress,
 }) => {
   const { width: screenWidth } = useWindowDimensions();
 
+  const EPSILON = 0.0001;
+  const clampedProgress = progress < EPSILON ? 0 : Math.min(progress, 1);
   const size = screenWidth * 0.25 * scale;
   const radius = size / 2.5;
   const strokeWidth = radius * 0.2;
   const cx = size / 2;
   const cy = size / 2.5;
   const adjustedRadius = radius - strokeWidth / 2;
-  const circumference = 2 * Math.PI * adjustedRadius;
-  const strokeDashOffset = circumference * (1 - progress);
-
+  const rawCircumference = 2 * Math.PI * adjustedRadius;
+  const circumference = roundToPrecision(rawCircumference, 2);
+  const strokeDashOffset = circumference * (1 - clampedProgress);
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -56,19 +65,19 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
     >
       <View style={{ width: size, height: size - cy / 2 }}>
         <Svg width={size} height={size}>
-          <Circle
+          <AnimatedCircle
+            animatedProps={animatedBgColor}
             cx={cx}
             cy={cy}
             r={adjustedRadius}
-            stroke={backgroundColor}
             strokeWidth={strokeWidth}
             fill="none"
           />
-          <Circle
+          <AnimatedCircle
+            animatedProps={animatedProgressColor}
             cx={cx}
             cy={cy}
             r={adjustedRadius}
-            stroke={isLocked ? backgroundColor : progressColor}
             strokeWidth={strokeWidth}
             fill="none"
             strokeDasharray={`${circumference} ${circumference}`}
@@ -87,17 +96,18 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
           {isLocked ? (
             <>
               <Ionicons name="lock-closed" size={20 * scale} color="gray" />
-              <ThemedText
-                color="muted"
+              <AnimatedThemedText
                 style={{ fontWeight: "bold", fontSize: 12 * scale }}
               >
                 Locked
-              </ThemedText>
+              </AnimatedThemedText>
             </>
           ) : (
-            <ThemedText style={{ fontWeight: "bold", fontSize: 14 * scale }}>
+            <AnimatedThemedText
+              style={{ fontWeight: "bold", fontSize: 14 * scale }}
+            >
               {progressTitle}
-            </ThemedText>
+            </AnimatedThemedText>
           )}
         </View>
       </View>

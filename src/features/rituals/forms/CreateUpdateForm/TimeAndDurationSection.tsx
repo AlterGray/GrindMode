@@ -1,7 +1,7 @@
 import React from "react";
 
 import DurationPickerButton from "@shared/ui/DurationPickerButton";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
 import TimePickerButton from "@shared/ui/TimePickerButton";
 
@@ -18,12 +18,12 @@ const TimeAndDurationSection = ({
 }) => (
   <>
     <ThemedView className="flex-row items-center">
-      <ThemedText>Start ritual at:</ThemedText>
+      <AnimatedThemedText>Start ritual at:</AnimatedThemedText>
       <TimePickerButton time={startTime} onChange={setStartTime} />
     </ThemedView>
 
     <ThemedView className="flex-row items-center">
-      <ThemedText>Ritual duration:</ThemedText>
+      <AnimatedThemedText>Ritual duration:</AnimatedThemedText>
       <DurationPickerButton
         duration={expectedDuration}
         onChange={setExpectedDuration}

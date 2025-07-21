@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
 import ThemedWheelPicker from "@shared/ui/ThemedWheelPicker";
 
@@ -33,7 +33,9 @@ const HoursPicker: React.FC<HoursPickerProps> = ({
         initialIndex={initialIndex}
         renderItem={(item) => <DurationPickerItem text={item.label} />}
       />
-      <ThemedText className="ml-1 text-lg font-light">H</ThemedText>
+      <AnimatedThemedText className="ml-1 text-lg font-light">
+        H
+      </AnimatedThemedText>
     </ThemedView>
   );
 };

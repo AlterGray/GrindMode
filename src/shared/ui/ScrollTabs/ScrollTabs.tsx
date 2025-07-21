@@ -39,7 +39,7 @@ const ScrollTabs: React.FC<ScrollTabsProps> = ({
   return (
     <ThemedView className="flex-1 flex-col">
       {tabs.length > 1 ? (
-        <ThemedView className="bg-light-backgroundSurface px-4 dark:bg-dark-backgroundSurface">
+        <ThemedView className="px-4">
           <DraggableList
             items={tabs}
             renderItem={({ item, drag }) => draggableItem(item, drag)}

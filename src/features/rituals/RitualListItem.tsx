@@ -1,8 +1,11 @@
 import React from "react";
 import { View } from "react-native";
+import Animated from "react-native-reanimated";
 
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { RitualStatuses } from "@shared/types/commonTypes";
-import ThemedText from "@shared/ui/ThemedText";
+import { ColorName } from "@shared/types/themeTypes";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import PhaseBadge from "./PhaseBadge";
 import RitualStatus from "./RitualStatus";
@@ -17,19 +20,18 @@ type ItemComponentProps = {
 const getStatusBackgroundClass = (
   status: RitualStatuses,
   isSelected: boolean,
-): string => {
-  if (isSelected)
-    return "bg-light-selectedListItemBackground dark:bg-dark-selectedListItemBackground";
+): ColorName => {
+  if (isSelected) return "selectedListItemBackground";
 
   switch (status) {
     case RitualStatuses.Undone:
-      return "bg-light-statusUndoneBackground dark:bg-dark-statusUndoneBackground";
+      return "statusUndoneBackground";
     case RitualStatuses.Done:
-      return "bg-light-statusDoneBackground dark:bg-dark-statusDoneBackground";
+      return "statusDoneBackground";
     case RitualStatuses.Overdue:
-      return "bg-light-statusOverdueBackground dark:bg-dark-statusOverdueBackground";
+      return "statusOverdueBackground";
     case RitualStatuses.Missed:
-      return "bg-light-statusFailedBackground dark:bg-dark-statusFailedBackground";
+      return "statusFailedBackground";
   }
 };
 
@@ -41,26 +43,29 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
   });
 
   const bgColor = getStatusBackgroundClass(item.status, isSelected);
+  const animatedBgStyle = useAnimatedColor(bgColor);
 
   // TODO adjust items height to all items have same height indeondent of content length
   return (
-    <View className={`gap-2 p-4 ${bgColor}`}>
+    <Animated.View className={"gap-2 p-4 "} style={animatedBgStyle}>
       <View className="gap-1">
         <View className="gap-2">
           <View className="flex-row w-full justify-between">
-            <RitualStatus status={item.status} />
+            <RitualStatus key={item.status} status={item.status} />
 
-            <ThemedText className="text-light-textAccent">
+            <AnimatedThemedText color="accent">
               Start at {formatedStartTime}
-            </ThemedText>
+            </AnimatedThemedText>
           </View>
 
-          <ThemedText className="text-lg">{item.title}</ThemedText>
+          <AnimatedThemedText className="text-lg">
+            {item.title}
+          </AnimatedThemedText>
         </View>
         {/* // TODO rename component */}
         <PhaseBadge ritualId={item.id} />
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

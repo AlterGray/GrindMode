@@ -11,7 +11,7 @@ import { Colors } from "@shared/constants/Colors";
 import ColorPicker from "@shared/ui/ColorPicker";
 import StyledButton from "@shared/ui/StyledButton";
 import StyledInput from "@shared/ui/StyledInput";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
 
 // TODO rename file?
@@ -48,7 +48,7 @@ const create = () => {
         />
 
         <ThemedView className="flex-row items-center gap-8">
-          <ThemedText>Folder color:</ThemedText>
+          <AnimatedThemedText>Folder color:</AnimatedThemedText>
           <ColorPicker
             items={items}
             onChange={(color) => setFolderColor(color as FolderColorType)}

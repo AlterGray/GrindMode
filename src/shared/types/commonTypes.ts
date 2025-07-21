@@ -1,4 +1,5 @@
-import { Colors } from "@shared/constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
+
 import { ROUTES } from "@shared/constants/routes";
 
 // TODO move it?
@@ -23,9 +24,6 @@ export type DayItemType = { value: DayType; display: string };
 export type ValueOf<T> = T[keyof T];
 export type RouteType = ValueOf<typeof ROUTES>;
 
-export type Theme = typeof Colors.light;
-export type ColorName = keyof Theme;
-
 export type FloatingModalVariantType = ValueOf<typeof FloatingModalVariant>;
 
 export type ButtonVariant =
@@ -46,3 +44,5 @@ export enum RitualStatuses {
   Overdue = "OVERDUE",
   Missed = "MISSED",
 }
+
+export type IoniconsName = keyof typeof Ionicons.glyphMap;

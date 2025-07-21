@@ -1,4 +1,5 @@
-import { RitualStatuses, Theme } from "@shared/types/commonTypes";
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { RitualStatuses } from "@shared/types/commonTypes";
 
 import { OrderedRitualPhases } from "./constants";
 import { RitualPhase, StatusVariantsType } from "./ritualTypes";
@@ -12,37 +13,46 @@ export const getNextRitualPhase = (phase: RitualPhase): RitualPhase | null => {
 };
 
 // TODO rename all "colors" to theme
-export const getStatusVariant = (
+export const useStatusVariant = (
   status: RitualStatuses,
-  theme: Theme,
 ): StatusVariantsType => {
+  const iconPrimarySoft = useAnimatedColor("primarySoft", true);
+  const iconSuccessSoft = useAnimatedColor("successSoft", true);
+  const iconWarningSoft = useAnimatedColor("warningSoft", true);
+  const iconDangerSoft = useAnimatedColor("dangerSoft", true);
+
+  const primary = useAnimatedColor("primary");
+  const success = useAnimatedColor("success");
+  const warning = useAnimatedColor("warning");
+  const danger = useAnimatedColor("danger");
+
   switch (status) {
     case RitualStatuses.Undone:
       return {
         iconName: "ellipse-sharp",
-        iconColor: theme.primarySoft,
-        bgColor: "bg-light-primary dark:bg-dark-primary",
+        animatedIconColor: iconPrimarySoft,
+        animatedBgColor: primary,
         text: "Incomplete",
       };
     case RitualStatuses.Done:
       return {
         iconName: "checkmark-circle-sharp",
-        iconColor: theme.successSoft,
-        bgColor: "bg-light-success dark:bg-dark-success",
+        animatedIconColor: iconSuccessSoft,
+        animatedBgColor: success,
         text: "Completed",
       };
     case RitualStatuses.Overdue:
       return {
         iconName: "time-sharp",
-        iconColor: theme.warningSoft,
-        bgColor: "bg-light-warning dark:bg-dark-warning",
+        animatedIconColor: iconWarningSoft,
+        animatedBgColor: warning,
         text: "Overdue",
       };
     case RitualStatuses.Missed:
       return {
         iconName: "close-sharp",
-        iconColor: theme.dangerSoft,
-        bgColor: "bg-light-danger dark:bg-dark-danger",
+        animatedIconColor: iconDangerSoft,
+        animatedBgColor: danger,
         text: "Missed",
       };
   }

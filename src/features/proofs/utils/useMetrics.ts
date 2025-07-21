@@ -15,10 +15,11 @@ import { calculateNoMercy } from "./ratioMetricsUtils/calculateNoMercy";
 export const useMetrics = (days: number) => {
   const rituals = useRitualStore((state) => state.rituals);
   const statistics = useRitualStatisticStore((state) => state.statistics);
-  const daysDiff = getDaysDiff(new Date(), new Date(findFirstDay(statistics)));
-  const adjustedDays = days >= 0 ? days : daysDiff + 1;
 
-  if (statistics.length === 0) {
+  if (
+    statistics.length === 0 ||
+    statistics.flatMap((s) => s.completitions).length === 0
+  ) {
     return {
       ratioMetrics: {
         completionRate: 0,
@@ -33,6 +34,9 @@ export const useMetrics = (days: number) => {
       },
     };
   }
+
+  const daysDiff = getDaysDiff(new Date(), new Date(findFirstDay(statistics)));
+  const adjustedDays = days >= 0 ? days : daysDiff + 1;
 
   const filteredCompletions = statistics
     .flatMap((s) => s.completitions)

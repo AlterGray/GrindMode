@@ -5,7 +5,7 @@ import {
   ButtonProps,
   FloatingModalVariantType,
 } from "@shared/types/commonTypes";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import Backdrop from "./components/Backdrop";
 import Container from "./components/Container";
@@ -38,7 +38,9 @@ const FloatingModal: React.FC<FloatingModalProps> = ({
     <Modal transparent visible={isOpen} animationType="fade">
       <Backdrop onCancel={onCancel} />
       <Container>
-        <ThemedText className="mb-1 text-lg font-medium">{title}</ThemedText>
+        <AnimatedThemedText className="mb-1 text-lg font-medium">
+          {title}
+        </AnimatedThemedText>
 
         {renderContent()}
 

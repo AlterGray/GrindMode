@@ -6,14 +6,15 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { useComponentPosition } from "@shared/hooks/useComponentPosition";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { IoniconsName } from "@shared/types/commonTypes";
 import Backdrop from "@shared/ui/FloatingModal/components/Backdrop";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
 
 type TooltipProps = {
   text: string;
   iconColor?: string;
-  iconName?: keyof typeof Ionicons.glyphMap;
+  iconName?: IoniconsName;
   // TODO remove hardcodes
   variant?: "info" | "warning" | "danger" | "success";
   containerClassName?: string;
@@ -43,7 +44,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
     {
       bgColor: string;
       iconColor: string;
-      iconName: keyof typeof Ionicons.glyphMap;
+      iconName: IoniconsName;
     }
   > = {
     info: {
@@ -103,7 +104,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
             <ThemedView
               className={`absolute top-6 w-48 rounded-xl px-3 py-2 ${classes.bgColor}`}
             >
-              <ThemedText className="text-sm text-white">{text}</ThemedText>
+              <AnimatedThemedText className="text-sm" color={"white"}>
+                {text}
+              </AnimatedThemedText>
             </ThemedView>
           )}
         </View>

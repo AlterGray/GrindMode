@@ -1,14 +1,17 @@
 import React from "react";
 import { View, useWindowDimensions } from "react-native";
-import Svg, { Path } from "react-native-svg";
+import { AnimatedProps } from "react-native-reanimated";
+import Svg from "react-native-svg";
+import type { PathProps } from "react-native-svg";
 
-import ThemedText from "@shared/ui/ThemedText";
+import { AnimatedPath } from "@shared/ui/AnimatedComponents/AnimatedSvgs";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type LabeledProgressBarProps = {
   progress: number; // expected range: 0 to 1
   barHeight?: number;
-  backgroundColor?: string;
-  progressColor?: string;
+  animatedBgColor: AnimatedProps<PathProps>;
+  animatedProgressColor: AnimatedProps<PathProps>;
   label?: string; // left label
 };
 
@@ -16,8 +19,8 @@ const LabeledProgressBar: React.FC<LabeledProgressBarProps> = React.memo(
   ({
     progress,
     barHeight = 10,
-    backgroundColor = "#ccc",
-    progressColor = "#333",
+    animatedBgColor,
+    animatedProgressColor,
     label = "",
   }) => {
     const { width } = useWindowDimensions();
@@ -32,7 +35,8 @@ const LabeledProgressBar: React.FC<LabeledProgressBarProps> = React.memo(
     const backgroundPath = `M${startX} ${halfHeight} L${barWidth - padding} ${halfHeight}`;
 
     const endX = startX + (barWidth - 2 * padding) * clampedProgress;
-    const progressPath = `M${startX} ${halfHeight} L${endX} ${halfHeight}`;
+    const progressPath =
+      progress > 0 ? `M${startX} ${halfHeight} L${endX} ${halfHeight}` : "";
 
     return (
       <View
@@ -45,7 +49,7 @@ const LabeledProgressBar: React.FC<LabeledProgressBarProps> = React.memo(
         }}
       >
         {/* Left Label */}
-        <ThemedText
+        <AnimatedThemedText
           style={{
             position: "absolute",
             left: 0,
@@ -57,10 +61,10 @@ const LabeledProgressBar: React.FC<LabeledProgressBarProps> = React.memo(
           ellipsizeMode="tail"
         >
           {label}
-        </ThemedText>
+        </AnimatedThemedText>
 
         {/* Right Percentage */}
-        <ThemedText
+        <AnimatedThemedText
           style={{
             position: "absolute",
             right: 0,
@@ -70,21 +74,21 @@ const LabeledProgressBar: React.FC<LabeledProgressBarProps> = React.memo(
           }}
         >
           {`${Math.round(clampedProgress * 100)}%`}
-        </ThemedText>
+        </AnimatedThemedText>
 
         <Svg width={barWidth} height={barHeight}>
           {/* Background bar */}
-          <Path
+          <AnimatedPath
+            animatedProps={animatedBgColor}
             d={backgroundPath}
-            stroke={backgroundColor}
             strokeWidth={barHeight}
             strokeLinecap="round"
           />
 
           {/* Progress bar */}
-          <Path
+          <AnimatedPath
+            animatedProps={animatedProgressColor}
             d={progressPath}
-            stroke={progressColor}
             strokeWidth={barHeight}
             strokeLinecap="round"
           />

@@ -3,7 +3,7 @@ import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type CheckboxProps = {
   label: string;
@@ -41,7 +41,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         />
       )}
 
-      <ThemedText>{label}</ThemedText>
+      <AnimatedThemedText>{label}</AnimatedThemedText>
     </TouchableOpacity>
   );
 };

@@ -1,11 +1,11 @@
 import React from "react";
 import { View } from "react-native";
+import Animated from "react-native-reanimated";
 
 import { Colors } from "@shared/constants/Colors";
-import { useTheme } from "@shared/hooks/useTheme";
 import { RitualStatuses } from "@shared/types/commonTypes";
-import { SeparatedProgressBar } from "@shared/ui/ProgressBar";
-import ThemedText from "@shared/ui/ThemedText";
+import SeparatedProgressBar from "@shared/ui/ProgressBar/ProgressBar";
+import { useProgressBarColors } from "@shared/ui/ProgressBar/useProgressBarColors";
 
 import { Tooltip } from "./Tooltip";
 import { RitualPhaseMap } from "./constants";
@@ -22,8 +22,6 @@ type PhaseBadgeProps = {
 };
 
 const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
-  const { colorScheme } = useTheme();
-
   const phase = calculateRitualPhase(ritualId);
   const phaseItem = RitualPhaseMap[phase];
   const isInitiantion = phase === RitualPhase.Initiation;
@@ -35,7 +33,11 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
 
   const doneDaysCount = allDays.length - adjustedPhaseFrom;
   const totalSteps = isDeepIntegration ? 2 : phaseItem.to - phaseItem.from;
-  const phaseColor = Colors.ritualPhaseColors[phase][colorScheme];
+
+  const animatedTextStyles = useProgressBarColors(
+    Colors.ritualPhaseColors.light[phase],
+    Colors.ritualPhaseColors.dark[phase],
+  );
 
   const nextPhase = getNextRitualPhase(phase)!;
   const daysLeft = phaseItem.to - (adjustedPhaseFrom + doneDaysCount);
@@ -44,12 +46,9 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
     // TODO rewrite all View to ThemedView?
     <View className="gap-1">
       <View className="flex-row gap-1">
-        <ThemedText
-          style={{ color: phaseColor }}
-          className="text-base bg-emesald-100"
-        >
+        <Animated.Text style={animatedTextStyles}>
           Curerent phase: {phaseItem.label}
-        </ThemedText>
+        </Animated.Text>
 
         <View className="flex-row gap-2">
           {/* // TODO add backround for all icons as there usually halls and user can see backround of under component */}
@@ -70,9 +69,9 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
 
       {isDeepIntegration && (
         // TODO add pulsation
-        <ThemedText style={{ color: phaseColor }} className="font-bold">
+        <Animated.Text style={animatedTextStyles} className="font-bold">
           Grinding for {allDays.length} days
-        </ThemedText>
+        </Animated.Text>
       )}
       <SeparatedProgressBar
         total={totalSteps}
@@ -80,12 +79,8 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
         highlightedIndexes={isDeepIntegration ? [] : missedDaysIndexes}
         doneCount={doneDaysCount}
         width={380} // TODO make it responsive
-        backgroundColor={phaseColor}
         // TODO remove hardcode
-        separatorColor={"#e5e7eb"}
-        colors={{ done: phaseColor, future: phaseColor }}
-        highlightColor={"red"}
-        backgroundColorOpacity={0.5}
+        phase={phase}
       />
     </View>
   );

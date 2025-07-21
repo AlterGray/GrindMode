@@ -3,8 +3,10 @@ import { Pressable } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 
+import { IoniconsName } from "@shared/types/commonTypes";
+
 type IconButtonProps = {
-  iconName: keyof typeof Ionicons.glyphMap;
+  iconName: IoniconsName;
   size?: number;
   color?: string;
   onPress?: () => void;

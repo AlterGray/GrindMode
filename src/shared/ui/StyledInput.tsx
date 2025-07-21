@@ -1,6 +1,7 @@
-import { useAutoFocus } from "@shared/hooks/useAutoFocus";
 import React, { useRef } from "react";
 import { TextInput, TextInputProps } from "react-native";
+
+import { useAutoFocus } from "@shared/hooks/useAutoFocus";
 
 interface StyledInputProps extends TextInputProps {
   autoFocus?: boolean;
@@ -17,6 +18,7 @@ const StyledInput: React.FC<StyledInputProps> = ({
   const localRef = useRef<TextInput>(null);
   const refToUse = ref || localRef;
 
+  // TODO work time from time
   useAutoFocus(refToUse, autoFocus);
 
   const baseClasses = [

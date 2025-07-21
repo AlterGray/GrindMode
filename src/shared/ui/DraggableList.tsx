@@ -16,6 +16,7 @@ const DraggableList = <T extends { id: string }>({
   onDragEnd,
 }: DraggableListProps<T>) => {
   return (
+    // TODO animate
     <DraggableFlatList
       data={items}
       keyExtractor={(item) => item.id}

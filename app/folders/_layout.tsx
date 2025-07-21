@@ -4,17 +4,15 @@ import { useThemeColors } from "@shared/hooks/useThemeColors";
 
 const FolderLayout = () => {
   const theme = useThemeColors();
-  const backgroundColor = theme.backgroundSurface;
-  const textColor = theme.textPrimary;
 
   const screenOptions = {
     headerStyle: {
-      backgroundColor,
+      backgroundColor: theme.backgroundSurface,
     },
     headerTitleStyle: {
-      color: textColor,
+      color: theme.textPrimary,
     },
-    headerTintColor: textColor,
+    headerTintColor: theme.textPrimary,
   };
 
   return (

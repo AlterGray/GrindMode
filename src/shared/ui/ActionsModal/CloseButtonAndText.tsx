@@ -1,5 +1,5 @@
 import IconButton from "@shared/ui/IconButton";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
 
 import { useActionModalStore } from "./actionsModalStore";
@@ -26,7 +26,9 @@ const CloseButtonAndText: React.FC<MenuActionButtonProps> = ({ iconColor }) => {
   );
 
   const actionModalText = (
-    <ThemedText className="text-base font-medium">{text}</ThemedText>
+    <AnimatedThemedText className="text-base font-medium">
+      {text}
+    </AnimatedThemedText>
   );
 
   return (

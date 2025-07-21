@@ -2,14 +2,13 @@ import React from "react";
 import { useState } from "react";
 import { Pressable } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
 import { useKeyboardVisible } from "@shared/hooks/useKeyboardVisible";
-import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { FloatingModalVariant, RouteType } from "@shared/types/commonTypes";
 import ToggleList from "@shared/ui/ToggleList/ToggleList";
 
+import { AnimatedIonicons } from "./AnimatedComponents/AnimatedIonicons";
 import FloatingModal from "./FloatingModal/FloatingModal";
 
 type CreateButtonProps = {
@@ -27,7 +26,6 @@ const CreateButton: React.FC<CreateButtonProps> = ({
   const isShow = useKeyboardVisible();
 
   const router = useRouter();
-  const iconColor = useThemeColors("icon");
 
   const onPress = (option: string) => {
     router.push(routes[option]);
@@ -56,7 +54,7 @@ const CreateButton: React.FC<CreateButtonProps> = ({
           }`}
         >
           {/* TODO add shadow */}
-          <Ionicons size={56} name="add-circle-sharp" color={iconColor} />
+          <AnimatedIonicons size={56} name="add-circle-sharp" />
         </Pressable>
       )}
     </>

@@ -1,19 +1,23 @@
 import { View } from "react-native";
 
-import ThemedText from "@shared/ui/ThemedText";
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import AnimatedThemedText from "@shared/ui/ThemedText";
+import ThemedView from "@shared/ui/ThemedView";
 
 type ProgressLabelProps = {
   text: string;
   isLocked?: boolean;
 };
 
+// TODO make all reusable comnponents like this more "reusable" to extrack it to custom ui kit
 const ProgressLabel: React.FC<ProgressLabelProps> = ({ text, isLocked }) => {
+  const animatedBgColor = useAnimatedColor(isLocked ? "textMuted" : "white");
   return (
     <View className="flex-row items-center gap-2 max-w-[95%]">
-      <View
-        className={`w-2 h-2 rounded-md ${isLocked ? "bg-light-textMuted dark:bg-dark-textMuted" : "bg-black dark:bg-white"}`}
-      ></View>
-      <ThemedText color={isLocked ? "muted" : "primary"}>{text}</ThemedText>
+      <ThemedView style={animatedBgColor} className={`w-2 h-2 rounded-md`} />
+      <AnimatedThemedText color={isLocked ? "muted" : "primary"}>
+        {text}
+      </AnimatedThemedText>
     </View>
   );
 };

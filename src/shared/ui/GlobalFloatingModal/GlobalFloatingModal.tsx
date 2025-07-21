@@ -1,6 +1,6 @@
 import FloatingModal from "@shared/ui/FloatingModal/FloatingModal";
 import { getModalConfig } from "@shared/ui/FloatingModal/utils";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import { useGlobalFloatingModalStore } from "./GlobalFloatingModalStore";
 
@@ -10,7 +10,9 @@ const GlobalFloatingModal: React.FC = () => {
 
   const defaultText = getModalConfig(variant).message;
 
-  const renderText = () => <ThemedText>{text ?? defaultText}</ThemedText>;
+  const renderText = () => (
+    <AnimatedThemedText>{text ?? defaultText}</AnimatedThemedText>
+  );
 
   const handleConfirm = () => {
     onConfirm();

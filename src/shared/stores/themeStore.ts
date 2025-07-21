@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
+import { makeMutable } from "react-native-reanimated";
+
 import { useSubscribeStoreWithSelector } from "@shared/hooks/useSubscribeStoreWithSelector";
 import { storage } from "@shared/lib/storage";
 
@@ -12,6 +14,8 @@ type ThemeStore = {
   setTheme: (theme: ThemeMode) => void;
   toggleTheme: () => void;
 };
+
+export const themeTransitionProgress = makeMutable(0);
 
 const getThemeFromStorage = () => {
   const themeString = storage.getString("theme");

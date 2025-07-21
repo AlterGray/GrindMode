@@ -1,4 +1,7 @@
 import { View, ViewProps } from "react-native";
+import Animated from "react-native-reanimated";
+
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 
 export type ThemedViewProps = ViewProps & {
   className?: string;
@@ -12,11 +15,16 @@ const ThemedView: React.FC<ThemedViewProps> = ({
   ref,
   ...props
 }) => {
-  const bgColor = "bg-light-background dark:bg-dark-background";
+  const animatedBgColor = useAnimatedColor("backgroundSurface");
   return (
-    <View ref={ref} className={`${bgColor} ${className}`} {...props}>
+    <Animated.View
+      style={animatedBgColor}
+      ref={ref}
+      className={className}
+      {...props}
+    >
       {children ? children : null}
-    </View>
+    </Animated.View>
   );
 };
 

@@ -4,19 +4,18 @@ import { Stack } from "expo-router";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 
+// TODO not all views visible for user, can we increase performance with removing animations from those views?
 const RitualLayout = () => {
   const theme = useThemeColors();
-  const backgroundColor = theme.backgroundSurface;
-  const textColor = theme.textPrimary;
 
   const screenOptions = {
     headerStyle: {
-      backgroundColor,
+      backgroundColor: theme.backgroundSurface,
     },
     headerTitleStyle: {
-      color: textColor,
+      color: theme.textPrimary,
     },
-    headerTintColor: textColor,
+    headerTintColor: theme.textPrimary,
   };
 
   const screens = [

@@ -1,13 +1,12 @@
 import { View } from "react-native";
+import Animated from "react-native-reanimated";
 
-import { Ionicons } from "@expo/vector-icons";
-
-import { useThemeColors } from "@shared/hooks/useThemeColors";
 // TODO rename
 import { RitualStatuses } from "@shared/types/commonTypes";
-import ThemedText from "@shared/ui/ThemedText";
+import { AnimatedIonicons } from "@shared/ui/AnimatedComponents/AnimatedIonicons";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
-import { getStatusVariant } from "./utils";
+import { useStatusVariant } from "./utils";
 
 type StatusProps = {
   status: RitualStatuses;
@@ -16,16 +15,23 @@ type StatusProps = {
 // TODO align namings, here with feature prefix, but in UI for example backdrop(for modal) without prefix
 // TODO make backdrop shared?
 const RitualStatus: React.FC<StatusProps> = ({ status }) => {
-  const colors = useThemeColors();
-  const variant = getStatusVariant(status, colors);
+  const variant = useStatusVariant(status);
 
   return (
     // TODO how to don't repeat "light" or "dark" in class names each time?
-    <View className={`flex-row gap-2 rounded-sm px-2 py-1 ${variant.bgColor}`}>
+    <Animated.View
+      style={variant.animatedBgColor}
+      className={"flex-row gap-2 rounded-sm px-2 py-1"}
+    >
       {/* TODO introduce color white */}
-      <ThemedText className="text-white">{variant.text}</ThemedText>
-      <Ionicons name={variant.iconName} color={variant.iconColor} size={18} />
-    </View>
+      <AnimatedThemedText color="white">{variant.text}</AnimatedThemedText>
+      {/* TODO fix animating */}
+      <AnimatedIonicons
+        name={variant.iconName}
+        animatedIconColor={variant.animatedIconColor}
+        size={18}
+      />
+    </Animated.View>
   );
 };
 

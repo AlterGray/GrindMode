@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import { FloatingModalVariant } from "@shared/types/commonTypes";
 import FloatingModal from "@shared/ui/FloatingModal/FloatingModal";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import { Checkbox } from "./CheckBox";
 import { useRitualStore } from "./ritualStore";
@@ -71,7 +71,7 @@ export const RemoveRitualModal: React.FC<RemoveRitualModalProps> = ({
       onCancel={onClose}
       renderContent={() => (
         <View>
-          <ThemedText>Remove rituals?</ThemedText>
+          <AnimatedThemedText>Remove rituals?</AnimatedThemedText>
           <Checkbox
             label="Also delete ritual statistic?"
             onChange={setIsRemoveStatistics}

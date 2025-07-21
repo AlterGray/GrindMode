@@ -3,8 +3,8 @@ import { View } from "react-native";
 
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
-import { useTheme } from "@shared/hooks/useTheme";
-import ThemedText from "@shared/ui/ThemedText";
+import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import ProgressCircle from "./CirlceProgressBar/ProgressCircle";
 
@@ -18,24 +18,29 @@ type Props = {
 };
 
 const ProgressRow: React.FC<Props> = ({ metrics }) => {
-  const theme = useTheme();
   const statistics = useRitualStatisticStore((state) => state.statistics);
-
-  // TODO use tailwind colors
-  const backgroundColor = theme.colorScheme === "light" ? "#ccc" : "#444";
-  const progressColor = theme.colorScheme === "light" ? "#555" : "#eee";
 
   // TODO implement statistic clear
   const isLocked =
     statistics.length === 0 ||
     statistics.every((s) => s.completitions.length === 0);
 
+  const animatedProgressBarBg = useAnimatedSvgColor(
+    "progressBarBackground",
+    "stroke",
+  );
+  const animatedProgressBarColor = useAnimatedSvgColor(
+    "progressBarProgress",
+    "stroke",
+  );
+
+  // TODO DO SAME REFACTORING AS WITH SCREENS
   return (
     <View>
       {/* TODO CREATE HEADER VARIANT */}
-      <ThemedText className="text-2xl font-medium mb-1">
+      <AnimatedThemedText className="text-2xl font-medium mb-1">
         Discipline metrics
-      </ThemedText>
+      </AnimatedThemedText>
 
       <View className="flex-row justify-around items-center mb-2">
         {/* TODO add sub label to show growth in % */}
@@ -46,8 +51,8 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
           scale={1.3}
           onPress={() => alert("There is no statistic yet")}
           isLocked={isLocked}
-          backgroundColor={backgroundColor}
-          progressColor={progressColor}
+          animatedBgColor={animatedProgressBarBg}
+          animatedProgressColor={animatedProgressBarColor}
         />
 
         {/* // TODO in order to have actual date we shouldn't clear completions but mark them as failed */}
@@ -58,8 +63,8 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
           scale={1.15}
           onPress={() => alert("There is no statistic yet")}
           isLocked={isLocked}
-          backgroundColor={backgroundColor}
-          progressColor={progressColor}
+          animatedBgColor={animatedProgressBarBg}
+          animatedProgressColor={animatedProgressBarColor}
         />
 
         <ProgressCircle
@@ -69,8 +74,8 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
           scale={1}
           onPress={() => alert("There is no statistic yet")}
           isLocked={isLocked}
-          backgroundColor={backgroundColor}
-          progressColor={progressColor}
+          animatedBgColor={animatedProgressBarBg}
+          animatedProgressColor={animatedProgressBarColor}
         />
       </View>
     </View>

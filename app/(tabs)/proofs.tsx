@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, View } from "react-native";
+import Animated from "react-native-reanimated";
 
 import DisciplineMetrics from "@features/proofs/DisciplineMetrics/DisciplineMetrics";
 import Header from "@features/proofs/Header";
@@ -8,7 +8,9 @@ import { getActiveDaysCount } from "@features/proofs/utils/common";
 import { useRitualStore } from "@features/rituals/ritualStore";
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
+import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import HorizontalTabBar from "@shared/ui/HorizontalTabBar";
+import ThemedView from "@shared/ui/ThemedView";
 
 // TODO add exhoustive checks?
 export enum TimeFilter {
@@ -39,9 +41,11 @@ const proofs = () => {
 
   const rituals = useRitualStore((state) => state.rituals);
 
+  const animatedBgColor = useAnimatedColor("backgroundSurface");
+
   return (
-    <ScrollView className="bg-white dark:bg-black px-4">
-      <View className="gap-4 pt-6">
+    <Animated.ScrollView style={animatedBgColor} className={"px-4"}>
+      <ThemedView className="gap-4 pt-6">
         <Header />
         <HorizontalTabBar
           tabs={tabs}
@@ -49,14 +53,14 @@ const proofs = () => {
           onChange={(id) => setActiveTab(id as TimeFilter)}
         />
         {/* // TODO add exhoustive checks? enum ProofsTimeFilters = */}
-        <View className="gap-4">
+        <ThemedView className="gap-4">
           <DisciplineMetrics days={TimeFilterMap[activeTab].days} />
           <PhaseDistirbution rituals={rituals} />
 
           {/* <AchivementList /> */}
-        </View>
-      </View>
-    </ScrollView>
+        </ThemedView>
+      </ThemedView>
+    </Animated.ScrollView>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -13,12 +14,14 @@ import { useRitualStoreWithSubscribe } from "@features/rituals/ritualStore";
 import { useStatisticStoreWithSubscribe } from "@features/rituals/statisticStore";
 
 import { useTheme } from "@shared/hooks/useTheme";
-import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { useThemeTransitionSync } from "@shared/hooks/useThemeTransitionSync";
 import {
   useThemeStore,
   useThemeStoreWithSubscribe,
 } from "@shared/stores/themeStore";
 import ActionModal from "@shared/ui/ActionsModal/ActionModal";
+import AnimatedNavigationBar from "@shared/ui/AnimatedComponents/AnimatedNavigationBar";
+import AnimatedStatusBar from "@shared/ui/AnimatedComponents/AnimatedStatusBar";
 import GlobalFloatingModal from "@shared/ui/GlobalFloatingModal/GlobalFloatingModal";
 import PopoverMenu from "@shared/ui/PopoverMenu/PopoverMenu";
 
@@ -37,14 +40,15 @@ const RootLayout = () => {
   useRecalculateMissedRituals();
   useThemeStoreWithSubscribe();
 
+  useThemeTransitionSync();
+
   // TODO
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  const { colorScheme, setScheme: setTheme } = useTheme();
+  const { setScheme } = useTheme();
   const theme = useThemeStore((state) => state.theme);
-  const backgroundColor = useThemeColors("backgroundSurface");
 
   useEffect(() => {
     if (loaded) {
@@ -54,7 +58,7 @@ const RootLayout = () => {
 
   // TODO subscribe? TODO
   useEffect(() => {
-    setTheme(theme);
+    setScheme(theme); // or maybe setState if you're syncing to system theme
   }, [theme]);
 
   if (!loaded) {
@@ -68,22 +72,24 @@ const RootLayout = () => {
   // when and how use: --legacy-peer-deps
   // TODO when user switch screen like when it creates ritual then white background apearing
   return (
-    <GestureHandlerRootView>
-      <Stack
-        screenOptions={{
-          navigationBarColor: backgroundColor,
-          statusBarBackgroundColor: backgroundColor,
-          statusBarStyle: colorScheme === "dark" ? "light" : "dark",
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-      {/* // TODO extract to modals */}
-      <GlobalFloatingModal />
-      <PopoverMenu />
-      <ActionModal />
-    </GestureHandlerRootView>
+    <SafeAreaView style={{ flex: 1 }} edges={["left", "right"]}>
+      <AnimatedStatusBar />
+      <GestureHandlerRootView>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: "slide_from_bottom",
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+        {/* // TODO extract to modals */}
+        <GlobalFloatingModal />
+        <PopoverMenu />
+        <ActionModal />
+      </GestureHandlerRootView>
+      <AnimatedNavigationBar isLoaded={loaded} />
+    </SafeAreaView>
   );
 };
 

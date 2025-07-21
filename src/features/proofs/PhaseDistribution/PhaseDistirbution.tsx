@@ -4,9 +4,9 @@ import { RitualPhaseMap } from "@features/rituals/constants";
 import { calculateRitualPhase } from "@features/rituals/lib/utils";
 import { Ritual, RitualPhase } from "@features/rituals/ritualTypes";
 
-import { useTheme } from "@shared/hooks/useTheme";
+import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
 import { capitalize } from "@shared/lib/utils/common";
-import ThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import LabeledProgressBar from "./LabeledProgressBar";
 
@@ -15,10 +15,6 @@ type PhaseDistirbutionProps = {
 };
 
 const PhaseDistirbution: React.FC<PhaseDistirbutionProps> = ({ rituals }) => {
-  const theme = useTheme();
-  const progressColor = theme.colorScheme === "light" ? "#333" : "#fff";
-  const backgroundColor = theme.colorScheme === "light" ? "#ccc" : "#444";
-
   const getPhaseDistribution = (phase: RitualPhase) => {
     const phaseByName = rituals.filter(
       (s) => calculateRitualPhase(s.id) === phase,
@@ -35,21 +31,29 @@ const PhaseDistirbution: React.FC<PhaseDistirbutionProps> = ({ rituals }) => {
 
   const isLocked = rituals.length === 0;
 
+  const animatedProgressBarBg = useAnimatedSvgColor(
+    "progressBarBackground",
+    "stroke",
+  );
+  const animatedProgressBarColor = useAnimatedSvgColor(
+    "progressBarProgress",
+    "stroke",
+  );
+
   return (
     <View className="gap-4">
-      <ThemedText className="text-2xl font-medium">
+      <AnimatedThemedText className="text-2xl font-medium">
         Phase distribution
-      </ThemedText>
+      </AnimatedThemedText>
 
       <View className="gap-2">
         {Object.values(RitualPhase).map((phase) => (
-          // TODO ADD LOCKED STATE
           <LabeledProgressBar
             key={phase}
             progress={isLocked ? 0 : getPhaseDistribution(phase)}
             label={capitalize(RitualPhaseMap[phase].label)}
-            progressColor={progressColor}
-            backgroundColor={isLocked ? "#ccc" : backgroundColor}
+            animatedBgColor={animatedProgressBarBg}
+            animatedProgressColor={animatedProgressBarColor}
           />
         ))}
       </View>

@@ -1,4 +1,3 @@
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
 import { useFolderStore } from "@features/folder/folderStore";
@@ -7,6 +6,7 @@ import { useFolderColor } from "@features/folder/useFolderColor";
 import { useRitualPopoverActions } from "@features/folder/useRitualPopoverActions";
 
 import { ROUTES } from "@shared/constants/routes";
+import { IoniconsName } from "@shared/types/commonTypes";
 
 import { useRitualStore } from "../ritualStore";
 
@@ -56,7 +56,7 @@ const useFolderNavModal = (
       title: folder.name,
       onPress: () => navModalAction(folder.id),
       // TODO extract to constants?
-      iconName: "folder-outline" as keyof typeof Ionicons.glyphMap,
+      iconName: "folder-outline" as IoniconsName,
       iconColor: color(folder.color as FolderColorType),
       isMarked: rituals.some((r) => r.folderIds.includes(folder.id)),
     }))
