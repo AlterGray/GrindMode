@@ -30,7 +30,7 @@ export const getActiveDaysCount = (
   const validDates = Array.from(activeDays).filter((dateStr) => {
     const date = new Date(dateStr);
     const diff = getDaysDiff(date, today);
-    return diff < limitDays;
+    return diff < limitDays || limitDays === -1;
   });
 
   return validDates.length;

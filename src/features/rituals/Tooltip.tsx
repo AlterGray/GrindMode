@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useComponentPosition } from "@shared/hooks/useComponentPosition";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { IoniconsName } from "@shared/types/commonTypes";
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import Backdrop from "@shared/ui/FloatingModal/components/Backdrop";
 import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedView from "@shared/ui/ThemedView";
@@ -48,22 +49,22 @@ export const Tooltip: React.FC<TooltipProps> = ({
     }
   > = {
     info: {
-      bgColor: "bg-light-primary dark:bg-dark-primary",
+      bgColor: "bg-light-primary dark:bg-dark-primarySoft",
       iconColor: colors.primary,
       iconName: "information-circle-sharp",
     },
     success: {
-      bgColor: "bg-light-success dark:bg-dark-success",
+      bgColor: "bg-light-success dark:bg-dark-successSoft",
       iconColor: colors.success,
       iconName: "checkmark-circle-sharp",
     },
     warning: {
-      bgColor: "bg-light-warning dark:bg-dark-warning",
+      bgColor: "bg-light-warning dark:bg-dark-warningSoft",
       iconColor: colors.warning,
       iconName: "warning-sharp",
     },
     danger: {
-      bgColor: "bg-light-danger dark:bg-dark-danger",
+      bgColor: "bg-light-danger dark:bg-dark-dangerSoft",
       iconColor: colors.danger,
       iconName: "warning-sharp",
     },

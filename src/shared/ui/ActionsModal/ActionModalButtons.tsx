@@ -2,8 +2,8 @@ import { useRef } from "react";
 import { View } from "react-native";
 
 import { usePopoverMenu } from "@shared/hooks/usePopoverMenu";
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import IconButton from "@shared/ui/IconButton";
-import ThemedView from "@shared/ui/ThemedView";
 
 import { useActionModalStore } from "./actionsModalStore";
 
@@ -25,7 +25,7 @@ const ActionModalButtons: React.FC<ActionModalActionsProps> = ({
     "flex-row gap-6 bg-light-backgroundSurface px-4 py-2 dark:bg-dark-backgroundSurface";
 
   return (
-    <ThemedView className={actionsClasses}>
+    <AnimatedThemedView className={actionsClasses}>
       {actions.map((action) => (
         <IconButton
           key={action.iconName}
@@ -46,7 +46,7 @@ const ActionModalButtons: React.FC<ActionModalActionsProps> = ({
           />
         </View>
       )}
-    </ThemedView>
+    </AnimatedThemedView>
   );
 };
 

@@ -9,8 +9,8 @@ import { IoniconsName } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import AnimatedTabBarIcon from "@shared/ui/AnimatedComponents/AnimatedTabBarIcon";
 import AnimatedTabBarLabel from "@shared/ui/AnimatedComponents/AnimatedTabBarLabel";
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import ThemeButton from "@shared/ui/ThemeButton";
-import ThemedView from "@shared/ui/ThemedView";
 
 const TabsLayout = () => {
   const isModalOpen = useActionModalStore((s) => s.isOpen);
@@ -31,7 +31,9 @@ const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarBackground: () => <ThemedView className="absolute inset-0" />,
+        tabBarBackground: () => (
+          <AnimatedThemedView className="absolute inset-0" />
+        ),
         headerStyle: { backgroundColor: theme.backgroundSurface },
         headerTintColor: theme.textPrimary,
         headerRight: () => <ThemeButton className="px-4" />,
@@ -41,7 +43,9 @@ const TabsLayout = () => {
           </Animated.Text>
         ),
         tabBarHideOnKeyboard: true,
-        headerBackground: () => <ThemedView className="absolute inset-0" />,
+        headerBackground: () => (
+          <AnimatedThemedView className="absolute inset-0" />
+        ),
         animation: "shift",
         sceneStyle: {
           backgroundColor: theme.backgroundSurface,

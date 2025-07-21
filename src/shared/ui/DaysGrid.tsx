@@ -1,8 +1,8 @@
 import { DayType } from "@shared/types/commonTypes";
 
+import AnimatedThemedView from "./AnimatedThemedView";
 import DaysPicker from "./DaysPicker/DaysPicker";
 import AnimatedThemedText from "./ThemedText";
-import ThemedView from "./ThemedView";
 
 type DaysGridProps = {
   items: DayType[];
@@ -11,14 +11,14 @@ type DaysGridProps = {
 
 const DaysGrid: React.FC<DaysGridProps> = ({ items, onChange }) => {
   return (
-    <ThemedView className="gap-2">
+    <AnimatedThemedView className="gap-2">
       {/* TODO in order to avoid renaming problems like in this commit, keep it as constant */}
       <AnimatedThemedText className="">Ritual days:</AnimatedThemedText>
       <DaysPicker
         onChange={onChange}
         initialItems={items.length ? items : []}
       />
-    </ThemedView>
+    </AnimatedThemedView>
   );
 };
 

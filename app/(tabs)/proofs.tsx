@@ -9,8 +9,8 @@ import { useRitualStore } from "@features/rituals/ritualStore";
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import HorizontalTabBar from "@shared/ui/HorizontalTabBar";
-import ThemedView from "@shared/ui/ThemedView";
 
 // TODO add exhoustive checks?
 export enum TimeFilter {
@@ -30,14 +30,17 @@ const proofs = () => {
   const [activeTab, setActiveTab] = useState(TimeFilter.LAST_7_DAYS);
   const statistic = useRitualStatisticStore((state) => state.statistics);
 
-  const tabs = Object.values(TimeFilter).map((value) => ({
-    label: TimeFilterMap[value].label,
-    isWarning:
-      TimeFilterMap[value].days >
-      getActiveDaysCount(statistic, TimeFilterMap[value].days),
-    isDisabled: false,
-    id: value,
-  }));
+  const tabs = Object.values(TimeFilter).map((value) => {
+    const filterDaysCount = TimeFilterMap[value].days;
+    const activeDaysCount = getActiveDaysCount(statistic, filterDaysCount);
+    const isDaysEnough = filterDaysCount <= activeDaysCount;
+
+    return {
+      label: TimeFilterMap[value].label,
+      isWarning: filterDaysCount === -1 ? activeDaysCount === 0 : !isDaysEnough,
+      id: value,
+    };
+  });
 
   const rituals = useRitualStore((state) => state.rituals);
 
@@ -45,7 +48,7 @@ const proofs = () => {
 
   return (
     <Animated.ScrollView style={animatedBgColor} className={"px-4"}>
-      <ThemedView className="gap-4 pt-6">
+      <AnimatedThemedView className="gap-4 pt-6">
         <Header />
         <HorizontalTabBar
           tabs={tabs}
@@ -53,13 +56,13 @@ const proofs = () => {
           onChange={(id) => setActiveTab(id as TimeFilter)}
         />
         {/* // TODO add exhoustive checks? enum ProofsTimeFilters = */}
-        <ThemedView className="gap-4">
+        <AnimatedThemedView className="gap-4">
           <DisciplineMetrics days={TimeFilterMap[activeTab].days} />
           <PhaseDistirbution rituals={rituals} />
 
           {/* <AchivementList /> */}
-        </ThemedView>
-      </ThemedView>
+        </AnimatedThemedView>
+      </AnimatedThemedView>
     </Animated.ScrollView>
   );
 };

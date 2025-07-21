@@ -18,14 +18,11 @@ const RitualStatus: React.FC<StatusProps> = ({ status }) => {
   const variant = useStatusVariant(status);
 
   return (
-    // TODO how to don't repeat "light" or "dark" in class names each time?
     <Animated.View
       style={variant.animatedBgColor}
       className={"flex-row gap-2 rounded-sm px-2 py-1"}
     >
-      {/* TODO introduce color white */}
       <AnimatedThemedText color="white">{variant.text}</AnimatedThemedText>
-      {/* TODO fix animating */}
       <AnimatedIonicons
         name={variant.iconName}
         animatedIconColor={variant.animatedIconColor}

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import AnimatedThemedText from "@shared/ui/ThemedText";
-import ThemedView from "@shared/ui/ThemedView";
 import ThemedWheelPicker from "@shared/ui/ThemedWheelPicker";
 
 import DurationPickerItem from "./DurationPickerItem";
@@ -23,7 +23,7 @@ const MinutesPicker: React.FC<MinutesPickerProps> = ({
   );
 
   return (
-    <ThemedView className="flex-row items-center">
+    <AnimatedThemedView className="flex-row items-center">
       <ThemedWheelPicker
         items={minutes.map((h) => ({
           label: String(h).padStart(2, "0"),
@@ -36,7 +36,7 @@ const MinutesPicker: React.FC<MinutesPickerProps> = ({
       <AnimatedThemedText className="ml-1 text-lg font-light">
         M
       </AnimatedThemedText>
-    </ThemedView>
+    </AnimatedThemedView>
   );
 };
 

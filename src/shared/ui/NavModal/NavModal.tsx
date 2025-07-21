@@ -2,8 +2,8 @@ import React from "react";
 import { Modal, Pressable } from "react-native";
 
 import { IoniconsName } from "@shared/types/commonTypes";
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import AnimatedThemedText from "@shared/ui/ThemedText";
-import ThemedView from "@shared/ui/ThemedView";
 
 import ActionList, { Action } from "./ActionList";
 
@@ -32,13 +32,13 @@ const NavModal: React.FC<NavModalProps> = ({
     <Modal transparent animationType="slide" visible={isVisible}>
       <Pressable onPress={onClose} className="absolute inset-0" />
 
-      <ThemedView className="absolute bottom-0 w-full gap-4 bg-light-backgroundSurface px-4 py-4 dark:bg-dark-backgroundSurface">
+      <AnimatedThemedView className="absolute bottom-0 w-full gap-4 bg-light-backgroundSurface px-4 py-4 dark:bg-dark-backgroundSurface">
         <AnimatedThemedText className="ml-8" variant="h4">
           {title}
         </AnimatedThemedText>
 
         <ActionList actions={actions} />
-      </ThemedView>
+      </AnimatedThemedView>
     </Modal>
   );
 };

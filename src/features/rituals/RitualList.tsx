@@ -6,11 +6,11 @@ import { useFolderStore } from "@features/folder/folderStore";
 
 import { ROUTES } from "@shared/constants/routes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import CreateButton from "@shared/ui/CreateButton";
 import NavModal from "@shared/ui/NavModal/NavModal";
 import StyledList from "@shared/ui/StyledList/StyledList";
 import { ItemData } from "@shared/ui/StyledList/types";
-import ThemedView from "@shared/ui/ThemedView";
 
 import { RemoveRitualModal } from "./RemoveRitualModal";
 import RitualListItem from "./RitualListItem";
@@ -75,7 +75,7 @@ const RitualList: React.FC = () => {
   );
 
   return (
-    <ThemedView className="flex-1 items-center justify-center">
+    <AnimatedThemedView className="flex-1 items-center justify-center">
       <StyledList
         data={ritualsInFolder}
         isSelecting={isSelectingRituals}
@@ -105,7 +105,7 @@ const RitualList: React.FC = () => {
         onClose={() => setIsRemoveModalOpen(false)}
         onConfirm={closeDialogs}
       />
-    </ThemedView>
+    </AnimatedThemedView>
   );
 };
 

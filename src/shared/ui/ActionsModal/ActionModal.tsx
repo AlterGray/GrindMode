@@ -2,7 +2,7 @@ import React from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
-import ThemedView from "@shared/ui/ThemedView";
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 
 import ActionModalButtons from "./ActionModalButtons";
 import CloseButtonAndText from "./CloseButtonAndText";
@@ -23,10 +23,13 @@ const ActionModal = () => {
   // TODO rewrite with <Modal />
   // TODO use router stack?
   return (
-    <ThemedView className={containerClasses} style={{ top: insets.top }}>
+    <AnimatedThemedView
+      className={containerClasses}
+      style={{ top: insets.top }}
+    >
       <CloseButtonAndText iconColor={iconColor} />
       <ActionModalButtons iconColor={iconColor} />
-    </ThemedView>
+    </AnimatedThemedView>
   );
 };
 

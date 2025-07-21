@@ -3,8 +3,8 @@ import {
   ScaleDecorator,
 } from "react-native-draggable-flatlist";
 
+import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import DraggableList from "@shared/ui/DraggableList";
-import ThemedView from "@shared/ui/ThemedView";
 
 import TabItem from "./TabItem";
 import { DraggableItem, ScrollTabsProps } from "./types";
@@ -37,20 +37,20 @@ const ScrollTabs: React.FC<ScrollTabsProps> = ({
   );
 
   return (
-    <ThemedView className="flex-1 flex-col">
+    <AnimatedThemedView className="flex-1 flex-col">
       {tabs.length > 1 ? (
-        <ThemedView className="px-4">
+        <AnimatedThemedView className="px-4">
           <DraggableList
             items={tabs}
             renderItem={({ item, drag }) => draggableItem(item, drag)}
             onDragEnd={onDragEnd}
           />
-        </ThemedView>
+        </AnimatedThemedView>
       ) : null}
-      <ThemedView className="flex-1">
+      <AnimatedThemedView className="flex-1">
         {tabs.find((tab) => tab.id === selectedTab)?.content}
-      </ThemedView>
-    </ThemedView>
+      </AnimatedThemedView>
+    </AnimatedThemedView>
   );
 };
 

@@ -94,7 +94,7 @@ export const Colors = {
     textPrimary: "#e5e7eb",
     textSecondary: "#9ca3af",
     textMuted: "#6b7280",
-    textAccent: "#64748b",
+    textAccent: "#60a5fa",
     textWhite: "#fff",
     textInverted: "#fff",
 
@@ -162,8 +162,8 @@ export const Colors = {
     danger: "#ef4444",
     dangerSoft: "#b91c1c",
 
-    warning: "#f59e0b",
-    warningSoft: "#b45309",
+    warning: "#d97706",
+    warningSoft: "#4a3510",
 
     success: "#22c55e",
     successSoft: "#f0fdf4",
