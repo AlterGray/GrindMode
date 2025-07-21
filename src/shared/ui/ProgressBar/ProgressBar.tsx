@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { View } from "react-native";
+import { useSharedValue, withSpring } from "react-native-reanimated";
 import Svg from "react-native-svg";
 
 import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
 import { RitualPhaseColorName } from "@shared/types/themeTypes";
 
-import { AnimatedLine, AnimatedPath } from "../AnimatedComponents/AnimatedSvgs";
-import { usePhaseAnimatedColors } from "./useProgressBarColors";
+import useAnimatedPaths from "./AnimatedPaths";
+import BackgroundSegments from "./BackgroundSegments";
+import Segments from "./Segments";
 
 interface SeparatedProgressBarProps {
   width: number;
@@ -24,7 +26,6 @@ interface SeparatedProgressBarProps {
   backgroundColorOpacity?: number;
 }
 
-// TODO make it more flexible
 const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
   width,
   height = 10,
@@ -36,10 +37,9 @@ const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
   phase,
   backgroundColorOpacity = 0.7,
 }) => {
-  const phaseColorFillProps = usePhaseAnimatedColors(phase);
-  const backgroundColorFillProps = useAnimatedSvgColor("background", "fill");
   const separatorColorFillProps = useAnimatedSvgColor("tabInactive", "stroke");
-  const highlightColorFillProps = useAnimatedSvgColor("tabActive", "fill");
+
+  const prevDoneCount = useRef(doneCount);
 
   const segmentWidth = width / total;
   const radius = height / 2;
@@ -49,98 +49,57 @@ const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
     [highlightedIndexes],
   );
 
-  const getColorProps = (i: number) => {
-    if (highlightedSet.has(i)) return highlightColorFillProps;
-    if (i < doneCount) return phaseColorFillProps;
-    return backgroundColorFillProps;
-  };
+  const transitions = useSharedValue(1);
 
-  // Generate path with rounded corners on the left or right side
-  const createSegmentPath = (index: number) => {
-    const x = index * segmentWidth;
-    const y = 0;
-    const w = segmentWidth;
-    const h = height;
+  useEffect(() => {
+    prevDoneCount.current < doneCount
+      ? (transitions.value = withSpring(1, {
+          stiffness: 355,
+          damping: 23,
+          mass: 1,
+        }))
+      : (transitions.value = withSpring(0));
+    prevDoneCount.current = doneCount;
+  }, [doneCount]);
 
-    if (index === 0) {
-      // rounded from the left
-      return `
-        M ${x + radius},${y}
-        H ${x + w}
-        V ${y + h}
-        H ${x + radius}
-        A ${radius},${radius} 0 0 1 ${x},${y + h - radius}
-        V ${y + radius}
-        A ${radius},${radius} 0 0 1 ${x + radius},${y}
-        Z
-      `;
-    } else if (index === total - 1) {
-      // rounded from the right
-      return `
-        M ${x},${y}
-        H ${x + w - radius}
-        A ${radius},${radius} 0 0 1 ${x + w},${y + radius}
-        V ${y + h - radius}
-        A ${radius},${radius} 0 0 1 ${x + w - radius},${y + h}
-        H ${x}
-        Z
-      `;
-    } else {
-      // without rounded corners
-      return `
-        M ${x},${y}
-        H ${x + w}
-        V ${y + h}
-        H ${x}
-        Z
-      `;
-    }
-  };
+  const paths = useAnimatedPaths({
+    total,
+    doneCount,
+    segmentWidth,
+    height,
+    radius,
+    transitions,
+    prevDoneCount,
+    highlightedIndexes,
+    phase,
+    separatorWidth,
+    separatorColorFillProps,
+  });
 
   return (
     <View style={{ width, height }}>
       <Svg width={width} height={height}>
-        {Array.from({ length: total }).map((_, i) => {
-          const isHighlighted = highlightedSet.has(i);
-          const scale = isHighlighted ? 0.85 : 1;
-          const x = i * segmentWidth;
-          const translateX = x + segmentWidth / 2;
-          const translateY = height / 2;
+        <BackgroundSegments
+          total={total}
+          doneCount={doneCount}
+          highlightedSet={highlightedSet}
+          segmentWidth={segmentWidth}
+          height={height}
+          radius={radius}
+          backgroundColorOpacity={backgroundColorOpacity}
+        />
 
-          const transform = `
-            translate(${translateX} ${translateY})
-            scale(${scale})
-            translate(${-translateX} ${-translateY})
-          `;
-
-          return (
-            <AnimatedPath
-              key={`seg-${i}`}
-              d={createSegmentPath(i)}
-              animatedProps={getColorProps(i)}
-              opacity={
-                !isHighlighted && i >= doneCount ? backgroundColorOpacity : 1
-              }
-              transform={transform}
-            />
-          );
-        })}
-
-        {showSeparators &&
-          Array.from({ length: total - 1 }).map((_, i) => {
-            const x = segmentWidth * (i + 1);
-            return (
-              <AnimatedLine
-                key={`sep-${i}`}
-                x1={x}
-                y1={0}
-                x2={x}
-                y2={height}
-                strokeWidth={separatorWidth}
-                animatedProps={separatorColorFillProps}
-              />
-            );
-          })}
+        <Segments
+          total={total}
+          doneCount={doneCount}
+          highlightedSet={highlightedSet}
+          segmentWidth={segmentWidth}
+          height={height}
+          separatorWidth={separatorWidth}
+          showSeparators={showSeparators}
+          separatorColorFillProps={separatorColorFillProps}
+          animatedPaths={paths}
+        />
       </Svg>
     </View>
   );
