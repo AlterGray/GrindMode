@@ -30,14 +30,17 @@ const proofs = () => {
   const [activeTab, setActiveTab] = useState(TimeFilter.LAST_7_DAYS);
   const statistic = useRitualStatisticStore((state) => state.statistics);
 
-  const tabs = Object.values(TimeFilter).map((value) => ({
-    label: TimeFilterMap[value].label,
-    isWarning:
-      TimeFilterMap[value].days >
-      getActiveDaysCount(statistic, TimeFilterMap[value].days),
-    isDisabled: false,
-    id: value,
-  }));
+  const tabs = Object.values(TimeFilter).map((value) => {
+    const filterDaysCount = TimeFilterMap[value].days;
+    const activeDaysCount = getActiveDaysCount(statistic, filterDaysCount);
+    const isDaysEnough = filterDaysCount <= activeDaysCount;
+
+    return {
+      label: TimeFilterMap[value].label,
+      isWarning: filterDaysCount === -1 ? activeDaysCount === 0 : !isDaysEnough,
+      id: value,
+    };
+  });
 
   const rituals = useRitualStore((state) => state.rituals);
 
