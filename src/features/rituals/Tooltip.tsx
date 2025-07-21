@@ -10,6 +10,7 @@ import { IoniconsName } from "@shared/types/commonTypes";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import Backdrop from "@shared/ui/FloatingModal/components/Backdrop";
 import AnimatedThemedText from "@shared/ui/ThemedText";
+import ThemedView from "@shared/ui/ThemedView";
 
 type TooltipProps = {
   text: string;
@@ -101,13 +102,13 @@ export const Tooltip: React.FC<TooltipProps> = ({
           style={{ top: buttonPosition.y, left: buttonPosition.x }}
         >
           {visible && (
-            <AnimatedThemedView
+            <ThemedView
               className={`absolute top-6 w-48 rounded-xl px-3 py-2 ${classes.bgColor}`}
             >
               <AnimatedThemedText className="text-sm" color={"white"}>
                 {text}
               </AnimatedThemedText>
-            </AnimatedThemedView>
+            </ThemedView>
           )}
         </View>
       </Modal>
