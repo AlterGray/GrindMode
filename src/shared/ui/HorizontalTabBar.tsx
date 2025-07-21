@@ -39,7 +39,6 @@ const HorizontalTabBar: React.FC<HorizontalTabBarProps> = ({
           {tab.isWarning && tab.id === activeTab && (
             <Tooltip
               text="You don't have enough completitions for this time period"
-              iconColor="#555"
               iconName="alert-circle-outline"
               variant="warning"
             />
