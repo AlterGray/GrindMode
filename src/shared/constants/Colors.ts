@@ -94,7 +94,7 @@ export const Colors = {
     textPrimary: "#e5e7eb",
     textSecondary: "#9ca3af",
     textMuted: "#6b7280",
-    textAccent: "#64748b",
+    textAccent: "#60a5fa",
     textWhite: "#fff",
     textInverted: "#fff",
 
