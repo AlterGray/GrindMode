@@ -17,21 +17,22 @@ type ItemComponentProps = {
 };
 
 // Background color by status and selection
-const getStatusBackgroundClass = (
+const getStatusColors = (
   status: RitualStatuses,
   isSelected: boolean,
-): ColorName => {
-  if (isSelected) return "selectedListItemBackground";
+): { bgColor: ColorName; textColor: ColorName } => {
+  if (isSelected)
+    return { bgColor: "selectedListItemBackground", textColor: "textPrimary" };
 
   switch (status) {
     case RitualStatuses.Undone:
-      return "statusUndoneBackground";
+      return { bgColor: "statusUndoneBackground", textColor: "textPrimary" };
     case RitualStatuses.Done:
-      return "statusDoneBackground";
+      return { bgColor: "statusDoneBackground", textColor: "textPrimary" };
     case RitualStatuses.Overdue:
-      return "statusOverdueBackground";
+      return { bgColor: "statusOverdueBackground", textColor: "textPrimary" };
     case RitualStatuses.Missed:
-      return "statusFailedBackground";
+      return { bgColor: "statusFailedBackground", textColor: "textPrimary" };
   }
 };
 
@@ -42,8 +43,9 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
     minute: "2-digit",
   });
 
-  const bgColor = getStatusBackgroundClass(item.status, isSelected);
+  const { bgColor, textColor } = getStatusColors(item.status, isSelected);
   const animatedBgStyle = useAnimatedColor(bgColor);
+  const animatedTextColor = useAnimatedColor(textColor, true);
 
   // TODO adjust items height to all items have same height indeondent of content length
   return (
@@ -53,9 +55,9 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
           <View className="flex-row w-full justify-between">
             <RitualStatus key={item.status} status={item.status} />
 
-            <AnimatedThemedText color="accent">
+            <Animated.Text style={animatedTextColor}>
               Start at {formatedStartTime}
-            </AnimatedThemedText>
+            </Animated.Text>
           </View>
 
           <AnimatedThemedText className="text-lg">
