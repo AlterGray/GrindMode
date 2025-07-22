@@ -6,7 +6,6 @@ import { DayType } from "@shared/types/commonTypes";
 
 import {
   setDays,
-  setDescription,
   setExpectedDuration,
   setStartTime,
   setTitle,
@@ -17,8 +16,6 @@ const reducer = (state: RitualFormValues, action: Action): RitualFormValues => {
   switch (action.type) {
     case ActionTypes.SET_TITLE:
       return { ...state, title: action.payload };
-    case ActionTypes.SET_DESCRIPTION:
-      return { ...state, description: action.payload };
     case ActionTypes.SET_START_TIME:
       return { ...state, startTime: action.payload };
     case ActionTypes.SET_EXPECTED_DURATION:
@@ -34,8 +31,6 @@ export const useCreateUpdateForm = (initialValues: RitualFormValues) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
 
   const handleSetTitle = (title: string) => dispatch(setTitle(title));
-  const handleSetDescription = (description: string) =>
-    dispatch(setDescription(description));
   const handleSetStartTime = (startTime: number) =>
     dispatch(setStartTime(startTime));
   const handleSetExpectedDuration = (expectedDuration: number) =>
@@ -45,7 +40,6 @@ export const useCreateUpdateForm = (initialValues: RitualFormValues) => {
   return {
     state,
     setTitle: handleSetTitle,
-    setDescription: handleSetDescription,
     setStartTime: handleSetStartTime,
     setExpectedDuration: handleSetExpectedDuration,
     setDays: handleSetDays,

@@ -46,7 +46,6 @@ export const createRitual = (ritual: RitualInput) => {
 
   const id = addRitual({
     title: ritual.title.trim(),
-    description: ritual.description.trim(),
     startTime: ritual.startTime,
     expectedDuration: ritual.expectedDuration,
     days: ritual.days,

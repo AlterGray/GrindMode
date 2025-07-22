@@ -23,7 +23,6 @@ const CreateRitual: React.FC = () => {
 
   const initialValues: RitualInput = {
     title: "",
-    description: "",
     startTime: Date.now(),
     expectedDuration: 0,
     days: [
