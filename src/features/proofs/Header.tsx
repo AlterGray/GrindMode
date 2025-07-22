@@ -1,5 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
+import {
+  interpolate,
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withSequence,
+  withTiming,
+} from "react-native-reanimated";
 
 import AnimatedThemedText from "@shared/ui/ThemedText";
 
@@ -14,11 +22,21 @@ const Header: React.FC<HeaderProps> = () => {
   useEffect(() => {
     intervalID.current = setInterval(() => {
       const newIndex = Math.floor(Math.random() * quotes.length);
-      setActiveQuoteIndex(newIndex);
-    }, 30000);
+      transition.value = withSequence(
+        withTiming(0, { duration: 1000 }, () => {
+          runOnJS(setActiveQuoteIndex)(newIndex);
+        }),
+        withTiming(1, { duration: 1000 }),
+      );
+    }, 60_000);
 
     return () => clearInterval(intervalID.current);
   }, []);
+
+  const transition = useSharedValue(activeQuoteIndex);
+  const animatedOpacityStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(transition.value, [0, 1], [0.1, 1]),
+  }));
 
   const quote = quotes[activeQuoteIndex].quote;
   const author = quotes[activeQuoteIndex].author;
@@ -29,6 +47,7 @@ const Header: React.FC<HeaderProps> = () => {
         Proof of Work
       </AnimatedThemedText>
       <AnimatedThemedText
+        style={animatedOpacityStyle}
         className="text-lg italic text-center leading-relaxed mb-1"
         color="secondary"
       >
