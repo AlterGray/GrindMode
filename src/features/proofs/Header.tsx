@@ -16,7 +16,7 @@ import { quotes } from "./quotes";
 type HeaderProps = {};
 
 const Header: React.FC<HeaderProps> = () => {
-  const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);
+  const [activeQuoteIndex, setActiveQuoteIndex] = useState(1);
   const intervalID = useRef(0);
 
   useEffect(() => {
