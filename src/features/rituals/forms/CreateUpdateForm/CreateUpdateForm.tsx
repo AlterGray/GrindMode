@@ -8,7 +8,7 @@ import DaysGrid from "@shared/ui/DaysGrid";
 import StyledButton from "@shared/ui/StyledButton";
 
 import TimeAndDurationSection from "./TimeAndDurationSection";
-import TitleDescriptionSection from "./TitleDescriptionSection";
+import TitleSection from "./TitleSection";
 import { useCreateUpdateForm } from "./useCreateUpdateForm";
 
 type RitualFormProps = {
@@ -23,9 +23,8 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
   onSubmit,
 }) => {
   const {
-    state: { title, description, startTime, expectedDuration, days },
+    state: { title, startTime, expectedDuration, days },
     setTitle,
-    setDescription,
     setStartTime,
     setExpectedDuration,
     setDays,
@@ -36,12 +35,11 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
 
     onSubmit({
       title: title.trim(),
-      description: description.trim(),
       startTime,
       expectedDuration,
       days,
     });
-  }, [title, description, startTime, expectedDuration, days, onSubmit]);
+  }, [title, startTime, expectedDuration, days, onSubmit]);
 
   return (
     <AnimatedThemedView className="flex-1">
@@ -49,12 +47,8 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
         className="mx-2 flex-1 p-4"
         contentContainerStyle={{ gap: 8 }}
       >
-        <TitleDescriptionSection
-          title={title}
-          setTitle={setTitle}
-          description={description}
-          setDescription={setDescription}
-        />
+        <TitleSection title={title} setTitle={setTitle} />
+
         <TimeAndDurationSection
           startTime={startTime}
           setStartTime={setStartTime}

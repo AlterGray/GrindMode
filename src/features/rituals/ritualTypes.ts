@@ -10,7 +10,6 @@ export type Ritual = {
   id: string;
   folderIds: string[];
   title: string;
-  description: string;
   status: RitualStatuses;
   startTime: number;
   expectedDuration: number;
@@ -28,7 +27,6 @@ export type RitualUpdate = Omit<Ritual, "status" | "isDeleted">;
 export type RitualFormValues = {
   id?: string; // only used in edit
   title: string;
-  description: string;
   startTime: number;
   expectedDuration: number;
   days: DayType[];
