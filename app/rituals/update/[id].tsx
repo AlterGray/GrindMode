@@ -27,7 +27,6 @@ const EditRitual: React.FC = () => {
     updateRitual({
       id: id as string, // TODO does it okay?
       title: ritual.title.trim(),
-      description: ritual.description.trim(),
       startTime: ritual.startTime,
       expectedDuration: ritual.expectedDuration,
       days: ritual.days,

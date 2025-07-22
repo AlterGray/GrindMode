@@ -8,11 +8,6 @@ export const setTitle = (title: string) =>
     type: ActionTypes.SET_TITLE,
     payload: title,
   }) as const;
-export const setDescription = (description: string) =>
-  ({
-    type: ActionTypes.SET_DESCRIPTION,
-    payload: description,
-  }) as const;
 export const setStartTime = (startTime: number) =>
   ({
     type: ActionTypes.SET_START_TIME,
