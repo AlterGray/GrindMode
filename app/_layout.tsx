@@ -14,6 +14,7 @@ import { useRitualStoreWithSubscribe } from "@features/rituals/ritualStore";
 import { useStatisticStoreWithSubscribe } from "@features/rituals/statisticStore";
 
 import { useTheme } from "@shared/hooks/useTheme";
+import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { useThemeTransitionSync } from "@shared/hooks/useThemeTransitionSync";
 import {
   useThemeStore,
@@ -34,6 +35,8 @@ SplashScreen.setOptions({
 });
 
 const RootLayout = () => {
+  const backgroundColor = useThemeColors("backgroundSurface");
+
   // TODO why your code base so big, probably something wrong?
   // TODO even if we pass there store created without "subscribeWithSelector" TS don't show error
   useRitualStoreWithSubscribe();
@@ -82,6 +85,9 @@ const RootLayout = () => {
           screenOptions={{
             headerShown: false,
             animation: "slide_from_bottom",
+            contentStyle: {
+              backgroundColor,
+            },
           }}
         >
           <Stack.Screen name="(tabs)" />
