@@ -103,7 +103,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         >
           {visible && (
             <ThemedView
-              className={`absolute top-6 w-48 rounded-xl px-3 py-2 ${classes.bgColor}`}
+              className={`absolute top-6 w-48 rounded-sm px-3 py-2 ${classes.bgColor}`}
             >
               <AnimatedThemedText className="text-sm" color={"white"}>
                 {text}
