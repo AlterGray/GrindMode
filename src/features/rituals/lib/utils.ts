@@ -72,7 +72,9 @@ export const getRitualPhaseMissedDays = (
 
 // TODO duplicated utils file
 export const calculateRitualStatus = (ritual: Ritual): RitualStatuses => {
-  if (!ritual.isTimeBased || !ritual.startTime) {
+  const noDurationLimit = ritual.isTimeBased && ritual.expectedDuration === 0;
+
+  if (!ritual.isTimeBased || noDurationLimit) {
     return RitualStatuses.Done;
   }
 
@@ -83,7 +85,7 @@ export const calculateRitualStatus = (ritual: Ritual): RitualStatuses => {
   const nowMinutes = now.getHours() * 60 + now.getMinutes();
   const delta = nowMinutes - startMinutes;
 
-  const { expectedDuration } = ritual;
+  const expectedDuration = ritual.expectedDuration;
   const overdueThreshold = expectedDuration + expectedDuration * 0.3;
   const missedThreshold = expectedDuration + expectedDuration * 0.6;
 
