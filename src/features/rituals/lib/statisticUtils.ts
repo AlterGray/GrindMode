@@ -11,7 +11,17 @@ export const handleNewMissedDays = (stat: StatisticEntry, ritual: Ritual) => {
     useRitualStatisticStore.getState().addCompletionEntry;
 
   const firstCompletion = stat?.completitions[0];
-  if (!firstCompletion) return;
+  if (!firstCompletion) {
+    if (calculateRitualStatus(ritual) === RitualStatuses.Missed) {
+      addStatisticEntry(
+        stat.id,
+        RitualStatuses.Missed,
+        new Date().toISOString(),
+      );
+    }
+
+    return;
+  }
 
   const ritualsCountToCheck = getDaysDiff(
     new Date(firstCompletion.date),
@@ -27,27 +37,10 @@ export const handleNewMissedDays = (stat: StatisticEntry, ritual: Ritual) => {
       isTodayUTC(currentDate) &&
       calculateRitualStatus(ritual) === RitualStatuses.Missed;
 
-    // TODO wring status
     if (missedInPast || isMissedToday) {
       addStatisticEntry(stat.id, RitualStatuses.Missed, currentDate);
     }
   }
-};
-
-export const handleMissedFirstDay = (stat: StatisticEntry) => {
-  // TODO BAD?
-  const markCompletionDeleted =
-    useRitualStatisticStore.getState().markCompletionsDeleted;
-
-  const firstCompletion = stat?.completitions[0];
-  if (firstCompletion) {
-    const isUndoneStatus = firstCompletion.status === RitualStatuses.Undone;
-    const isFirstDayMissed =
-      !isTodayUTC(firstCompletion.date) && isUndoneStatus;
-    if (isFirstDayMissed) return markCompletionDeleted(stat.id);
-  }
-
-  return false;
 };
 
 export const handleMissedDayTwice = (statId: string) => {
