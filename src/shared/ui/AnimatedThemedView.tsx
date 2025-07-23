@@ -7,15 +7,27 @@ export type ThemedViewProps = ViewProps & {
   className?: string;
   children?: React.ReactNode;
   ref?: React.RefObject<View | null>;
+  backgroundColor?: "surface" | "secondary" | "normal";
 };
 
 const AnimatedThemedView: React.FC<ThemedViewProps> = ({
   children,
   className = "",
   ref,
+  backgroundColor = "surface",
   ...props
 }) => {
-  const animatedBgColor = useAnimatedColor("backgroundSurface");
+  const backgroundColorMap: Record<
+    "surface" | "secondary" | "normal",
+    "backgroundSurface" | "backgroundSecondary" | "background"
+  > = {
+    surface: "backgroundSurface",
+    secondary: "backgroundSecondary",
+    normal: "background",
+  };
+
+  const animatedBgColor = useAnimatedColor(backgroundColorMap[backgroundColor]);
+
   return (
     <Animated.View
       style={animatedBgColor}
