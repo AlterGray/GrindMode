@@ -18,6 +18,7 @@ const ActionModal = () => {
   const containerClasses = [
     "absolute w-full flex-row items-center justify-between py-1",
     "bg-light-backgroundSurface dark:bg-dark-backgroundSurface",
+    "border-b-2 dark:border-b-dark-listItemBorder",
   ].join(" ");
 
   // TODO rewrite with <Modal />
