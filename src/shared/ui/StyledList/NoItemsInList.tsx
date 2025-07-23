@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
-import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type NoItemsInListProps = {
   text: string;

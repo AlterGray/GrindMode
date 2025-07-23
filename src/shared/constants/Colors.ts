@@ -25,9 +25,9 @@ export const Colors = {
     buttonPrimaryText: "#ffffff",
     buttonPrimaryBorder: "#2563eb",
 
-    buttonSecondaryBackground: "#f3f4f6",
-    buttonSecondaryText: "#1a1a1d",
-    buttonSecondaryBorder: "#d1d5db",
+    buttonSecondaryBackground: "#f1f5f9",
+    buttonSecondaryText: "#1e293b",
+    buttonSecondaryBorder: "#cbd5e1",
 
     buttonTextBackground: "transparent",
     buttonTextText: "#2563eb",
@@ -37,7 +37,7 @@ export const Colors = {
     buttonDangerText: "#fff",
     buttonDangerBorder: "#dc2626",
 
-    inputBackground: "#ffffff",
+    inputBackground: "#f1f5f9",
     inputText: "#1a1a1d",
     inputPlaceholder: "#9ca3af",
 
@@ -115,9 +115,9 @@ export const Colors = {
     buttonPrimaryText: "#ffffff",
     buttonPrimaryBorder: "#1d4ed8",
 
-    buttonSecondaryBackground: "#374151",
+    buttonSecondaryBackground: "#2a2e34",
     buttonSecondaryText: "#e5e7eb",
-    buttonSecondaryBorder: "#4b5563",
+    buttonSecondaryBorder: "#3b4048",
 
     buttonTextBackground: "transparent",
     buttonTextText: "#3b82f6",
@@ -127,7 +127,7 @@ export const Colors = {
     buttonDangerText: "#fff",
     buttonDangerBorder: "#ef4444",
 
-    inputBackground: "#23272f",
+    inputBackground: "#1e232b",
     inputText: "#e5e7eb",
     inputPlaceholder: "#6b7280",
 

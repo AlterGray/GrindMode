@@ -24,6 +24,8 @@ const StyledInput: React.FC<StyledInputProps> = ({
   const baseClasses = [
     "shadow-md rounded-md px-4 py-3 text-base",
     "bg-light-inputBackground text-light-inputText dark:bg-dark-inputBackground dark:text-dark-inputText",
+    "border-[1px] border-black/5 dark:border-white/5",
+    "focus:border-black/10 dark:focus:border-white/10",
   ].join(" ");
 
   const placeholderStyles =

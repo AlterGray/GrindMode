@@ -1,6 +1,6 @@
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import IconButton from "@shared/ui/IconButton";
-import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import { useActionModalStore } from "./actionsModalStore";
 

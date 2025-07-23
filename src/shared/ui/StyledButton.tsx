@@ -33,7 +33,7 @@ const variantClassMap: Record<
   },
   "secondary-sharped-20": {
     container:
-      "p-4 border-b border-light-listItemBorder dark:border-light-listItemBorder rounded-sm active:opacity-60",
+      "p-4 border-b border-light-border dark:border-dark-border rounded-sm active:opacity-60",
     bgColor: "buttonSecondaryBackground",
     text: "text-light-buttonSecondaryText dark:text-dark-buttonSecondaryText",
   },

@@ -5,7 +5,7 @@ import Svg from "react-native-svg";
 import type { PathProps } from "react-native-svg";
 
 import { AnimatedPath } from "@shared/ui/AnimatedComponents/AnimatedSvgs";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 type LabeledProgressBarProps = {
   progress: number; // expected range: 0 to 1

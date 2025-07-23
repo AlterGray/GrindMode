@@ -3,7 +3,7 @@ import { Pressable, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { IoniconsName } from "@shared/types/commonTypes";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 type NavModalListItemProps = {
   onPress: () => void;
@@ -25,7 +25,7 @@ const NavModalListItem: React.FC<NavModalListItemProps> = ({
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={`Select folder: ${title}`}
-      className="flex-row items-center justify-between gap-8 bg-light-backgroundSurface dark:bg-dark-backgroundSurface"
+      className="flex-row items-center justify-between gap-8 bg-light-backgroundSurface dark:bg-dark-backgroundSecondary"
     >
       <View className="flex-row items-center gap-8">
         {iconName && <Ionicons name={iconName} size={24} color={iconColor} />}

@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import { IoniconsName } from "@shared/types/commonTypes";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import AchivemetItem from "./AchivemetItem";
 

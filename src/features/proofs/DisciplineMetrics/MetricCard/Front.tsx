@@ -3,7 +3,7 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 type FrontProps = {
   header: string;

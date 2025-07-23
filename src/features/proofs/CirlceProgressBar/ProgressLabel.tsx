@@ -1,8 +1,8 @@
 import { View } from "react-native";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
-import AnimatedThemedText from "@shared/ui/ThemedText";
 
 type ProgressLabelProps = {
   text: string;

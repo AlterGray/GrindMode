@@ -84,7 +84,8 @@ const RootLayout = () => {
         <Stack
           screenOptions={{
             headerShown: false,
-            animation: "slide_from_bottom",
+            animation: "fade_from_bottom",
+            animationDuration: 100,
             contentStyle: {
               backgroundColor,
             },

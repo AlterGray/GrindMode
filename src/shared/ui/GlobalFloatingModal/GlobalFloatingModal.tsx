@@ -1,6 +1,6 @@
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import FloatingModal from "@shared/ui/FloatingModal/FloatingModal";
 import { getModalConfig } from "@shared/ui/FloatingModal/utils";
-import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import { useGlobalFloatingModalStore } from "./GlobalFloatingModalStore";
 

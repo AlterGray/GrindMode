@@ -3,8 +3,8 @@ import { FlatList } from "react-native";
 
 import { useNavigationFocus } from "@shared/hooks/useNavigationFocus";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import StyledButton from "@shared/ui/StyledButton";
-import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import NoItemsInList from "./NoItemsInList";
 import StyledItem from "./StyledItem";

@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { IoniconsName } from "@shared/types/commonTypes";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 type Props = {
   iconName: IoniconsName;

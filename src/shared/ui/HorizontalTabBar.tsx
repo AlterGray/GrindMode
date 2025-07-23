@@ -1,7 +1,7 @@
 import { Tooltip } from "@features/rituals/Tooltip";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import { AnimatedPressable } from "./AnimatedComponents/AnimatedReactComponents";
 import AnimatedThemedView from "./AnimatedThemedView";

@@ -35,7 +35,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ items, onChange }) => {
           borderColor: theme.border,
           borderWidth: 2,
         }}
-        backgroundColor={theme.background}
+        backgroundColor={theme.backgroundSurface}
       />
     </AnimatedThemedView>
   );

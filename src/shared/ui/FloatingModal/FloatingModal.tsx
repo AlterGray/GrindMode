@@ -5,7 +5,7 @@ import {
   ButtonProps,
   FloatingModalVariantType,
 } from "@shared/types/commonTypes";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import Backdrop from "./components/Backdrop";
 import Container from "./components/Container";

@@ -34,7 +34,7 @@ const ThemedWheelPicker: React.FC<ThemedWheelPickerProps> = ({
       onChange={onChange}
       renderItem={renderItem}
       selectedStyle={{ borderColor: theme.tabActive, borderWidth: 2 }}
-      backgroundColor={theme.background}
+      backgroundColor={theme.backgroundSurface}
     />
   );
 };

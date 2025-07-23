@@ -11,7 +11,7 @@ import Svg, { PathProps } from "react-native-svg";
 import { Ionicons } from "@expo/vector-icons";
 
 import { AnimatedCircle } from "@shared/ui/AnimatedComponents/AnimatedSvgs";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import ProgressLabel from "./ProgressLabel";
 

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
-import AnimatedThemedText from "@shared/ui/ThemedText";
 import ThemedWheelPicker from "@shared/ui/ThemedWheelPicker";
 
 import DurationPickerItem from "./DurationPickerItem";
