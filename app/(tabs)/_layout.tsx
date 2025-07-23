@@ -46,7 +46,7 @@ const TabsLayout = () => {
         headerBackground: () => (
           <AnimatedThemedView className="absolute inset-0" />
         ),
-        animation: "shift",
+        animation: "fade",
         sceneStyle: {
           backgroundColor: theme.backgroundSurface,
         },
