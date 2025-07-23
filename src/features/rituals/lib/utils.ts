@@ -71,24 +71,24 @@ export const getRitualPhaseMissedDays = (
 };
 
 // TODO duplicated utils file
-export const calculateRitualStatus = (ritual: Ritual) => {
-  if (!ritual.startTime) return RitualStatuses.Done;
-
-  const startTime = new Date(ritual.startTime);
-  const startTimeMinutes = startTime.getHours() * 60 + startTime.getMinutes();
-  const nowTime = new Date();
-  const nowTimeMinutes = nowTime.getHours() * 60 + nowTime.getMinutes();
-
-  const delta = nowTimeMinutes - startTimeMinutes;
-
-  if (!ritual.expectedDuration && isTodayUTC(nowTime.toISOString())) {
+export const calculateRitualStatus = (ritual: Ritual): RitualStatuses => {
+  if (!ritual.isTimeBased || !ritual.startTime) {
     return RitualStatuses.Done;
   }
 
-  // TODO TODO TODO add checkbox to disable it for some rituals
-  if (delta > 90) return RitualStatuses.Missed;
-  // TODO remove if user doesn't set duration
-  // TODO its should use expected duration not start time!!!!
-  else if (delta > 10) return RitualStatuses.Overdue;
-  else return RitualStatuses.Done;
+  const start = new Date(ritual.startTime);
+  const now = new Date();
+
+  const startMinutes = start.getHours() * 60 + start.getMinutes();
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  const delta = nowMinutes - startMinutes;
+
+  const { expectedDuration } = ritual;
+  const overdueThreshold = expectedDuration + expectedDuration * 0.3;
+  const missedThreshold = expectedDuration + expectedDuration * 0.6;
+
+  if (delta >= missedThreshold) return RitualStatuses.Missed;
+  if (delta >= overdueThreshold) return RitualStatuses.Overdue;
+
+  return RitualStatuses.Done;
 };
