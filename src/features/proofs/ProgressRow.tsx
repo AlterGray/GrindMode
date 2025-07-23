@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
 import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import ProgressCircle from "./CirlceProgressBar/ProgressCircle";
 

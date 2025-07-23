@@ -3,7 +3,7 @@ import { Pressable, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { IoniconsName } from "@shared/types/commonTypes";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 type NavModalListItemProps = {
   onPress: () => void;

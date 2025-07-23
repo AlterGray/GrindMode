@@ -9,7 +9,7 @@ import { useFolderColor } from "@features/folder/useFolderColor";
 import { usePopoverMenu } from "@shared/hooks/usePopoverMenu";
 
 import ActiveIndicator from "../ActiveIndicator";
-import AnimatedThemedText from "../ThemedText";
+import AnimatedThemedText from "../AnimatedThemedText";
 import { TabItemProps } from "./types";
 
 // TODO replace this things with "item"

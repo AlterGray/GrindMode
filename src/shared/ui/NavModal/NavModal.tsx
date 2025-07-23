@@ -2,8 +2,8 @@ import React from "react";
 import { Modal, Pressable } from "react-native";
 
 import { IoniconsName } from "@shared/types/commonTypes";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
-import AnimatedThemedText from "@shared/ui/ThemedText";
 
 import ActionList, { Action } from "./ActionList";
 

@@ -5,7 +5,7 @@ import Animated from "react-native-reanimated";
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { RitualStatuses } from "@shared/types/commonTypes";
 import { ColorName } from "@shared/types/themeTypes";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import PhaseBadge from "./PhaseBadge";
 import RitualStatus from "./RitualStatus";

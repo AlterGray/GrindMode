@@ -1,8 +1,8 @@
 import { DayType } from "@shared/types/commonTypes";
 
+import AnimatedThemedText from "./AnimatedThemedText";
 import AnimatedThemedView from "./AnimatedThemedView";
 import DaysPicker from "./DaysPicker/DaysPicker";
-import AnimatedThemedText from "./ThemedText";
 
 type DaysGridProps = {
   items: DayType[];

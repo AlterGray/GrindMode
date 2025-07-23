@@ -6,7 +6,7 @@ import { Ritual, RitualPhase } from "@features/rituals/ritualTypes";
 
 import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
 import { capitalize } from "@shared/lib/utils/common";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import LabeledProgressBar from "./LabeledProgressBar";
 

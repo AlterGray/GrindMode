@@ -2,7 +2,7 @@ import React from "react";
 import { Pressable } from "react-native";
 
 import { DayItemType, DayType } from "@shared/types/commonTypes";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import { getStyle } from "./DaysPickerStyles";
 

@@ -8,12 +8,12 @@ import { FolderColorType } from "@features/folder/types";
 import { useFolderColor } from "@features/folder/useFolderColor";
 
 import { Colors } from "@shared/constants/Colors";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import ColorPicker from "@shared/ui/ColorPicker";
 import Separator from "@shared/ui/Separator";
 import StyledButton from "@shared/ui/StyledButton";
 import StyledInput from "@shared/ui/StyledInput";
-import AnimatedThemedText from "@shared/ui/ThemedText";
 
 // TODO rename file?
 const create = () => {

@@ -4,7 +4,7 @@ import Animated from "react-native-reanimated";
 // TODO rename
 import { RitualStatuses } from "@shared/types/commonTypes";
 import { AnimatedIonicons } from "@shared/ui/AnimatedComponents/AnimatedIonicons";
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import { useStatusVariant } from "./utils";
 

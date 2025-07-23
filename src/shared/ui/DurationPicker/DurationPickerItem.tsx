@@ -1,6 +1,6 @@
 import React from "react";
 
-import AnimatedThemedText from "@shared/ui/ThemedText";
+import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 type DurationPickerItemProps = {
   text: string;
