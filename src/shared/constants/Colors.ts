@@ -37,7 +37,7 @@ export const Colors = {
     buttonDangerText: "#fff",
     buttonDangerBorder: "#dc2626",
 
-    inputBackground: "#ffffff",
+    inputBackground: "#f1f5f9",
     inputText: "#1a1a1d",
     inputPlaceholder: "#9ca3af",
 
@@ -127,7 +127,7 @@ export const Colors = {
     buttonDangerText: "#fff",
     buttonDangerBorder: "#ef4444",
 
-    inputBackground: "#23272f",
+    inputBackground: "#1e232b",
     inputText: "#e5e7eb",
     inputPlaceholder: "#6b7280",
 
