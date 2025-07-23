@@ -71,7 +71,6 @@ export const RemoveRitualModal: React.FC<RemoveRitualModalProps> = ({
       onCancel={onClose}
       renderContent={() => (
         <View>
-          <AnimatedThemedText>Remove rituals?</AnimatedThemedText>
           <Checkbox
             label="Also delete ritual statistic?"
             onChange={setIsRemoveStatistics}
