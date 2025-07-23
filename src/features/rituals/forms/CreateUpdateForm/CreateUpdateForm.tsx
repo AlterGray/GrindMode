@@ -6,6 +6,7 @@ import { RitualFormValues } from "@features/rituals/ritualTypes";
 
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import DaysGrid from "@shared/ui/DaysGrid";
+import Separator from "@shared/ui/Separator";
 import StyledButton from "@shared/ui/StyledButton";
 
 import TimeAndDurationSection from "./TimeAndDurationSection";
@@ -52,7 +53,7 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
       >
         <TitleSection title={title} setTitle={setTitle} />
 
-        <View className="bg-zinc-300 h-[1] rounded-2xl my-2 w-full" />
+        <Separator />
 
         <View>
           <Checkbox
@@ -72,7 +73,7 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
           )}
         </View>
 
-        <View className="bg-zinc-300 h-[1] rounded-2xl my-2 w-full" />
+        <Separator />
 
         <DaysGrid onChange={setDays} items={days} />
 

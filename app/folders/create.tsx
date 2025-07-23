@@ -10,6 +10,7 @@ import { useFolderColor } from "@features/folder/useFolderColor";
 import { Colors } from "@shared/constants/Colors";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import ColorPicker from "@shared/ui/ColorPicker";
+import Separator from "@shared/ui/Separator";
 import StyledButton from "@shared/ui/StyledButton";
 import StyledInput from "@shared/ui/StyledInput";
 import AnimatedThemedText from "@shared/ui/ThemedText";
@@ -46,6 +47,8 @@ const create = () => {
           onChangeText={setName}
           autoFocus
         />
+
+        <Separator />
 
         <AnimatedThemedView className="flex-row items-center gap-8">
           <AnimatedThemedText>Folder color:</AnimatedThemedText>
