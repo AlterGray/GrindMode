@@ -56,7 +56,9 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
             <RitualStatus key={item.status} status={item.status} />
 
             <Animated.Text style={animatedTextColor}>
-              Start at {formatedStartTime}
+              {item.isTimeBased
+                ? `Start at ${formatedStartTime}`
+                : "No time limits"}
             </Animated.Text>
           </View>
 
