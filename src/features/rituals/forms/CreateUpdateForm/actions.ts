@@ -23,3 +23,8 @@ export const setDays = (days: DayType[]) =>
     type: ActionTypes.SET_DAYS,
     payload: days,
   }) as const;
+export const setIsTimeBased = (isTimeBased: boolean) =>
+  ({
+    type: ActionTypes.SET_IS_TIME_BASED,
+    payload: isTimeBased,
+  }) as const;

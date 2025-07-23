@@ -16,6 +16,7 @@ export type Ritual = {
   actualDuration: number;
   // TODO bad name
   days: DayType[];
+  isTimeBased: boolean;
   isDeleted: boolean;
 };
 
@@ -30,6 +31,7 @@ export type RitualFormValues = {
   startTime: number;
   expectedDuration: number;
   days: DayType[];
+  isTimeBased: boolean;
 };
 
 // TODO move it to RitualList?
@@ -46,6 +48,7 @@ export type RitualState = {
   setRitualStatus: (ritualId: string, status: RitualStatuses) => void;
   addRitualsToFolder: (ritualIds: string[], folderId: string) => void;
   removeRitualsFromFolder: (ritualIds: string[], folderId: string) => void;
+  setIsTimeBased: (ritualId: string, isTimeBased: boolean) => void;
 };
 
 // TODO make same for folder colors?

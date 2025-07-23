@@ -34,6 +34,7 @@ const CreateRitual: React.FC = () => {
       DayType.SATURDAY,
       DayType.SUNDAY,
     ],
+    isTimeBased: false,
   };
 
   return (

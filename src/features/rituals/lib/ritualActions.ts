@@ -49,6 +49,7 @@ export const createRitual = (ritual: RitualInput) => {
     startTime: ritual.startTime,
     expectedDuration: ritual.expectedDuration,
     days: ritual.days,
+    isTimeBased: ritual.isTimeBased,
   });
   addStatisticEntry(id, new Date().toISOString());
 };
