@@ -10,6 +10,7 @@ type CheckboxProps = {
   size?: "sm" | "md";
   checked?: boolean;
   onChange: (checked: boolean) => void;
+  className?: string;
 };
 
 // TODO move to shared
@@ -18,13 +19,14 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   size = "md",
   checked = false,
   onChange,
+  className = "",
 }) => {
   const colors = useThemeColors();
 
   return (
     <TouchableOpacity
       onPress={() => onChange(!checked)}
-      className="flex-row items-center py-2 gap-2"
+      className={`flex-row items-center gap-2 ${className}`}
       activeOpacity={0.6}
     >
       {checked ? (

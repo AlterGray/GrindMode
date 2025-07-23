@@ -7,7 +7,6 @@ import {
 
 import {
   handleMissedDayTwice,
-  handleMissedFirstDay,
   handleNewMissedDays,
 } from "../lib/statisticUtils";
 import { useRitualStore } from "../ritualStore";
@@ -26,7 +25,6 @@ const processRitualStatistic = (stat: StatisticEntry) => {
     return;
   }
 
-  handleMissedFirstDay(stat);
   handleNewMissedDays(stat, ritual);
   handleMissedDayTwice(stat.id);
 };

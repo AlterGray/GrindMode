@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 
+import { Checkbox } from "@features/rituals/CheckBox";
 import { RitualFormValues } from "@features/rituals/ritualTypes";
 
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
@@ -23,11 +24,12 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
   onSubmit,
 }) => {
   const {
-    state: { title, startTime, expectedDuration, days },
+    state: { title, startTime, expectedDuration, days, isTimeBased },
     setTitle,
     setStartTime,
     setExpectedDuration,
     setDays,
+    setIsTimeBased,
   } = useCreateUpdateForm(initialValues);
 
   const handleSubmit = useCallback(() => {
@@ -38,6 +40,7 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
       startTime,
       expectedDuration,
       days,
+      isTimeBased,
     });
   }, [title, startTime, expectedDuration, days, onSubmit]);
 
@@ -49,12 +52,27 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
       >
         <TitleSection title={title} setTitle={setTitle} />
 
-        <TimeAndDurationSection
-          startTime={startTime}
-          setStartTime={setStartTime}
-          expectedDuration={expectedDuration}
-          setExpectedDuration={setExpectedDuration}
-        />
+        <View className="bg-zinc-300 h-[1] rounded-2xl my-2 w-full" />
+
+        <View>
+          <Checkbox
+            label="Is ritual time based?"
+            checked={isTimeBased}
+            onChange={setIsTimeBased}
+            className="mb-2"
+          />
+
+          {isTimeBased && (
+            <TimeAndDurationSection
+              startTime={startTime}
+              setStartTime={setStartTime}
+              expectedDuration={expectedDuration}
+              setExpectedDuration={setExpectedDuration}
+            />
+          )}
+        </View>
+
+        <View className="bg-zinc-300 h-[1] rounded-2xl my-2 w-full" />
 
         <DaysGrid onChange={setDays} items={days} />
 
