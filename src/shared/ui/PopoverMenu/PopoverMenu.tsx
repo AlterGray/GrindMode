@@ -25,7 +25,7 @@ const PopoverMenu: React.FC = () => {
       key={item.label}
       onPress={() => handlePress(item)}
       // TODO update color
-      className="bg-slate-50"
+      className="dark:bg-dark-listItemBackground"
       title={item.label}
       variant="secondary-text-20"
     />
@@ -33,12 +33,12 @@ const PopoverMenu: React.FC = () => {
 
   return (
     <Modal transparent visible={visible} animationType="fade">
-      <Pressable onPress={hide} className="absolute inset-0"></Pressable>
+      <Pressable onPress={hide} className="absolute inset-0" />
       <AnimatedThemedView
         onLayout={handleLayoutChange}
         style={{ top: position.y, left: position.x }}
         className={
-          "w-1/2 gap-1 bg-light-backgroundSecondary p-2 dark:bg-dark-backgroundSecondary"
+          "w-1/2 p-1 bg-light-backgroundSecondary dark:bg-dark-backgroundSecondary rounded-md"
         }
       >
         {actions}
