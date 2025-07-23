@@ -40,17 +40,17 @@ const variantClassMap: Record<
   "secondary-text-5": {
     container: "py-1 px-2 text-sm rounded-lg active:opacity-50",
     bgColor: "bgTransparent",
-    text: "text-light-textPrimary dark:text-dark-textPrimary",
+    text: "text-light-textPrimary dark:text-dark-textPrimary border-b-[1px] dark:border-slate-100",
   },
   "secondary-text-10": {
     container: "py-2 px-4 text-sm rounded-lg active:opacity-50",
     bgColor: "bgTransparent",
-    text: "text-light-textPrimary dark:text-dark-textPrimary",
+    text: "text-light-textPrimary dark:text-dark-textPrimary border-b-[1px] dark:border-slate-100",
   },
   "secondary-text-20": {
     container: "py-3 px-6 text-base rounded-lg active:opacity-50",
     bgColor: "bgTransparent",
-    text: "text-light-textPrimary dark:text-dark-textPrimary",
+    text: "text-light-textPrimary dark:text-dark-textPrimary border-b-[1px] dark:border-slate-100",
   },
 };
 
