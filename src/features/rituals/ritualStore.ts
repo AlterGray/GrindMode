@@ -4,7 +4,7 @@ import { immer } from "zustand/middleware/immer";
 
 import { Ritual, RitualState } from "@features/rituals/ritualTypes";
 
-import { DEFAULT_FOLDER } from "@shared/constants/Folders";
+import { ALL_FOLDER_ID } from "@shared/constants/Folders";
 import { useSubscribeStoreWithSelector } from "@shared/hooks/useSubscribeStoreWithSelector";
 import { storage } from "@shared/lib/storage";
 import { RitualStatuses } from "@shared/types/commonTypes";
@@ -32,7 +32,7 @@ export const useRitualStore = create<RitualState>()(
         set((state) => {
           const newRitual: Ritual = {
             id,
-            folderIds: [DEFAULT_FOLDER],
+            folderIds: [ALL_FOLDER_ID],
             status: RitualStatuses.Undone,
             actualDuration: 0,
             isDeleted: false,
