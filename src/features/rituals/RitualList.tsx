@@ -5,7 +5,6 @@ import { useRouter } from "expo-router";
 import { useFolderStore } from "@features/folder/folderStore";
 
 import { TODAY_FOLDER_ID } from "@shared/constants/Folders";
-import { DaysOfWeek } from "@shared/constants/common";
 import { ROUTES } from "@shared/constants/routes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
@@ -21,6 +20,7 @@ import { useRitualSelection } from "./hooks/useRitualSelection";
 import { useRitualsWithStatus } from "./hooks/useRitualsWithStatus";
 import { useRitualStore } from "./ritualStore";
 import { Ritual } from "./ritualTypes";
+import { isRitualActive } from "./utils";
 
 const RitualList: React.FC = () => {
   // TODO use zustand?
@@ -78,9 +78,7 @@ const RitualList: React.FC = () => {
     );
 
   const getTodayRituals = () =>
-    ritualsWithStatus.filter(
-      (r) => r.days.includes(DaysOfWeek[new Date().getDay()]) && !r.isDeleted,
-    );
+    ritualsWithStatus.filter((r) => isRitualActive(r.days) && !r.isDeleted);
 
   const filteredRituals =
     selectedFolderId === TODAY_FOLDER_ID
