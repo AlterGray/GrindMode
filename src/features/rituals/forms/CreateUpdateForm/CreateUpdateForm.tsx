@@ -53,7 +53,7 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
       >
         <TitleSection title={title} setTitle={setTitle} />
 
-        <Separator />
+        <Separator horizontal />
 
         <View>
           <Checkbox
@@ -73,7 +73,7 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
           )}
         </View>
 
-        <Separator />
+        <Separator horizontal />
 
         <DaysGrid onChange={setDays} items={days} />
 

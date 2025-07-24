@@ -48,7 +48,7 @@ const create = () => {
           autoFocus
         />
 
-        <Separator />
+        <Separator horizontal />
 
         <AnimatedThemedView className="flex-row items-center gap-8">
           <AnimatedThemedText>Folder color:</AnimatedThemedText>

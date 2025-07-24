@@ -1,8 +1,11 @@
 import React from "react";
+import { View } from "react-native";
 import DraggableFlatList, {
   DragEndParams,
   RenderItemParams,
 } from "react-native-draggable-flatlist";
+
+import Separator from "./Separator";
 
 type DraggableListProps<T> = {
   items: T[];
@@ -23,6 +26,7 @@ const DraggableList = <T extends { id: string }>({
       renderItem={renderItem}
       onDragEnd={onDragEnd}
       horizontal
+      ItemSeparatorComponent={() => <Separator vertical />}
     />
   );
 };
