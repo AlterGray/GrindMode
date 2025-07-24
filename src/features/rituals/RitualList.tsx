@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 
 import { useFolderStore } from "@features/folder/folderStore";
 
+import { TODAY_FOLDER_ID } from "@shared/constants/Folders";
 import { ROUTES } from "@shared/constants/routes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
@@ -19,6 +20,7 @@ import { useRitualSelection } from "./hooks/useRitualSelection";
 import { useRitualsWithStatus } from "./hooks/useRitualsWithStatus";
 import { useRitualStore } from "./ritualStore";
 import { Ritual } from "./ritualTypes";
+import { isRitualActive } from "./utils";
 
 const RitualList: React.FC = () => {
   // TODO use zustand?
@@ -70,14 +72,23 @@ const RitualList: React.FC = () => {
     ritual: ROUTES.RITUALS_CREATE,
   };
 
-  const ritualsInFolder = ritualsWithStatus.filter(
-    (r) => r.folderIds.includes(selectedFolderId) && !r.isDeleted,
-  );
+  const getRitualsByFolders = () =>
+    ritualsWithStatus.filter(
+      (r) => r.folderIds.includes(selectedFolderId) && !r.isDeleted,
+    );
+
+  const getTodayRituals = () =>
+    ritualsWithStatus.filter((r) => isRitualActive(r.days) && !r.isDeleted);
+
+  const filteredRituals =
+    selectedFolderId === TODAY_FOLDER_ID
+      ? getTodayRituals()
+      : getRitualsByFolders();
 
   return (
     <AnimatedThemedView className="flex-1 items-center justify-center">
       <StyledList
-        data={ritualsInFolder}
+        data={filteredRituals}
         isSelecting={isSelectingRituals}
         onPress={handlePressRitual}
         toggleItem={toggleRitual}

@@ -25,7 +25,7 @@ const NavModalListItem: React.FC<NavModalListItemProps> = ({
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={`Select folder: ${title}`}
-      className="flex-row items-center justify-between gap-8 bg-light-backgroundSurface dark:bg-dark-backgroundSecondary"
+      className="flex-row items-center justify-between gap-8 bg-light-backgroundSecondary dark:bg-dark-backgroundSecondary"
     >
       <View className="flex-row items-center gap-8">
         {iconName && <Ionicons name={iconName} size={24} color={iconColor} />}

@@ -38,15 +38,14 @@ const ScrollTabs: React.FC<ScrollTabsProps> = ({
 
   return (
     <AnimatedThemedView className="flex-1 flex-col">
-      {tabs.length > 1 ? (
-        <AnimatedThemedView className="px-4">
-          <DraggableList
-            items={tabs}
-            renderItem={({ item, drag }) => draggableItem(item, drag)}
-            onDragEnd={onDragEnd}
-          />
-        </AnimatedThemedView>
-      ) : null}
+      <AnimatedThemedView className="px-4">
+        <DraggableList
+          items={tabs}
+          renderItem={({ item, drag }) => draggableItem(item, drag)}
+          onDragEnd={onDragEnd}
+        />
+      </AnimatedThemedView>
+
       <AnimatedThemedView className="flex-1">
         {tabs.find((tab) => tab.id === selectedTab)?.content}
       </AnimatedThemedView>

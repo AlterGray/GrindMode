@@ -1,6 +1,6 @@
 import { useRitualStore } from "@features/rituals/ritualStore";
 
-import { DEFAULT_FOLDER } from "@shared/constants/Folders";
+import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
 
 import { useFolderStore } from "./folderStore";
 
@@ -48,7 +48,10 @@ export const useRitualPopoverActions = (
   const getMenuActions = () => {
     const actions = [addToFolderAction];
 
-    if (selectedFolderId !== DEFAULT_FOLDER) {
+    if (
+      selectedFolderId !== ALL_FOLDER_ID &&
+      selectedFolderId !== TODAY_FOLDER_ID
+    ) {
       actions.push(moveToFolderAction);
       // TODO can remove this?
       actions.push(removeFromFolderAction);

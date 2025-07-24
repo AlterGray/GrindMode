@@ -1,3 +1,4 @@
+import { DaysOfWeek } from "@shared/constants/common";
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { RitualStatuses } from "@shared/types/commonTypes";
 
@@ -56,4 +57,8 @@ export const useStatusVariant = (
         text: "Missed",
       };
   }
+};
+
+export const isRitualActive = (ritualDays: string[]) => {
+  return ritualDays.includes(DaysOfWeek[new Date().getDay()]);
 };

@@ -10,6 +10,7 @@ import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import PhaseBadge from "./PhaseBadge";
 import RitualStatus from "./RitualStatus";
 import { Ritual } from "./ritualTypes";
+import { isRitualActive } from "./utils";
 
 type ItemComponentProps = {
   item: Ritual;
@@ -49,7 +50,12 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
 
   // TODO adjust items height to all items have same height indeondent of content length
   return (
-    <Animated.View className={"gap-2 p-4 "} style={animatedBgStyle}>
+    <Animated.View
+      className={
+        "gap-2 p-4 " + (!isRitualActive(item.days) ? "opacity-65" : "")
+      }
+      style={animatedBgStyle}
+    >
       <View className="gap-1">
         <View className="gap-2">
           <View className="flex-row w-full justify-between">

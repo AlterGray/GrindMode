@@ -48,7 +48,6 @@ export type RitualState = {
   setRitualStatus: (ritualId: string, status: RitualStatuses) => void;
   addRitualsToFolder: (ritualIds: string[], folderId: string) => void;
   removeRitualsFromFolder: (ritualIds: string[], folderId: string) => void;
-  setIsTimeBased: (ritualId: string, isTimeBased: boolean) => void;
 };
 
 // TODO make same for folder colors?
