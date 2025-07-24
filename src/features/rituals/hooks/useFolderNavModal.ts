@@ -5,6 +5,7 @@ import { FolderColorType } from "@features/folder/types";
 import { useFolderColor } from "@features/folder/useFolderColor";
 import { useRitualPopoverActions } from "@features/folder/useRitualPopoverActions";
 
+import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
 import { ROUTES } from "@shared/constants/routes";
 import { IoniconsName } from "@shared/types/commonTypes";
 
@@ -52,6 +53,7 @@ const useFolderNavModal = (
   // TODO
   const color = (name: FolderColorType) => getFolderColor(name);
   const navModalActions = folders
+    .filter((f) => f.id !== ALL_FOLDER_ID && f.id !== TODAY_FOLDER_ID)
     .map((folder) => ({
       title: folder.name,
       onPress: () => navModalAction(folder.id),
