@@ -44,7 +44,7 @@ const TabsLayout = () => {
         ),
         tabBarHideOnKeyboard: true,
         headerBackground: () => (
-          <AnimatedThemedView className="absolute inset-0" />
+          <AnimatedThemedView className="absolute inset-0 shadow shadow-black dark:shadow-white" />
         ),
         animation: "fade",
         sceneStyle: {
