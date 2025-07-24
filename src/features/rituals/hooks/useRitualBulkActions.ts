@@ -3,6 +3,7 @@ import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 
 import { completeRitual } from "../lib/ritualActions";
 import { useRitualStore } from "../ritualStore";
+import { isRitualActive } from "../utils";
 
 // TODO bad custom hook
 const useRitualBulkActions = (
@@ -22,7 +23,9 @@ const useRitualBulkActions = (
     onPress: () => {
       const rituals = useRitualStore
         .getState()
-        .rituals.filter((r) => ritualIds.includes(r.id));
+        .rituals.filter(
+          (r) => ritualIds.includes(r.id) && isRitualActive(r.days),
+        );
 
       rituals.forEach(completeRitual);
 
