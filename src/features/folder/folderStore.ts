@@ -2,10 +2,10 @@ import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { DEFAULT_FOLDER } from "@shared/constants/Folders";
+import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
 import { useSubscribeStoreWithSelector } from "@shared/hooks/useSubscribeStoreWithSelector";
 
-import { getDefaultFolder, getStoredFolders } from "./storage";
+import { getDefaultFolders, getStoredFolders } from "./storage";
 import { Folder, FolderState } from "./types";
 
 // TODO make it more readable(probably extract actions to separate functions)
@@ -14,18 +14,21 @@ export const useFolderStore = create<FolderState>()(
     immer((set) => ({
       folders: (() => {
         const storedFolders = getStoredFolders();
-        const defaultFolder = getDefaultFolder();
-        const isDefaultFolderExist = storedFolders.some(
-          (folder: Folder) => folder.id === DEFAULT_FOLDER,
+        const defaultFolders = getDefaultFolders();
+        const isAllFolderExist = storedFolders.find(
+          (folder: Folder) => folder.id === ALL_FOLDER_ID,
+        );
+        const isTodayFolderExist = storedFolders.find(
+          (folder: Folder) => folder.id === TODAY_FOLDER_ID,
         );
 
-        if (!isDefaultFolderExist) {
-          return [defaultFolder, ...storedFolders];
+        if (!isAllFolderExist || !isTodayFolderExist) {
+          return [...defaultFolders, ...storedFolders];
         }
 
         return storedFolders;
       })(),
-      selectedId: DEFAULT_FOLDER,
+      selectedId: TODAY_FOLDER_ID,
       setSelectedId: (id) => {
         set((state) => {
           // TODO does it best place to implement this logic?

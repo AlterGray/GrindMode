@@ -5,7 +5,7 @@ import { useFolderStore } from "@features/folder/folderStore";
 import { foldersToScrollTabs } from "@features/folder/utils";
 import RitualList from "@features/rituals/RitualList";
 
-import { DEFAULT_FOLDER } from "@shared/constants/Folders";
+import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
@@ -49,7 +49,7 @@ const Index = () => {
       variant: FloatingModalVariant.Danger,
       onConfirm: () => {
         removeFolder(folderId);
-        setSelectedFolderId(previousFolder || DEFAULT_FOLDER);
+        setSelectedFolderId(previousFolder || TODAY_FOLDER_ID);
       },
     });
     setRenamingFolderId(folderId);
@@ -59,7 +59,7 @@ const Index = () => {
   const getFolderMenuItems = (folderId: string) => {
     let menuItems: PopoverMenuItem[] = [];
 
-    if (folderId !== DEFAULT_FOLDER)
+    if (folderId !== ALL_FOLDER_ID && folderId !== TODAY_FOLDER_ID)
       menuItems = [
         {
           label: "Delete folder",
@@ -88,7 +88,7 @@ const Index = () => {
     return menuItems;
   };
 
-  const isFoldersExists = folders.length > 1;
+  const isFoldersExists = true;
   const tabs = foldersToScrollTabs(
     folders,
     () => <RitualList />,
