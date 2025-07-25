@@ -80,10 +80,7 @@ const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
     <View style={{ width, height }}>
       <Svg width={width} height={height}>
         <BackgroundSegments
-          total={total}
-          doneCount={doneCount}
-          highlightedSet={highlightedSet}
-          segmentWidth={segmentWidth}
+          width={segmentWidth * total}
           height={height}
           radius={radius}
           backgroundColorOpacity={backgroundColorOpacity}
