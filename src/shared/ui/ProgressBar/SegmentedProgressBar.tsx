@@ -10,7 +10,7 @@ import useAnimatedPaths from "./AnimatedPaths";
 import BackgroundSegments from "./BackgroundSegments";
 import Segments from "./Segments";
 
-interface SeparatedProgressBarProps {
+interface SegmentedProgressBarProps {
   width: number;
   height?: number;
   total: number;
@@ -26,7 +26,7 @@ interface SeparatedProgressBarProps {
   backgroundColorOpacity?: number;
 }
 
-const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
+const SegmentedProgressBar: React.FC<SegmentedProgressBarProps> = ({
   width,
   height = 10,
   total,
@@ -102,4 +102,4 @@ const SeparatedProgressBar: React.FC<SeparatedProgressBarProps> = ({
   );
 };
 
-export default SeparatedProgressBar;
+export default SegmentedProgressBar;

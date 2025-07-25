@@ -4,7 +4,7 @@ import Animated from "react-native-reanimated";
 
 import { Colors } from "@shared/constants/Colors";
 import { RitualStatuses } from "@shared/types/commonTypes";
-import SeparatedProgressBar from "@shared/ui/ProgressBar/ProgressBar";
+import SegmentedProgressBar from "@shared/ui/ProgressBar/SegmentedProgressBar";
 import { useProgressBarColors } from "@shared/ui/ProgressBar/useProgressBarColors";
 
 import { Tooltip } from "./Tooltip";
@@ -73,7 +73,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
           Grinding for {allDays.length} days
         </Animated.Text>
       )}
-      <SeparatedProgressBar
+      <SegmentedProgressBar
         total={totalSteps}
         separatorWidth={isDeepIntegration ? 0 : 1}
         highlightedIndexes={isDeepIntegration ? [] : missedDaysIndexes}
