@@ -78,7 +78,10 @@ const SegmentedProgressBar: React.FC<SegmentedProgressBarProps> = ({
     isDiff: prevDoneCount.current < doneCount,
   });
 
-  const pathProps = useSegmentProps({ phase });
+  const pathProps = useSegmentProps({
+    phase,
+    key: highlightedIndexes.join("-"),
+  });
 
   return (
     <View style={{ width, height }}>

@@ -16,9 +16,10 @@ import { RitualPhaseColorName } from "@shared/types/themeTypes";
 
 type AnimatedPathsProps = {
   phase: RitualPhaseColorName;
+  key: string;
 };
 
-export const useSegmentProps = ({ phase }: AnimatedPathsProps) => {
+export const useSegmentProps = ({ phase, key }: AnimatedPathsProps) => {
   const { colorScheme } = useTheme();
 
   const pulsatingTransition = useSharedValue(0);
@@ -32,7 +33,7 @@ export const useSegmentProps = ({ phase }: AnimatedPathsProps) => {
       ),
       2,
     );
-  }, []);
+  }, [key]);
 
   const done = useAnimatedProps(() => {
     const resolvedFill = interpolateColor(
@@ -64,7 +65,6 @@ export const useSegmentProps = ({ phase }: AnimatedPathsProps) => {
       [0, 1],
       [0.3, 1],
     );
-    // TODO animated "d" only for last segment
     return {
       fill: resolvedFill,
       opacity: resolvedOpacity,

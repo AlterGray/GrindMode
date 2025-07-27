@@ -38,7 +38,9 @@ const Segment: React.FC<SegmentProps> = ({
     const segmentsCount = calcSegments(doneCount, Array.from(highlightedSet));
 
     return Array.from({ length: segmentsCount.length }).map((_, i) => {
-      if (i === segmentsCount.length - 1) {
+      const isLastSegment = i === segmentsCount.length - 1;
+      const isTypeDone = segmentsCount[i].type === "done";
+      if (isLastSegment && isTypeDone) {
         return <AnimatedPath key={i} animatedProps={bouncedPathProps} />;
       }
 
