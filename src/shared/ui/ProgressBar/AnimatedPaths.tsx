@@ -1,4 +1,4 @@
-import { RefObject, useEffect } from "react";
+import { useEffect } from "react";
 import {
   SharedValue,
   interpolate,
@@ -15,32 +15,30 @@ import { useTheme } from "@shared/hooks/useTheme";
 import { themeTransitionProgress } from "@shared/stores/themeStore";
 import { RitualPhaseColorName } from "@shared/types/themeTypes";
 
-import { createSegmentPath } from "./utils";
+import { calcSegments, createRoundedPath } from "./utils";
 
 type AnimatedPathsProps = {
-  total: number;
   doneCount: number;
   segmentWidth: number;
-  height: number;
-  separatorWidth: number;
-  separatorColorFillProps: Partial<{ stroke: string }>;
-  radius: number;
   transitions: SharedValue<number>;
-  prevDoneCount: RefObject<number>;
   highlightedIndexes: number[];
   phase: RitualPhaseColorName;
+  total: number;
+  height: number;
+  radius: number;
+  isDiff: boolean;
 };
 
-const useAnimatedPaths = ({
-  total,
+export const useAnimatedPaths = ({
   doneCount,
   segmentWidth,
-  height,
-  radius,
   transitions,
-  prevDoneCount,
   highlightedIndexes,
   phase,
+  total,
+  height,
+  radius,
+  isDiff,
 }: AnimatedPathsProps) => {
   const { colorScheme } = useTheme();
 
@@ -57,52 +55,53 @@ const useAnimatedPaths = ({
     );
   }, []);
 
-  const animatedPaths = Array.from({ length: total }).map((_, index) =>
+  const allSegments = calcSegments(doneCount, highlightedIndexes);
+
+  const segs = allSegments.map((segment, i) =>
     useAnimatedProps(() => {
-      const d = createSegmentPath(
-        index,
-        interpolate(
-          transitions.value,
-          [0, 1],
-          [
-            prevDoneCount.current < doneCount && index === doneCount - 1
-              ? 0
-              : segmentWidth,
-            segmentWidth,
+      const x = segmentWidth * segment.start;
+      const normalWidth = segmentWidth * (segment.end - segment.start);
+      const animatedWidth = interpolate(
+        transitions.value,
+        [0, 1],
+        [segmentWidth * (segment.end - segment.start - 1), normalWidth],
+      );
+      const resolvedWidth =
+        i === allSegments.length - 1 && isDiff ? animatedWidth : normalWidth;
+      const resolvedOpacity =
+        segment.type === "missed"
+          ? interpolate(pulsatingTransition.value, [0, 1], [0.3, 1])
+          : 1;
+      const resolvedFill = interpolateColor(
+        themeTransitionProgress.value,
+        [0, 1],
+        [
+          Colors.ritualPhaseColors[colorScheme][
+            segment.type === "done" ? phase : "HIGHTLIGHT"
           ],
-        ),
-        height,
-        radius,
-        total,
+          Colors.ritualPhaseColors[colorScheme][
+            segment.type === "done" ? phase : "HIGHTLIGHT"
+          ],
+        ],
       );
 
+      const d = createRoundedPath({
+        x,
+        width: resolvedWidth,
+        height,
+        radius,
+        roundLeft: segment.start === 0,
+        roundRight: segment.end === total,
+      });
+
+      // TODO animated "d" only for last segment
       return {
         d,
-        fill: highlightedIndexes.includes(index)
-          ? interpolateColor(
-              pulsatingTransition.value,
-              [0, 1],
-              [
-                Colors[colorScheme].dangerSoft,
-                Colors.ritualPhaseColors[colorScheme]["HIGHTLIGHT"],
-              ],
-            )
-          : interpolateColor(
-              themeTransitionProgress.value,
-              [0, 1],
-              [
-                Colors.ritualPhaseColors[colorScheme][phase],
-                Colors.ritualPhaseColors[colorScheme][phase],
-              ],
-            ),
-        opacity: highlightedIndexes.includes(index)
-          ? interpolate(pulsatingTransition.value, [0, 1], [0.3, 1])
-          : 1,
+        fill: resolvedFill,
+        opacity: resolvedOpacity,
       };
     }),
   );
 
-  return animatedPaths;
+  return segs;
 };
-
-export default useAnimatedPaths;

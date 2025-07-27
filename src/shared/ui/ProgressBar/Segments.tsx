@@ -1,4 +1,5 @@
 import { AnimatedLine, AnimatedPath } from "../AnimatedComponents/AnimatedSvgs";
+import { calcSegments } from "./utils";
 
 type SegmentProps = {
   total: number;
@@ -6,10 +7,11 @@ type SegmentProps = {
   highlightedSet: Set<number>;
   segmentWidth: number;
   height: number;
-  animatedPaths: any[];
   separatorWidth: number;
   showSeparators: boolean;
   separatorColorFillProps: Partial<{ stroke: string }>;
+  animatedPaths: Partial<{ d: string; fill: string; opacity: number }>[];
+  isDiff: boolean;
 };
 
 const Segment: React.FC<SegmentProps> = ({
@@ -18,36 +20,24 @@ const Segment: React.FC<SegmentProps> = ({
   highlightedSet,
   segmentWidth,
   height,
-  animatedPaths,
   separatorWidth,
   showSeparators,
   separatorColorFillProps,
+  animatedPaths,
 }) => {
+  const segments = () => {
+    if (total === 0) return [];
+
+    const segmentsCount = calcSegments(doneCount, Array.from(highlightedSet));
+
+    return Array.from({ length: segmentsCount.length }).map((_, i) => {
+      return <AnimatedPath key={i} animatedProps={animatedPaths[i]} />;
+    });
+  };
+
   return (
     <>
-      {Array.from({ length: total }).map((_, i) => {
-        if (i >= doneCount) return null;
-
-        const isHighlighted = highlightedSet.has(i);
-        const scale = isHighlighted ? 0.85 : 1;
-        const x = i * segmentWidth;
-        const translateX = x + segmentWidth / 2;
-        const translateY = height / 2;
-
-        const transform = `
-              translate(${translateX} ${translateY})
-              scale(${scale})
-              translate(${-translateX} ${-translateY})
-            `;
-
-        return (
-          <AnimatedPath
-            key={`fg-${i}`}
-            animatedProps={animatedPaths[i]}
-            transform={transform}
-          />
-        );
-      })}
+      {segments()}
 
       {showSeparators &&
         Array.from({ length: total - 1 }).map((_, i) => {

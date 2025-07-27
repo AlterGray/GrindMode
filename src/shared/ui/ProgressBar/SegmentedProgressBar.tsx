@@ -6,7 +6,7 @@ import Svg from "react-native-svg";
 import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
 import { RitualPhaseColorName } from "@shared/types/themeTypes";
 
-import useAnimatedPaths from "./AnimatedPaths";
+import { useAnimatedPaths } from "./AnimatedPaths";
 import BackgroundSegments from "./BackgroundSegments";
 import Segments from "./Segments";
 
@@ -52,28 +52,28 @@ const SegmentedProgressBar: React.FC<SegmentedProgressBarProps> = ({
   const transitions = useSharedValue(1);
 
   useEffect(() => {
-    prevDoneCount.current < doneCount
-      ? (transitions.value = withSpring(1, {
-          stiffness: 355,
-          damping: 23,
-          mass: 1,
-        }))
-      : (transitions.value = withSpring(0));
+    if (prevDoneCount.current < doneCount) {
+      transitions.value = withSpring(1, {
+        stiffness: 1000,
+        damping: 23,
+        mass: 4,
+      });
+    } else {
+      transitions.value = withSpring(0);
+    }
     prevDoneCount.current = doneCount;
   }, [doneCount]);
 
-  const paths = useAnimatedPaths({
-    total,
+  const animatedPaths = useAnimatedPaths({
     doneCount,
     segmentWidth,
-    height,
-    radius,
     transitions,
-    prevDoneCount,
     highlightedIndexes,
     phase,
-    separatorWidth,
-    separatorColorFillProps,
+    total,
+    height,
+    radius,
+    isDiff: prevDoneCount.current < doneCount,
   });
 
   return (
@@ -95,7 +95,8 @@ const SegmentedProgressBar: React.FC<SegmentedProgressBarProps> = ({
           separatorWidth={separatorWidth}
           showSeparators={showSeparators}
           separatorColorFillProps={separatorColorFillProps}
-          animatedPaths={paths}
+          animatedPaths={animatedPaths}
+          isDiff={prevDoneCount.current < doneCount}
         />
       </Svg>
     </View>

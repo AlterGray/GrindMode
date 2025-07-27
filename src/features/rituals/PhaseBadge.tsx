@@ -31,7 +31,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
   const allDays = getAllRitualDays(ritualId);
   const missedDaysIndexes = getRitualPhaseMissedDays(ritualId, phase);
 
-  const doneDaysCount = allDays.length - adjustedPhaseFrom;
+  const passedDaysCount = allDays.length - adjustedPhaseFrom;
   const totalSteps = isDeepIntegration ? 2 : phaseItem.to - phaseItem.from;
 
   const animatedTextStyles = useProgressBarColors(
@@ -40,7 +40,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
   );
 
   const nextPhase = getNextRitualPhase(phase)!;
-  const daysLeft = phaseItem.to - (adjustedPhaseFrom + doneDaysCount);
+  const daysLeft = phaseItem.to - (adjustedPhaseFrom + passedDaysCount);
 
   return (
     // TODO rewrite all View to ThemedView?
@@ -77,7 +77,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
         total={totalSteps}
         separatorWidth={isDeepIntegration ? 0 : 1}
         highlightedIndexes={isDeepIntegration ? [] : missedDaysIndexes}
-        doneCount={doneDaysCount}
+        doneCount={passedDaysCount}
         width={380} // TODO make it responsive
         // TODO remove hardcode
         phase={phase}

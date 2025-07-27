@@ -1,6 +1,5 @@
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
-import { isTodayUTC } from "@shared/lib/utils/date";
 import { RitualStatuses } from "@shared/types/commonTypes";
 
 import { RitualPhaseMap } from "../constants";
@@ -71,6 +70,7 @@ export const getRitualPhaseMissedDays = (
 };
 
 // TODO duplicated utils file
+// TODO ADD ABILITY TO MARK FIRST DAY AS MISSED
 export const calculateRitualStatus = (ritual: Ritual): RitualStatuses => {
   const noDurationLimit = ritual.isTimeBased && ritual.expectedDuration === 0;
 
