@@ -1,5 +1,5 @@
 import { AnimatedLine, AnimatedPath } from "../AnimatedComponents/AnimatedSvgs";
-import { calcSegments } from "./utils";
+import { calcSegments, createRoundedPath } from "./utils";
 
 type SegmentProps = {
   total: number;
@@ -7,10 +7,15 @@ type SegmentProps = {
   highlightedSet: Set<number>;
   segmentWidth: number;
   height: number;
+  radius: number;
   separatorWidth: number;
   showSeparators: boolean;
   separatorColorFillProps: Partial<{ stroke: string }>;
-  animatedPaths: Partial<{ d: string; fill: string; opacity: number }>[];
+  bouncedPathProps: Partial<{ d: string; fill: string }>;
+  pathProps: {
+    done: Partial<{ fill: string }>;
+    missed: Partial<{ fill: string; opacity: number }>;
+  };
   isDiff: boolean;
 };
 
@@ -20,10 +25,12 @@ const Segment: React.FC<SegmentProps> = ({
   highlightedSet,
   segmentWidth,
   height,
+  radius,
   separatorWidth,
   showSeparators,
   separatorColorFillProps,
-  animatedPaths,
+  bouncedPathProps,
+  pathProps,
 }) => {
   const segments = () => {
     if (total === 0) return [];
@@ -31,7 +38,27 @@ const Segment: React.FC<SegmentProps> = ({
     const segmentsCount = calcSegments(doneCount, Array.from(highlightedSet));
 
     return Array.from({ length: segmentsCount.length }).map((_, i) => {
-      return <AnimatedPath key={i} animatedProps={animatedPaths[i]} />;
+      if (i === segmentsCount.length - 1) {
+        return <AnimatedPath key={i} animatedProps={bouncedPathProps} />;
+      }
+
+      return (
+        <AnimatedPath
+          key={i}
+          d={createRoundedPath({
+            x: segmentWidth * segmentsCount[i].start,
+            width:
+              segmentWidth * (segmentsCount[i].end - segmentsCount[i].start),
+            height,
+            radius,
+            roundLeft: segmentsCount[i].start === 0,
+            roundRight: segmentsCount[i].end === total,
+          })}
+          animatedProps={
+            segmentsCount[i].type === "done" ? pathProps.done : pathProps.missed
+          }
+        />
+      );
     });
   };
 

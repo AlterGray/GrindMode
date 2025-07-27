@@ -7,9 +7,10 @@ import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
 import { getRandomArbitrary } from "@shared/lib/utils/common";
 import { RitualPhaseColorName } from "@shared/types/themeTypes";
 
-import { useAnimatedPaths } from "./AnimatedPaths";
 import BackgroundSegments from "./BackgroundSegments";
 import Segments from "./Segments";
+import { useSegmentBouncedProps } from "./useSegmentBouncedProps";
+import { useSegmentProps } from "./useSegmentProps";
 
 interface SegmentedProgressBarProps {
   width: number;
@@ -65,7 +66,7 @@ const SegmentedProgressBar: React.FC<SegmentedProgressBarProps> = ({
     prevDoneCount.current = doneCount;
   }, [doneCount]);
 
-  const animatedPaths = useAnimatedPaths({
+  const bouncedPathProps = useSegmentBouncedProps({
     doneCount,
     segmentWidth,
     transitions,
@@ -76,6 +77,8 @@ const SegmentedProgressBar: React.FC<SegmentedProgressBarProps> = ({
     radius,
     isDiff: prevDoneCount.current < doneCount,
   });
+
+  const pathProps = useSegmentProps({ phase });
 
   return (
     <View style={{ width, height }}>
@@ -93,10 +96,12 @@ const SegmentedProgressBar: React.FC<SegmentedProgressBarProps> = ({
           highlightedSet={highlightedSet}
           segmentWidth={segmentWidth}
           height={height}
+          radius={radius}
           separatorWidth={separatorWidth}
           showSeparators={showSeparators}
           separatorColorFillProps={separatorColorFillProps}
-          animatedPaths={animatedPaths}
+          bouncedPathProps={bouncedPathProps}
+          pathProps={pathProps}
           isDiff={prevDoneCount.current < doneCount}
         />
       </Svg>
