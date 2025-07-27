@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = () => {
     return () => clearInterval(intervalID.current);
   }, []);
 
-  const transition = useSharedValue(activeQuoteIndex);
+  const transition = useSharedValue(1);
   const animatedOpacityStyle = useAnimatedStyle(() => ({
     opacity: interpolate(transition.value, [0, 1], [0.1, 1]),
   }));
