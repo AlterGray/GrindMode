@@ -4,6 +4,7 @@ import { useSharedValue, withSpring } from "react-native-reanimated";
 import Svg from "react-native-svg";
 
 import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
+import { getRandomArbitrary } from "@shared/lib/utils/common";
 import { RitualPhaseColorName } from "@shared/types/themeTypes";
 
 import { useAnimatedPaths } from "./AnimatedPaths";
@@ -56,7 +57,7 @@ const SegmentedProgressBar: React.FC<SegmentedProgressBarProps> = ({
       transitions.value = withSpring(1, {
         stiffness: 1000,
         damping: 23,
-        mass: 4,
+        mass: Math.floor(getRandomArbitrary(3, 6)),
       });
     } else {
       transitions.value = withSpring(0);

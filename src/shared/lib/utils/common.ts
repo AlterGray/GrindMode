@@ -22,3 +22,7 @@ export const capitalize = (val: string) => {
     String(val).charAt(0).toUpperCase() + String(val.toLowerCase()).slice(1)
   );
 };
+
+export const getRandomArbitrary = (min: number, max: number) => {
+  return Math.random() * (max - min) + min;
+};
