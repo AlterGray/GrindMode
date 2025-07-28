@@ -29,9 +29,9 @@ const DisciplineMetrics: React.FC<DisciplineMetricsProps> = ({ days }) => {
       value: numberMetrics.currentStreak,
     },
     {
-      header: i18n.t("noMercyDays"),
-      description: i18n.t("noMercyDaysDescription"),
-      value: numberMetrics.noMercyDays,
+      header: i18n.t("flawlessDays"),
+      description: i18n.t("flawlessDaysDescription"),
+      value: numberMetrics.flawlessDays,
     },
     {
       header: i18n.t("brokenRituals"),

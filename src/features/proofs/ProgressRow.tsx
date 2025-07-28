@@ -13,8 +13,8 @@ import ProgressCircle from "./CirlceProgressBar/ProgressCircle";
 type Props = {
   metrics: {
     completionRate: number;
-    consistency: number;
-    noMercy: number;
+    flow: number;
+    flawless: number;
   };
 };
 
@@ -46,9 +46,9 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
       <View className="flex-row justify-around items-center mb-2">
         {/* TODO add sub label to show growth in % */}
         <ProgressCircle
-          progress={metrics.consistency}
-          label={i18n.t("consistency")}
-          progressTitle={`${(metrics.consistency * 100).toFixed(metrics.consistency === 1 ? 0 : 2)}%`}
+          progress={metrics.flow}
+          label={i18n.t("flow")}
+          progressTitle={`${(metrics.flow * 100).toFixed(metrics.flow === 1 ? 0 : 2)}%`}
           scale={1.3}
           onPress={() => alert("There is no statistic yet")}
           isLocked={isLocked}
@@ -69,9 +69,9 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
         />
 
         <ProgressCircle
-          progress={metrics.noMercy}
-          label={i18n.t("noMercy")}
-          progressTitle={`${(metrics.noMercy * 100).toFixed(metrics.noMercy === 1 ? 0 : 2)}%`}
+          progress={metrics.flawless}
+          label={i18n.t("flawless")}
+          progressTitle={`${(metrics.flawless * 100).toFixed(metrics.flawless === 1 ? 0 : 2)}%`}
           scale={1}
           onPress={() => alert("There is no statistic yet")}
           isLocked={isLocked}

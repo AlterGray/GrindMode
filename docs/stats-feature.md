@@ -29,7 +29,7 @@ Implement Statistics Module that shows:
 - 📈 Daily / weekly / monthly breakdown
 - ⏱ Total possible ritual completition/actual
 - ✅ Tasks done
-- 🔁 Ritual consistency
+- 🔁 Ritual flow
 - 🔥 Streaks and discipline level(show at ritual?)
 
 ---

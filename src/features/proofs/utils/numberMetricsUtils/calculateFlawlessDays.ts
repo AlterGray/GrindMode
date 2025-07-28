@@ -12,11 +12,11 @@ import {
 } from "@shared/lib/utils/date";
 import { RitualStatuses } from "@shared/types/commonTypes";
 
-export const calculateNoMercyDays = (
+export const calculateFlawlessDays = (
   statistics: StatisticEntry[],
   days: number,
 ) => {
-  let noMercyDays = 0;
+  let flawlessDays = 0;
 
   let completionMap = new Map<string, CompletionEntry[]>();
   const date = getDateNDaysAgo(new Date().toISOString(), days);
@@ -54,9 +54,9 @@ export const calculateNoMercyDays = (
     );
 
     if (isToday && isNotMissed && completions.length > 0) {
-      noMercyDays++;
+      flawlessDays++;
     }
   });
 
-  return noMercyDays;
+  return flawlessDays;
 };
