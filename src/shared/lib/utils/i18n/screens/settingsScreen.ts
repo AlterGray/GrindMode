@@ -5,6 +5,9 @@ export const settingsScreen = {
     english: "English",
     ukrainian: "Ukrainian",
     russian: "Russian",
+
+    switchTheme: "Switch Theme",
+    switchLanguage: "Switch Language",
   },
   ua: {
     settings: "Налаштування",
@@ -12,6 +15,9 @@ export const settingsScreen = {
     english: "Англійська",
     ukrainian: "Українська",
     russian: "Російська",
+
+    switchTheme: "Перемкнути тему",
+    switchLanguage: "Перемкнути мову",
   },
   ru: {
     settings: "Настройки",
@@ -19,5 +25,8 @@ export const settingsScreen = {
     english: "Английский",
     ukrainian: "Украинский",
     russian: "Русский",
+
+    switchTheme: "Переключить тему",
+    switchLanguage: "Переключить язык",
   },
 };
