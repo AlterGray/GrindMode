@@ -22,6 +22,7 @@ const TabItem: React.FC<TabItemProps> = ({
   isReordering,
   menuItems,
   onLongPress,
+  filteredTitles,
 }) => {
   const getFolderColor = useFolderColor();
   const buttonRef = useRef<View>(null);
@@ -43,7 +44,7 @@ const TabItem: React.FC<TabItemProps> = ({
           {title}
         </AnimatedThemedText>
         {/* // TODO does it make sense to rewrite with "status"? */}
-        {isReordering && (
+        {isReordering && !filteredTitles.includes(title) && (
           <View className="absolute right-0">
             <Ionicons
               name="close-circle"

@@ -97,9 +97,7 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
           {isLocked ? (
             <>
               <Ionicons name="lock-closed" size={20 * scale} color="gray" />
-              <AnimatedThemedText
-                style={{ fontWeight: "bold", fontSize: 12 * scale }}
-              >
+              <AnimatedThemedText style={{ fontWeight: "bold" }}>
                 {i18n.t("locked")}
               </AnimatedThemedText>
             </>

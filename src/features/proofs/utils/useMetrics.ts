@@ -6,11 +6,11 @@ import { getDaysDiff, isDateInLastNDays } from "@shared/lib/utils/date";
 import { findFirstDay } from "./common";
 import { calculateBrokenRituals } from "./numberMetricsUtils/calculateBrokenRituals";
 import { calculateCurrentStreak } from "./numberMetricsUtils/calculateCurrentStreak";
+import { calculateFlawlessDays } from "./numberMetricsUtils/calculateFlawlessDays";
 import { calculateLongestStreak } from "./numberMetricsUtils/calculateLongestStreak";
-import { calculateNoMercyDays } from "./numberMetricsUtils/calculateNoMercyDays";
 import { calculateCompletionRate } from "./ratioMetricsUtils/calculateCompletionRate";
-import { calculateConsistency } from "./ratioMetricsUtils/calculateConsistency";
-import { calculateNoMercy } from "./ratioMetricsUtils/calculateNoMercy";
+import { calculateFlawless } from "./ratioMetricsUtils/calculateFlawless";
+import { calculateFlow } from "./ratioMetricsUtils/calculateFlow";
 
 export const useMetrics = (days: number) => {
   const rituals = useRitualStore((state) => state.rituals);
@@ -23,13 +23,13 @@ export const useMetrics = (days: number) => {
     return {
       ratioMetrics: {
         completionRate: 0,
-        consistency: 0,
-        noMercy: 0,
+        flow: 0,
+        flawless: 0,
       },
       numberMetrics: {
         longestStreak: 0,
         currentStreak: 0,
-        noMercyDays: 0,
+        flawlessDays: 0,
         brokenRituals: 0,
       },
     };
@@ -45,13 +45,13 @@ export const useMetrics = (days: number) => {
   return {
     ratioMetrics: {
       completionRate: calculateCompletionRate(filteredCompletions),
-      consistency: calculateConsistency(rituals, statistics, adjustedDays),
-      noMercy: calculateNoMercy(statistics, adjustedDays),
+      flow: calculateFlow(rituals, statistics, adjustedDays),
+      flawless: calculateFlawless(statistics, adjustedDays),
     },
     numberMetrics: {
       longestStreak: calculateLongestStreak(statistics, adjustedDays),
       currentStreak: calculateCurrentStreak(statistics, adjustedDays),
-      noMercyDays: calculateNoMercyDays(statistics, adjustedDays),
+      flawlessDays: calculateFlawlessDays(statistics, adjustedDays),
       brokenRituals: calculateBrokenRituals(statistics),
     },
   };

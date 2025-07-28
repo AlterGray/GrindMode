@@ -32,7 +32,6 @@ export const useRitualStore = create<RitualState>()(
         set((state) => {
           const newRitual: Ritual = {
             id,
-            folderIds: [ALL_FOLDER_ID],
             status: RitualStatuses.Undone,
             actualDuration: 0,
             isDeleted: false,

@@ -1,9 +1,12 @@
 import React, { useCallback } from "react";
 import { ScrollView, View } from "react-native";
 
+import { useLocalSearchParams } from "expo-router";
+
 import { Checkbox } from "@features/rituals/CheckBox";
 import { RitualFormValues } from "@features/rituals/ritualTypes";
 
+import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
 import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import DaysGrid from "@shared/ui/DaysGrid";
@@ -25,6 +28,8 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
   initialValues,
   onSubmit,
 }) => {
+  const { folderId } = useLocalSearchParams();
+
   const {
     state: { title, startTime, expectedDuration, days, isTimeBased },
     setTitle,
@@ -43,8 +48,14 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
       expectedDuration,
       days,
       isTimeBased,
+      folderIds:
+        folderId &&
+        (folderId.toLocaleString() !== ALL_FOLDER_ID ||
+          folderId.toLocaleString() !== TODAY_FOLDER_ID)
+          ? [folderId.toLocaleString()]
+          : [],
     });
-  }, [title, startTime, expectedDuration, days, onSubmit]);
+  }, [title, startTime, expectedDuration, days, onSubmit, folderId]);
 
   return (
     <AnimatedThemedView className="flex-1">

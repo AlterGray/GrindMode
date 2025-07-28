@@ -4,9 +4,9 @@ const metrics = {
   en: {
     disciplineMetrics: "Discipline metrics",
 
-    consistency: "Consistency",
+    flow: "Flow",
     completion: "Completion",
-    noMercy: "No mercy",
+    flawless: "Flawless",
 
     longestStreak: "Longest streak",
     longestStreakDescription: "Most consecutive days of rituals",
@@ -14,9 +14,9 @@ const metrics = {
     currentStreak: "Current streak",
     currentStreakDescription: "Current consecutive days of rituals",
 
-    noMercyDays: "No mercy days",
-    noMercyDaysDescription:
-      "No Mercy Days - complete adherence to all rituals without exceptions",
+    flawlessDays: "Flawless days",
+    flawlessDaysDescription:
+      "Flawless Days - complete adherence to all rituals without exceptions",
 
     brokenRituals: "Broken rituals",
     brokenRitualsDescription: "Number of rituals that were broken",
@@ -24,9 +24,9 @@ const metrics = {
   ua: {
     disciplineMetrics: "Метрики дисципліни",
 
-    consistency: "Послідовність",
+    flow: "Потік",
     completion: "Виконання",
-    noMercy: "Безкомпромісність",
+    flawless: "Бездоганність",
 
     longestStreak: "Найдовший стрік",
     longestStreakDescription:
@@ -36,9 +36,9 @@ const metrics = {
     currentStreakDescription:
       "Поточна кількість днів підряд, коли ритуали були виконані",
 
-    noMercyDays: "Безкомпромісні дні",
-    noMercyDaysDescription:
-      "Безжальні дні - повне дотримання ритуалів без винятків",
+    flawlessDays: "Безкомпромісні дні",
+    flawlessDaysDescription:
+      "Безкомпромісні дні - повне дотримання ритуалів без винятків",
 
     brokenRituals: "Зламані ритуали",
     brokenRitualsDescription:
@@ -47,9 +47,9 @@ const metrics = {
   ru: {
     disciplineMetrics: "Метрики дисциплины",
 
-    consistency: "Последовательность",
+    flow: "Поток",
     completion: "Завершение",
-    noMercy: "Бескомпромиссность",
+    flawless: "Безупречность",
 
     longestStreak: "Самая длинная серия",
     longestStreakDescription:
@@ -59,9 +59,9 @@ const metrics = {
     currentStreakDescription:
       "Текущее количество подряд идущих дней с выполненными ритуалами",
 
-    noMercyDays: "Бескомпромиссные дни",
-    noMercyDaysDescription:
-      "Беспощадные дни - полное соблюдение ритуалов без исключений.",
+    flawlessDays: "Бескомпромиссные дни",
+    flawlessDaysDescription:
+      "Бескомпромиссные дни - полное соблюдение ритуалов без исключений.",
 
     brokenRituals: "Сломанные ритуалы",
     brokenRitualsDescription:

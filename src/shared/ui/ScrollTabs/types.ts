@@ -11,6 +11,7 @@ type TabItemProps = {
   isReordering: boolean;
   menuItems: PopoverMenuItem[];
   onLongPress: () => void;
+  filteredTitles: string[];
 };
 
 type DraggableItem = {
@@ -39,6 +40,7 @@ type ScrollTabsProps = {
     content: React.ReactNode;
     menuItems: PopoverMenuItem[];
   }[];
+  filteredTitles?: string[];
   isReordering: boolean;
   onPress: (itemId: string) => void;
   onCloseTab: (index: string) => void;
