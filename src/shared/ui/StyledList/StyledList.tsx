@@ -27,7 +27,7 @@ const StyledList: React.FC<StyledListProps> = ({
   toggleItem,
   data,
   renderContent = null,
-  noItemsText = i18n.t("noItemsYet"),
+  noItemsText = i18n.t("noItemsYet") ?? "",
 }) => {
   const isNavigating = useNavigationFocus();
 

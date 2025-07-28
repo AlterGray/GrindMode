@@ -43,12 +43,14 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
   const nextPhase = getNextRitualPhase(phase)!;
   const daysLeft = phaseItem.to - (adjustedPhaseFrom + doneDaysCount);
 
+  const currentPhaseText = `${i18n.t("currentPhase")}: ${i18n.t(phaseItem.label)}`;
+
   return (
     // TODO rewrite all View to ThemedView?
     <View className="gap-1">
       <View className="flex-row gap-1">
         <Animated.Text style={animatedTextStyles}>
-          {i18n.t("currentPhase")}: {i18n.t(phaseItem.label)}
+          {currentPhaseText}
         </Animated.Text>
 
         <View className="flex-row gap-2">

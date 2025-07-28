@@ -1,7 +1,5 @@
 import { I18n } from "i18n-js";
 
-import { getLocales } from "expo-localization";
-
 import { allDialogs } from "./common/allDialogs";
 import { buttons } from "./common/buttons";
 import { phases } from "./common/phases";
