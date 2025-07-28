@@ -1,18 +1,18 @@
 export const statuses = {
   en: {
-    incompleted: "Undone",
-    completed: "Done",
+    incompleted: "Incompleted",
+    completed: "Completed",
     overdue: "Overdue",
     missed: "Missed",
   },
   ua: {
-    incompleted: "Не початий",
+    incompleted: "Невиконаний",
     completed: "Виконаний",
     overdue: "Просрочений",
     missed: "Пропущений",
   },
   ru: {
-    incompleted: "Недействительный",
+    incompleted: "Невыполненный",
     completed: "Выполненный",
     overdue: "Просроченный",
     missed: "Пропущенный",
