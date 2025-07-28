@@ -3,6 +3,7 @@ import React from "react";
 import { useRitualStore } from "@features/rituals/ritualStore";
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { useThemeStore } from "@shared/stores/themeStore";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
@@ -35,9 +36,9 @@ const settings = () => {
 
   return (
     <AnimatedThemedView className="flex-1 items-center justify-center gap-2">
-      <StyledButton title="Switch theme" onPress={toggleTheme} />
+      <StyledButton title={i18n.t("switchTheme")} onPress={toggleTheme} />
       <StyledButton
-        title="Reset Statistics"
+        title={i18n.t("resetStatistics")}
         variant="remove-contained-20"
         onPress={handleOpenResetDialog}
       />
