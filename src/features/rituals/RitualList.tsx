@@ -105,7 +105,7 @@ const RitualList: React.FC = () => {
       <NavModal
         isVisible={isNavModalOpen}
         onClose={() => setIsNavModalOpen(false)}
-        title="Select folder"
+        title={i18n.t("selectFolder")}
         actions={navModalActions}
       />
 

@@ -35,8 +35,9 @@ const settings = () => {
 
   const handleOpenResetDialog = () => {
     openResetDialog({
-      title: "Reset Statistics",
-      variant: FloatingModalVariant.Danger,
+      title: i18n.t("resetStatistics"),
+      text: i18n.t("resetStatisticsDescription"),
+      variant: FloatingModalVariant.Reset,
       onConfirm: handleResetStatistic,
     });
   };

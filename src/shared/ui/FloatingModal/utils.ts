@@ -18,10 +18,15 @@ export const getModalConfig = (variant: FloatingModalVariant) => {
       secondary: { title: i18n.t("cancel"), variant: "secondary-text-20" },
       message: defaultMessage("Confirm"),
     },
-    [FloatingModalVariant.Danger]: {
+    [FloatingModalVariant.Remove]: {
       primary: { title: i18n.t("remove"), variant: "remove-contained-20" },
       secondary: { title: i18n.t("cancel"), variant: "secondary-text-20" },
       message: defaultMessage("Remove"),
+    },
+    [FloatingModalVariant.Reset]: {
+      primary: { title: i18n.t("reset"), variant: "remove-contained-20" },
+      secondary: { title: i18n.t("cancel"), variant: "secondary-text-20" },
+      message: defaultMessage("Reset"),
     },
     [FloatingModalVariant.Cancel]: {
       secondary: { title: i18n.t("cancel"), variant: "primary-contained-20" },
