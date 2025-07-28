@@ -6,6 +6,8 @@ import { allDialogs } from "./common/allDialogs";
 import { buttons } from "./common/buttons";
 import { phases } from "./common/phases";
 import { statuses } from "./common/statuses";
+import { tooltips } from "./common/tooltips";
+import { words } from "./common/words";
 import { createUpdateRitualScreen } from "./createUpdateScreen";
 import { ritualsScreen } from "./dailyRitualsScreen";
 import { proofOfWorkScreen } from "./proofOfWorkScreen";
@@ -21,6 +23,8 @@ export const i18n = new I18n({
     ...allDialogs.en,
     ...statuses.en,
     ...phases.en,
+    ...tooltips.en,
+    ...words.en,
     ...proofOfWorkScreen.en,
     ...createUpdateRitualScreen.en,
     ...ritualsScreen.en,
@@ -35,6 +39,8 @@ export const i18n = new I18n({
     ...allDialogs.ua,
     ...statuses.ua,
     ...phases.ua,
+    ...tooltips.ua,
+    ...words.ua,
     ...proofOfWorkScreen.ua,
     ...createUpdateRitualScreen.ua,
     ...ritualsScreen.ua,
@@ -49,6 +55,8 @@ export const i18n = new I18n({
     ...allDialogs.ru,
     ...statuses.ru,
     ...phases.ru,
+    ...tooltips.ru,
+    ...words.ru,
     ...proofOfWorkScreen.ru,
     ...createUpdateRitualScreen.ru,
     ...ritualsScreen.ru,

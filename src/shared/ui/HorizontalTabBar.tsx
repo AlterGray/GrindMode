@@ -1,6 +1,7 @@
 import { Tooltip } from "@features/rituals/Tooltip";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import { AnimatedPressable } from "./AnimatedComponents/AnimatedReactComponents";
@@ -38,7 +39,7 @@ const HorizontalTabBar: React.FC<HorizontalTabBarProps> = ({
           {/* TODO change colors as it hard to see */}
           {tab.isWarning && tab.id === activeTab && (
             <Tooltip
-              text="You don't have enough completitions for this time period"
+              text={i18n.t("dontHaveEnoughtDays")}
               iconName="alert-circle-outline"
               variant="warning"
             />

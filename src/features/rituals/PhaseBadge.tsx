@@ -56,11 +56,17 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
           {/* TODO remove slice and check by dates */}
           {allDays.slice(-14).filter((d) => d.status === RitualStatuses.Missed)
             .length > 0 && (
-            <Tooltip text={i18n.t("oneMissLeft")} variant="danger" />
+            <Tooltip
+              text={i18n.t("oneMissLeftStayConsistent")}
+              variant="danger"
+            />
           )}
           {!isDeepIntegration && (
             <Tooltip
-              text={`${daysLeft} days left until ${RitualPhaseMap[nextPhase].label} phase`}
+              text={i18n.t("daysLeftUntil", {
+                days: daysLeft,
+                phase: RitualPhaseMap[nextPhase].label,
+              })}
             />
           )}
         </View>
@@ -71,7 +77,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
       {isDeepIntegration && (
         // TODO add pulsation
         <Animated.Text style={animatedTextStyles} className="font-bold">
-          Grinding for {allDays.length} days
+          {i18n.t("grindingForDays", { days: allDays.length })}
         </Animated.Text>
       )}
       <SeparatedProgressBar
