@@ -11,10 +11,10 @@ import { words } from "./common/words";
 import { createUpdateRitualScreen } from "./screens/createUpdateScreen";
 import { ritualsScreen } from "./screens/dailyRitualsScreen";
 import { proofOfWorkScreen } from "./screens/proofOfWorkScreen/proofOfWorkScreen";
+import { settingsScreen } from "./screens/settingsScreen";
 
 export const i18n = new I18n({
   en: {
-    settings: "Settings",
     am: "ранку",
     pm: "ночі",
     hours: "h",
@@ -28,9 +28,9 @@ export const i18n = new I18n({
     ...proofOfWorkScreen.en,
     ...createUpdateRitualScreen.en,
     ...ritualsScreen.en,
+    ...settingsScreen.en,
   },
   ua: {
-    settings: "Налаштування",
     am: "AM",
     pm: "PM",
     hours: "г",
@@ -44,9 +44,9 @@ export const i18n = new I18n({
     ...proofOfWorkScreen.ua,
     ...createUpdateRitualScreen.ua,
     ...ritualsScreen.ua,
+    ...settingsScreen.ua,
   },
   ru: {
-    settings: "Настройки",
     am: "утра",
     pm: "ночи",
     hours: "ч",
@@ -60,6 +60,7 @@ export const i18n = new I18n({
     ...proofOfWorkScreen.ru,
     ...createUpdateRitualScreen.ru,
     ...ritualsScreen.ru,
+    ...settingsScreen.ru,
   },
 });
 

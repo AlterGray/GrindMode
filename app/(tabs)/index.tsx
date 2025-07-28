@@ -100,7 +100,7 @@ const Index = () => {
 
   const folderToRename = folders.find((f) => f.id === renamingFolderId);
 
-  return <Redirect href={"/(tabs)/proofs"} />;
+  return <Redirect href={"/(tabs)/settings"} />;
 
   return (
     <>

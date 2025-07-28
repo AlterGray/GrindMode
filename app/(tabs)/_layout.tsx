@@ -26,7 +26,7 @@ const TabsLayout = () => {
       name: "proofs",
       icon: "stats-chart-sharp",
     },
-    { title: "Settings", name: "settings", icon: "settings-sharp" },
+    { title: i18n.t("settings"), name: "settings", icon: "settings-sharp" },
   ];
 
   const animatedText = useAnimatedColor("textPrimary", true);
