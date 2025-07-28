@@ -15,7 +15,8 @@ const metrics = {
     currentStreakDescription: "Current consecutive days of rituals",
 
     noMercyDays: "No mercy days",
-    noMercyDaysDescription: "Days with rituals",
+    noMercyDaysDescription:
+      "No Mercy Days - complete adherence to all rituals without exceptions",
 
     brokenRituals: "Broken rituals",
     brokenRitualsDescription: "Number of rituals that were broken",
@@ -36,7 +37,8 @@ const metrics = {
       "Поточна кількість днів підряд, коли ритуали були виконані",
 
     noMercyDays: "Безкомпромісні дні",
-    noMercyDaysDescription: "Дні, коли були ідеально виконані всі ритуали",
+    noMercyDaysDescription:
+      "Безжальні дні - повне дотримання ритуалів без винятків",
 
     brokenRituals: "Зламані ритуали",
     brokenRitualsDescription:
@@ -59,7 +61,7 @@ const metrics = {
 
     noMercyDays: "Бескомпромиссные дни",
     noMercyDaysDescription:
-      "Дни, в которые все ритуалы были выполнены идеально",
+      "Беспощадные дни - полное соблюдение ритуалов без исключений.",
 
     brokenRituals: "Сломанные ритуалы",
     brokenRitualsDescription:
