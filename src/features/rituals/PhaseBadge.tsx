@@ -48,7 +48,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
     <View className="gap-1">
       <View className="flex-row gap-1">
         <Animated.Text style={animatedTextStyles}>
-          {i18n.t("currentPhase")}: {phaseItem.label}
+          {i18n.t("currentPhase")}: {i18n.t(phaseItem.label)}
         </Animated.Text>
 
         <View className="flex-row gap-2">
@@ -65,7 +65,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
             <Tooltip
               text={i18n.t("daysLeftUntil", {
                 days: daysLeft,
-                phase: RitualPhaseMap[nextPhase].label,
+                phase: i18n.t(RitualPhaseMap[nextPhase].label),
               })}
             />
           )}

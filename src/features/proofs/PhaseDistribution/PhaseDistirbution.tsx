@@ -52,7 +52,7 @@ const PhaseDistirbution: React.FC<PhaseDistirbutionProps> = ({ rituals }) => {
           <LabeledProgressBar
             key={phase}
             progress={isLocked ? 0 : getPhaseDistribution(phase)}
-            label={capitalize(RitualPhaseMap[phase].label)}
+            label={capitalize(i18n.t(RitualPhaseMap[phase].label))}
             animatedBgColor={animatedProgressBarBg}
             animatedProgressColor={animatedProgressBarColor}
           />

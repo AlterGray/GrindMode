@@ -30,17 +30,17 @@ const ritualItemTime = {
     noTimeLimits: "No time limits",
   },
   ua: {
-    noTimeLimits: "Необмежений по часу",
+    noTimeLimits: "Час необмежений",
   },
   ru: {
-    noTimeLimits: "Неограниченный по времени",
+    noTimeLimits: "Время не ограничено",
   },
 };
 
 export const ritualsScreen = {
   en: {
-    today: "Today",
-    all: "All",
+    todayFolder: "Today",
+    allFolder: "All",
     dailyRituals: "Daily Rituals",
     noItemsYet: "No items yet",
     currentPhase: "Current Phase",
@@ -50,8 +50,8 @@ export const ritualsScreen = {
     ...ritualItemTime.en,
   },
   ua: {
-    today: "Сьогодні",
-    all: "Всі",
+    todayFolder: "Сьогодні",
+    allFolder: "Всі",
     dailyRituals: "Щоденні Ритуали",
     noItemsYet: "Ритуалів ще немає",
     currentPhase: "Поточна Фаза",
@@ -61,8 +61,8 @@ export const ritualsScreen = {
     ...ritualItemTime.ua,
   },
   ru: {
-    today: "Сегодня",
-    all: "Все",
+    todayFolder: "Сегодня",
+    allFolder: "Все",
     dailyRituals: "Ежедневные Ритуали",
     noItemsYet: "Ритуалов пока нет",
     currentPhase: "Текущая Фаза",

@@ -1,6 +1,5 @@
 import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
 import { storage } from "@shared/lib/storage";
-import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 
 import { Folder } from "./types";
 
@@ -13,9 +12,14 @@ export const getStoredFolders = (): Folder[] => {
 
 export const getDefaultFolders = () => {
   return [
-    { name: i18n.t("today"), id: TODAY_FOLDER_ID, order: -2, color: "default" },
     {
-      name: i18n.t("all"),
+      name: "todayFolder",
+      id: TODAY_FOLDER_ID,
+      order: -2,
+      color: "default",
+    },
+    {
+      name: "allFolder",
       id: ALL_FOLDER_ID,
       order: -1,
       color: "default",

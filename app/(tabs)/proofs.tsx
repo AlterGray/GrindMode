@@ -21,13 +21,10 @@ export enum TimeFilter {
   ALL_TIME = "all_time",
 }
 export const TimeFilterMap = {
-  [TimeFilter.LAST_7_DAYS]: { label: i18n.t("sevenDays"), days: 7 },
-  [TimeFilter.LAST_30_DAYS]: { label: i18n.t("thirtyDays"), days: 30 },
-  [TimeFilter.LAST_365_DAYS]: {
-    label: i18n.t("threeHundredSixtyFiveDays"),
-    days: 365,
-  },
-  [TimeFilter.ALL_TIME]: { label: i18n.t("allTime"), days: -1 }, // TODO
+  [TimeFilter.LAST_7_DAYS]: { label: "sevenDays", days: 7 },
+  [TimeFilter.LAST_30_DAYS]: { label: "thirtyDays", days: 30 },
+  [TimeFilter.LAST_365_DAYS]: { label: "threeHundredSixtyFiveDays", days: 365 },
+  [TimeFilter.ALL_TIME]: { label: "allTime", days: -1 }, // TODO
 };
 
 const proofs = () => {
@@ -40,7 +37,7 @@ const proofs = () => {
     const isDaysEnough = filterDaysCount <= activeDaysCount;
 
     return {
-      label: TimeFilterMap[value].label,
+      label: i18n.t(TimeFilterMap[value].label),
       isWarning: filterDaysCount === -1 ? activeDaysCount === 0 : !isDaysEnough,
       id: value,
     };
