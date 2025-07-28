@@ -31,8 +31,8 @@ export const i18n = new I18n({
     ...settingsScreen.en,
   },
   ua: {
-    am: "AM",
-    pm: "PM",
+    am: "ранку",
+    pm: "ночі",
     hours: "г",
     minutes: "хв",
     ...buttons.ua,
