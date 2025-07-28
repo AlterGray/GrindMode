@@ -2,17 +2,17 @@ import { View } from "react-native";
 
 import StyledButton from "@shared/ui/StyledButton";
 
-type ToggleOptions = {
+type OptionsListItemType = {
   label: string;
   value: string;
 };
 
-type ToggleListProps = {
-  options: ToggleOptions[];
+type OptionsListProps = {
+  options: OptionsListItemType[];
   onPress: (option: string) => void;
 };
 
-const ToggleList: React.FC<ToggleListProps> = ({ options, onPress }) => {
+const OptionsList: React.FC<OptionsListProps> = ({ options, onPress }) => {
   return (
     <View>
       {options.map((option) => (
@@ -27,7 +27,7 @@ const ToggleList: React.FC<ToggleListProps> = ({ options, onPress }) => {
   );
 };
 
-export default ToggleList;
+export default OptionsList;
 
 // TODO learn react community custom hooks to learn how to make own
 // ALSO CHECK CUSTOM HOOKS FROM OPEN SOURCE APPS

@@ -7,7 +7,7 @@ import { useRouter } from "expo-router";
 import { useKeyboardVisible } from "@shared/hooks/useKeyboardVisible";
 import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { FloatingModalVariant, RouteType } from "@shared/types/commonTypes";
-import ToggleList from "@shared/ui/ToggleList/ToggleList";
+import OptionsList from "@shared/ui/OptionsList/OptionsList";
 
 import { AnimatedIonicons } from "./AnimatedComponents/AnimatedIonicons";
 import FloatingModal from "./FloatingModal/FloatingModal";
@@ -34,7 +34,7 @@ const CreateButton: React.FC<CreateButtonProps> = ({
   };
 
   const getToggleOptions = () => (
-    <ToggleList options={options} onPress={onPress} />
+    <OptionsList options={options} onPress={onPress} />
   );
 
   return (
