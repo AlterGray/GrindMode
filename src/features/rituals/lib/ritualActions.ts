@@ -50,6 +50,7 @@ export const createRitual = (ritual: RitualInput) => {
     expectedDuration: ritual.expectedDuration,
     days: ritual.days,
     isTimeBased: ritual.isTimeBased,
+    folderIds: ritual.folderIds,
   });
   addStatisticEntry(id, new Date().toISOString());
 };

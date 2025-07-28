@@ -62,8 +62,7 @@ const useFolderNavModal = (
       iconName: "folder-outline" as IoniconsName,
       iconColor: color(folder.color as FolderColorType),
       isMarked: rituals.some((r) => r.folderIds.includes(folder.id)),
-    }))
-    .filter((f) => f.title !== "All rituals");
+    }));
 
   // TODO move it to nav modal?
   navModalActions.push({

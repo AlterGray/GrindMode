@@ -1,6 +1,11 @@
 import React, { ReactNode } from "react";
 import { FlatList } from "react-native";
 
+import { useRouter } from "expo-router";
+
+import { useFolderStore } from "@features/folder/folderStore";
+
+import { ROUTES } from "@shared/constants/routes";
 import { useNavigationFocus } from "@shared/hooks/useNavigationFocus";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { i18n } from "@shared/lib/utils/i18n/i18n-js";
@@ -30,6 +35,8 @@ const StyledList: React.FC<StyledListProps> = ({
   noItemsText = i18n.t("noItemsYet") ?? "",
 }) => {
   const isNavigating = useNavigationFocus();
+  const router = useRouter();
+  const selectedFolderId = useFolderStore((state) => state.selectedId);
 
   const backgroundColor = useThemeColors("background");
 
@@ -40,11 +47,22 @@ const StyledList: React.FC<StyledListProps> = ({
     else onPress?.(itemId);
   };
 
+  // PREVENTTTTTTTTTTTTTTTT REMOVING DEFAULT FOLDERS
   if (data.length === 0) {
     return (
       <NoItemsInList
         text={noItemsText}
-        actionButton={<StyledButton title={i18n.t("createNewOne")} />}
+        actionButton={
+          <StyledButton
+            title={i18n.t("createNewOne")}
+            onPress={() => {
+              router.push({
+                pathname: ROUTES.RITUALS_CREATE,
+                params: { folderId: selectedFolderId },
+              }); // pass id of folder
+            }}
+          />
+        }
       />
     );
   }
