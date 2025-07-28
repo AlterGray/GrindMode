@@ -58,6 +58,7 @@ const settings = () => {
           i18n.locale = value;
           setLanguage(value as LanguageMode);
         }}
+        horizontal
       />
     </AnimatedThemedView>
   );
