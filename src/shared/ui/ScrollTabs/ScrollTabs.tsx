@@ -13,6 +13,7 @@ const ScrollTabs: React.FC<ScrollTabsProps> = ({
   selectedTab,
   tabs,
   isReordering,
+  filteredTitles = [],
   onPress,
   onCloseTab,
   onDragEnd,
@@ -31,6 +32,7 @@ const ScrollTabs: React.FC<ScrollTabsProps> = ({
           onPress={() => onPress(item.id)}
           onClose={() => onCloseTab(item.id)}
           onLongPress={drag}
+          filteredTitles={filteredTitles}
         />
       </ScaleDecorator>
     </OpacityDecorator>

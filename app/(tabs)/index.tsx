@@ -114,6 +114,10 @@ const Index = () => {
           onPress={(folderId: string) => setSelectedFolderId(folderId)}
           onCloseTab={handleOpenRemoveDialog}
           isReordering={isReordering}
+          filteredTitles={[
+            i18n.t(folders.find((f) => f.id === ALL_FOLDER_ID)?.name ?? ""),
+            i18n.t(folders.find((f) => f.id === TODAY_FOLDER_ID)?.name ?? ""),
+          ]}
           onDragEnd={(item) => {
             const newFolders = item.data.map((f, i) => {
               const newFolder = folders.find((folder) => folder.id === f.id);
