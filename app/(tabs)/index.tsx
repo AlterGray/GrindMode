@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { Redirect } from "expo-router";
+
 import FolderRenameDialog from "@features/folder/components/FolderRenameDialog";
 import { useFolderStore } from "@features/folder/folderStore";
 import { foldersToScrollTabs } from "@features/folder/utils";
@@ -98,7 +100,7 @@ const Index = () => {
 
   const folderToRename = folders.find((f) => f.id === renamingFolderId);
 
-  // return <Redirect href={"/(tabs)/proofs"} />;
+  return <Redirect href={"/(tabs)/proofs"} />;
 
   return (
     <>

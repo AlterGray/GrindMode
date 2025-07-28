@@ -10,7 +10,7 @@ import { tooltips } from "./common/tooltips";
 import { words } from "./common/words";
 import { createUpdateRitualScreen } from "./screens/createUpdateScreen";
 import { ritualsScreen } from "./screens/dailyRitualsScreen";
-import { proofOfWorkScreen } from "./screens/proofOfWorkScreen";
+import { proofOfWorkScreen } from "./screens/proofOfWorkScreen/proofOfWorkScreen";
 
 export const i18n = new I18n({
   en: {

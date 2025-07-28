@@ -6,6 +6,7 @@ import { Ritual, RitualPhase } from "@features/rituals/ritualTypes";
 
 import { useAnimatedSvgColor } from "@shared/hooks/useAnimatedSvgColor";
 import { capitalize } from "@shared/lib/utils/common";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import LabeledProgressBar from "./LabeledProgressBar";
@@ -43,7 +44,7 @@ const PhaseDistirbution: React.FC<PhaseDistirbutionProps> = ({ rituals }) => {
   return (
     <View className="gap-4">
       <AnimatedThemedText className="text-2xl font-medium">
-        Phase distribution
+        {i18n.t("phaseDistribution")}
       </AnimatedThemedText>
 
       <View className="gap-2">

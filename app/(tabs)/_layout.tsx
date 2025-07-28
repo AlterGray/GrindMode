@@ -21,7 +21,11 @@ const TabsLayout = () => {
 
   const screens: { title: string; name: string; icon: IoniconsName }[] = [
     { title: i18n.t("dailyRituals"), name: "index", icon: "flame-sharp" },
-    { title: "Proofs", name: "proofs", icon: "stats-chart-sharp" },
+    {
+      title: i18n.t("progressEvidence"),
+      name: "proofs",
+      icon: "stats-chart-sharp",
+    },
     { title: "Settings", name: "settings", icon: "settings-sharp" },
   ];
 
