@@ -49,7 +49,7 @@ const Index = () => {
   const handleOpenRemoveDialog = (folderId: string) => {
     openRemoveDialog({
       title: i18n.t("removeFolder"),
-      variant: FloatingModalVariant.Danger,
+      variant: FloatingModalVariant.Remove,
       onConfirm: () => {
         removeFolder(folderId);
         setSelectedFolderId(previousFolder || TODAY_FOLDER_ID);

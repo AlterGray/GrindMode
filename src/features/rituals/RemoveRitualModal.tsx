@@ -66,7 +66,7 @@ export const RemoveRitualModal: React.FC<RemoveRitualModalProps> = ({
     <FloatingModal
       title={i18n.t("removeRitual")}
       isOpen={isOpen}
-      variant={FloatingModalVariant.Danger}
+      variant={FloatingModalVariant.Remove}
       onConfirm={handleRemove}
       onCancel={onClose}
       renderContent={() => (

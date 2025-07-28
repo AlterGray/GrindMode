@@ -16,7 +16,8 @@ export enum DayType {
 export enum FloatingModalVariant {
   Confirm = "CONFIRM",
   Cancel = "CANCEL",
-  Danger = "DANGER",
+  Remove = "REMOVE",
+  Reset = "RESET",
 }
 
 export type DayItemType = { value: DayType; display: string };
