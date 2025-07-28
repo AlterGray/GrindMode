@@ -18,7 +18,7 @@ export const Colors = {
     listItemBackground: "#ffffff",
     listItemBorder: "#d1d5db",
     selectedListItemBackground: "#e2e8f0",
-    selectedListItemBorder: "#cbd5e1",
+    selectedListItemBorder: "#aab8c7",
 
     // BUTTON VARIANTS
     buttonPrimaryBackground: "#2563eb",
