@@ -10,6 +10,7 @@ import Svg, { PathProps } from "react-native-svg";
 
 import { Ionicons } from "@expo/vector-icons";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { AnimatedCircle } from "@shared/ui/AnimatedComponents/AnimatedSvgs";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
@@ -99,7 +100,7 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
               <AnimatedThemedText
                 style={{ fontWeight: "bold", fontSize: 12 * scale }}
               >
-                Locked
+                {i18n.t("locked")}
               </AnimatedThemedText>
             </>
           ) : (

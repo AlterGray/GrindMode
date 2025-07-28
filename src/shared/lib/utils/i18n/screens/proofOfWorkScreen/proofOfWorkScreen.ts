@@ -101,6 +101,7 @@ export const proofOfWorkScreen = {
     ...quotes.en,
 
     phaseDistribution: "Phase distribution",
+    locked: "Locked",
   },
   ua: {
     progressEvidence: "Докази прогресу",
@@ -112,6 +113,7 @@ export const proofOfWorkScreen = {
     ...quotes.ua,
 
     phaseDistribution: "Розподіл фаз",
+    locked: "Заблоковано",
   },
   ru: {
     progressEvidence: "Доказательства прогресса",
@@ -123,5 +125,6 @@ export const proofOfWorkScreen = {
     ...quotes.ru,
 
     phaseDistribution: "Распределение фаз",
+    locked: "Заблокировано",
   },
 };
