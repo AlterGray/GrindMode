@@ -43,7 +43,7 @@ const EditRitual: React.FC = () => {
   return (
     <CreateUpdateForm
       initialValues={ritualToEdit}
-      submitText={i18n.t("editRitual")}
+      submitText={i18n.t("saveRitual")}
       onSubmit={handleSubmit}
     />
   );

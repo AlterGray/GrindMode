@@ -14,11 +14,11 @@ export const DAYS = [
 
 // TODO SAME AS TYPE
 export const DAY_ITEMS_LIST: DayItemType[] = [
-  { value: DayType.SUNDAY, display: i18n.t("sunday") },
-  { value: DayType.MONDAY, display: i18n.t("monday") },
-  { value: DayType.TUESDAY, display: i18n.t("tuesday") },
-  { value: DayType.WEDNESDAY, display: i18n.t("wednesday") },
-  { value: DayType.THURSDAY, display: i18n.t("thursday") },
-  { value: DayType.FRIDAY, display: i18n.t("friday") },
-  { value: DayType.SATURDAY, display: i18n.t("saturday") },
+  { value: DayType.SUNDAY, display: "sunday" },
+  { value: DayType.MONDAY, display: "monday" },
+  { value: DayType.TUESDAY, display: "tuesday" },
+  { value: DayType.WEDNESDAY, display: "wednesday" },
+  { value: DayType.THURSDAY, display: "thursday" },
+  { value: DayType.FRIDAY, display: "friday" },
+  { value: DayType.SATURDAY, display: "saturday" },
 ];

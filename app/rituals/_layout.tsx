@@ -23,14 +23,14 @@ const RitualLayout = () => {
     {
       name: "create",
       options: {
-        title: i18n.t("createRitual"),
+        title: i18n.t("ritualCreating"),
         headerShown: true,
       },
     },
     {
       name: "update",
       options: {
-        title: i18n.t("editRitual"),
+        title: i18n.t("ritualEditing"),
         headerShown: true,
       },
     },

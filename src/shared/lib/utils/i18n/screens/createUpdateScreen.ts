@@ -30,10 +30,12 @@ const ritualDays = {
 
 export const createUpdateRitualScreen = {
   en: {
-    editRitual: "Edit ritual",
-    createRitual: "Create ritual",
+    ritualEditing: "Edit ritual",
+    saveRitual: "Save",
+    createRitual: "Create",
+    ritualCreating: "Create ritual",
 
-    ritualTitle: "Ritual text",
+    ritualText: "Ritual text",
     isRitualTimeBased: "Is ritual time based?",
     ritualDays: "Ritual days",
     startRitualAt: "Start ritual at:",
@@ -48,10 +50,12 @@ export const createUpdateRitualScreen = {
     ...ritualDays.en,
   },
   ua: {
-    editRitual: "Редагування ритуалу",
-    createRitual: "Створення ритуалу",
+    ritualEditing: "Редагування ритуалу",
+    createRitual: "Створити",
+    saveRitual: "Зберегти",
+    ritualCreating: "Створення ритуалу",
 
-    ritualTitle: "Текст ритуалу",
+    ritualText: "Текст ритуалу",
     isRitualTimeBased: "Чи ритуал має прив'язку часом?",
     ritualDays: "Дні ритуалу",
     startRitualAt: "Початок ритуалу в:",
@@ -66,10 +70,12 @@ export const createUpdateRitualScreen = {
     ...ritualDays.ua,
   },
   ru: {
-    editRitual: "Редактирование ритуала",
-    createRitual: "Создание ритуала",
+    ritualEditing: "Редактирование ритуала",
+    createRitual: "Создать",
+    ritualCreating: "Создание ритуала",
+    saveRitual: "Сохранить",
 
-    ritualTitle: "Текст ритуала",
+    ritualText: "Текст ритуала",
     isRitualTimeBased: "Имеет ли ритуал привязку к времени?",
     ritualDays: "Дни ритуала",
     startRitualAt: "Начало ритуала в:",
