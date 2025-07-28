@@ -95,7 +95,7 @@ const Index = () => {
   const tabs = foldersToScrollTabs(
     folders.map((folder) => ({
       ...folder,
-      name: folder.order < 0 ? i18n.t(folder.name) : folder.name,
+      name: folder.id < "0" ? i18n.t(folder.name) : folder.name,
     })),
     () => <RitualList />,
     (folderId) => getFolderMenuItems(folderId),
