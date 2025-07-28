@@ -26,7 +26,7 @@ const ToggleList: React.FC<ToggleListProps> = ({
   const isVertical = vertical && !horizontal ? vertical : horizontal;
 
   let classes = "";
-  if (isVertical) classes = "flex flex-col gap-2";
+  if (!isVertical) classes = "flex flex-col gap-2";
   else classes = "flex flex-row gap-1";
   return (
     <View className={classes}>
