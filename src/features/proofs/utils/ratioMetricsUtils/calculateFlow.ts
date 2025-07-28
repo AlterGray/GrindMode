@@ -6,7 +6,7 @@ import { StatisticEntry } from "@features/rituals/statisticStore";
 import { isDateInLastNDays } from "@shared/lib/utils/date";
 import { RitualStatuses } from "@shared/types/commonTypes";
 
-export const calculateConsistency = (
+export const calculateFlow = (
   rituals: Ritual[],
   statistics: StatisticEntry[],
   days: number,

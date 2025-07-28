@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { View } from "react-native";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
-import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import FloatingModal from "@shared/ui/FloatingModal/FloatingModal";
 
 import { Checkbox } from "./CheckBox";
@@ -64,15 +64,15 @@ export const RemoveRitualModal: React.FC<RemoveRitualModalProps> = ({
 
   return (
     <FloatingModal
-      title="Remove Ritual"
+      title={i18n.t("removeRitual")}
       isOpen={isOpen}
-      variant={FloatingModalVariant.Danger}
+      variant={FloatingModalVariant.Remove}
       onConfirm={handleRemove}
       onCancel={onClose}
       renderContent={() => (
         <View>
           <Checkbox
-            label="Also delete ritual statistic?"
+            label={i18n.t("removeRitualDescription")}
             onChange={setIsRemoveStatistics}
             checked={isRemoveStatistics}
             size="sm"

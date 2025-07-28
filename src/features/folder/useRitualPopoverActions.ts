@@ -1,6 +1,7 @@
 import { useRitualStore } from "@features/rituals/ritualStore";
 
 import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 
 import { useFolderStore } from "./folderStore";
 
@@ -20,18 +21,18 @@ export const useRitualPopoverActions = (
 
   // TODO open modal with confirmation
   const removeFromFolderAction = {
-    label: "Remove from folder",
+    label: i18n.t("removeFromFolder"),
     onPress: () => handleRemoveRitualsFromFolder(selectedFolderId),
   };
   const addToFolderAction = {
-    label: "Add to folder",
+    label: i18n.t("addToFolder"),
     onPress: () => {
       setCurrentMenuAction("add");
       onPress();
     },
   };
   const moveToFolderAction = {
-    label: "Move to folder",
+    label: i18n.t("moveToFolder"),
     onPress: () => {
       setCurrentMenuAction("move");
       onPress();

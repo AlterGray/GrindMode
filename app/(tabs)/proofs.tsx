@@ -9,6 +9,7 @@ import { useRitualStore } from "@features/rituals/ritualStore";
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import HorizontalTabBar from "@shared/ui/HorizontalTabBar";
 
@@ -20,10 +21,10 @@ export enum TimeFilter {
   ALL_TIME = "all_time",
 }
 export const TimeFilterMap = {
-  [TimeFilter.LAST_7_DAYS]: { label: "7 Days", days: 7 },
-  [TimeFilter.LAST_30_DAYS]: { label: "30 Days", days: 30 },
-  [TimeFilter.LAST_365_DAYS]: { label: "365 Days", days: 365 },
-  [TimeFilter.ALL_TIME]: { label: "All Time", days: -1 }, // TODO
+  [TimeFilter.LAST_7_DAYS]: { label: "sevenDays", days: 7 },
+  [TimeFilter.LAST_30_DAYS]: { label: "thirtyDays", days: 30 },
+  [TimeFilter.LAST_365_DAYS]: { label: "threeHundredSixtyFiveDays", days: 365 },
+  [TimeFilter.ALL_TIME]: { label: "allTime", days: -1 }, // TODO
 };
 
 const proofs = () => {
@@ -36,7 +37,7 @@ const proofs = () => {
     const isDaysEnough = filterDaysCount <= activeDaysCount;
 
     return {
-      label: TimeFilterMap[value].label,
+      label: i18n.t(TimeFilterMap[value].label),
       isWarning: filterDaysCount === -1 ? activeDaysCount === 0 : !isDaysEnough,
       id: value,
     };

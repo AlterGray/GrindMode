@@ -2,6 +2,7 @@ import { Pressable, View } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { IoniconsName } from "@shared/types/commonTypes";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
@@ -24,7 +25,7 @@ const NavModalListItem: React.FC<NavModalListItemProps> = ({
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={`Select folder: ${title}`}
+      accessibilityLabel={i18n.t("selectFolderArg", { title })}
       className="flex-row items-center justify-between gap-8 bg-light-backgroundSecondary dark:bg-dark-backgroundSecondary"
     >
       <View className="flex-row items-center gap-8">

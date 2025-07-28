@@ -1,14 +1,14 @@
 import { Text, View } from "react-native";
 
-type ToggleOptionsItemProps = {
+type ToggleListItemProps = {
   title: string;
 };
 
 // TODO refactor it
 // TODO make more reusable
-const ToggleOptionsItem: React.FC<ToggleOptionsItemProps> = ({
+const ToggleListItem: React.FC<ToggleListItemProps> = ({
   title,
-}: ToggleOptionsItemProps) => {
+}: ToggleListItemProps) => {
   return (
     <View className={`items-center justify-center rounded-sm px-2 py-4`}>
       <Text className="font-medium text-light-textSecondary dark:text-dark-textSecondary">
@@ -18,4 +18,4 @@ const ToggleOptionsItem: React.FC<ToggleOptionsItemProps> = ({
   );
 };
 
-export default ToggleOptionsItem;
+export default ToggleListItem;

@@ -3,7 +3,6 @@ import { AnimatedStyle } from "react-native-reanimated";
 
 import { IoniconsName } from "@shared/types/commonTypes";
 import { DayType, RitualStatuses } from "@shared/types/commonTypes";
-import { ColorName } from "@shared/types/themeTypes";
 
 // TODO status both in ritual and statistic??????
 export type Ritual = {
@@ -22,7 +21,7 @@ export type Ritual = {
 
 export type RitualInput = Omit<
   Ritual,
-  "id" | "folderIds" | "status" | "actualDuration" | "isDeleted"
+  "id" | "status" | "actualDuration" | "isDeleted"
 >;
 export type RitualUpdate = Omit<Ritual, "status" | "isDeleted">;
 export type RitualFormValues = {
@@ -32,6 +31,7 @@ export type RitualFormValues = {
   expectedDuration: number;
   days: DayType[];
   isTimeBased: boolean;
+  folderIds: string[];
 };
 
 // TODO move it to RitualList?

@@ -1,5 +1,6 @@
 import React from "react";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import StyledInput from "@shared/ui/StyledInput";
 
 const TitleSection = ({
@@ -10,7 +11,7 @@ const TitleSection = ({
   setTitle: (val: string) => void;
 }) => (
   <StyledInput
-    placeholder="Ritual Title"
+    placeholder={i18n.t("ritualText")}
     value={title}
     onChangeText={setTitle}
     autoFocus

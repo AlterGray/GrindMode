@@ -11,25 +11,25 @@ export const RitualPhaseMap: Record<
   }
 > = {
   [RitualPhase.Initiation]: {
-    label: "Initiation",
+    label: "initiation",
     from: 0,
     to: 14,
     value: 1,
   },
   [RitualPhase.Consolidation]: {
-    label: "Consolidation",
+    label: "consolidation",
     from: 15,
     to: 60,
     value: 2,
   },
   [RitualPhase.Stabilization]: {
-    label: "Stabilization",
+    label: "stabilization",
     from: 61,
     to: 90,
     value: 3,
   },
   [RitualPhase.DeepIntegration]: {
-    label: "Deep integration",
+    label: "deepIntegration",
     from: 91,
     to: -1,
     value: 4,

@@ -12,9 +12,14 @@ export const getStoredFolders = (): Folder[] => {
 
 export const getDefaultFolders = () => {
   return [
-    { name: "Today", id: TODAY_FOLDER_ID, order: -2, color: "default" },
     {
-      name: "All",
+      name: "todayFolder",
+      id: TODAY_FOLDER_ID,
+      order: -2,
+      color: "default",
+    },
+    {
+      name: "allFolder",
       id: ALL_FOLDER_ID,
       order: -1,
       color: "default",

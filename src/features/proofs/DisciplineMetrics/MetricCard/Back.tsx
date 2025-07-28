@@ -29,7 +29,7 @@ const Back: React.FC<BackProps> = ({
   return (
     <Animated.View
       style={[backStyle, animatedBgColor]}
-      className={"inset-0 items-center p-2"}
+      className={"inset-0 items-center p-2 justify-center align-center"}
     >
       <AnimatedThemedText
         numberOfLines={3}

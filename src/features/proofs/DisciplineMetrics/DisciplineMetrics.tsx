@@ -1,5 +1,7 @@
 import { View } from "react-native";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
+
 import ProgressRow from "../ProgressRow";
 import { useMetrics } from "../utils/useMetrics";
 import MetricCard from "./MetricCard/MetricCard";
@@ -17,24 +19,23 @@ const DisciplineMetrics: React.FC<DisciplineMetricsProps> = ({ days }) => {
   // TODO rename phases
   const cardInfo = [
     {
-      header: "Longest streak",
-      description: "Most longest streak for all the time",
+      header: i18n.t("longestStreak"),
+      description: i18n.t("longestStreakDescription"),
       value: numberMetrics.longestStreak,
     },
     {
-      header: "Current Streak",
-      description:
-        "Most longest streak when all rituals were done in time for selected period",
+      header: i18n.t("currentStreak"),
+      description: i18n.t("currentStreakDescription"),
       value: numberMetrics.currentStreak,
     },
     {
-      header: '"No mercy" days',
-      description: "Days when everything was done in time",
-      value: numberMetrics.noMercyDays,
+      header: i18n.t("flawlessDays"),
+      description: i18n.t("flawlessDaysDescription"),
+      value: numberMetrics.flawlessDays,
     },
     {
-      header: "Broken reituals",
-      description: "Number of times when you broke rituals for selected period",
+      header: i18n.t("brokenRituals"),
+      description: i18n.t("brokenRitualsDescription"),
       value: numberMetrics.brokenRituals,
     },
   ];

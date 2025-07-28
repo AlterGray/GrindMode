@@ -18,7 +18,10 @@ const ProgressLabel: React.FC<ProgressLabelProps> = ({ text, isLocked }) => {
         style={animatedBgColor}
         className={`w-2 h-2 rounded-md`}
       />
-      <AnimatedThemedText color={isLocked ? "muted" : "primary"}>
+      <AnimatedThemedText
+        color={isLocked ? "muted" : "primary"}
+        adjustsFontSizeToFit
+      >
         {text}
       </AnimatedThemedText>
     </View>

@@ -3,6 +3,7 @@ import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { Colors } from "@shared/constants/Colors";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { RitualStatuses } from "@shared/types/commonTypes";
 import SegmentedProgressBar from "@shared/ui/ProgressBar/SegmentedProgressBar";
 import { useProgressBarColors } from "@shared/ui/ProgressBar/useProgressBarColors";
@@ -42,12 +43,14 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
   const nextPhase = getNextRitualPhase(phase)!;
   const daysLeft = phaseItem.to - (adjustedPhaseFrom + passedDaysCount);
 
+  const currentPhaseText = `${i18n.t("currentPhase")}: ${i18n.t(phaseItem.label)}`;
+
   return (
     // TODO rewrite all View to ThemedView?
     <View className="gap-1">
       <View className="flex-row gap-1">
         <Animated.Text style={animatedTextStyles}>
-          Curerent phase: {phaseItem.label}
+          {currentPhaseText}
         </Animated.Text>
 
         <View className="flex-row gap-2">
@@ -55,11 +58,17 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
           {/* TODO remove slice and check by dates */}
           {allDays.slice(-14).filter((d) => d.status === RitualStatuses.Missed)
             .length > 0 && (
-            <Tooltip text="One miss left - stay consistent" variant="danger" />
+            <Tooltip
+              text={i18n.t("oneMissLeftStayConsistent")}
+              variant="danger"
+            />
           )}
           {!isDeepIntegration && (
             <Tooltip
-              text={`${daysLeft} days left until ${RitualPhaseMap[nextPhase].label} phase`}
+              text={i18n.t("daysLeftUntil", {
+                days: daysLeft,
+                phase: i18n.t(RitualPhaseMap[nextPhase].label),
+              })}
             />
           )}
         </View>
@@ -70,7 +79,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
       {isDeepIntegration && (
         // TODO add pulsation
         <Animated.Text style={animatedTextStyles} className="font-bold">
-          Grinding for {allDays.length} days
+          {i18n.t("grindingForDays", { days: allDays.length })}
         </Animated.Text>
       )}
       <SegmentedProgressBar

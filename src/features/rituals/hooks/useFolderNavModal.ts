@@ -7,6 +7,7 @@ import { useRitualPopoverActions } from "@features/folder/useRitualPopoverAction
 
 import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
 import { ROUTES } from "@shared/constants/routes";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { IoniconsName } from "@shared/types/commonTypes";
 
 import { useRitualStore } from "../ritualStore";
@@ -61,13 +62,12 @@ const useFolderNavModal = (
       iconName: "folder-outline" as IoniconsName,
       iconColor: color(folder.color as FolderColorType),
       isMarked: rituals.some((r) => r.folderIds.includes(folder.id)),
-    }))
-    .filter((f) => f.title !== "All rituals");
+    }));
 
   // TODO move it to nav modal?
   navModalActions.push({
     iconName: "add",
-    title: "Create new folder",
+    title: i18n.t("createNewFolder"),
     onPress: () => {
       closeDialogs();
       router.push(ROUTES.FOLDERS_CREATE);

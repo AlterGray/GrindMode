@@ -16,7 +16,8 @@ export enum DayType {
 export enum FloatingModalVariant {
   Confirm = "CONFIRM",
   Cancel = "CANCEL",
-  Danger = "DANGER",
+  Remove = "REMOVE",
+  Reset = "RESET",
 }
 
 export type DayItemType = { value: DayType; display: string };
@@ -47,3 +48,5 @@ export enum RitualStatuses {
 }
 
 export type IoniconsName = keyof typeof Ionicons.glyphMap;
+
+export type LanguageMode = "en" | "ua" | "ru";
