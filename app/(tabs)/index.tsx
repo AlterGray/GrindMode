@@ -6,7 +6,7 @@ import { foldersToScrollTabs } from "@features/folder/utils";
 import RitualList from "@features/rituals/RitualList";
 
 import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
-import { i18n } from "@shared/lib/i18n-js";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";

@@ -5,7 +5,7 @@ import { Tabs } from "expo-router";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
-import { i18n } from "@shared/lib/i18n-js";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { IoniconsName } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import AnimatedTabBarIcon from "@shared/ui/AnimatedComponents/AnimatedTabBarIcon";

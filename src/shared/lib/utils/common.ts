@@ -1,4 +1,4 @@
-import { i18n } from "../i18n-js";
+import { i18n } from "./i18n/i18n-js";
 
 export const extractDuration = (minutes: number) => {
   if (minutes === 0) return i18n.t("noLimit");

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { i18n } from "@shared/lib/i18n-js";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import DurationPickerButton from "@shared/ui/DurationPickerButton";

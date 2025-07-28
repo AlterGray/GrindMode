@@ -1,4 +1,4 @@
-import { i18n } from "@shared/lib/i18n-js";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { DayItemType, DayType } from "@shared/types/commonTypes";
 
 // TODO refactor it

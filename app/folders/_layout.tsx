@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
-import { i18n } from "@shared/lib/i18n-js";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 
 const FolderLayout = () => {
   const theme = useThemeColors();

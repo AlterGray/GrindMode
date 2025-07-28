@@ -1,6 +1,6 @@
 import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
-import { i18n } from "@shared/lib/i18n-js";
 import { storage } from "@shared/lib/storage";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 
 import { Folder } from "./types";
 

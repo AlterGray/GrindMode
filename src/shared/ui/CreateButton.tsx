@@ -5,7 +5,7 @@ import { Pressable } from "react-native";
 import { useRouter } from "expo-router";
 
 import { useKeyboardVisible } from "@shared/hooks/useKeyboardVisible";
-import { i18n } from "@shared/lib/i18n-js";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { FloatingModalVariant, RouteType } from "@shared/types/commonTypes";
 import ToggleList from "@shared/ui/ToggleList/ToggleList";
 

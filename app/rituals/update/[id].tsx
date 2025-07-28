@@ -6,7 +6,7 @@ import CreateUpdateForm from "@features/rituals/forms/CreateUpdateForm/CreateUpd
 import { useRitualStore } from "@features/rituals/ritualStore";
 import { RitualFormValues } from "@features/rituals/ritualTypes";
 
-import { i18n } from "@shared/lib/i18n-js";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 
 const EditRitual: React.FC = () => {
   const router = useRouter();

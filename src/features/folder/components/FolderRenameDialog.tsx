@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { i18n } from "@shared/lib/i18n-js";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
 import FloatingModal from "@shared/ui/FloatingModal/FloatingModal";
 import StyledInput from "@shared/ui/StyledInput";

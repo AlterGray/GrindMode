@@ -4,7 +4,7 @@ import { ScrollView, View } from "react-native";
 import { Checkbox } from "@features/rituals/CheckBox";
 import { RitualFormValues } from "@features/rituals/ritualTypes";
 
-import { i18n } from "@shared/lib/i18n-js";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import DaysGrid from "@shared/ui/DaysGrid";
 import Separator from "@shared/ui/Separator";

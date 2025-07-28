@@ -1,7 +1,7 @@
 import { useRitualStore } from "@features/rituals/ritualStore";
 
 import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
-import { i18n } from "@shared/lib/i18n-js";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 
 import { useFolderStore } from "./folderStore";
 
