@@ -8,9 +8,9 @@ import { phases } from "./common/phases";
 import { statuses } from "./common/statuses";
 import { tooltips } from "./common/tooltips";
 import { words } from "./common/words";
-import { createUpdateRitualScreen } from "./createUpdateScreen";
-import { ritualsScreen } from "./dailyRitualsScreen";
-import { proofOfWorkScreen } from "./proofOfWorkScreen";
+import { createUpdateRitualScreen } from "./screens/createUpdateScreen";
+import { ritualsScreen } from "./screens/dailyRitualsScreen";
+import { proofOfWorkScreen } from "./screens/proofOfWorkScreen";
 
 export const i18n = new I18n({
   en: {
