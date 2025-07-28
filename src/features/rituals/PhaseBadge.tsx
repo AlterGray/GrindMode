@@ -3,6 +3,7 @@ import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { Colors } from "@shared/constants/Colors";
+import { i18n } from "@shared/lib/i18n-js";
 import { RitualStatuses } from "@shared/types/commonTypes";
 import SeparatedProgressBar from "@shared/ui/ProgressBar/ProgressBar";
 import { useProgressBarColors } from "@shared/ui/ProgressBar/useProgressBarColors";
@@ -47,7 +48,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
     <View className="gap-1">
       <View className="flex-row gap-1">
         <Animated.Text style={animatedTextStyles}>
-          Curerent phase: {phaseItem.label}
+          {i18n.t("currentPhase")}: {phaseItem.label}
         </Animated.Text>
 
         <View className="flex-row gap-2">
@@ -55,7 +56,7 @@ const PhaseBadge: React.FC<PhaseBadgeProps> = ({ ritualId }) => {
           {/* TODO remove slice and check by dates */}
           {allDays.slice(-14).filter((d) => d.status === RitualStatuses.Missed)
             .length > 0 && (
-            <Tooltip text="One miss left - stay consistent" variant="danger" />
+            <Tooltip text={i18n.t("oneMissLeft")} variant="danger" />
           )}
           {!isDeepIntegration && (
             <Tooltip

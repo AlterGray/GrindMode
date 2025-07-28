@@ -5,6 +5,7 @@ import { Pressable } from "react-native";
 import { useRouter } from "expo-router";
 
 import { useKeyboardVisible } from "@shared/hooks/useKeyboardVisible";
+import { i18n } from "@shared/lib/i18n-js";
 import { FloatingModalVariant, RouteType } from "@shared/types/commonTypes";
 import ToggleList from "@shared/ui/ToggleList/ToggleList";
 
@@ -40,7 +41,7 @@ const CreateButton: React.FC<CreateButtonProps> = ({
     <>
       <FloatingModal
         isOpen={isModalOpen}
-        title="What do you want to create?"
+        title={i18n.t("whatDoYouWantToCreate")}
         renderContent={getToggleOptions}
         variant={FloatingModalVariant.Cancel}
         onCancel={() => setIsModalOpen(false)}

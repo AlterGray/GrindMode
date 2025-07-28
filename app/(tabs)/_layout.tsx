@@ -5,6 +5,7 @@ import { Tabs } from "expo-router";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { i18n } from "@shared/lib/i18n-js";
 import { IoniconsName } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import AnimatedTabBarIcon from "@shared/ui/AnimatedComponents/AnimatedTabBarIcon";
@@ -19,7 +20,7 @@ const TabsLayout = () => {
   const pointerEvents = isModalOpen ? "box-none" : "box-none";
 
   const screens: { title: string; name: string; icon: IoniconsName }[] = [
-    { title: "Daily rituals", name: "index", icon: "flame-sharp" },
+    { title: i18n.t("dailyRituals"), name: "index", icon: "flame-sharp" },
     { title: "Proofs", name: "proofs", icon: "stats-chart-sharp" },
     { title: "Settings", name: "settings", icon: "settings-sharp" },
   ];

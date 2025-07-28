@@ -1,3 +1,5 @@
+import { i18n } from "@shared/lib/i18n-js";
+
 import { RitualPhase } from "./ritualTypes";
 
 // TODO rename to RitualPhaseMap
@@ -11,25 +13,25 @@ export const RitualPhaseMap: Record<
   }
 > = {
   [RitualPhase.Initiation]: {
-    label: "Initiation",
+    label: i18n.t("initiation"),
     from: 0,
     to: 14,
     value: 1,
   },
   [RitualPhase.Consolidation]: {
-    label: "Consolidation",
+    label: i18n.t("consolidation"),
     from: 15,
     to: 60,
     value: 2,
   },
   [RitualPhase.Stabilization]: {
-    label: "Stabilization",
+    label: i18n.t("stabilization"),
     from: 61,
     to: 90,
     value: 3,
   },
   [RitualPhase.DeepIntegration]: {
-    label: "Deep integration",
+    label: i18n.t("deepIntegration"),
     from: 91,
     to: -1,
     value: 4,
