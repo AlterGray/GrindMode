@@ -26,7 +26,7 @@ const Front: React.FC<FrontProps> = ({
   }));
 
   return (
-    <Animated.View style={[frontStyle, animatedBgColor]} className="p-3">
+    <Animated.View style={[frontStyle, animatedBgColor]} className="px-3 py-5">
       <AnimatedThemedText color="secondary">{header}</AnimatedThemedText>
       <AnimatedThemedText className="text-xl font-medium">
         {value}

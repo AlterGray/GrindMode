@@ -1,26 +1,46 @@
+import { useState } from "react";
 import { View } from "react-native";
 
 import StyledButton from "@shared/ui/StyledButton";
 
-type ToggleOptions = {
+type ToggleListItemType = {
   label: string;
   value: string;
 };
 
 type ToggleListProps = {
-  options: ToggleOptions[];
+  options: ToggleListItemType[];
+  vertical?: boolean;
+  horizontal?: boolean;
+  selectedOption?: string;
   onPress: (option: string) => void;
 };
 
-const ToggleList: React.FC<ToggleListProps> = ({ options, onPress }) => {
+const ToggleList: React.FC<ToggleListProps> = ({
+  options,
+  vertical,
+  horizontal,
+  selectedOption,
+  onPress,
+}) => {
+  const isVertical = vertical && !horizontal ? vertical : horizontal;
+
+  let classes = "";
+  if (!isVertical) classes = "flex flex-col gap-2";
+  else classes = "flex flex-row gap-1";
   return (
-    <View>
+    <View className={classes}>
       {options.map((option) => (
         <StyledButton
           key={option.value}
           variant="secondary-sharped-20"
           onPress={() => onPress(option.value)}
           title={option.label}
+          className={
+            selectedOption === option.value
+              ? "border-b-2 border-light-selectedListItemBorder dark:border-dark-selectedListItemBorder"
+              : ""
+          }
         />
       ))}
     </View>

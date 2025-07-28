@@ -3,6 +3,7 @@ import { FlatList } from "react-native";
 
 import { useNavigationFocus } from "@shared/hooks/useNavigationFocus";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import StyledButton from "@shared/ui/StyledButton";
 
@@ -26,7 +27,7 @@ const StyledList: React.FC<StyledListProps> = ({
   toggleItem,
   data,
   renderContent = null,
-  noItemsText = "No items yet",
+  noItemsText = i18n.t("noItemsYet") ?? "",
 }) => {
   const isNavigating = useNavigationFocus();
 

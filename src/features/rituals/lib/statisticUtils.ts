@@ -33,6 +33,7 @@ export const handleNewMissedDays = (stat: StatisticEntry, ritual: Ritual) => {
     const currentDate = getNextDay(firstCompletion.date, i);
 
     const missedInPast = !currentCompletion && !isTodayUTC(currentDate);
+    // TODO rename done to completed
     const isMissedToday =
       isTodayUTC(currentDate) &&
       calculateRitualStatus(ritual) === RitualStatuses.Missed;

@@ -4,6 +4,7 @@ import { ScrollView, View } from "react-native";
 import { Checkbox } from "@features/rituals/CheckBox";
 import { RitualFormValues } from "@features/rituals/ritualTypes";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import DaysGrid from "@shared/ui/DaysGrid";
 import Separator from "@shared/ui/Separator";
@@ -57,7 +58,7 @@ const CreateUpdateForm: React.FC<RitualFormProps> = ({
 
         <View>
           <Checkbox
-            label="Is ritual time based?"
+            label={i18n.t("isRitualTimeBased")}
             checked={isTimeBased}
             onChange={setIsTimeBased}
             className="mb-2"

@@ -1,3 +1,4 @@
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { DayItemType, DayType } from "@shared/types/commonTypes";
 
 // TODO refactor it
@@ -13,11 +14,11 @@ export const DAYS = [
 
 // TODO SAME AS TYPE
 export const DAY_ITEMS_LIST: DayItemType[] = [
-  { value: DayType.SUNDAY, display: "S" },
-  { value: DayType.MONDAY, display: "M" },
-  { value: DayType.TUESDAY, display: "T" },
-  { value: DayType.WEDNESDAY, display: "W" },
-  { value: DayType.THURSDAY, display: "T" },
-  { value: DayType.FRIDAY, display: "F" },
-  { value: DayType.SATURDAY, display: "S" },
+  { value: DayType.SUNDAY, display: "sunday" },
+  { value: DayType.MONDAY, display: "monday" },
+  { value: DayType.TUESDAY, display: "tuesday" },
+  { value: DayType.WEDNESDAY, display: "wednesday" },
+  { value: DayType.THURSDAY, display: "thursday" },
+  { value: DayType.FRIDAY, display: "friday" },
+  { value: DayType.SATURDAY, display: "saturday" },
 ];

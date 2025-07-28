@@ -9,6 +9,7 @@ import {
   withTiming,
 } from "react-native-reanimated";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
 import { quotes } from "./quotes";
@@ -40,13 +41,13 @@ const Header: React.FC<HeaderProps> = () => {
     opacity: interpolate(transition.value, [0, 1], [0.1, 1]),
   }));
 
-  const quote = quotes[activeQuoteIndex].quote;
-  const author = quotes[activeQuoteIndex].author;
+  const quote = i18n.t(quotes[activeQuoteIndex] + ".quote");
+  const author = i18n.t(quotes[activeQuoteIndex] + ".author");
 
   return (
     <View className="justify-center items-center gap-2">
       <AnimatedThemedText className="text-3xl font-medium">
-        Proof of Work
+        {i18n.t("resultsNotPromises")}
       </AnimatedThemedText>
       <AnimatedThemedText
         style={animatedOpacityStyle}

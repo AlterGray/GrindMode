@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 
 import { useThemeColors } from "@shared/hooks/useThemeColors";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 
 const FolderLayout = () => {
   const theme = useThemeColors();
@@ -20,7 +21,7 @@ const FolderLayout = () => {
       <Stack.Screen
         key={"create"}
         name="create"
-        options={{ title: "Create folder" }}
+        options={{ title: i18n.t("createFolder") }}
       />
     </Stack>
   );

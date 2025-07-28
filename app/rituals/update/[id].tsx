@@ -6,6 +6,8 @@ import CreateUpdateForm from "@features/rituals/forms/CreateUpdateForm/CreateUpd
 import { useRitualStore } from "@features/rituals/ritualStore";
 import { RitualFormValues } from "@features/rituals/ritualTypes";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
+
 const EditRitual: React.FC = () => {
   const router = useRouter();
   const updateRitual = useRitualStore((state) => state.updateRitual);
@@ -32,6 +34,7 @@ const EditRitual: React.FC = () => {
       days: ritual.days,
       actualDuration: 0,
       folderIds: ritualToEdit.folderIds,
+      isTimeBased: ritual.isTimeBased,
     });
 
     router.back();
@@ -40,7 +43,7 @@ const EditRitual: React.FC = () => {
   return (
     <CreateUpdateForm
       initialValues={ritualToEdit}
-      submitText="Edit ritual"
+      submitText={i18n.t("saveRitual")}
       onSubmit={handleSubmit}
     />
   );

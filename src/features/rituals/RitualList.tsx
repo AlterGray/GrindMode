@@ -6,6 +6,7 @@ import { useFolderStore } from "@features/folder/folderStore";
 
 import { TODAY_FOLDER_ID } from "@shared/constants/Folders";
 import { ROUTES } from "@shared/constants/routes";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import CreateButton from "@shared/ui/CreateButton";
@@ -63,8 +64,8 @@ const RitualList: React.FC = () => {
   };
 
   const options = [
-    { label: "Folder", value: "folder" },
-    { label: "Ritual", value: "ritual" },
+    { label: i18n.t("folder"), value: "folder" },
+    { label: i18n.t("ritual"), value: "ritual" },
   ];
 
   const createRoutes = {

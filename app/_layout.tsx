@@ -16,6 +16,11 @@ import { useStatisticStoreWithSubscribe } from "@features/rituals/statisticStore
 import { useTheme } from "@shared/hooks/useTheme";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { useThemeTransitionSync } from "@shared/hooks/useThemeTransitionSync";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
+import {
+  useLanguageStore,
+  useLanguageStoreWithSubscribe,
+} from "@shared/stores/languageStore";
 import {
   useThemeStore,
   useThemeStoreWithSubscribe,
@@ -36,6 +41,7 @@ SplashScreen.setOptions({
 
 const RootLayout = () => {
   const backgroundColor = useThemeColors("backgroundSurface");
+  const language = useLanguageStore((state) => state.language);
 
   // TODO why your code base so big, probably something wrong?
   // TODO even if we pass there store created without "subscribeWithSelector" TS don't show error
@@ -45,6 +51,7 @@ const RootLayout = () => {
   useRitualDayWatcher();
   useRecalculateMissedRituals();
   useThemeStoreWithSubscribe();
+  useLanguageStoreWithSubscribe();
 
   useThemeTransitionSync();
 
@@ -66,6 +73,10 @@ const RootLayout = () => {
   useEffect(() => {
     setScheme(theme); // or maybe setState if you're syncing to system theme
   }, [theme]);
+
+  useEffect(() => {
+    i18n.locale = language;
+  }, [language]);
 
   if (!loaded) {
     return null;

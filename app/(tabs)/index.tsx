@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 
+import { Redirect } from "expo-router";
+
 import FolderRenameDialog from "@features/folder/components/FolderRenameDialog";
 import { useFolderStore } from "@features/folder/folderStore";
 import { foldersToScrollTabs } from "@features/folder/utils";
 import RitualList from "@features/rituals/RitualList";
 
 import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
@@ -45,7 +48,7 @@ const Index = () => {
 
   const handleOpenRemoveDialog = (folderId: string) => {
     openRemoveDialog({
-      title: "Remove folder",
+      title: i18n.t("removeFolder"),
       variant: FloatingModalVariant.Danger,
       onConfirm: () => {
         removeFolder(folderId);
@@ -62,11 +65,11 @@ const Index = () => {
     if (folderId !== ALL_FOLDER_ID && folderId !== TODAY_FOLDER_ID)
       menuItems = [
         {
-          label: "Delete folder",
+          label: i18n.t("removeFolder"),
           onPress: () => handleOpenRemoveDialog(folderId),
         },
         {
-          label: "Rename folder",
+          label: i18n.t("renameFolder"),
           onPress: () => {
             setIsRenameDialogOpen(true);
             setRenamingFolderId(folderId);
@@ -74,10 +77,10 @@ const Index = () => {
         },
       ];
     menuItems.push({
-      label: "Reorder",
+      label: i18n.t("reorderFolders"),
       onPress: () => {
         openActionModal({
-          text: "Reorder items",
+          text: i18n.t("reorderFolders"),
           actions: actions,
           onCloseDialog: () => setIsReordering(false),
         });
@@ -90,14 +93,17 @@ const Index = () => {
 
   const isFoldersExists = true;
   const tabs = foldersToScrollTabs(
-    folders,
+    folders.map((folder) => ({
+      ...folder,
+      name: folder.order < 0 ? i18n.t(folder.name) : folder.name,
+    })),
     () => <RitualList />,
     (folderId) => getFolderMenuItems(folderId),
   );
 
   const folderToRename = folders.find((f) => f.id === renamingFolderId);
 
-  // return <Redirect href={"/(tabs)/proofs"} />;
+  // return <Redirect href={"/(tabs)/settings"} />;
 
   return (
     <>

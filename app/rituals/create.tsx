@@ -6,6 +6,7 @@ import CreateUpdateForm from "@features/rituals/forms/CreateUpdateForm/CreateUpd
 import { createRitual } from "@features/rituals/lib/ritualActions";
 import { RitualInput } from "@features/rituals/ritualTypes";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { DayType } from "@shared/types/commonTypes";
 
 const CreateRitual: React.FC = () => {
@@ -40,7 +41,7 @@ const CreateRitual: React.FC = () => {
   return (
     <CreateUpdateForm
       initialValues={initialValues}
-      submitText="Create ritual"
+      submitText={i18n.t("createRitual")}
       onSubmit={handleSubmit}
     />
   );

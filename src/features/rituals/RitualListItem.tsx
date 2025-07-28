@@ -3,6 +3,7 @@ import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { RitualStatuses } from "@shared/types/commonTypes";
 import { ColorName } from "@shared/types/themeTypes";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
@@ -64,7 +65,7 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
             <Animated.Text style={animatedTextColor}>
               {item.isTimeBased
                 ? `Start at ${formatedStartTime}`
-                : "No time limits"}
+                : i18n.t("noTimeLimits")}
             </Animated.Text>
           </View>
 

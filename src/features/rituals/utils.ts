@@ -1,5 +1,6 @@
 import { DaysOfWeek } from "@shared/constants/common";
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { RitualStatuses } from "@shared/types/commonTypes";
 
 import { OrderedRitualPhases } from "./constants";
@@ -33,28 +34,28 @@ export const useStatusVariant = (
         iconName: "ellipse-sharp",
         animatedIconColor: iconPrimarySoft,
         animatedBgColor: primary,
-        text: "Incomplete",
+        text: i18n.t("incompleted"),
       };
     case RitualStatuses.Done:
       return {
         iconName: "checkmark-circle-sharp",
         animatedIconColor: iconSuccessSoft,
         animatedBgColor: success,
-        text: "Completed",
+        text: i18n.t("completed"),
       };
     case RitualStatuses.Overdue:
       return {
         iconName: "time-sharp",
         animatedIconColor: iconWarningSoft,
         animatedBgColor: warning,
-        text: "Overdue",
+        text: i18n.t("overdue"),
       };
     case RitualStatuses.Missed:
       return {
         iconName: "close-sharp",
         animatedIconColor: iconDangerSoft,
         animatedBgColor: danger,
-        text: "Missed",
+        text: i18n.t("missed"),
       };
   }
 };

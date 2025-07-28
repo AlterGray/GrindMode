@@ -1,6 +1,7 @@
 import React from "react";
 import { Pressable } from "react-native";
 
+import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { DayItemType, DayType } from "@shared/types/commonTypes";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
@@ -28,11 +29,13 @@ const DaysPickerItem: React.FC<DaysPickerItemProps> = ({
 
   return (
     <Pressable
-      accessibilityLabel={day.display}
+      accessibilityLabel={i18n.t(day.display)}
       onPress={() => toggleDay(day)}
       className={styles + " dark:bg-dark-background"}
     >
-      <AnimatedThemedText color={textColor}>{day.display}</AnimatedThemedText>
+      <AnimatedThemedText color={textColor}>
+        {i18n.t(day.display)}
+      </AnimatedThemedText>
     </Pressable>
   );
 };
