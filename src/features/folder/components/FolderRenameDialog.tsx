@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { i18n } from "@shared/lib/i18n-js";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
 import FloatingModal from "@shared/ui/FloatingModal/FloatingModal";
 import StyledInput from "@shared/ui/StyledInput";
@@ -26,7 +27,7 @@ const FolderRenameDialog: React.FC<FolderRenameDialogProps> = ({
   return (
     <FloatingModal
       isOpen={isOpen}
-      title="Enter new folder name"
+      title={i18n.t("enterNewFolderName")}
       renderContent={getInput}
       variant={FloatingModalVariant.Confirm}
       onConfirm={() => onConfirm(name)}

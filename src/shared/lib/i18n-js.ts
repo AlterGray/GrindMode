@@ -275,34 +275,136 @@ const allDialogs = {
   },
 };
 
+const ritualDays = {
+  en: {
+    sunday: "S",
+    monday: "M",
+    tuesday: "T",
+    wednesday: "W",
+    thursday: "T",
+    friday: "F",
+    saturday: "S",
+  },
+  ua: {
+    sunday: "Н",
+    monday: "П",
+    tuesday: "В",
+    wednesday: "С",
+    thursday: "Ч",
+    friday: "П",
+    saturday: "С",
+  },
+  ru: {
+    sunday: "В",
+    monday: "П",
+    tuesday: "В",
+    wednesday: "С",
+    thursday: "Ч",
+    friday: "П",
+    saturday: "С",
+  },
+};
+
+const createUpdateRitualScreen = {
+  en: {
+    editRitual: "Edit Ritual",
+    createRitual: "Create Ritual",
+
+    ritualTitle: "Ritual text",
+    isRitualTimeBased: "Is ritual time based?",
+    ritualDays: "Ritual days",
+    startRitualAt: "Start ritual at:",
+    ritualDuration: "Ritual duration:",
+
+    noLimit: "No limit",
+
+    createFolder: "Create folder",
+    enterNewFolderName: "Enter new folder name",
+    folderColor: "Folder color",
+
+    ...ritualDays.en,
+  },
+  ua: {
+    editRitual: "Редагування Ритуалу",
+    createRitual: "Створення Ритуалу",
+
+    ritualTitle: "Текст ритуалу",
+    isRitualTimeBased: "Чи ритуал має прив'язку часом?",
+    ritualDays: "Дні ритуалу",
+    startRitualAt: "Початок ритуалу в:",
+    ritualDuration: "Тривалість ритуалу:",
+
+    noLimit: "Немає ліміту",
+
+    createFolder: "Створити папку",
+    enterNewFolderName: "Введіть нове ім'я папки",
+    folderColor: "Колір папки",
+
+    ...ritualDays.ua,
+  },
+  ru: {
+    editRitual: "Редактирование Ритуала",
+    createRitual: "Создание Ритуала",
+
+    ritualTitle: "Текст ритуала",
+    isRitualTimeBased: "Имеет ли ритуал привязку к времени?",
+    ritualDays: "Дни ритуала",
+    startRitualAt: "Начало ритуала в:",
+    ritualDuration: "Длительность ритуала:",
+
+    noLimit: "Нет лимита",
+
+    createFolder: "Создать папку",
+    enterNewFolderName: "Введите новое имя папки",
+    folderColor: "Цвет папки",
+
+    ...ritualDays.ru,
+  },
+};
+
 export const i18n = new I18n({
   en: {
     settings: "Settings",
+    am: "ранку",
+    pm: "ночі",
+    hours: "h",
+    minutes: "m",
     ...buttons.en,
     ...allDialogs.en,
     ...statuses.en,
     ...phases.en,
     ...proofOfWorkScreen.en,
+    ...createUpdateRitualScreen.en,
     ...ritualsScreen.en,
     ...ritualItemTime.en,
   },
   ua: {
     settings: "Налаштування",
+    am: "AM",
+    pm: "PM",
+    hours: "г",
+    minutes: "хв",
     ...buttons.ua,
     ...allDialogs.ua,
     ...statuses.ua,
     ...phases.ua,
     ...proofOfWorkScreen.ua,
+    ...createUpdateRitualScreen.ua,
     ...ritualsScreen.ua,
     ...ritualItemTime.ua,
   },
   ru: {
     settings: "Настройки",
+    am: "утра",
+    pm: "ночи",
+    hours: "ч",
+    minutes: "м",
     ...buttons.ru,
     ...allDialogs.ru,
     ...statuses.ru,
     ...phases.ru,
     ...proofOfWorkScreen.ru,
+    ...createUpdateRitualScreen.ru,
     ...ritualsScreen.ru,
     ...ritualItemTime.ru,
   },

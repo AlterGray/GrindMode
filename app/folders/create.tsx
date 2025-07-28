@@ -8,6 +8,7 @@ import { FolderColorType } from "@features/folder/types";
 import { useFolderColor } from "@features/folder/useFolderColor";
 
 import { Colors } from "@shared/constants/Colors";
+import { i18n } from "@shared/lib/i18n-js";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import ColorPicker from "@shared/ui/ColorPicker";
@@ -42,7 +43,7 @@ const create = () => {
         {/* // Validate name("All" not allowed) */}
         {/* use keyboard avoid? */}
         <StyledInput
-          placeholder="Folder name"
+          placeholder={i18n.t("enterNewFolderName")}
           value={name}
           onChangeText={setName}
           autoFocus
@@ -51,7 +52,7 @@ const create = () => {
         <Separator horizontal />
 
         <AnimatedThemedView className="flex-row items-center gap-8">
-          <AnimatedThemedText>Folder color:</AnimatedThemedText>
+          <AnimatedThemedText>{i18n.t("folderColor")}</AnimatedThemedText>
           <ColorPicker
             items={items}
             onChange={(color) => setFolderColor(color as FolderColorType)}
@@ -59,7 +60,7 @@ const create = () => {
         </AnimatedThemedView>
 
         <StyledButton
-          title="Create"
+          title={i18n.t("create")}
           onPress={handleCreateFolder}
           className="ml-auto mr-2"
         />

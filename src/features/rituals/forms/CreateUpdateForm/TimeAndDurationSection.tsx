@@ -1,5 +1,6 @@
 import React from "react";
 
+import { i18n } from "@shared/lib/i18n-js";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import DurationPickerButton from "@shared/ui/DurationPickerButton";
@@ -18,12 +19,12 @@ const TimeAndDurationSection = ({
 }) => (
   <>
     <AnimatedThemedView className="flex-row items-center">
-      <AnimatedThemedText>Start ritual at:</AnimatedThemedText>
+      <AnimatedThemedText>{i18n.t("startRitualAt")}</AnimatedThemedText>
       <TimePickerButton time={startTime} onChange={setStartTime} />
     </AnimatedThemedView>
 
     <AnimatedThemedView className="flex-row items-center">
-      <AnimatedThemedText>Ritual duration:</AnimatedThemedText>
+      <AnimatedThemedText>{i18n.t("ritualDuration")}</AnimatedThemedText>
       <DurationPickerButton
         duration={expectedDuration}
         onChange={setExpectedDuration}
