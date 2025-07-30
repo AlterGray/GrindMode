@@ -1,15 +1,11 @@
-import React, { memo } from "react";
-import { View } from "react-native";
+import React, { memo, useMemo } from "react";
 import Animated from "react-native-reanimated";
 
 import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
-import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { RitualStatuses } from "@shared/types/commonTypes";
 import { ColorName } from "@shared/types/themeTypes";
-import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 
-import PhaseBadge from "./PhaseBadge";
-import RitualStatus from "./RitualStatus";
+import RitualListItemContent from "./RitualListItem/RitualListItemContent";
 import { Ritual } from "./ritualTypes";
 import { isRitualActive } from "./utils";
 
@@ -38,18 +34,15 @@ const getStatusColors = (
   }
 };
 
-// TODO add better name for "item"
 const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
-  const formatedStartTime = new Date(item.startTime).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const { bgColor, textColor } = useMemo(
+    () => getStatusColors(item.status, isSelected),
+    [item.status, isSelected],
+  );
 
-  const { bgColor, textColor } = getStatusColors(item.status, isSelected);
   const animatedBgStyle = useAnimatedColor(bgColor);
   const animatedTextColor = useAnimatedColor(textColor, true);
 
-  // TODO adjust items height to all items have same height indeondent of content length
   return (
     <Animated.View
       className={
@@ -57,25 +50,7 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
       }
       style={animatedBgStyle}
     >
-      <View className="gap-1">
-        <View className="gap-2">
-          <View className="flex-row w-full justify-between">
-            <RitualStatus key={item.status} status={item.status} />
-
-            <Animated.Text style={animatedTextColor}>
-              {item.isTimeBased
-                ? `Start at ${formatedStartTime}`
-                : i18n.t("noTimeLimits")}
-            </Animated.Text>
-          </View>
-
-          <AnimatedThemedText className="text-lg">
-            {item.title}
-          </AnimatedThemedText>
-        </View>
-        {/* // TODO rename component */}
-        <PhaseBadge ritualId={item.id} />
-      </View>
+      <RitualListItemContent item={item} textColor={animatedTextColor} />
     </Animated.View>
   );
 };
