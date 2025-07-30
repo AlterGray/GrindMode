@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { View } from "react-native";
 
 import { useRitualStatisticStore } from "@features/rituals/statisticStore";
@@ -83,4 +83,4 @@ const ProgressRow: React.FC<Props> = ({ metrics }) => {
   );
 };
 
-export default ProgressRow;
+export default memo(ProgressRow);

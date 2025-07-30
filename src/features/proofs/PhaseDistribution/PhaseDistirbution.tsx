@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { View } from "react-native";
 
 import { RitualPhaseMap } from "@features/rituals/constants";
@@ -62,4 +63,4 @@ const PhaseDistirbution: React.FC<PhaseDistirbutionProps> = ({ rituals }) => {
   );
 };
 
-export default PhaseDistirbution;
+export default memo(PhaseDistirbution);

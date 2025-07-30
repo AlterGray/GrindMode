@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { View } from "react-native";
 
 import { i18n } from "@shared/lib/utils/i18n/i18n-js";
@@ -60,4 +61,4 @@ const DisciplineMetrics: React.FC<DisciplineMetricsProps> = ({ days }) => {
   );
 };
 
-export default DisciplineMetrics;
+export default memo(DisciplineMetrics);
