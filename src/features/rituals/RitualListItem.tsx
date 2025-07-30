@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -80,4 +80,4 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
   );
 };
 
-export default RitualListItem;
+export default memo(RitualListItem);
