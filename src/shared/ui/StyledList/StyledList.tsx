@@ -47,26 +47,6 @@ const StyledList: React.FC<StyledListProps> = ({
     else onPress?.(itemId);
   };
 
-  // PREVENTTTTTTTTTTTTTTTT REMOVING DEFAULT FOLDERS
-  if (data.length === 0) {
-    return (
-      <NoItemsInList
-        text={noItemsText}
-        actionButton={
-          <StyledButton
-            title={i18n.t("createNewOne")}
-            onPress={() => {
-              router.push({
-                pathname: ROUTES.RITUALS_CREATE,
-                params: { folderId: selectedFolderId },
-              }); // pass id of folder
-            }}
-          />
-        }
-      />
-    );
-  }
-
   const renderItemComponent = ({ item }: { item: ItemData }) => {
     return (
       <StyledItem
@@ -88,6 +68,25 @@ const StyledList: React.FC<StyledListProps> = ({
     () => data,
     [data.map((i) => i.id + i.status + i.title).join(",")],
   );
+
+  if (data.length === 0) {
+    return (
+      <NoItemsInList
+        text={noItemsText}
+        actionButton={
+          <StyledButton
+            title={i18n.t("createNewOne")}
+            onPress={() => {
+              router.push({
+                pathname: ROUTES.RITUALS_CREATE,
+                params: { folderId: selectedFolderId },
+              }); // pass id of folder
+            }}
+          />
+        }
+      />
+    );
+  }
 
   return (
     <FlatList
