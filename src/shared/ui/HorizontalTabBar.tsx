@@ -19,6 +19,7 @@ const HorizontalTabBar: React.FC<HorizontalTabBarProps> = ({
     <AnimatedThemedView className="p-1 gap-2 flex-row justify-around">
       {tabs.map((tab) => (
         <TabButton
+          key={tab.id}
           isActive={tab.id === activeTab}
           tab={tab}
           onChange={onChange}
