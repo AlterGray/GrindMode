@@ -63,7 +63,9 @@ export const useFolderStore = create<FolderState>()(
           );
         }),
       setFolders: (folders) => {
-        set((state) => (state.folders = folders));
+        set((state) => {
+          state.folders = folders;
+        });
       },
     })),
   ),
