@@ -4,7 +4,6 @@ import { immer } from "zustand/middleware/immer";
 
 import { Ritual, RitualState } from "@features/rituals/ritualTypes";
 
-import { ALL_FOLDER_ID } from "@shared/constants/Folders";
 import { useSubscribeStoreWithSelector } from "@shared/hooks/useSubscribeStoreWithSelector";
 import { storage } from "@shared/lib/storage";
 import { RitualStatuses } from "@shared/types/commonTypes";

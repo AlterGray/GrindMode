@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo } from "react";
+import React, { ReactNode, memo } from "react";
 import { FlatList } from "react-native";
 
 import { useRouter } from "expo-router";
@@ -64,11 +64,6 @@ const StyledList: React.FC<StyledListProps> = ({
     );
   };
 
-  const memoizedData = useMemo(
-    () => data,
-    [data.map((i) => i.id + i.status + i.title).join(",")],
-  );
-
   if (data.length === 0) {
     return (
       <NoItemsInList
@@ -90,12 +85,12 @@ const StyledList: React.FC<StyledListProps> = ({
 
   return (
     <FlatList
-      data={memoizedData}
-      keyExtractor={(item) => item.id}
+      data={data}
+      keyExtractor={(item: ItemData) => item.id}
       renderItem={renderItemComponent}
       className={`w-full ${backgroundColor}`}
     />
   );
 };
 
-export default StyledList;
+export default memo(StyledList);

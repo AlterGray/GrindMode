@@ -55,4 +55,16 @@ const RitualListItem: React.FC<ItemComponentProps> = ({ item, isSelected }) => {
   );
 };
 
-export default memo(RitualListItem);
+const areEqual = (
+  prevProps: ItemComponentProps,
+  nextProps: ItemComponentProps,
+) => {
+  return (
+    prevProps.isSelected === nextProps.isSelected &&
+    prevProps.item.id === nextProps.item.id &&
+    prevProps.item.status === nextProps.item.status &&
+    prevProps.item.days === nextProps.item.days
+  );
+};
+
+export default memo(RitualListItem, areEqual);
