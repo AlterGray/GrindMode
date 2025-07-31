@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { DayType } from "@shared/types/commonTypes";
 
@@ -15,12 +17,9 @@ const DaysGrid: React.FC<DaysGridProps> = ({ items, onChange }) => {
     <AnimatedThemedView className="gap-2">
       {/* TODO in order to avoid renaming problems like in this commit, keep it as constant */}
       <AnimatedThemedText>{i18n.t("ritualDays")}</AnimatedThemedText>
-      <DaysPicker
-        onChange={onChange}
-        initialItems={items.length ? items : []}
-      />
+      <DaysPicker onChange={onChange} initialItems={items} />
     </AnimatedThemedView>
   );
 };
 
-export default DaysGrid;
+export default memo(DaysGrid);

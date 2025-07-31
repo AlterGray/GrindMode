@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
@@ -33,4 +33,4 @@ const TimeAndDurationSection = ({
   </>
 );
 
-export default TimeAndDurationSection;
+export default memo(TimeAndDurationSection);

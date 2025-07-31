@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useCallback, useReducer } from "react";
 
 import { RitualFormValues } from "@features/rituals/ritualTypes";
 
@@ -33,14 +33,27 @@ const reducer = (state: RitualFormValues, action: Action): RitualFormValues => {
 export const useCreateUpdateForm = (initialValues: RitualFormValues) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
 
-  const handleSetTitle = (title: string) => dispatch(setTitle(title));
-  const handleSetStartTime = (startTime: number) =>
-    dispatch(setStartTime(startTime));
-  const handleSetExpectedDuration = (expectedDuration: number) =>
-    dispatch(setExpectedDuration(expectedDuration));
-  const handleSetDays = (days: DayType[]) => dispatch(setDays(days));
-  const handleSetIsTimeBased = (isTimeBased: boolean) =>
-    dispatch(setIsTimeBased(isTimeBased));
+  const handleSetTitle = useCallback(
+    (title: string) => dispatch(setTitle(title)),
+    [dispatch],
+  );
+  const handleSetStartTime = useCallback(
+    (startTime: number) => dispatch(setStartTime(startTime)),
+    [dispatch],
+  );
+  const handleSetExpectedDuration = useCallback(
+    (expectedDuration: number) =>
+      dispatch(setExpectedDuration(expectedDuration)),
+    [dispatch],
+  );
+  const handleSetDays = useCallback(
+    (days: DayType[]) => dispatch(setDays(days)),
+    [dispatch],
+  );
+  const handleSetIsTimeBased = useCallback(
+    (isTimeBased: boolean) => dispatch(setIsTimeBased(isTimeBased)),
+    [dispatch],
+  );
 
   return {
     state,
