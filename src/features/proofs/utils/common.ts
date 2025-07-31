@@ -4,12 +4,10 @@ import { getDaysDiff } from "@shared/lib/utils/date";
 
 // TODO move it to another file?
 export const findFirstDay = (statistics: StatisticEntry[]) => {
-  const firstDay = statistics
+  const completions = statistics
     .flatMap((s) => s.completitions)
-    .sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-    )[0].date;
-  return firstDay;
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  return completions.length ? completions[0].date : null;
 };
 
 export const getActiveDaysCount = (

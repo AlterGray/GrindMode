@@ -60,16 +60,19 @@ const proofs = () => {
 
   const animatedBgColor = useAnimatedColor("backgroundSurface");
 
-  const totalAvailableDays = useMemo(
-    () => getDaysDiff(new Date(), new Date(findFirstDay(statistic))) + 1,
-    [
-      statistic
-        .map((s) => s.completitions)
-        .flat()
-        .map((c) => c.date + c.isDeleted + c.status)
-        .join(""),
-    ],
-  );
+  // TODO do we really need these dependencies???
+  const totalAvailableDays = useMemo(() => {
+    const firstDay = findFirstDay(statistic);
+    if (!firstDay) return 0;
+
+    return getDaysDiff(new Date(), new Date(firstDay)) + 1;
+  }, [
+    statistic
+      .map((s) => s.completitions)
+      .flat()
+      .map((c) => c.date + c.isDeleted + c.status)
+      .join(""),
+  ]);
   const days = useMemo(
     () => TimeFilterMap[activeTab].days,
     [totalAvailableDays],
