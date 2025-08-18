@@ -82,10 +82,8 @@ const settings = () => {
       </View>
 
       <View className="flex-row flex-wrap items-center w-full justify-between gap-y-2">
-        <AnimatedThemedText className="font-semibold">
-          {i18n.t("switchLanguage")}
-        </AnimatedThemedText>
         <ToggleList
+          title={i18n.t("switchLanguage")}
           options={[
             { label: i18n.t("english"), value: "en" },
             { label: i18n.t("ukrainian"), value: "ua" },
@@ -101,11 +99,8 @@ const settings = () => {
       </View>
 
       <View className="flex-wrap w-full justify-between gap-1">
-        {/* TODO MOVE IT TO THE CHECKLIST */}
-        <AnimatedThemedText className="font-semibold">
-          {i18n.t("displayTabs")}
-        </AnimatedThemedText>
         <CheckList
+          title={i18n.t("displayTabs")}
           options={[
             { label: i18n.t("rituals"), value: "index" },
             { label: i18n.t("proofs"), value: "proofs" },

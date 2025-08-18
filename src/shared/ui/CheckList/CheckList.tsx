@@ -2,12 +2,15 @@ import { View } from "react-native";
 
 import { Checkbox } from "@features/rituals/CheckBox";
 
+import AnimatedThemedText from "../AnimatedThemedText";
+
 type CheckListItemType = {
   label: string;
   value: string;
 };
 
 type CheckListProps = {
+  title: string;
   options: CheckListItemType[];
   vertical?: boolean;
   horizontal?: boolean;
@@ -16,6 +19,7 @@ type CheckListProps = {
 };
 
 const CheckList: React.FC<CheckListProps> = ({
+  title,
   options,
   vertical,
   horizontal,
@@ -28,15 +32,18 @@ const CheckList: React.FC<CheckListProps> = ({
   if (!isVertical) classes = "flex flex-col gap-2";
   else classes = "flex flex-row gap-1";
   return (
-    <View className={classes}>
-      {options.map((option) => (
-        <Checkbox
-          key={option.value}
-          label={option.label}
-          onChange={() => onPress(option.value)}
-          checked={selectedOptions?.includes(option.value)}
-        />
-      ))}
+    <View className="gap-1">
+      <AnimatedThemedText className="font-semibold">{title}</AnimatedThemedText>
+      <View className={classes}>
+        {options.map((option) => (
+          <Checkbox
+            key={option.value}
+            label={option.label}
+            onChange={() => onPress(option.value)}
+            checked={selectedOptions?.includes(option.value)}
+          />
+        ))}
+      </View>
     </View>
   );
 };
