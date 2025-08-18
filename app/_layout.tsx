@@ -21,6 +21,7 @@ import {
   useLanguageStore,
   useLanguageStoreWithSubscribe,
 } from "@shared/stores/languageStore";
+import { useSettingsStoreWithSubscribe } from "@shared/stores/settingsStore";
 import {
   useThemeStore,
   useThemeStoreWithSubscribe,
@@ -52,6 +53,7 @@ const RootLayout = () => {
   useRecalculateMissedRituals();
   useThemeStoreWithSubscribe();
   useLanguageStoreWithSubscribe();
+  useSettingsStoreWithSubscribe();
 
   useThemeTransitionSync();
 

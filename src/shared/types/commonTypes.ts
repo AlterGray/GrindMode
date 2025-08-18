@@ -50,3 +50,5 @@ export enum RitualStatuses {
 export type IoniconsName = keyof typeof Ionicons.glyphMap;
 
 export type LanguageMode = "en" | "ua" | "ru";
+
+export type HiddenTab = "index" | "proofs";

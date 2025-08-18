@@ -7,7 +7,8 @@ import { useAnimatedColor } from "@shared/hooks/useAnimatedColor";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import { useLanguageStore } from "@shared/stores/languageStore";
-import { IoniconsName } from "@shared/types/commonTypes";
+import { useSettingsStore } from "@shared/stores/settingsStore";
+import { HiddenTab, IoniconsName } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import AnimatedTabBarIcon from "@shared/ui/AnimatedComponents/AnimatedTabBarIcon";
 import AnimatedTabBarLabel from "@shared/ui/AnimatedComponents/AnimatedTabBarLabel";
@@ -19,6 +20,7 @@ const TabsLayout = () => {
   const theme = useThemeColors();
 
   const language = useLanguageStore((state) => state.language);
+  const hiddenTabs = useSettingsStore((state) => state.hiddenTabs);
 
   const pointerEvents = isModalOpen ? "box-none" : "box-none";
 
@@ -66,6 +68,9 @@ const TabsLayout = () => {
           key={screen.title + language}
           name={screen.name}
           options={{
+            href: hiddenTabs.includes(screen.name as HiddenTab)
+              ? null
+              : undefined,
             title: i18n.t(screen.title),
             tabBarItemStyle: { pointerEvents },
             tabBarIcon: ({ focused, size }) => (
