@@ -12,8 +12,10 @@ const ThemedView: React.FC<ThemedViewProps> = ({
   ref,
   ...props
 }) => {
+  const defaultClassName = "bg-light-background dark:bg-dark-background";
+
   return (
-    <View ref={ref} className={className} {...props}>
+    <View ref={ref} className={`${defaultClassName} ${className}`} {...props}>
       {children ? children : null}
     </View>
   );
