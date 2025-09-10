@@ -51,4 +51,10 @@ export type IoniconsName = keyof typeof Ionicons.glyphMap;
 
 export type LanguageMode = "en" | "ua" | "ru";
 
-export type HiddenTab = "index" | "proofs";
+export type TabNameType = "index" | "time" | "proofs" | "settings";
+export type TabType = {
+  name: TabNameType;
+  priority: number;
+  hidden: boolean;
+  canBeHidden: boolean;
+};

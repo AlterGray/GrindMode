@@ -4,41 +4,45 @@ import { immer } from "zustand/middleware/immer";
 
 import { makeMutable } from "react-native-reanimated";
 
+import { TABS } from "@shared/constants/common";
 import { useSubscribeStoreWithSelector } from "@shared/hooks/useSubscribeStoreWithSelector";
 import { storage } from "@shared/lib/storage";
-
-type hiddenTab = "index" | "proofs";
+import { TabType } from "@shared/types/commonTypes";
 
 type SettingsStore = {
-  hiddenTabs: hiddenTab[];
-  addHiddenTab: (tab: hiddenTab) => void;
-  removeHiddenTab: (tab: hiddenTab) => void;
+  hiddenTabs: Record<string, TabType>;
+  addHiddenTab: (tab: TabType) => void;
+  removeHiddenTab: (tab: TabType) => void;
 };
 
 export const themeTransitionProgress = makeMutable(0);
 
-const getSettingsFromStorage = () => {
-  const themeString = storage.getString("settings");
-  if (themeString) {
-    return JSON.parse(themeString);
+const getSettingsFromStorage = (): { hiddenTabs: Record<string, TabType> } => {
+  const settingsString = storage.getString("settings");
+  if (settingsString) {
+    let settings = JSON.parse(settingsString);
+    return { hiddenTabs: settings.hiddenTabs };
   }
-  return { hiddenTabs: [] };
+
+  return { hiddenTabs: TABS };
 };
 
 export const useSettingsStore = create<SettingsStore>()(
   subscribeWithSelector(
     immer((set) => ({
       hiddenTabs: getSettingsFromStorage().hiddenTabs,
-      addHiddenTab: (tab: hiddenTab) => {
+      addHiddenTab: (tab: TabType) =>
         set((state) => {
-          state.hiddenTabs.push(tab);
-        });
-      },
-      removeHiddenTab: (tab: hiddenTab) => {
+          if (!state.hiddenTabs[tab.name].hidden) {
+            state.hiddenTabs[tab.name].hidden = true;
+          }
+        }),
+      removeHiddenTab: (tab: TabType) =>
         set((state) => {
-          state.hiddenTabs = state.hiddenTabs.filter((t) => t !== tab);
-        });
-      },
+          if (state.hiddenTabs[tab.name].hidden) {
+            state.hiddenTabs[tab.name].hidden = false;
+          }
+        }),
     })),
   ),
 );

@@ -10,8 +10,8 @@ import { useSettingsStore } from "@shared/stores/settingsStore";
 import { useThemeStore } from "@shared/stores/themeStore";
 import {
   FloatingModalVariant,
-  HiddenTab,
   LanguageMode,
+  TabType,
 } from "@shared/types/commonTypes";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
@@ -20,7 +20,7 @@ import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/Glob
 import StyledButton from "@shared/ui/StyledButton";
 import ToggleList from "@shared/ui/ToggleList/ToggleList";
 
-const settings = () => {
+const Settings = () => {
   const { toggleTheme } = useThemeStore();
   const statistics = useRitualStatisticStore((state) => state.statistics);
   const openResetDialog = useGlobalFloatingModalStore(
@@ -39,6 +39,7 @@ const settings = () => {
 
   const hiddenTabs = useSettingsStore((state) => state.hiddenTabs);
 
+  // TODO loop once
   const handleResetStatistic = () => {
     statistics.forEach((s) => removeStatistic(s.id));
     statistics.forEach((s) => removeRitual(s.id));
@@ -53,8 +54,9 @@ const settings = () => {
     });
   };
 
-  const handleSetHiddenTab = (tab: HiddenTab) => {
-    if (hiddenTabs.includes(tab)) {
+  const toggleTabVisibility = (tab: TabType) => {
+    if (hiddenTabs[tab.name].hidden) {
+      // TODO toggle tab func?
       removeHiddenTab(tab);
     } else {
       addHiddenTab(tab);
@@ -101,12 +103,13 @@ const settings = () => {
       <View className="flex-wrap w-full justify-between gap-1">
         <CheckList
           title={i18n.t("displayTabs")}
-          options={[
-            { label: i18n.t("rituals"), value: "index" },
-            { label: i18n.t("proofs"), value: "proofs" },
-          ]}
-          selectedOptions={hiddenTabs}
-          onPress={(value) => handleSetHiddenTab(value as HiddenTab)}
+          options={Object.values(hiddenTabs)
+            .filter((tab) => tab.canBeHidden)
+            .map((tab) => ({ label: i18n.t(tab.name), value: tab.name }))}
+          selectedOptions={Object.values(hiddenTabs)
+            .filter((tab) => tab.hidden)
+            .map((tab) => tab.name)}
+          onPress={(value) => toggleTabVisibility(hiddenTabs[value])}
           horizontal
         />
       </View>
@@ -114,4 +117,4 @@ const settings = () => {
   );
 };
 
-export default settings;
+export default Settings;
