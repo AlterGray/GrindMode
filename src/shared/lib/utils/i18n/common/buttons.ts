@@ -6,7 +6,6 @@ export const buttons = {
     remove: "Remove",
     reset: "Reset",
     createNewFolder: "Create new folder",
-    createNewOne: "Create new one",
 
     switchTheme: "Switch theme",
     resetStatistics: "Reset statistics",
@@ -19,7 +18,6 @@ export const buttons = {
     remove: "Видалити",
     reset: "Скинути",
     createNewFolder: "Створити нову папку",
-    createNewOne: "Створити новий",
 
     switchTheme: "Перемкнути тему",
     resetStatistics: "Скинути статистику",
@@ -32,7 +30,6 @@ export const buttons = {
     remove: "Удалить",
     reset: "Сбросить",
     createNewFolder: "Создать новую папку",
-    createNewOne: "Создать новый",
 
     switchTheme: "Переключить тему",
     resetStatistics: "Сбросить статистику",

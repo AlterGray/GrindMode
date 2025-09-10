@@ -11,6 +11,7 @@ import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import AnimatedThemedView from "@shared/ui/AnimatedThemedView";
 import CreateButton from "@shared/ui/CreateButton";
 import NavModal from "@shared/ui/NavModal/NavModal";
+import StyledButton from "@shared/ui/StyledButton";
 import StyledList from "@shared/ui/StyledList/StyledList";
 import { ItemData } from "@shared/ui/StyledList/types";
 
@@ -86,6 +87,13 @@ const RitualList: React.FC = () => {
       ? getTodayRituals()
       : getRitualsByFolders();
 
+  const noItemsButtons = [
+    <StyledButton
+      title={i18n.t("createRitual")}
+      onPress={() => router.push(ROUTES.RITUALS_CREATE)}
+    />,
+  ];
+
   return (
     <AnimatedThemedView className="flex-1 items-center justify-center">
       <StyledList
@@ -94,6 +102,7 @@ const RitualList: React.FC = () => {
         onPress={handlePressRitual}
         toggleItem={toggleRitual}
         renderContent={handleRenderRitual}
+        actionButtons={noItemsButtons}
       />
 
       <CreateButton

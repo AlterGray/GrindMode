@@ -1,16 +1,10 @@
 import React, { ReactNode, memo } from "react";
 import { FlatList } from "react-native";
 
-import { useRouter } from "expo-router";
-
-import { useFolderStore } from "@features/folder/folderStore";
-
-import { ROUTES } from "@shared/constants/routes";
 import { useNavigationFocus } from "@shared/hooks/useNavigationFocus";
 import { useThemeColors } from "@shared/hooks/useThemeColors";
 import { i18n } from "@shared/lib/utils/i18n/i18n-js";
 import AnimatedThemedText from "@shared/ui/AnimatedThemedText";
-import StyledButton from "@shared/ui/StyledButton";
 
 import NoItemsInList from "./NoItemsInList";
 import StyledItem from "./StyledItem";
@@ -24,6 +18,7 @@ type StyledListProps = {
   renderContent?: (item: ItemData) => ReactNode;
   noItemsText?: string;
   toggleItem: (itemId: string) => void;
+  actionButtons?: ReactNode[];
 };
 
 const StyledList: React.FC<StyledListProps> = ({
@@ -33,10 +28,9 @@ const StyledList: React.FC<StyledListProps> = ({
   data,
   renderContent = null,
   noItemsText = i18n.t("noItemsYet") ?? "",
+  actionButtons,
 }) => {
   const isNavigating = useNavigationFocus();
-  const router = useRouter();
-  const selectedFolderId = useFolderStore((state) => state.selectedId);
 
   const backgroundColor = useThemeColors("background");
 
@@ -66,20 +60,7 @@ const StyledList: React.FC<StyledListProps> = ({
 
   if (data.length === 0) {
     return (
-      <NoItemsInList
-        text={noItemsText}
-        actionButton={
-          <StyledButton
-            title={i18n.t("createNewOne")}
-            onPress={() => {
-              router.push({
-                pathname: ROUTES.RITUALS_CREATE,
-                params: { folderId: selectedFolderId },
-              }); // pass id of folder
-            }}
-          />
-        }
-      />
+      <NoItemsInList text={noItemsText} actionButtons={actionButtons ?? []} />
     );
   }
 

@@ -32,7 +32,7 @@ export const createUpdateRitualScreen = {
   en: {
     ritualEditing: "Edit ritual",
     saveRitual: "Save",
-    createRitual: "Create",
+    createRitual: "Create ritual",
     ritualCreating: "Create ritual",
 
     ritualText: "Ritual text",
@@ -51,7 +51,7 @@ export const createUpdateRitualScreen = {
   },
   ua: {
     ritualEditing: "Редагування ритуалу",
-    createRitual: "Створити",
+    createRitual: "Створити ритуал",
     saveRitual: "Зберегти",
     ritualCreating: "Створення ритуалу",
 
@@ -71,7 +71,7 @@ export const createUpdateRitualScreen = {
   },
   ru: {
     ritualEditing: "Редактирование ритуала",
-    createRitual: "Создать",
+    createRitual: "Создать ритуал",
     ritualCreating: "Создание ритуала",
     saveRitual: "Сохранить",
 
