@@ -10,6 +10,7 @@ import { createUpdateRitualScreen } from "./screens/createUpdateScreen";
 import { ritualsScreen } from "./screens/dailyRitualsScreen";
 import { proofOfWorkScreen } from "./screens/proofOfWorkScreen/proofOfWorkScreen";
 import { settingsScreen } from "./screens/settingsScreen";
+import { timeScreen } from "./screens/timeScreen";
 
 export const i18n = new I18n({
   en: {
@@ -27,6 +28,7 @@ export const i18n = new I18n({
     ...createUpdateRitualScreen.en,
     ...ritualsScreen.en,
     ...settingsScreen.en,
+    ...timeScreen.en,
   },
   ua: {
     am: "ранку",
@@ -43,6 +45,7 @@ export const i18n = new I18n({
     ...createUpdateRitualScreen.ua,
     ...ritualsScreen.ua,
     ...settingsScreen.ua,
+    ...timeScreen.ua,
   },
   ru: {
     am: "утра",
@@ -59,6 +62,7 @@ export const i18n = new I18n({
     ...createUpdateRitualScreen.ru,
     ...ritualsScreen.ru,
     ...settingsScreen.ru,
+    ...timeScreen.ru,
   },
 });
 

@@ -51,6 +51,7 @@ const Index = () => {
       }
     }
 
+    // TODO fix
     return <Redirect href={`/(tabs)/${mostPriorTab.name}`} />;
   }
 
