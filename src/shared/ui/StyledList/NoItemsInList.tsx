@@ -13,7 +13,7 @@ const NoItemsInList: React.FC<NoItemsInListProps> = ({
   actionButton: button,
 }) => {
   return (
-    <AnimatedThemedView className="items-center justify-center gap-2">
+    <AnimatedThemedView className="items-center justify-center gap-2 flex-1">
       <AnimatedThemedText variant="h4">{text}</AnimatedThemedText>
       {button}
     </AnimatedThemedView>
