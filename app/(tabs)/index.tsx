@@ -9,6 +9,7 @@ import RitualList from "@features/rituals/RitualList";
 
 import { ALL_FOLDER_ID, TODAY_FOLDER_ID } from "@shared/constants/Folders";
 import { i18n } from "@shared/lib/utils/i18n/i18n-js";
+import { useSettingsStore } from "@shared/stores/settingsStore";
 import { FloatingModalVariant } from "@shared/types/commonTypes";
 import { useActionModalStore } from "@shared/ui/ActionsModal/actionsModalStore";
 import { useGlobalFloatingModalStore } from "@shared/ui/GlobalFloatingModal/GlobalFloatingModalStore";
@@ -37,6 +38,22 @@ const Index = () => {
   );
   const removeFolder = useFolderStore((state) => state.removeFolder);
   const renameFolder = useFolderStore((state) => state.renameFolder);
+
+  const hiddenTabs = useSettingsStore((state) => state.hiddenTabs);
+  const displayed = Object.values(hiddenTabs).filter((tab) => !tab.hidden);
+
+  if (hiddenTabs.index.hidden) {
+    let mostPriorTab = displayed[0];
+
+    for (const tab of displayed) {
+      if (tab.priority < mostPriorTab.priority) {
+        mostPriorTab = tab;
+      }
+    }
+
+    // TODO fix
+    return <Redirect href={`/(tabs)/${mostPriorTab.name}`} />;
+  }
 
   // TODO make shared action type
   const actions = [
@@ -102,8 +119,6 @@ const Index = () => {
   );
 
   const folderToRename = folders.find((f) => f.id === renamingFolderId);
-
-  // return <Redirect href={"/(tabs)/settings"} />;
 
   return (
     <>

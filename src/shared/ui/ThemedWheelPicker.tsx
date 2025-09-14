@@ -9,7 +9,7 @@ import { useThemeColors } from "@shared/hooks/useThemeColors";
 export type ThemedWheelPickerProps = {
   renderItem: (props: RenderItemProps) => React.ReactNode;
   items: { label: string; value: any }[];
-  widht?: number;
+  width?: number;
   height?: number;
   initialIndex?: number;
   onChange: (val: { index: number; item: ItemType }) => void;
@@ -18,7 +18,7 @@ export type ThemedWheelPickerProps = {
 const ThemedWheelPicker: React.FC<ThemedWheelPickerProps> = ({
   items,
   renderItem,
-  widht = 60,
+  width = 60,
   height = 160,
   initialIndex = 0,
   onChange,
@@ -27,7 +27,7 @@ const ThemedWheelPicker: React.FC<ThemedWheelPickerProps> = ({
 
   return (
     <WheelPickerExpo
-      width={widht}
+      width={width}
       height={height}
       initialSelectedIndex={initialIndex}
       items={items}

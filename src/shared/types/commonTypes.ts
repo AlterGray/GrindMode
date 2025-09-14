@@ -31,6 +31,7 @@ export type ButtonVariant =
   | "primary-contained-20"
   | "remove-contained-20"
   | "secondary-sharped-20"
+  | "secondary-sharped-10"
   | "secondary-text-5"
   | "secondary-text-10"
   | "secondary-text-20";
@@ -51,4 +52,10 @@ export type IoniconsName = keyof typeof Ionicons.glyphMap;
 
 export type LanguageMode = "en" | "ua" | "ru";
 
-export type HiddenTab = "index" | "proofs";
+export type TabNameType = "index" | "time" | "proofs" | "settings";
+export type TabType = {
+  name: TabNameType;
+  priority: number;
+  hidden: boolean;
+  canBeHidden: boolean;
+};
