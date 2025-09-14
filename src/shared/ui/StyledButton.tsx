@@ -37,6 +37,12 @@ const variantClassMap: Record<
     bgColor: "buttonSecondaryBackground",
     text: "text-light-buttonSecondaryText dark:text-dark-buttonSecondaryText",
   },
+  "secondary-sharped-10": {
+    container:
+      "py-2 px-4 border-b border-light-border dark:border-dark-border rounded-sm active:opacity-60",
+    bgColor: "buttonSecondaryBackground",
+    text: "text-light-buttonSecondaryText dark:text-dark-buttonSecondaryText",
+  },
   "secondary-text-5": {
     container: "py-1 px-2 text-sm rounded-lg active:opacity-50",
     bgColor: "bgTransparent",
